@@ -4,18 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rede de Co-citação — Raça e Racismo no Brasil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/graphology@0.25.4/dist/graphology.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sigma@2.4.0/build/sigma.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0d0d1a;
+      background: #0a0a16;
       color: #e0e0f0;
       font-family: 'Inter', system-ui, sans-serif;
       overflow: hidden;
       height: 100vh;
       width: 100vw;
+    }
+
+    /* Vinheta radial — mais escuro nas bordas, realça o centro */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%,
+        transparent 30%,
+        rgba(5,5,12,0.45) 80%,
+        rgba(5,5,12,0.75) 100%);
+      pointer-events: none;
+      z-index: 4;
     }
 
     #wrapper {
@@ -41,6 +57,15 @@
       z-index: 2;
     }
 
+    /* Badge canvas — acima da vinheta */
+    #badge-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
     /* Esconde o layer de hover padrão do Sigma */
     .sigma-hovers { display: none !important; }
 
@@ -49,11 +74,11 @@
       position: absolute;
       top: 20px; left: 20px;
       width: 280px;
-      background: rgba(13,13,26,0.92);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,22,0.93);
+      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 14px;
-      backdrop-filter: blur(12px);
-      z-index: 10;
+      backdrop-filter: blur(16px);
+      z-index: 20;
       overflow: hidden;
       transition: all 0.3s ease;
     }
@@ -240,13 +265,13 @@
     /* ── Tooltip de nó ──────────────────────────────────────── */
     #tooltip {
       position: absolute;
-      background: rgba(13,13,26,0.95);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(10,10,22,0.96);
+      border: 1px solid rgba(255,255,255,0.13);
       border-radius: 10px;
       padding: 10px 14px;
       font-size: 11px;
       pointer-events: none;
-      z-index: 20;
+      z-index: 30;
       display: none;
       max-width: 200px;
       backdrop-filter: blur(8px);
@@ -274,11 +299,11 @@
       position: absolute;
       bottom: 24px; right: 24px;
       width: 240px;
-      background: rgba(13,13,26,0.94);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(10,10,22,0.95);
+      border: 1px solid rgba(255,255,255,0.11);
       border-radius: 14px;
       padding: 16px;
-      z-index: 10;
+      z-index: 20;
       display: none;
       backdrop-filter: blur(12px);
     }
@@ -366,14 +391,6 @@
       50% { width: 60%; margin-left: 40%; }
     }
 
-    /* ── Badge de cluster (canvas) ──────────────────────────── */
-    #badge-canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 3;
-    }
   </style>
 </head>
 <body>
@@ -525,7 +542,7 @@ function buildGraph(nodesData, linksData) {
   graph = new graphology.Graph({ type: 'undirected', multi: false });
 
   // ── Filtra arestas por peso mínimo
-  const WEIGHT_MIN = 35;
+  const WEIGHT_MIN = 40;
   const filteredLinks = linksData.filter(l => l.weight >= WEIGHT_MIN);
 
   // Mantém só nós conectados
@@ -543,12 +560,14 @@ function buildGraph(nodesData, linksData) {
   const scX = v => (v - xMin) / scale;
   const scY = v => (v - yMin) / scale;
 
-  // Grau para tamanho
-  const degMap = {};
-  filteredNodes.forEach(n => degMap[n.id] = 0);
+  // Grau + peso acumulado para tamanho dos nós
+  const degMap = {}, weightMap = {};
+  filteredNodes.forEach(n => { degMap[n.id] = 0; weightMap[n.id] = 0; });
   filteredLinks.forEach(l => {
     degMap[l.source] = (degMap[l.source]||0) + 1;
     degMap[l.target] = (degMap[l.target]||0) + 1;
+    weightMap[l.source] = (weightMap[l.source]||0) + l.weight;
+    weightMap[l.target] = (weightMap[l.target]||0) + l.weight;
   });
   const maxDeg = Math.max(...Object.values(degMap));
 
@@ -575,8 +594,9 @@ function buildGraph(nodesData, linksData) {
   // Adiciona nós
   filteredNodes.forEach(n => {
     const deg = degMap[n.id] || 0;
-    const t = Math.pow(deg / maxDeg, 0.5);
-    const size = 3 + t * 18;
+    // Curva logarítmica: diferencia bem nós médios vs. hubs sem exagerar os maiores
+    const t = Math.pow(deg / maxDeg, 0.42);
+    const size = 2.5 + t * 20;
     const color = `rgb(${n.r},${n.g},${n.b})`;
 
     graph.addNode(n.id, {
@@ -604,8 +624,8 @@ function buildGraph(nodesData, linksData) {
     try {
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: 'rgba(73,73,73,0.28)',
-        size: 0.3
+        color: 'rgba(80,80,90,0.20)',
+        size: 0.18
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -655,13 +675,13 @@ function initSigma() {
     renderEdgeLabels: false,
     defaultEdgeType: 'line',
     labelFont: 'Inter, system-ui, sans-serif',
-    labelSize: 11,
+    labelSize: 12,
     labelWeight: '600',
-    labelColor: { color: '#e8e8f0' },
+    labelColor: { color: '#dde0f5' },
     labelBackgroundColor: 'transparent',
-    labelRenderedSizeThreshold: 4,
-    minCameraRatio: 0.05,
-    maxCameraRatio: 20,
+    labelRenderedSizeThreshold: 6,
+    minCameraRatio: 0.04,
+    maxCameraRatio: 25,
 
     nodeReducer: (node, data) => {
       const res = { ...data };
@@ -698,14 +718,14 @@ function initSigma() {
 
       if (hoveredNode !== null) {
         if (src === hoveredNode || tgt === hoveredNode) {
-          // Destaca com a cor do cluster fonte ao passar o mouse
+          // Aresta conectada ao nó hovered → cor do cluster fonte
           const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
           const rgb = srcColor.match(/\d+/g);
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75)`;
-          res.size = 1.2;
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.70)`;
+          res.size = 1.1;
         } else {
-          res.color = 'rgba(73,73,73,0.04)';
-          res.size = 0.15;
+          res.color = 'rgba(60,60,70,0.025)';
+          res.size = 0.12;
         }
         return res;
       }
@@ -716,10 +736,10 @@ function initSigma() {
         if (srcCls === highlightedCluster && tgtCls === highlightedCluster) {
           const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
           const rgb = srcColor.match(/\d+/g);
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.45)`;
-          res.size = 0.65;
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.42)`;
+          res.size = 0.6;
         } else {
-          res.color = 'rgba(73,73,73,0.04)';
+          res.color = 'rgba(60,60,70,0.025)';
           res.size = 0.1;
         }
       }
@@ -769,8 +789,12 @@ function initSigma() {
     }
   });
 
-  // Câmera
+  // Câmera — zoom suave de entrada
   cameraState = renderer.getCamera().getState();
+  renderer.getCamera().setState({ ratio: 1.6 });
+  setTimeout(() => {
+    renderer.getCamera().animate({ ratio: 1.0 }, { duration: 900, easing: 'quadraticOut' });
+  }, 100);
   renderer.getCamera().on('updated', () => drawHulls());
 
   // Desenha hulls inicialmente e ao redimensionar
@@ -807,28 +831,31 @@ function drawHulls() {
     const hull = convexHull(points);
     if (!hull || hull.length < 3) return;
 
-    // Expande o hull
+    // Expande o hull com margem generosa
     const cx = hull.reduce((s, p) => s + p[0], 0) / hull.length;
     const cy = hull.reduce((s, p) => s + p[1], 0) / hull.length;
     const expanded = hull.map(([px, py]) => {
       const dx = px - cx, dy = py - cy;
       const len = Math.hypot(dx, dy) || 1;
-      return [px + dx / len * 18, py + dy / len * 18];
+      return [px + dx / len * 24, py + dy / len * 24];
     });
 
     const color = colorMap[cls] || '#888';
     const rgb = color.match(/\d+/g);
 
-    // Transparência reduzida se cluster não destacado
-    const alpha = highlightedCluster !== null && highlightedCluster !== cls ? 0.02 : 0.07;
-    const strokeAlpha = highlightedCluster !== null && highlightedCluster !== cls ? 0.05 : 0.25;
+    const isHighlighted = highlightedCluster === cls;
+    const isOther = highlightedCluster !== null && !isHighlighted;
+
+    const alpha       = isOther ? 0.015 : (isHighlighted ? 0.10 : 0.055);
+    const strokeAlpha = isOther ? 0.04  : (isHighlighted ? 0.35 : 0.20);
+    const strokeW     = isHighlighted ? 2.0 : 1.2;
 
     ctx.beginPath();
     catmullRomPath(ctx, expanded, true);
     ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
     ctx.fill();
     ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${strokeAlpha})`;
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = strokeW;
     ctx.stroke();
   });
 
@@ -866,27 +893,33 @@ function drawBadges() {
     // Empurra para fora do centróide global
     const dx = cx - gcx, dy = cy - gcy;
     const len = Math.hypot(dx, dy) || 1;
-    const push = 55;
+    const push = 68;
     const bx = cx + dx / len * push;
     const by = cy + dy / len * push;
 
     const name = clusterNames[cls] || `Cluster ${cls}`;
     const color = colorMap[cls] || '#888';
     const rgb = color.match(/\d+/g);
-    const alpha = highlightedCluster !== null && highlightedCluster !== cls ? 0.2 : 0.9;
 
-    ctx.font = 'bold 10px Inter, system-ui, sans-serif';
-    const tw = ctx.measureText(name).width + 16;
-    const th = 18;
+    const isOther = highlightedCluster !== null && highlightedCluster !== cls;
+    const alpha = isOther ? 0.15 : 0.92;
 
-    // Fundo do badge
+    ctx.font = 'bold 11px Inter, system-ui, sans-serif';
+    const tw = ctx.measureText(name).width + 20;
+    const th = 20;
+
+    // Fundo do badge com borda sutil
     ctx.beginPath();
-    roundRect(ctx, bx - tw / 2, by - th / 2, tw, th, 5);
-    ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+    roundRect(ctx, bx - tw / 2, by - th / 2, tw, th, 6);
+    ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha * 0.9})`;
     ctx.fill();
+    // Borda
+    ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.3})`;
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
 
     // Texto
-    ctx.fillStyle = `rgba(255,255,255,${alpha > 0.5 ? 1 : 0.4})`;
+    ctx.fillStyle = `rgba(255,255,255,${isOther ? 0.3 : 1})`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(name, bx, by);
@@ -904,8 +937,13 @@ function showTooltip(node) {
 
   tt.innerHTML = `
     <strong>${data.label}</strong>
-    <div class="tt-row"><span>Cluster</span><span class="tt-val" style="color:${color}">${clsName}</span></div>
-    <div class="tt-row"><span>Co-citações</span><span class="tt-val">${data.citations}</span></div>
+    <div class="tt-row">
+      <span style="display:flex;align-items:center;gap:5px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:${color};flex-shrink:0;display:inline-block;"></span>
+        ${clsName}
+      </span>
+    </div>
+    <div class="tt-row"><span>Co-citações</span><span class="tt-val">${data.citations.toLocaleString('pt-BR')}</span></div>
     <div class="tt-row"><span>Conexões</span><span class="tt-val">${data.degree}</span></div>
   `;
   tt.style.display = 'block';
@@ -1000,7 +1038,7 @@ function initSearch() {
 function focusNode(node) {
   const x = graph.getNodeAttribute(node, 'x');
   const y = graph.getNodeAttribute(node, 'y');
-  renderer.getCamera().animate({ x, y, ratio: 0.15 }, { duration: 600 });
+  renderer.getCamera().animate({ x, y, ratio: 0.22 }, { duration: 650, easing: 'quadraticInOut' });
   hoveredNode = node;
   renderer.refresh();
   showNodePanel(node);
