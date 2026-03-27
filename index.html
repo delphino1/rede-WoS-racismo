@@ -607,8 +607,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.12)`,
-        size: 0.3
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.09)`,
+        size: 0.25
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -700,39 +700,31 @@ function initSigma() {
       const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
       const rgb = srcColor.match(/\d+/g);
 
-      // Estado padrão — levinho
-      const res = {
-        ...data,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.12)`,
-        size: 0.3
-      };
+      const srcCls = graph.getNodeAttribute(src, 'modClass');
+      const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
+      const sameCluster = srcCls === tgtCls;
 
-      // Hover — destaca arestas do nó
+      // Hover — mostra todas as arestas do nó em destaque
       if (hoveredNode !== null) {
         if (src === hoveredNode || tgt === hoveredNode) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`;
-          res.size = 1.5;
-        } else {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.02)`;
-          res.size = 0.2;
+          return { ...data, color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.85)`, size: 1.4, hidden: false };
         }
-        return res;
+        return { ...data, hidden: true };
       }
 
-      // Cluster destacado
+      // Cluster destacado — mostra só arestas internas
       if (highlightedCluster !== null) {
-        const srcCls = graph.getNodeAttribute(src, 'modClass');
-        const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
         if (srcCls === highlightedCluster && tgtCls === highlightedCluster) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.4)`;
-          res.size = 0.7;
-        } else {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.01)`;
-          res.size = 0.1;
+          return { ...data, color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.45)`, size: 0.7, hidden: false };
         }
+        return { ...data, hidden: true };
       }
 
-      return res;
+      // Estado padrão — só arestas dentro do mesmo cluster, bem finas
+      if (sameCluster) {
+        return { ...data, color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.18)`, size: 0.35, hidden: false };
+      }
+      return { ...data, hidden: true };
     }
   });
 
