@@ -694,18 +694,17 @@ function initSigma() {
 
     edgeReducer: (edge, data) => {
       const [src, tgt] = graph.extremities(edge);
-      const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
-      const rgb = srcColor.match(/\d+/g);
-
-      // Estado padrão — usa cor armazenada (já tem opacidade baixa)
       const res = { ...data };
 
       if (hoveredNode !== null) {
         if (src === hoveredNode || tgt === hoveredNode) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.8)`;
-          res.size = 1.3;
+          // Destaca com a cor do cluster fonte ao passar o mouse
+          const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
+          const rgb = srcColor.match(/\d+/g);
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75)`;
+          res.size = 1.2;
         } else {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.02)`;
+          res.color = 'rgba(73,73,73,0.04)';
           res.size = 0.15;
         }
         return res;
@@ -715,10 +714,12 @@ function initSigma() {
         const srcCls = graph.getNodeAttribute(src, 'modClass');
         const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
         if (srcCls === highlightedCluster && tgtCls === highlightedCluster) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.4)`;
-          res.size = 0.7;
+          const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
+          const rgb = srcColor.match(/\d+/g);
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.45)`;
+          res.size = 0.65;
         } else {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.01)`;
+          res.color = 'rgba(73,73,73,0.04)';
           res.size = 0.1;
         }
       }
