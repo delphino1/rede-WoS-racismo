@@ -607,8 +607,9 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.03)`,
-        size: 0.3
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7)`,
+        size: 1.0,
+        hidden: true
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -697,38 +698,24 @@ function initSigma() {
 
     edgeReducer: (edge, data) => {
       const [src, tgt] = graph.extremities(edge);
-      const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
-      const rgb = srcColor.match(/\d+/g);
+      const res = { ...data, hidden: true };
 
-      // Estado padrão — quase invisível
-      const res = {
-        ...data,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.04)`,
-        size: 0.3
-      };
-
-      // Hover — mostra arestas do nó em destaque
+      // Hover — mostra só arestas do nó hovered
       if (hoveredNode !== null) {
         if (src === hoveredNode || tgt === hoveredNode) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75)`;
+          res.hidden = false;
           res.size = 1.2;
-        } else {
-          res.color = 'rgba(255,255,255,0.005)';
-          res.size = 0.1;
         }
         return res;
       }
 
-      // Cluster destacado — mostra só arestas do cluster
+      // Cluster destacado — mostra arestas internas do cluster
       if (highlightedCluster !== null) {
         const srcCls = graph.getNodeAttribute(src, 'modClass');
         const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
         if (srcCls === highlightedCluster && tgtCls === highlightedCluster) {
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.35)`;
-          res.size = 0.6;
-        } else {
-          res.color = 'rgba(255,255,255,0.005)';
-          res.size = 0.1;
+          res.hidden = false;
+          res.size = 0.8;
         }
       }
 
