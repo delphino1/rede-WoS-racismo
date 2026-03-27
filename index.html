@@ -524,8 +524,8 @@ fetch('rede_WoS_racismo_teste.gexf')
 function buildGraph(nodesData, linksData) {
   graph = new graphology.Graph({ type: 'undirected', multi: false });
 
-  // ── Filtra arestas por peso mínimo (mantém ~4-6k arestas)
-  const WEIGHT_MIN = 10;
+  // ── Filtra arestas por peso mínimo
+  const WEIGHT_MIN = 35;
   const filteredLinks = linksData.filter(l => l.weight >= WEIGHT_MIN);
 
   // Mantém só nós conectados
@@ -561,8 +561,8 @@ function buildGraph(nodesData, linksData) {
   // Adiciona nós
   filteredNodes.forEach(n => {
     const deg = degMap[n.id] || 0;
-    const t = Math.pow(deg / maxDeg, 0.55);
-    const size = 2 + t * 20;
+    const t = Math.pow(deg / maxDeg, 0.5);
+    const size = 3 + t * 18;
     const color = `rgb(${n.r},${n.g},${n.b})`;
 
     graph.addNode(n.id, {
@@ -593,8 +593,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.06)`,
-        size: 0.4
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.22)`,
+        size: 0.6
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -646,7 +646,9 @@ function initSigma() {
     labelFont: 'Inter, system-ui, sans-serif',
     labelSize: 11,
     labelWeight: '600',
-    labelColor: { color: '#dde' },
+    labelColor: { color: '#e8e8f0' },
+    labelBackgroundColor: 'transparent',
+    labelRenderedSizeThreshold: 4,
     minCameraRatio: 0.05,
     maxCameraRatio: 20,
 
