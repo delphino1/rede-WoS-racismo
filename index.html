@@ -593,8 +593,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.08)`,
-        size: 0.4
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.12)`,
+        size: 0.5
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -680,15 +680,31 @@ function initSigma() {
     },
 
     edgeReducer: (edge, data) => {
-      const res = { ...data, color: 'rgba(255,255,255,0.04)' };
+      const res = { ...data };
+
       if (hoveredNode !== null) {
         const [src, tgt] = graph.extremities(edge);
         if (src === hoveredNode || tgt === hoveredNode) {
           const nc = graph.getNodeAttribute(hoveredNode, 'color');
-          res.color = nc.replace('rgb', 'rgba').replace(')', ',0.5)');
-          res.size = 1.2;
+          const rgb = nc.match(/\d+/g);
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.6)`;
+          res.size = 1.5;
+        } else {
+          res.color = 'rgba(255,255,255,0.01)';
+          res.size = 0.2;
         }
       }
+
+      if (highlightedCluster !== null) {
+        const [src, tgt] = graph.extremities(edge);
+        const srcCls = graph.getNodeAttribute(src, 'modClass');
+        const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
+        if (srcCls !== highlightedCluster && tgtCls !== highlightedCluster) {
+          res.color = 'rgba(255,255,255,0.01)';
+          res.size = 0.2;
+        }
+      }
+
       return res;
     }
   });
