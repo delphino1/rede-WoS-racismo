@@ -552,10 +552,24 @@ function buildGraph(nodesData, linksData) {
   });
   const maxDeg = Math.max(...Object.values(degMap));
 
-  // Mapa de cores por cluster (usa cor do GEXF)
+  // Mapa de cores por cluster (usa cor do GEXF, suaviza verde-limão)
   filteredNodes.forEach(n => {
     const cls = n.modClass;
-    if (!colorMap[cls]) colorMap[cls] = `rgb(${n.r},${n.g},${n.b})`;
+    if (!colorMap[cls]) {
+      // Verde-limão (140,185,0) → verde mais suave e escuro
+      if (n.r === 140 && n.g === 185 && n.b === 0) {
+        colorMap[cls] = `rgb(80,160,60)`;
+      } else {
+        colorMap[cls] = `rgb(${n.r},${n.g},${n.b})`;
+      }
+    }
+  });
+
+  // Aplica cor suavizada também nos nós
+  filteredNodes.forEach(n => {
+    if (n.r === 140 && n.g === 185 && n.b === 0) {
+      n.r = 80; n.g = 160; n.b = 60;
+    }
   });
 
   // Adiciona nós
@@ -593,8 +607,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.22)`,
-        size: 0.6
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.18)`,
+        size: 0.5
       });
       addedEdges.add(key);
     } catch(e) {}
