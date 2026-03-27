@@ -593,8 +593,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.12)`,
-        size: 0.5
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.06)`,
+        size: 0.4
       });
       addedEdges.add(key);
     } catch(e) {}
