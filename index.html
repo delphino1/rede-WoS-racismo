@@ -624,8 +624,8 @@ function buildGraph(nodesData, linksData) {
     try {
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: 'rgba(80,80,90,0.20)',
-        size: 0.18
+        color: 'rgb(62,62,72)',
+        size: 0.15
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -721,11 +721,13 @@ function initSigma() {
           // Aresta conectada ao nó hovered → cor do cluster fonte
           const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
           const rgb = srcColor.match(/\d+/g);
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.70)`;
-          res.size = 1.1;
+          // Aresta destacada: cluster color opaco — sem acúmulo
+          res.color = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+          res.size = 1.0;
         } else {
-          res.color = 'rgba(60,60,70,0.025)';
-          res.size = 0.12;
+          // Arestas não conectadas: quasi-invisíveis no hover
+          res.color = 'rgb(25,25,30)';
+          res.size = 0.10;
         }
         return res;
       }
@@ -734,13 +736,14 @@ function initSigma() {
         const srcCls = graph.getNodeAttribute(src, 'modClass');
         const tgtCls = graph.getNodeAttribute(tgt, 'modClass');
         if (srcCls === highlightedCluster && tgtCls === highlightedCluster) {
+          // Intra-cluster: usa cor do cluster com opacidade parcial (canvas rgba OK aqui — poucas arestas)
           const srcColor = graph.getNodeAttribute(src, 'color') || 'rgb(128,128,128)';
           const rgb = srcColor.match(/\d+/g);
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.42)`;
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.50)`;
           res.size = 0.6;
         } else {
-          res.color = 'rgba(60,60,70,0.025)';
-          res.size = 0.1;
+          res.color = 'rgb(22,22,28)';
+          res.size = 0.10;
         }
       }
 
