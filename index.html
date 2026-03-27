@@ -607,8 +607,8 @@ function buildGraph(nodesData, linksData) {
       const rgb = srcColor.match(/\d+/g);
       graph.addEdge(l.source, l.target, {
         weight: l.weight,
-        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.18)`,
-        size: 0.5
+        color: `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.07)`,
+        size: 0.4
       });
       addedEdges.add(key);
     } catch(e) {}
@@ -703,8 +703,8 @@ function initSigma() {
         if (src === hoveredNode || tgt === hoveredNode) {
           const nc = graph.getNodeAttribute(hoveredNode, 'color');
           const rgb = nc.match(/\d+/g);
-          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.6)`;
-          res.size = 1.5;
+          res.color = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7)`;
+          res.size = 1.2;
         } else {
           res.color = 'rgba(255,255,255,0.01)';
           res.size = 0.2;
