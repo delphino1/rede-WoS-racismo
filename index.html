@@ -402,21 +402,52 @@ function processGraph(rawNodes, rawEdges) {
   giantEdges.forEach(e => { degMap.set(e.source, (degMap.get(e.source)||0)+1); degMap.set(e.target, (degMap.get(e.target)||0)+1); });
   const maxDeg = Math.max(...degMap.values(), 1);
 
-  // Mesclar clusters pequenos em 'outros'
+  // Reatribuir nós de clusters pequenos ao cluster nomeado mais conectado
   const MIN_CLUSTER_SIZE = 10;
   const clCount = new Map();
   giantNodes.forEach(n => clCount.set(n.modClass, (clCount.get(n.modClass)||0)+1));
+
+  // Mapa de vizinhos
+  const nbMap = new Map(giantNodes.map(n => [n.id, new Set()]));
+  giantEdges.forEach(e => { nbMap.get(e.source)?.add(e.target); nbMap.get(e.target)?.add(e.source); });
+
+  // Nós em clusters pequenos não-nomeados
+  const pendingIds = new Set();
   giantNodes.forEach(n => {
-    if (!CLUSTER_MAP[n.modClass] && (clCount.get(n.modClass)||0) < MIN_CLUSTER_SIZE) {
-      n.modClass = 'outros';
-    }
+    if (!CLUSTER_MAP[n.modClass] && (clCount.get(n.modClass)||0) < MIN_CLUSTER_SIZE) pendingIds.add(n.id);
   });
+
+  // Mapa mutável de modClass
+  const mcMap = new Map(giantNodes.map(n => [n.id, n.modClass]));
+
+  // Até 8 passagens: propaga atribuições a partir dos clusters nomeados vizinhos
+  for (let pass = 0; pass < 8; pass++) {
+    let changed = false;
+    pendingIds.forEach(id => {
+      const votes = new Map();
+      (nbMap.get(id)||new Set()).forEach(nbId => {
+        const mc = mcMap.get(nbId);
+        if (CLUSTER_MAP[mc]) votes.set(mc, (votes.get(mc)||0)+1);
+      });
+      if (votes.size > 0) {
+        let best = null, bestN = 0;
+        votes.forEach((c,mc) => { if (c>bestN){bestN=c;best=mc;} });
+        mcMap.set(id, best);
+        pendingIds.delete(id);
+        changed = true;
+      }
+    });
+    if (!changed) break;
+  }
+
+  // Aplicar modClasses finais
+  giantNodes.forEach(n => { n.modClass = mcMap.get(n.id) || n.modClass; });
 
   giantNodes.forEach(n => {
     n.degree = degMap.get(n.id) || 0;
     n.size = 3 + Math.pow(n.degree / maxDeg, 0.55) * 18;
-    n.clusterColor = n.modClass === 'outros' ? '#444460' : clusterColor(n.modClass);
-    n.clusterName  = n.modClass === 'outros' ? 'Outros'   : clusterName(n.modClass);
+    n.clusterColor = clusterColor(n.modClass);
+    n.clusterName  = clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
   });
 
@@ -609,7 +640,7 @@ function renderClusterLabels(nodes) {
   const gcx=d3.mean(allCx), gcy=d3.mean(allCy);
   const badgeData=[];
   clusterMap.forEach((clNodes,mc) => {
-    if (mc === 'outros' || (!CLUSTER_MAP[mc])) return; // só clusters nomeados
+    if (!CLUSTER_MAP[mc]) return; // só clusters nomeados
     const c=clusterCentroid(clNodes);
     const dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
     const pf=dist<150?2.5:1.8;
@@ -657,14 +688,11 @@ function buildLegend(nodes) {
   const legendEl=document.getElementById('cluster-legend');
   legendEl.innerHTML='';
   const entries=[];
-  clusterMap.forEach((clNodes,mc) => entries.push({mc, count:clNodes.length, color:mc==='outros'?'#444460':clusterColor(mc), name:mc==='outros'?'Outros':clusterName(mc)}));
-  entries.sort((a,b)=>{
-    const aOther = a.mc==='outros'||!CLUSTER_MAP[a.mc];
-    const bOther = b.mc==='outros'||!CLUSTER_MAP[b.mc];
-    if (aOther && !bOther) return 1;
-    if (!aOther && bOther) return -1;
-    return b.count-a.count;
+  clusterMap.forEach((clNodes,mc) => {
+    if (!CLUSTER_MAP[mc]) return; // ignorar clusters não-nomeados residuais
+    entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)});
   });
+  entries.sort((a,b) => b.count-a.count);
   entries.forEach(e => {
     const item=document.createElement('div');
     item.className='legend-item'; item.dataset.mc=e.mc;
