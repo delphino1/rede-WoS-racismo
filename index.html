@@ -291,7 +291,7 @@ function clusterName(mc) {
 }
 
 const WEIGHT_THRESHOLD = 8;
-const TOP_LABELS = 60;
+const TOP_LABELS = 35;
 const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
 
 // ═══════════════════════════════════════════════════════
@@ -534,9 +534,9 @@ function buildVisualization(graphData) {
     .style('opacity', d=>0.08+(d.size-8)/21*.18).style('filter','blur(8px)').style('pointer-events','none');
 
   nodeG.append('circle').attr('class','node-circle')
-    .attr('r', d=>d.size).attr('fill', d=>d.color||d.clusterColor)
+    .attr('r', d=>d.size).attr('fill', d=>d.clusterColor)
     .attr('filter', d=>d.size>8?'url(#node-glow)':null)
-    .attr('stroke', d=>d.clusterColor).attr('stroke-width',0.5).attr('stroke-opacity',0.4);
+    .attr('stroke', d=>d.clusterColor).attr('stroke-width',1.2).attr('stroke-opacity',0.7);
 
   nodeG
     .on('mouseenter', (event,d) => { if (highlightNode&&highlightNode.id===d.id) return; showTooltip(event,d); if (!highlightNode) applyHover(d); })
@@ -560,10 +560,20 @@ function buildVisualization(graphData) {
   renderClusterLabels(nodes);
   renderHulls(nodes);
 
-  simulation = d3.forceSimulation(nodes).alphaDecay(0.025)
-    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.7))
-    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.35))
-    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.35))
+  // Centroides por cluster para força centrípeta
+  const clusterCentroids = new Map();
+  const clusterMap0 = new Map();
+  nodes.forEach(n => { if (!clusterMap0.has(n.modClass)) clusterMap0.set(n.modClass,[]); clusterMap0.get(n.modClass).push(n); });
+  clusterMap0.forEach((ns, mc) => {
+    clusterCentroids.set(mc, { x: d3.mean(ns,n=>n.fx_anchor), y: d3.mean(ns,n=>n.fy_anchor) });
+  });
+
+  simulation = d3.forceSimulation(nodes).alphaDecay(0.02)
+    .force('collide', d3.forceCollide(d=>d.size+3).strength(0.75))
+    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.3))
+    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.3))
+    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.08))
+    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.08))
     .on('tick', tick);
 
   setTimeout(() => { if (simulation) simulation.alphaTarget(0.003).restart(); }, 3000);
