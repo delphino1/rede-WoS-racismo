@@ -291,7 +291,7 @@ function clusterName(mc) {
 }
 
 const WEIGHT_THRESHOLD = 8;
-const TOP_LABELS = 35;
+const TOP_LABELS = 20;
 const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
 
 // ═══════════════════════════════════════════════════════
@@ -445,7 +445,7 @@ function processGraph(rawNodes, rawEdges) {
 
   giantNodes.forEach(n => {
     n.degree = degMap.get(n.id) || 0;
-    n.size = 3 + Math.pow(n.degree / maxDeg, 0.45) * 20;
+    n.size = 1 + Math.pow(n.degree / maxDeg, 0.8) * 26;
     n.clusterColor = clusterColor(n.modClass);
     n.clusterName  = clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
