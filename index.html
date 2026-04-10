@@ -158,51 +158,60 @@ async function loadAndBuild() {
 function buildGraph(xml) {
   graph = new graphology.Graph({ multi:false, type:'undirected' });
 
-  // Ler nós
-  let minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
-  const raw = [];
-
+  // 1. Ler todos os nós em mapa
+  const rawMap = new Map();
   xml.querySelectorAll('nodes > node').forEach(n => {
     const pos = n.querySelector('position');
     const col = n.querySelector('color');
     const siz = n.querySelector('size');
-    const x = pos ? +pos.getAttribute('x') : 0;
-    const y = pos ? +pos.getAttribute('y') : 0;
-    if (x < minX) minX=x; if (x > maxX) maxX=x;
-    if (y < minY) minY=y; if (y > maxY) maxY=y;
-
     let mc=0, cit=0, str=0;
     n.querySelectorAll('attvalue').forEach(a => {
       switch(a.getAttribute('for')) {
-        case 'modularity_class': mc  = +a.getAttribute('value'); break;
-        case 'weight<citations>': cit = +a.getAttribute('value'); break;
+        case 'modularity_class':          mc  = +a.getAttribute('value'); break;
+        case 'weight<citations>':         cit = +a.getAttribute('value'); break;
         case 'weight<total_link_strength>': str = +a.getAttribute('value'); break;
       }
     });
-
-    raw.push({
-      id:   n.getAttribute('id'),
-      lb:   n.getAttribute('label') || n.getAttribute('id'),
-      x, y,
-      sz:   siz ? +siz.getAttribute('value') : 5,
-      r:    col ? +col.getAttribute('r') : 128,
-      g:    col ? +col.getAttribute('g') : 128,
-      b:    col ? +col.getAttribute('b') : 128,
+    rawMap.set(n.getAttribute('id'), {
+      id: n.getAttribute('id'),
+      lb: n.getAttribute('label') || n.getAttribute('id'),
+      x:  pos ? +pos.getAttribute('x') : 0,
+      y:  pos ? +pos.getAttribute('y') : 0,
+      sz: siz ? +siz.getAttribute('value') : 5,
+      r:  col ? +col.getAttribute('r') : 128,
+      g:  col ? +col.getAttribute('g') : 128,
+      b:  col ? +col.getAttribute('b') : 128,
       mc, cit, str
     });
   });
 
-  const cx = (minX+maxX)/2, cy = (minY+maxY)/2;
+  // 2. Filtrar arestas por peso e coletar nós conectados
+  const validEdges = [];
+  const connectedIds = new Set();
+  xml.querySelectorAll('edges > edge').forEach(e => {
+    const w = +(e.getAttribute('weight') || 1);
+    if (w < WEIGHT_MIN) return;
+    const s = e.getAttribute('source'), t = e.getAttribute('target');
+    if (s === t || !rawMap.has(s) || !rawMap.has(t)) return;
+    validEdges.push({ s, t, w });
+    connectedIds.add(s);
+    connectedIds.add(t);
+  });
 
-  raw.forEach(n => {
+  // 3. Calcular centro usando só nós conectados
+  let sumX=0, sumY=0;
+  connectedIds.forEach(id => { const n=rawMap.get(id); sumX+=n.x; sumY+=n.y; });
+  const cx = sumX/connectedIds.size, cy = sumY/connectedIds.size;
+
+  // 4. Adicionar só nós conectados
+  connectedIds.forEach(id => {
+    const n = rawMap.get(id);
     const ci = clusterInfo(n.mc);
-    const dist = Math.hypot(n.x-cx, n.y-cy);
-    const sf = dist > 18000 ? 0.7 : 1.0;
     graph.addNode(n.id, {
       label: n.lb,
       x: (n.x-cx)*COORD_SCALE,
       y: -(n.y-cy)*COORD_SCALE,
-      size: clamp(n.sz*NODE_SCALE*sf, 3, 28),
+      size: clamp(n.sz*NODE_SCALE, 3, 28),
       color: `rgb(${n.r},${n.g},${n.b})`,
       clusterColor: ci.color,
       clusterName:  ci.name,
@@ -212,14 +221,13 @@ function buildGraph(xml) {
     clusterNodes[n.mc].push(n.id);
   });
 
-  // Ler arestas
+  // 5. Adicionar arestas (deduplicar)
+  const seen = new Set();
   let eCount = 0;
-  xml.querySelectorAll('edges > edge').forEach(e => {
-    const w = +(e.getAttribute('weight') || 1);
-    if (w < WEIGHT_MIN) return;
-    const s = e.getAttribute('source'), t = e.getAttribute('target');
-    if (!graph.hasNode(s) || !graph.hasNode(t) || s===t) return;
-    if (graph.hasEdge(s,t) || graph.hasEdge(t,s)) return;
+  validEdges.forEach(({ s, t, w }) => {
+    const key = s < t ? `${s}|${t}` : `${t}|${s}`;
+    if (seen.has(key)) return;
+    seen.add(key);
     graph.addEdge(s, t, { weight:w, hidden:true });
     eCount++;
   });
