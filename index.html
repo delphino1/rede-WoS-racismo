@@ -792,10 +792,13 @@ function applyHover(d) {
     return 0.05;
   });
 
-  // Labels: só o nó selecionado + top vizinhos
-  d3.select('#labels-layer').selectAll('.node-label').style('display',
-    n=>(n.id===d.id||topNeighbors.has(n.id))?null:'none'
-  );
+  // Labels: mesma hierarquia de opacidade dos nós
+  d3.select('#labels-layer').selectAll('.node-label').style('display', null).style('opacity', n=>{
+    if(n.id===d.id) return 1;
+    if(topNeighbors.has(n.id)) return 0.9;
+    if(neighbors.has(n.id)) return 0.22;
+    return 0;
+  });
 
   // Limpar gradientes anteriores
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
