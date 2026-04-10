@@ -833,7 +833,6 @@ function applyHover(d) {
       .attr('stroke-width', same ? 2.2 : 1.6)
       .style('display',null).style('opacity', same ? 0.65 : 0.35);
   });
-  d3.select('#labels-layer').selectAll('.node-label').style('display', n=>(n.id===d.id||neighbors.has(n.id))?null:'none');
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
