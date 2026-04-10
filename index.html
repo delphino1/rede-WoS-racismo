@@ -445,7 +445,7 @@ function processGraph(rawNodes, rawEdges) {
 
   giantNodes.forEach(n => {
     n.degree = degMap.get(n.id) || 0;
-    n.size = 3 + Math.pow(n.degree / maxDeg, 0.55) * 18;
+    n.size = 2 + Math.pow(n.degree / maxDeg, 0.4) * 30;
     n.clusterColor = clusterColor(n.modClass);
     n.clusterName  = clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
@@ -568,24 +568,31 @@ function buildVisualization(graphData) {
     clusterCentroids.set(mc, { x: d3.mean(ns,n=>n.fx_anchor), y: d3.mean(ns,n=>n.fy_anchor) });
   });
 
-  simulation = d3.forceSimulation(nodes).alphaDecay(0.02)
-    .force('collide', d3.forceCollide(d=>d.size+3).strength(0.75))
-    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.3))
-    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.3))
-    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.08))
-    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.08))
+  simulation = d3.forceSimulation(nodes)
+    .alphaDecay(0.05).velocityDecay(0.55).alphaMin(0.002)
+    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.8).iterations(2))
+    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.4))
+    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.4))
+    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.1))
+    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.1))
     .on('tick', tick);
 
-  setTimeout(() => { if (simulation) simulation.alphaTarget(0.003).restart(); }, 3000);
+  // Para completamente quando resfria — sem loop infinito
+  simulation.on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
 
+  let _tick = 0;
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
-    edgeSel.attr('x1',e=>getNodeObj(e.source).x).attr('y1',e=>getNodeObj(e.source).y)
-            .attr('x2',e=>getNodeObj(e.target).x).attr('y2',e=>getNodeObj(e.target).y);
+    _tick++;
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
-    updateHulls(nodes);
-    updateClusterLabelPositions(nodes);
+    // Arestas e hulls: atualizar a cada 3 ticks (economiza ~65% do custo)
+    if (_tick % 3 === 0) {
+      edgeSel.attr('x1',e=>getNodeObj(e.source).x).attr('y1',e=>getNodeObj(e.source).y)
+              .attr('x2',e=>getNodeObj(e.target).x).attr('y2',e=>getNodeObj(e.target).y);
+      updateHulls(nodes);
+      updateClusterLabelPositions(nodes);
+    }
   }
 
   buildLegend(nodes);
@@ -678,12 +685,22 @@ function updateClusterLabelPositions(nodes) {
   const allCx=[],allCy=[];
   clusterMap.forEach(cn=>{ const c=clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
   const gcx=d3.mean(allCx),gcy=d3.mean(allCy);
+  // Limites em coordenadas SVG (sem zoom)
+  const W=document.getElementById('canvas-area').clientWidth;
+  const H=document.getElementById('canvas-area').clientHeight;
+  const pad=70;
   d3.select('#cluster-labels-layer').selectAll('.cluster-badge').each(function(d) {
     const clNodes=clusterMap.get(d.mc);
     if (!clNodes||!clNodes.length) return;
     const c=clusterCentroid(clNodes),dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
-    const pf=dist<150?2.5:1.8;
-    d3.select(this).attr('transform','translate('+(c.x+(dx/dist)*dist*(pf-1))+','+(c.y+(dy/dist)*dist*(pf-1))+')');
+    const pf=dist<150?2.2:1.6;
+    // Posição ideal: empurrar para fora do centroide global
+    let bx=c.x+(dx/dist)*dist*(pf-1);
+    let by=c.y+(dy/dist)*dist*(pf-1);
+    // Clamp dentro do canvas (coordenadas SVG ≈ screen no zoom inicial)
+    bx=Math.max(pad, Math.min(W-pad, bx));
+    by=Math.max(pad, Math.min(H-pad, by));
+    d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
 function updateClusterLabelVisibility(k) {
@@ -740,7 +757,7 @@ function selectNode(d) {
   document.getElementById('btn-reset').style.display='block';
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.5;
-  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k));
+  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k));
 }
 function selectCluster(mc) {
   highlightCluster=mc; highlightNode=null; hideNodeCard();
@@ -760,7 +777,7 @@ function selectCluster(mc) {
   document.getElementById('btn-reset').style.display='block';
   const cx=d3.mean(clNodes,n=>n.x), cy=d3.mean(clNodes,n=>n.y);
   const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight;
-  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-1.4*cx, H/2-1.4*cy).scale(1.4));
+  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-1.4*cx, H/2-1.4*cy).scale(1.4));
 }
 function resetHighlight() {
   highlightNode=null; highlightCluster=null;
@@ -768,7 +785,7 @@ function resetHighlight() {
   d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.08).attr('stroke-opacity',0.28);
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('btn-reset').style.display='none';
-  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity);
+  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity);
 }
 
 // ═══════════════════════════════════════════════════════
