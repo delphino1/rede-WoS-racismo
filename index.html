@@ -445,7 +445,7 @@ function processGraph(rawNodes, rawEdges) {
 
   giantNodes.forEach(n => {
     n.degree = degMap.get(n.id) || 0;
-    n.size = 2 + Math.pow(n.degree / maxDeg, 0.4) * 30;
+    n.size = 3 + Math.pow(n.degree / maxDeg, 0.45) * 20;
     n.clusterColor = clusterColor(n.modClass);
     n.clusterName  = clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
@@ -458,7 +458,7 @@ function processGraph(rawNodes, rawEdges) {
 // VIZ STATE
 // ═══════════════════════════════════════════════════════
 let simulation = null, zoomInstance = null;
-let currentNodes = [], currentEdges = [], neighborMap = new Map();
+let currentNodes = [], currentEdges = [], neighborMap = new Map(), nodeById = new Map();
 let highlightNode = null, highlightCluster = null;
 
 function buildNeighborMap(nodes, edges) {
@@ -495,7 +495,7 @@ function buildVisualization(graphData) {
   const { nodes, edges } = graphData;
   currentNodes = nodes; currentEdges = edges;
   neighborMap = buildNeighborMap(nodes, edges);
-  const nodeById = new Map(nodes.map(n => [n.id, n]));
+  nodeById = new Map(nodes.map(n => [n.id, n]));
   const svg = d3.select('#viz-svg');
   const canvasArea = document.getElementById('canvas-area');
   const W = canvasArea.clientWidth, H = canvasArea.clientHeight;
@@ -521,10 +521,11 @@ function buildVisualization(graphData) {
   });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
+  // Arestas ocultas por padrão — só aparecem no hover (evita atualizar 5033 SVG lines por tick)
   const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
     .attr('stroke', e => edgeColorStr(e, nodeById))
-    .attr('stroke-opacity', e => isSameCluster(e, nodeById) ? 0.45 : 0.18)
-    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4);
+    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 1.2 : 0.6)
+    .style('display', 'none');
 
   const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
     .attr('class','node-g').style('cursor','pointer');
@@ -569,30 +570,24 @@ function buildVisualization(graphData) {
   });
 
   simulation = d3.forceSimulation(nodes)
-    .alphaDecay(0.05).velocityDecay(0.55).alphaMin(0.002)
-    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.8).iterations(2))
-    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.4))
-    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.4))
-    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.1))
-    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.1))
-    .on('tick', tick);
-
-  // Para completamente quando resfria — sem loop infinito
-  simulation.on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
+    .alphaDecay(0.06).velocityDecay(0.6).alphaMin(0.003)
+    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.85))
+    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.5))
+    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.5))
+    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.12))
+    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.12))
+    .on('tick', tick)
+    .on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
 
   let _tick = 0;
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
     _tick++;
+    // Nós e labels: todo tick (leve — ~340 elementos)
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
-    // Arestas e hulls: atualizar a cada 3 ticks (economiza ~65% do custo)
-    if (_tick % 3 === 0) {
-      edgeSel.attr('x1',e=>getNodeObj(e.source).x).attr('y1',e=>getNodeObj(e.source).y)
-              .attr('x2',e=>getNodeObj(e.target).x).attr('y2',e=>getNodeObj(e.target).y);
-      updateHulls(nodes);
-      updateClusterLabelPositions(nodes);
-    }
+    // Hulls: a cada 4 ticks (pesado)
+    if (_tick % 4 === 0) { updateHulls(nodes); updateClusterLabelPositions(nodes); }
   }
 
   buildLegend(nodes);
@@ -737,17 +732,24 @@ function getTopNodes() { return new Set([...currentNodes].sort((a,b)=>b.degree-a
 
 function applyHover(d) {
   const neighbors=neighborMap.get(d.id)||new Set();
-  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.id===d.id||neighbors.has(n.id)?1:0.08);
-  d3.select('#edges-layer').selectAll('.edge').style('opacity', e => {
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.id===d.id||neighbors.has(n.id)?1:0.1);
+  // Mostrar e posicionar só as arestas do nó ativo
+  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const srcId=typeof e.source==='object'?e.source.id:e.source;
     const tgtId=typeof e.target==='object'?e.target.id:e.target;
-    return (srcId===d.id||tgtId===d.id)?1:0.03;
+    if (srcId===d.id||tgtId===d.id) {
+      const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
+      const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
+      d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y).style('display',null).style('opacity',0.7);
+    } else {
+      d3.select(this).style('display','none');
+    }
   });
   d3.select('#labels-layer').selectAll('.node-label').style('display', n=>(n.id===d.id||neighbors.has(n.id))?null:'none');
 }
 function clearHover() {
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity',null);
-  d3.select('#edges-layer').selectAll('.edge').style('opacity',null);
+  d3.select('#edges-layer').selectAll('.edge').style('display','none');
   const top=getTopNodes();
   d3.select('#labels-layer').selectAll('.node-label').style('display', d=>top.has(d.id)?null:'none');
 }
@@ -764,10 +766,17 @@ function selectCluster(mc) {
   const clIds=new Set(currentNodes.filter(n=>n.modClass===mc).map(n=>n.id));
   const clNodes=currentNodes.filter(n=>n.modClass===mc);
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>clIds.has(n.id)?1:0.06);
-  d3.select('#edges-layer').selectAll('.edge').style('opacity', e => {
+  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const srcId=typeof e.source==='object'?e.source.id:e.source;
     const tgtId=typeof e.target==='object'?e.target.id:e.target;
-    return (clIds.has(srcId)&&clIds.has(tgtId))?0.6:0.03;
+    const within=clIds.has(srcId)&&clIds.has(tgtId);
+    if (within) {
+      const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
+      const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
+      d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y).style('display',null).style('opacity',0.6);
+    } else {
+      d3.select(this).style('display','none');
+    }
   });
   d3.select('#hulls-layer').selectAll('.hull-path')
     .attr('fill-opacity', d=>d.mc===mc?0.18:0.03).attr('stroke-opacity', d=>d.mc===mc?0.6:0.08);
