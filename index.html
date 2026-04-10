@@ -92,6 +92,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .rp-paper{padding:11px 13px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);margin-bottom:8px;transition:background .15s}
 .rp-paper:hover{background:rgba(255,255,255,0.08)}
 .rp-paper-journal{font-size:11px;font-weight:600;color:rgba(255,255,255,0.82);line-height:1.35;margin-bottom:5px}
+.rp-paper-source{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:8px;margin-top:2px}
+.rp-paper-journal--source{font-style:italic;color:rgba(255,255,255,0.55)}
 .rp-paper-year{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:8px}
 .rp-paper-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .rp-paper-count{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25)}
@@ -1023,12 +1025,25 @@ function showRightPanel(d) {
     papers.slice(0, MAX_PAPERS).forEach(p => {
       const item = document.createElement('div');
       item.className = 'rp-paper';
-      const doiBtn = p.doi
+
+      // Valores seguros — nunca mostra "undefined" ou "null"
+      const safeStr = v => (v && typeof v === 'string' && v !== 'null' && v !== 'undefined') ? v : null;
+      const title  = safeStr(p.title);
+      const source = safeStr(p.source) || safeStr(p.journal);
+      const year   = safeStr(p.year) || '';
+
+      const titleHtml = title
+        ? `<div class="rp-paper-journal">${title}</div>`+
+          `<div class="rp-paper-source">${source ? source + ' · ' : ''}${year}</div>`
+        : `<div class="rp-paper-journal rp-paper-journal--source">${source || '—'}</div>`+
+          `<div class="rp-paper-source">${year}</div>`;
+
+      const doiBtn = safeStr(p.doi)
         ? `<a class="rp-doi-btn has-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">↗ Abrir DOI</a>`
         : `<span class="rp-doi-btn no-doi">sem DOI</span>`;
+
       item.innerHTML =
-        `<div class="rp-paper-journal">${p.journal}</div>`+
-        `<div class="rp-paper-year">${p.year}</div>`+
+        titleHtml+
         `<div class="rp-paper-footer">`+
           `<span class="rp-paper-count">citado ${p.count}× no corpus</span>`+
           doiBtn+
