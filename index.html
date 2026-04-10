@@ -211,8 +211,16 @@ function buildGraph(xml) {
   connectedIds.forEach(id => { const n=rawMap.get(id); sumX+=n.x; sumY+=n.y; });
   const cx = sumX/connectedIds.size, cy = sumY/connectedIds.size;
 
-  // 4. Adicionar só nós conectados
+  // 4. Adicionar só nós conectados e próximos ao centro
+  const MAX_DIST_SCALED = 11; // unidades Sigma — filtra nós distantes pelo layout do Gephi
+  const keptIds = new Set();
   connectedIds.forEach(id => {
+    const n = rawMap.get(id);
+    const dx = (n.x-cx)*COORD_SCALE, dy = (n.y-cy)*COORD_SCALE;
+    if (Math.hypot(dx, dy) <= MAX_DIST_SCALED) keptIds.add(id);
+  });
+
+  keptIds.forEach(id => {
     const n = rawMap.get(id);
     const ci = clusterInfo(n.mc);
     graph.addNode(n.id, {
@@ -229,10 +237,11 @@ function buildGraph(xml) {
     clusterNodes[n.mc].push(n.id);
   });
 
-  // 5. Adicionar arestas (deduplicar)
+  // 5. Adicionar arestas (deduplicar, só entre nós mantidos)
   const seen = new Set();
   let eCount = 0;
   validEdges.forEach(({ s, t, w }) => {
+    if (!keptIds.has(s) || !keptIds.has(t)) return;
     const key = s < t ? `${s}|${t}` : `${t}|${s}`;
     if (seen.has(key)) return;
     seen.add(key);
