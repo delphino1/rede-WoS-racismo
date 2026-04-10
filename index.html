@@ -779,26 +779,26 @@ function applyHover(d) {
     if(sid===d.id) edgeWeights.set(tid, e.weight||1);
     else if(tid===d.id) edgeWeights.set(sid, e.weight||1);
   });
-  const TOP_NB = 18;
+  const TOP_NB = 30;
   const topNeighbors=new Set(
     [...neighbors].sort((a,b)=>(edgeWeights.get(b)||0)-(edgeWeights.get(a)||0)).slice(0,TOP_NB)
   );
 
-  // Três níveis de opacidade: selecionado / top vizinhos / vizinhos fracos / resto
+  // Dois níveis de opacidade: selecionado+top / resto
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>{
     if(n.id===d.id) return 1;
     if(topNeighbors.has(n.id)) return 0.9;
-    if(neighbors.has(n.id)) return 0.22;
+    if(neighbors.has(n.id)) return 0.15;
     return 0.05;
   });
 
-  // Labels: mesma hierarquia de opacidade dos nós
-  d3.select('#labels-layer').selectAll('.node-label').style('display', null).style('opacity', n=>{
-    if(n.id===d.id) return 1;
-    if(topNeighbors.has(n.id)) return 0.9;
-    if(neighbors.has(n.id)) return 0.22;
-    return 0;
-  });
+  // Labels: só nó selecionado + top vizinhos — sem haze de texto ilegível
+  d3.select('#labels-layer').selectAll('.node-label')
+    .style('opacity', null)
+    .style('display', n=>{
+      if(n.id===d.id || topNeighbors.has(n.id)) return null;
+      return 'none';
+    });
 
   // Limpar gradientes anteriores
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
