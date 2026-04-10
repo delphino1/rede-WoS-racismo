@@ -403,7 +403,7 @@ function processGraph(rawNodes, rawEdges) {
   const maxDeg = Math.max(...degMap.values(), 1);
 
   // Mesclar clusters pequenos em 'outros'
-  const MIN_CLUSTER_SIZE = 5;
+  const MIN_CLUSTER_SIZE = 10;
   const clCount = new Map();
   giantNodes.forEach(n => clCount.set(n.modClass, (clCount.get(n.modClass)||0)+1));
   giantNodes.forEach(n => {
@@ -657,7 +657,7 @@ function buildLegend(nodes) {
   const legendEl=document.getElementById('cluster-legend');
   legendEl.innerHTML='';
   const entries=[];
-  clusterMap.forEach((clNodes,mc) => entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)}));
+  clusterMap.forEach((clNodes,mc) => entries.push({mc, count:clNodes.length, color:mc==='outros'?'#444460':clusterColor(mc), name:mc==='outros'?'Outros':clusterName(mc)}));
   entries.sort((a,b)=>{
     const aOther = a.mc==='outros'||!CLUSTER_MAP[a.mc];
     const bOther = b.mc==='outros'||!CLUSTER_MAP[b.mc];
