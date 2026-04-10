@@ -778,10 +778,11 @@ function applyHover(d) {
     if (srcId===d.id||tgtId===d.id) {
       const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
       const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
-      const same = (typeof e.source==='object'?e.source.modClass:null) === (typeof e.target==='object'?e.target.modClass:null);
+      const same = s.modClass === t.modClass;
       d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y)
+        .attr('stroke', d.clusterColor)
         .attr('stroke-width', same ? 2.5 : 1.8)
-        .style('display',null).style('opacity',0.85);
+        .style('display',null).style('opacity', same ? 0.9 : 0.55);
     } else {
       d3.select(this).style('display','none');
     }
