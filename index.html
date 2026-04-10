@@ -74,6 +74,34 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .sobre-row:last-child{margin-bottom:0}
 .stats-footer{padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,0.06);font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);flex-shrink:0;line-height:1.7}
 
+/* ── Painel direito (textos) ── */
+#right-panel{position:absolute;right:0;top:0;width:300px;height:100%;background:rgba(7,7,18,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,0.07);z-index:10;overflow-y:auto;overflow-x:hidden;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.08) transparent;display:flex;flex-direction:column}
+#right-panel.open{transform:translateX(0)}
+#right-panel::-webkit-scrollbar{width:3px}
+#right-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+.rp-inner{padding:22px 20px 32px;flex:1}
+.rp-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:14px 14px 0;background:rgba(7,7,18,0.97);z-index:2}
+.rp-close-btn{width:28px;height:28px;border:1px solid rgba(255,255,255,0.1);border-radius:50%;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1}
+.rp-close-btn:hover{background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25)}
+.rp-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:6px}
+.rp-author{font-size:20px;font-weight:700;color:#f0f0ff;line-height:1.2;margin-bottom:6px}
+.rp-cluster-tag{display:inline-block;padding:3px 9px;border-radius:5px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.rp-stat{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:18px}
+.rp-divider{height:1px;background:rgba(255,255,255,0.06);margin:0 0 16px}
+.rp-section-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px}
+.rp-paper{padding:11px 13px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);margin-bottom:8px;transition:background .15s}
+.rp-paper:hover{background:rgba(255,255,255,0.08)}
+.rp-paper-journal{font-size:11px;font-weight:600;color:rgba(255,255,255,0.82);line-height:1.35;margin-bottom:5px}
+.rp-paper-year{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:8px}
+.rp-paper-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rp-paper-count{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25)}
+.rp-doi-btn{font-size:9px;font-weight:600;letter-spacing:.06em;padding:3px 9px;border-radius:5px;text-decoration:none;transition:all .15s;white-space:nowrap}
+.rp-doi-btn.has-doi{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.7)}
+.rp-doi-btn.has-doi:hover{background:rgba(255,255,255,0.17);color:#fff}
+.rp-doi-btn.no-doi{color:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.07);cursor:default}
+.rp-more{font-size:10px;color:rgba(255,255,255,0.25);text-align:center;padding:6px 0;font-family:'Space Mono',monospace}
+.rp-empty{font-size:11px;color:rgba(255,255,255,0.28);font-style:italic;text-align:center;padding:24px 0}
+
 /* ── Canvas ── */
 #canvas-area{flex:1;position:relative;overflow:hidden}
 #viz-svg{width:100%;height:100%;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%);cursor:grab;display:block}
@@ -203,10 +231,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
         </div>
         <div class="neighbors-label">Principais co-citações</div>
         <div id="card-neighbors"></div>
-        <div class="papers-section" id="card-papers-section" style="display:none">
-          <div class="papers-label">Textos no corpus</div>
-          <div id="card-papers"></div>
-        </div>
       </div>
 
       <div class="divider"></div>
@@ -271,6 +295,20 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
       <div class="tt-name" id="tt-name"></div>
       <div class="tt-cluster" id="tt-cluster"></div>
       <div class="tt-degree" id="tt-degree"></div>
+    </div>
+
+    <!-- Painel direito: textos no corpus -->
+    <div id="right-panel">
+      <div class="rp-close"><button class="rp-close-btn" id="rp-close-btn">&#x2715;</button></div>
+      <div class="rp-inner">
+        <div class="rp-eyebrow">Autor selecionado</div>
+        <div class="rp-author" id="rp-author"></div>
+        <div class="rp-cluster-tag" id="rp-cluster-tag"></div>
+        <div class="rp-stat" id="rp-stat"></div>
+        <div class="rp-divider"></div>
+        <div class="rp-section-label">Textos no corpus</div>
+        <div id="rp-papers"></div>
+      </div>
     </div>
 
     <div id="fixed-buttons">
@@ -959,40 +997,58 @@ function showNodeCard(d) {
     chip.addEventListener('click',()=>selectNode(nb)); container.appendChild(chip);
   });
 
-  // ── Textos no corpus ──────────────────────────────────
-  const papersSection = document.getElementById('card-papers-section');
-  const papersEl      = document.getElementById('card-papers');
-  papersEl.innerHTML  = '';
+  // ── Painel direito: textos no corpus ─────────────────
+  showRightPanel(d);
+}
+
+function showRightPanel(d) {
+  const color = d.clusterColor;
+  document.getElementById('rp-author').textContent = d.label;
+  const tag = document.getElementById('rp-cluster-tag');
+  tag.textContent = d.clusterName;
+  tag.style.background = color + '22';
+  tag.style.color = color;
+  tag.style.border = '1px solid ' + color + '44';
+  document.getElementById('rp-stat').textContent = d.degree + ' co-citações no corpus';
+
+  const papersEl = document.getElementById('rp-papers');
+  papersEl.innerHTML = '';
   const authorKey = normalizeAuthorKey(d.label);
-  const papers    = referencesDB[authorKey] || [];
+  const papers = referencesDB[authorKey] || [];
+
   if (papers.length === 0) {
-    papersSection.style.display = 'none';
+    papersEl.innerHTML = '<div class="rp-empty">Nenhum texto encontrado<br>no references.json</div>';
   } else {
-    papersSection.style.display = 'block';
-    const MAX_PAPERS = 8;
+    const MAX_PAPERS = 10;
     papers.slice(0, MAX_PAPERS).forEach(p => {
       const item = document.createElement('div');
-      item.className = 'paper-item';
-      const doiHtml = p.doi
-        ? `<a class="paper-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">↗ DOI</a>`
-        : `<span class="paper-doi" style="opacity:.3;cursor:default">sem DOI</span>`;
+      item.className = 'rp-paper';
+      const doiBtn = p.doi
+        ? `<a class="rp-doi-btn has-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">↗ Abrir DOI</a>`
+        : `<span class="rp-doi-btn no-doi">sem DOI</span>`;
       item.innerHTML =
-        `<div class="paper-meta"><strong>${p.year}</strong> · ${p.journal}</div>`+
-        `<div class="paper-footer">`+
-          `<span class="paper-count">citado ${p.count}× no corpus</span>`+
-          doiHtml+
+        `<div class="rp-paper-journal">${p.journal}</div>`+
+        `<div class="rp-paper-year">${p.year}</div>`+
+        `<div class="rp-paper-footer">`+
+          `<span class="rp-paper-count">citado ${p.count}× no corpus</span>`+
+          doiBtn+
         `</div>`;
       papersEl.appendChild(item);
     });
     if (papers.length > MAX_PAPERS) {
       const more = document.createElement('div');
-      more.className = 'papers-empty';
-      more.textContent = `+ ${papers.length - MAX_PAPERS} outros textos`;
+      more.className = 'rp-more';
+      more.textContent = '+ ' + (papers.length - MAX_PAPERS) + ' outros textos';
       papersEl.appendChild(more);
     }
   }
+  document.getElementById('right-panel').classList.add('open');
 }
-function hideNodeCard() { document.getElementById('node-card').style.display='none'; }
+
+function hideRightPanel() {
+  document.getElementById('right-panel').classList.remove('open');
+}
+function hideNodeCard() { document.getElementById('node-card').style.display='none'; hideRightPanel(); }
 
 // ═══════════════════════════════════════════════════════
 // SEARCH
@@ -1032,6 +1088,7 @@ document.getElementById('btn-export').addEventListener('click', () => {
 
 document.getElementById('btn-reset').addEventListener('click', resetHighlight);
 document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
+document.getElementById('rp-close-btn').addEventListener('click', () => { hideRightPanel(); resetHighlight(); });
 
 // ═══════════════════════════════════════════════════════
 // LOAD / PROCESS
