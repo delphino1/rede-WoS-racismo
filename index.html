@@ -770,7 +770,32 @@ function getTopNodes() { return new Set([...currentNodes].sort((a,b)=>b.degree-a
 
 function applyHover(d) {
   const neighbors=neighborMap.get(d.id)||new Set();
-  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.id===d.id||neighbors.has(n.id)?1:0.1);
+
+  // Peso de cada aresta para este nó → top N vizinhos mais fortes
+  const edgeWeights=new Map();
+  currentEdges.forEach(e=>{
+    const sid=typeof e.source==='object'?e.source.id:e.source;
+    const tid=typeof e.target==='object'?e.target.id:e.target;
+    if(sid===d.id) edgeWeights.set(tid, e.weight||1);
+    else if(tid===d.id) edgeWeights.set(sid, e.weight||1);
+  });
+  const TOP_NB = 18;
+  const topNeighbors=new Set(
+    [...neighbors].sort((a,b)=>(edgeWeights.get(b)||0)-(edgeWeights.get(a)||0)).slice(0,TOP_NB)
+  );
+
+  // Três níveis de opacidade: selecionado / top vizinhos / vizinhos fracos / resto
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>{
+    if(n.id===d.id) return 1;
+    if(topNeighbors.has(n.id)) return 0.9;
+    if(neighbors.has(n.id)) return 0.22;
+    return 0.05;
+  });
+
+  // Labels: só o nó selecionado + top vizinhos
+  d3.select('#labels-layer').selectAll('.node-label').style('display',
+    n=>(n.id===d.id||topNeighbors.has(n.id))?null:'none'
+  );
 
   // Limpar gradientes anteriores
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
