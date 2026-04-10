@@ -1,534 +1,857 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rede de Co-citação — Raça e Racismo no Brasil</title>
-  <script src="https://cdn.jsdelivr.net/npm/graphology@0.25.4/dist/graphology.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sigma@2.4.0/build/sigma.min.js"></script>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:#0a0a18; color:#e0e0f0; font-family:'Inter',system-ui,sans-serif; overflow:hidden; height:100vh; width:100vw; }
-    #wrapper { position:relative; width:100vw; height:100vh; }
-    #hull-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-    #sigma-container { position:absolute; top:0; left:0; width:100%; height:100%; z-index:2; }
-    .sigma-hovers { display:none !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede de Co-Citação · Raça e Racismo no Brasil</title>
+<meta name="description" content="Rede de co-citação bibliométrica sobre raça e racismo no Brasil — Web of Science 2000–2025">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',sans-serif;background:#03030a;color:#e8e8f0}
+#bg-canvas{position:fixed;inset:0;pointer-events:none;z-index:0}
+#app{position:relative;z-index:1;display:flex;width:100%;height:100%}
 
-    #panel {
-      position:absolute; top:20px; left:20px; width:280px;
-      background:rgba(10,10,24,0.93); border:1px solid rgba(255,255,255,0.08);
-      border-radius:14px; backdrop-filter:blur(14px); z-index:10; overflow:hidden;
-    }
-    #panel-header { padding:16px 18px 12px; cursor:pointer; user-select:none; border-bottom:1px solid rgba(255,255,255,0.06); }
-    #panel-header h1 { font-size:13px; font-weight:700; color:#fff; line-height:1.3; }
-    #panel-header p { font-size:10px; color:rgba(255,255,255,0.38); margin-top:3px; }
-    #panel-toggle { font-size:10px; color:rgba(255,255,255,0.3); float:right; margin-top:2px; }
-    #panel-body { padding:14px 18px; }
-    #panel.collapsed #panel-body { display:none; }
+/* ── Panel ── */
+#panel{position:relative;width:280px;min-width:280px;height:100%;background:rgba(7,7,18,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;z-index:10;transition:transform .35s cubic-bezier(.4,0,.2,1),min-width .35s;overflow:hidden}
+#panel.collapsed{transform:translateX(-280px);min-width:0}
+#panel-toggle{position:absolute;right:-28px;top:50%;transform:translateY(-50%);width:28px;height:56px;background:rgba(7,7,18,0.97);border:1px solid rgba(255,255,255,0.07);border-left:none;border-radius:0 10px 10px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.45);font-size:13px;transition:color .2s,background .2s;z-index:11;outline:none}
+#panel-toggle:hover{color:#fff;background:rgba(14,14,36,0.99)}
+#panel-toggle .arrow{display:inline-block;transition:transform .35s}
+#panel.collapsed #panel-toggle .arrow{transform:rotate(180deg)}
+.panel-inner{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 20px 16px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
+.panel-inner::-webkit-scrollbar{width:4px}
+.panel-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+.eyebrow{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.panel-title{font-size:19px;font-weight:700;line-height:1.25;color:#f0f0ff;margin-bottom:4px}
+.panel-title em{font-style:normal;display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,0.38);margin-top:6px;font-family:'Space Mono',monospace}
+.search-wrap{position:relative;margin:18px 0 0}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3);font-size:15px;pointer-events:none;line-height:1}
+#search-input{width:100%;padding:9px 12px 9px 34px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e8e8f0;font-family:'Space Grotesk',sans-serif;font-size:13px;outline:none;transition:border-color .2s,background .2s}
+#search-input::placeholder{color:rgba(255,255,255,0.25)}
+#search-input:focus{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.08)}
+#search-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:rgba(12,12,28,0.98);border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden;z-index:100;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+#search-dropdown.open{display:block}
+.search-item{padding:9px 14px;font-size:12px;cursor:pointer;color:rgba(255,255,255,0.7);transition:background .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.search-empty{padding:9px 14px;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic}
+#node-card{margin-top:16px;display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 14px 12px}
+.node-card-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.node-card-name{font-size:13px;font-weight:600;line-height:1.35;color:#f0f0ff;margin-bottom:10px}
+.node-card-stats{display:flex;gap:16px;margin-bottom:12px}
+.stat-item{display:flex;flex-direction:column;gap:2px}
+.stat-val{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#f0f0ff}
+.stat-lbl{font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.08em}
+.neighbors-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.3);margin-bottom:6px;font-family:'Space Mono',monospace}
+.neighbor-chip{display:inline-block;margin:2px 3px 2px 0;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);font-size:10px;color:rgba(255,255,255,0.6);cursor:pointer;transition:background .15s}
+.neighbor-chip:hover{background:rgba(255,255,255,0.13);color:#fff}
+.divider{height:1px;background:rgba(255,255,255,0.06);margin:18px 0}
+.legend-title{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.3);font-family:'Space Mono',monospace;margin-bottom:10px}
+.legend-item{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px;cursor:pointer;margin-bottom:2px;transition:background .15s}
+.legend-item:hover{background:rgba(255,255,255,0.05)}
+.legend-item.active{background:rgba(255,255,255,0.08)}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.legend-name{font-size:11px;color:rgba(255,255,255,0.7);flex:1;line-height:1.3}
+.legend-count{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);flex-shrink:0}
+.sobre-block{margin-top:4px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px}
+.sobre-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.sobre-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.1em}
+.sobre-value{font-size:11px;color:rgba(255,255,255,0.65);text-align:right;max-width:150px;line-height:1.4}
+.sobre-row:last-child{margin-bottom:0}
+.stats-footer{padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,0.06);font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);flex-shrink:0;line-height:1.7}
 
-    #search { width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px 12px; color:#fff; font-size:11px; outline:none; margin-bottom:14px; }
-    #search:focus { border-color:rgba(255,255,255,0.28); }
-    #search::placeholder { color:rgba(255,255,255,0.28); }
-    #suggestions { position:absolute; background:#13132a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:150px; overflow-y:auto; z-index:100; display:none; width:248px; }
-    .suggestion { padding:7px 12px; font-size:11px; cursor:pointer; color:#ccd; }
-    .suggestion:hover, .suggestion.active { background:rgba(255,255,255,0.08); color:#fff; }
+/* ── Canvas ── */
+#canvas-area{flex:1;position:relative;overflow:hidden}
+#viz-svg{width:100%;height:100%;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%);cursor:grab;display:block}
+#viz-svg:active{cursor:grabbing}
 
-    .stats { display:flex; gap:8px; margin-bottom:14px; }
-    .stat { flex:1; background:rgba(255,255,255,0.04); border-radius:8px; padding:8px 6px; text-align:center; }
-    .stat-value { font-size:15px; font-weight:700; color:#fff; }
-    .stat-label { font-size:8.5px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.06em; margin-top:1px; }
+/* ── Buttons ── */
+#fixed-buttons{position:absolute;bottom:28px;right:28px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:20}
+.fixed-btn{padding:9px 16px;background:rgba(14,14,30,0.92);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:rgba(255,255,255,0.7);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;cursor:pointer;backdrop-filter:blur(10px);transition:all .2s;white-space:nowrap}
+.fixed-btn:hover{background:rgba(24,24,50,0.98);color:#fff;border-color:rgba(255,255,255,0.25)}
+#btn-reset{display:none}
 
-    .divider { height:1px; background:rgba(255,255,255,0.06); margin:10px 0; }
-    .legend-title { font-size:10px; color:rgba(255,255,255,0.32); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
-    .legend-item { display:flex; align-items:center; gap:8px; padding:5px 8px; border-radius:6px; cursor:pointer; transition:background 0.15s; margin-bottom:2px; }
-    .legend-item:hover { background:rgba(255,255,255,0.06); }
-    .legend-item.active { background:rgba(255,255,255,0.1); }
-    .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-    .legend-label { font-size:10px; color:#bbc; line-height:1.2; }
+/* ── Hint ── */
+#hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);padding:7px 18px;background:rgba(10,10,24,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:20px;font-size:11px;color:rgba(255,255,255,0.35);pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .6s;z-index:5;font-family:'Space Mono',monospace}
+#hint.visible{opacity:1}
 
-    #btn-row { display:flex; gap:6px; margin-top:12px; }
-    .btn { flex:1; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:7px; color:rgba(255,255,255,0.55); font-size:10px; padding:6px 4px; cursor:pointer; text-align:center; transition:all 0.15s; }
-    .btn:hover { background:rgba(255,255,255,0.12); color:#fff; }
+/* ── Tooltip ── */
+#tooltip{position:fixed;z-index:200;pointer-events:none;background:rgba(8,8,22,0.95);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.85);max-width:220px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,0.5);opacity:0;transition:opacity .15s;backdrop-filter:blur(10px)}
+#tooltip.visible{opacity:1}
+.tt-name{font-weight:600;color:#fff;margin-bottom:4px;font-size:13px}
+.tt-cluster{font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em}
+.tt-degree{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
 
-    #tooltip { position:absolute; background:rgba(10,10,24,0.96); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:10px 14px; font-size:11px; pointer-events:none; z-index:20; display:none; max-width:210px; backdrop-filter:blur(8px); }
-    #tooltip strong { display:block; font-size:12px; color:#fff; margin-bottom:5px; }
-    #tooltip .tt-row { display:flex; justify-content:space-between; gap:12px; color:rgba(255,255,255,0.45); margin-top:2px; }
-    #tooltip .tt-val { color:#ccd; font-weight:600; }
-
-    #node-panel { position:absolute; bottom:24px; right:24px; width:245px; background:rgba(10,10,24,0.95); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:16px; z-index:10; display:none; backdrop-filter:blur(12px); }
-    #node-panel .np-close { float:right; cursor:pointer; color:rgba(255,255,255,0.3); font-size:16px; line-height:1; }
-    #node-panel .np-close:hover { color:#fff; }
-    #node-panel .np-name { font-size:14px; font-weight:700; color:#fff; margin-bottom:8px; padding-right:20px; }
-    #node-panel .np-cluster { display:inline-block; font-size:10px; font-weight:600; border-radius:20px; padding:3px 10px; margin-bottom:10px; }
-    #node-panel .np-row { display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.4); padding:4px 0; border-top:1px solid rgba(255,255,255,0.05); }
-    #node-panel .np-row span { color:#ccd; font-weight:600; }
-
-    #loading { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#0a0a18; z-index:50; }
-    #loading .ld-title { font-size:18px; font-weight:700; color:#fff; margin-bottom:6px; }
-    #loading .ld-sub { font-size:12px; color:rgba(255,255,255,0.38); margin-bottom:24px; }
-    #loading .ld-bar-wrap { width:200px; height:3px; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden; }
-    #loading .ld-bar { height:100%; background:linear-gradient(90deg,#8b6fff,#2ecda7); animation:ldpulse 1.2s ease-in-out infinite; }
-    @keyframes ldpulse { 0%,100%{width:20%;margin-left:0} 50%{width:60%;margin-left:40%} }
-  </style>
+/* ── Splash ── */
+#load-screen{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:radial-gradient(ellipse at 55% 45%,#0a0a22 0%,#03030a 70%)}
+.splash-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:18px}
+.splash-title{font-size:clamp(26px,4vw,46px);font-weight:700;text-align:center;line-height:1.18;color:#f0f0ff;margin-bottom:10px;letter-spacing:-.01em}
+.splash-title span{background:linear-gradient(135deg,#7b6fff,#40c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.splash-sub{font-size:13px;color:rgba(255,255,255,0.32);margin-bottom:52px;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.splash-stats{display:flex;gap:40px;margin-bottom:48px}
+.splash-stat{display:flex;flex-direction:column;align-items:center;gap:4px}
+.splash-stat-num{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:#f0f0ff}
+.splash-stat-lbl{font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.12em}
+.splash-divider{width:1px;background:rgba(255,255,255,0.08);align-self:stretch}
+.splash-loading{display:flex;flex-direction:column;align-items:center;gap:12px}
+.splash-bar-wrap{width:240px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.splash-bar{height:100%;width:0%;background:linear-gradient(90deg,#7b6fff,#40c4ff);border-radius:2px;transition:width .4s ease;animation:bar-pulse 2s ease-in-out infinite}
+@keyframes bar-pulse{0%,100%{opacity:.7}50%{opacity:1}}
+.splash-loading-text{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:.1em}
+.splash-upload{display:none;flex-direction:column;align-items:center;gap:12px;margin-top:8px}
+.drop-zone{width:320px;height:130px;border:1.5px dashed rgba(255,255,255,0.16);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(255,255,255,0.02)}
+.drop-zone:hover,.drop-zone.drag-over{border-color:rgba(123,111,255,0.55);background:rgba(123,111,255,0.05)}
+.drop-icon{font-size:26px;opacity:.38;user-select:none}
+.drop-label{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;line-height:1.5}
+.drop-label span{color:#7b6fff;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+#file-input{display:none}
+#loading-overlay{position:fixed;inset:0;z-index:9500;background:#03030a;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.spinner{width:36px;height:36px;border:2px solid rgba(255,255,255,0.07);border-top-color:#7b6fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:.1em}
+</style>
 </head>
 <body>
-<div id="wrapper">
-  <canvas id="hull-canvas"></canvas>
-  <div id="sigma-container"></div>
 
-  <div id="panel">
-    <div id="panel-header" onclick="togglePanel()">
-      <span id="panel-toggle">▲</span>
-      <h1>Rede de Co-citação<br>Raça e Racismo no Brasil</h1>
-      <p>Web of Science · 2000–2025</p>
+<canvas id="bg-canvas"></canvas>
+
+<div id="load-screen">
+  <div class="splash-eyebrow">Bibliometria · Ciências Sociais · Brasil</div>
+  <div class="splash-title">Rede de <span>Co-Citação</span><br>Raça e Racismo no Brasil</div>
+  <div class="splash-sub">Web of Science · 4.416 artigos analisados</div>
+  <div class="splash-stats">
+    <div class="splash-stat">
+      <div class="splash-stat-num">342</div>
+      <div class="splash-stat-lbl">Autores</div>
     </div>
-    <div id="panel-body">
-      <div style="position:relative">
-        <input id="search" type="text" placeholder="Buscar autor..." autocomplete="off">
-        <div id="suggestions"></div>
+    <div class="splash-divider"></div>
+    <div class="splash-stat">
+      <div class="splash-stat-num">5027</div>
+      <div class="splash-stat-lbl">Co-citações</div>
+    </div>
+    <div class="splash-divider"></div>
+    <div class="splash-stat">
+      <div class="splash-stat-num">5</div>
+      <div class="splash-stat-lbl">Comunidades</div>
+    </div>
+  </div>
+  <div class="splash-loading" id="splash-loading">
+    <div class="splash-bar-wrap"><div class="splash-bar" id="splash-bar"></div></div>
+    <div class="splash-loading-text" id="splash-loading-text">Carregando rede…</div>
+  </div>
+  <div class="splash-upload" id="splash-upload">
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon">✦</div>
+      <div class="drop-label">
+        Arraste <strong>rede_WoS_racismo_teste.gexf</strong> aqui<br>
+        ou <span id="browse-link">escolha o arquivo</span>
       </div>
-      <div class="stats">
-        <div class="stat"><div class="stat-value" id="stat-nodes">—</div><div class="stat-label">Autores</div></div>
-        <div class="stat"><div class="stat-value" id="stat-edges">—</div><div class="stat-label">Co-citações</div></div>
-        <div class="stat"><div class="stat-value" id="stat-clusters">—</div><div class="stat-label">Clusters</div></div>
+    </div>
+    <input type="file" id="file-input" accept=".gexf,.xml">
+  </div>
+</div>
+
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">Construindo rede…</div>
+</div>
+
+<div id="app" style="display:none">
+  <div id="panel">
+    <button id="panel-toggle" title="Recolher painel">
+      <span class="arrow">&#8249;</span>
+    </button>
+    <div class="panel-inner">
+      <div class="eyebrow">Rede de Co-Citação</div>
+      <h1 class="panel-title">
+        Raça e Racismo<br>no Brasil
+        <em>Web of Science · 2000–2025</em>
+      </h1>
+
+      <div class="search-wrap">
+        <span class="search-icon">&#9906;</span>
+        <input type="text" id="search-input" placeholder="Buscar autor…" autocomplete="off">
+        <div id="search-dropdown"></div>
       </div>
+
+      <div id="node-card">
+        <div class="node-card-tag" id="card-tag"></div>
+        <div class="node-card-name" id="card-name"></div>
+        <div class="node-card-stats">
+          <div class="stat-item">
+            <div class="stat-val" id="card-degree">0</div>
+            <div class="stat-lbl">Conexões</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="card-pct">0%</div>
+            <div class="stat-lbl">da rede</div>
+          </div>
+        </div>
+        <div class="neighbors-label">Principais co-citações</div>
+        <div id="card-neighbors"></div>
+      </div>
+
       <div class="divider"></div>
       <div class="legend-title">Comunidades Temáticas</div>
-      <div id="legend"></div>
-      <div id="btn-row">
-        <div class="btn" onclick="resetView()">↺ Resetar</div>
-        <div class="btn" onclick="exportPNG()">↓ Exportar</div>
+      <div id="cluster-legend"></div>
+
+      <div class="divider"></div>
+      <div class="legend-title">Metodologia</div>
+      <div class="sobre-block">
+        <div class="sobre-row">
+          <span class="sobre-label">Corpus</span>
+          <span class="sobre-value">4.416 artigos · Web of Science</span>
+        </div>
+        <div class="sobre-row">
+          <span class="sobre-label">Período</span>
+          <span class="sobre-value">2000–2025</span>
+        </div>
+        <div class="sobre-row">
+          <span class="sobre-label">Filtragem</span>
+          <span class="sobre-value">Co-citações com peso ≥ 8</span>
+        </div>
+        <div class="sobre-row">
+          <span class="sobre-label">Layout</span>
+          <span class="sobre-value">ForceAtlas2 (Gephi)</span>
+        </div>
+        <div class="sobre-row">
+          <span class="sobre-label">Clusters</span>
+          <span class="sobre-value">Modularidade de Louvain</span>
+        </div>
+        <div class="sobre-row">
+          <span class="sobre-label">Stack</span>
+          <span class="sobre-value">D3.js v7 · GEXF</span>
+        </div>
       </div>
+    </div>
+
+    <div class="stats-footer" id="stats-footer">
+      — autores · — conexões<br>
+      <span style="font-size:9px;opacity:.6">Arraste · Zoom · Clique para explorar</span>
     </div>
   </div>
 
-  <div id="tooltip"></div>
-  <div id="node-panel">
-    <span class="np-close" onclick="closeNodePanel()">×</span>
-    <div class="np-name" id="np-name"></div>
-    <div class="np-cluster" id="np-cluster"></div>
-    <div class="np-row">Citações no corpus <span id="np-cit">—</span></div>
-    <div class="np-row">Conexões <span id="np-deg">—</span></div>
-    <div class="np-row">Força dos laços <span id="np-str">—</span></div>
-  </div>
+  <div id="canvas-area">
+    <svg id="viz-svg">
+      <defs>
+        <filter id="node-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g id="zoom-group">
+        <g id="hulls-layer"></g>
+        <g id="edges-layer"></g>
+        <g id="nodes-layer"></g>
+        <g id="labels-layer"></g>
+        <g id="cluster-labels-layer"></g>
+        <g id="ripples-layer"></g>
+      </g>
+    </svg>
 
-  <div id="loading">
-    <div class="ld-title">Carregando rede...</div>
-    <div class="ld-sub">Web of Science · Raça e Racismo no Brasil</div>
-    <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+    <div id="tooltip">
+      <div class="tt-name" id="tt-name"></div>
+      <div class="tt-cluster" id="tt-cluster"></div>
+      <div class="tt-degree" id="tt-degree"></div>
+    </div>
+
+    <div id="fixed-buttons">
+      <button class="fixed-btn" id="btn-reset">&#8634; visão geral</button>
+      <button class="fixed-btn" id="btn-export">&#8595; exportar PNG</button>
+    </div>
+
+    <div id="hint">scroll · arraste · clique para explorar</div>
   </div>
 </div>
 
 <script>
-// ── Configuração ──────────────────────────────────────────
-const GEXF_FILE  = 'rede_WoS_racismo_teste.gexf';
-const WEIGHT_MIN = 8;
-const NODE_SCALE = 1.0;
-
-// Clusters conhecidos (Gephi modularity class → nome e cor)
-const CLUSTERS = {
-  69: { name: 'Identidade, Raça e Diáspora',         color: '#c87cff' },
-  32: { name: 'Teoria Social Brasileira',             color: '#82c914' },
-  43: { name: 'Teoria Crítica e Interseccionalidade', color: '#00c4ff' },
-  72: { name: 'Saúde e Epidemiologia Racial',         color: '#00d2a0' },
-  67: { name: 'Relações Raciais e Estratificação',    color: '#ff9020' },
+// ═══════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════
+// Clusters do Gephi (modularity_class → nome e cor)
+const CLUSTER_MAP = {
+  '69': { name: 'Identidade, Raça e Diáspora',         color: '#c87cff' },
+  '32': { name: 'Teoria Social Brasileira',             color: '#82c914' },
+  '43': { name: 'Teoria Crítica e Interseccionalidade', color: '#00c4ff' },
+  '72': { name: 'Saúde e Epidemiologia Racial',         color: '#00d2a0' },
+  '67': { name: 'Relações Raciais e Estratificação',    color: '#ff9020' },
 };
+const FALLBACK_COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#cc5de8','#f06595'];
 
-// Paleta para clusters desconhecidos (atribuída dinamicamente)
-const EXTRA_COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#cc5de8','#20c997','#f06595'];
-const _autoCluster = {};
-function clusterInfo(m) {
-  if (CLUSTERS[m]) return CLUSTERS[m];
-  if (!_autoCluster[m]) {
-    const idx = Object.keys(_autoCluster).length % EXTRA_COLORS.length;
-    _autoCluster[m] = { name: `Cluster ${m}`, color: EXTRA_COLORS[idx] };
+function clusterColor(mc) {
+  if (CLUSTER_MAP[mc]) return CLUSTER_MAP[mc].color;
+  const idx = Object.keys(CLUSTER_MAP).length + (parseInt(mc) % FALLBACK_COLORS.length);
+  return FALLBACK_COLORS[idx % FALLBACK_COLORS.length];
+}
+function clusterName(mc) {
+  return CLUSTER_MAP[mc] ? CLUSTER_MAP[mc].name : 'Cluster ' + mc;
+}
+
+const WEIGHT_THRESHOLD = 8;
+const TOP_LABELS = 60;
+const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
+
+// ═══════════════════════════════════════════════════════
+// STAR FIELD
+// ═══════════════════════════════════════════════════════
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function init() {
+    stars = [];
+    for (let i = 0; i < 260; i++) {
+      stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 0.8, a: 0.03 + Math.random() * 0.3 });
+    }
   }
-  return _autoCluster[m];
-}
-
-// ── Estado ────────────────────────────────────────────────
-let graph, renderer, camera;
-let hoveredNode = null, selectedNode = null, highlightedCluster = null;
-let hullCanvas, hullCtx, clusterNodes = {};
-
-// ── Utilitários ───────────────────────────────────────────
-function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-function hexToRgb(h) { return { r:parseInt(h.slice(1,3),16), g:parseInt(h.slice(3,5),16), b:parseInt(h.slice(5,7),16) }; }
-
-// ── Parse GEXF ────────────────────────────────────────────
-async function loadAndBuild() {
-  const res = await fetch(GEXF_FILE);
-  if (!res.ok) throw new Error('Não foi possível carregar ' + GEXF_FILE);
-  const txt = await res.text();
-  const xml = new DOMParser().parseFromString(txt, 'application/xml');
-  buildGraph(xml);
-}
-
-function buildGraph(xml) {
-  graph = new graphology.Graph({ multi:false, type:'undirected' });
-
-  // 1. Ler todos os nós em mapa
-  const rawMap = new Map();
-  xml.querySelectorAll('nodes > node').forEach(n => {
-    const pos = n.querySelector('position');
-    const col = n.querySelector('color');
-    const siz = n.querySelector('size');
-    let mc=0, cit=0, str=0;
-    n.querySelectorAll('attvalue').forEach(a => {
-      switch(a.getAttribute('for')) {
-        case 'modularity_class':          mc  = +a.getAttribute('value'); break;
-        case 'weight<citations>':         cit = +a.getAttribute('value'); break;
-        case 'weight<total_link_strength>': str = +a.getAttribute('value'); break;
-      }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + s.a + ')';
+      ctx.fill();
     });
-    rawMap.set(n.getAttribute('id'), {
-      id: n.getAttribute('id'),
-      lb: n.getAttribute('label') || n.getAttribute('id'),
-      x:  pos ? +pos.getAttribute('x') : 0,
-      y:  pos ? +pos.getAttribute('y') : 0,
-      sz: siz ? +siz.getAttribute('value') : 5,
-      r:  col ? +col.getAttribute('r') : 128,
-      g:  col ? +col.getAttribute('g') : 128,
-      b:  col ? +col.getAttribute('b') : 128,
-      mc, cit, str
-    });
+  }
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; draw(); }
+  init(); resize();
+  window.addEventListener('resize', resize);
+})();
+
+// ═══════════════════════════════════════════════════════
+// GEXF PARSER
+// ═══════════════════════════════════════════════════════
+function parseGEXF(xmlText) {
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(xmlText, 'text/xml');
+
+  let modAttrId = null;
+  xml.querySelectorAll('attributes attribute').forEach(a => {
+    const title = (a.getAttribute('title') || '').toLowerCase();
+    if (title.includes('modularity') || title.includes('community') || title.includes('cluster')) {
+      modAttrId = a.getAttribute('id');
+    }
   });
 
-  // 2. Filtrar arestas por peso e contar grau de cada nó
-  const MIN_DEGREE = 2;
-  const candidateEdges = [];
-  const degree = new Map();
-  xml.querySelectorAll('edges > edge').forEach(e => {
-    const w = +(e.getAttribute('weight') || 1);
-    if (w < WEIGHT_MIN) return;
-    const s = e.getAttribute('source'), t = e.getAttribute('target');
-    if (s === t || !rawMap.has(s) || !rawMap.has(t)) return;
-    candidateEdges.push({ s, t, w });
-    degree.set(s, (degree.get(s)||0) + 1);
-    degree.set(t, (degree.get(t)||0) + 1);
+  const nodes = [];
+  xml.querySelectorAll('graph > nodes > node').forEach(n => {
+    const id = n.getAttribute('id');
+    const label = n.getAttribute('label') || id;
+    const colorEl = n.querySelector('color');
+    let color = null;
+    if (colorEl) {
+      color = 'rgb(' + (colorEl.getAttribute('r')||180) + ',' + (colorEl.getAttribute('g')||180) + ',' + (colorEl.getAttribute('b')||180) + ')';
+    }
+    const posEl = n.querySelector('position');
+    let px = null, py = null;
+    if (posEl) { px = parseFloat(posEl.getAttribute('x')||0); py = parseFloat(posEl.getAttribute('y')||0); }
+
+    let modClass = null;
+    n.querySelectorAll('attvalue').forEach(av => {
+      const forKey = av.getAttribute('for') || av.getAttribute('id') || '';
+      if (modAttrId !== null && forKey === modAttrId) modClass = av.getAttribute('value');
+    });
+    if (modClass === null) {
+      n.querySelectorAll('attvalue').forEach(av => {
+        const k = (av.getAttribute('for') || av.getAttribute('id') || '').toLowerCase();
+        if (k.includes('modularity') || k.includes('community') || k.includes('cluster')) modClass = av.getAttribute('value');
+      });
+    }
+    nodes.push({ id, label, color, px, py, modClass: modClass !== null ? String(modClass) : '0' });
   });
 
-  // Manter só nós com grau >= MIN_DEGREE
+  const edges = [];
+  xml.querySelectorAll('graph > edges > edge').forEach(e => {
+    edges.push({ source: e.getAttribute('source'), target: e.getAttribute('target'), weight: parseFloat(e.getAttribute('weight')||1) });
+  });
+
+  return { nodes, edges };
+}
+
+// ═══════════════════════════════════════════════════════
+// GRAPH PROCESSING
+// ═══════════════════════════════════════════════════════
+function processGraph(rawNodes, rawEdges) {
+  const filteredEdges = rawEdges.filter(e => e.weight >= WEIGHT_THRESHOLD);
+  const nodeMap = new Map(rawNodes.map(n => [n.id, n]));
   const connectedIds = new Set();
-  degree.forEach((deg, id) => { if (deg >= MIN_DEGREE) connectedIds.add(id); });
-
-  // Manter só arestas onde ambos os endpoints sobrevivem
-  const validEdges = candidateEdges.filter(({s,t}) => connectedIds.has(s) && connectedIds.has(t));
-
-  // 3. Calcular centro e escala dinâmica a partir dos nós conectados
-  let sumX=0, sumY=0, minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
-  connectedIds.forEach(id => {
-    const n=rawMap.get(id);
-    sumX+=n.x; sumY+=n.y;
-    if(n.x<minX)minX=n.x; if(n.x>maxX)maxX=n.x;
-    if(n.y<minY)minY=n.y; if(n.y>maxY)maxY=n.y;
+  filteredEdges.forEach(e => {
+    if (nodeMap.has(e.source) && nodeMap.has(e.target)) { connectedIds.add(e.source); connectedIds.add(e.target); }
   });
-  const cx = sumX/connectedIds.size, cy = sumY/connectedIds.size;
-  // Escala para caber em ±10 unidades Sigma
-  const range = Math.max(maxX-minX, maxY-minY) || 1;
-  const COORD_SCALE = 20 / range;
+  const filteredNodes = rawNodes.filter(n => connectedIds.has(n.id));
 
-  // 4. Adicionar todos os nós conectados (sem filtro de distância)
-  const keptIds = connectedIds;
+  // Componente gigante
+  const parent = new Map(filteredNodes.map(n => [n.id, n.id]));
+  function find(x) { if (parent.get(x) !== x) parent.set(x, find(parent.get(x))); return parent.get(x); }
+  function union(a, b) { parent.set(find(a), find(b)); }
+  filteredEdges.forEach(e => { if (connectedIds.has(e.source) && connectedIds.has(e.target)) union(e.source, e.target); });
 
-  connectedIds.forEach(id => {
-    const n = rawMap.get(id);
-    const ci = clusterInfo(n.mc);
-    graph.addNode(n.id, {
-      label: n.lb,
-      x: (n.x-cx)*COORD_SCALE,
-      y: -(n.y-cy)*COORD_SCALE,
-      size: clamp(n.sz*NODE_SCALE, 3, 22),
-      color: `rgb(${n.r},${n.g},${n.b})`,
-      clusterColor: ci.color,
-      clusterName:  ci.name,
-      modClass: n.mc, cit: n.cit, str: n.str,
+  const compSize = new Map();
+  filteredNodes.forEach(n => { const root = find(n.id); compSize.set(root, (compSize.get(root)||0)+1); });
+  let giantRoot = null, giantSize = 0;
+  compSize.forEach((sz, root) => { if (sz > giantSize) { giantSize = sz; giantRoot = root; } });
+
+  const giantNodes = filteredNodes.filter(n => find(n.id) === giantRoot);
+  const giantIds = new Set(giantNodes.map(n => n.id));
+  const giantEdges = filteredEdges.filter(e => giantIds.has(e.source) && giantIds.has(e.target));
+
+  const degMap = new Map(giantNodes.map(n => [n.id, 0]));
+  giantEdges.forEach(e => { degMap.set(e.source, (degMap.get(e.source)||0)+1); degMap.set(e.target, (degMap.get(e.target)||0)+1); });
+  const maxDeg = Math.max(...degMap.values(), 1);
+
+  giantNodes.forEach(n => {
+    n.degree = degMap.get(n.id) || 0;
+    n.size = 3 + Math.pow(n.degree / maxDeg, 0.55) * 18;
+    n.clusterColor = clusterColor(n.modClass);
+    n.clusterName  = clusterName(n.modClass);
+    if (!n.color) n.color = n.clusterColor;
+  });
+
+  return { nodes: giantNodes, edges: giantEdges };
+}
+
+// ═══════════════════════════════════════════════════════
+// VIZ STATE
+// ═══════════════════════════════════════════════════════
+let simulation = null, zoomInstance = null;
+let currentNodes = [], currentEdges = [], neighborMap = new Map();
+let highlightNode = null, highlightCluster = null;
+
+function buildNeighborMap(nodes, edges) {
+  const map = new Map(nodes.map(n => [n.id, new Set()]));
+  edges.forEach(e => { if (map.has(e.source)) map.get(e.source).add(e.target); if (map.has(e.target)) map.get(e.target).add(e.source); });
+  return map;
+}
+
+function hexToRgb(hex) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return m ? { r:parseInt(m[1],16), g:parseInt(m[2],16), b:parseInt(m[3],16) } : { r:120, g:120, b:180 };
+}
+
+function edgeColorStr(e, nodeById) {
+  const src = nodeById.get(typeof e.source==='object'?e.source.id:e.source);
+  const tgt = nodeById.get(typeof e.target==='object'?e.target.id:e.target);
+  if (src && tgt && src.modClass === tgt.modClass) {
+    const c = hexToRgb(src.clusterColor);
+    return 'rgb('+Math.round(c.r*.3+20)+','+Math.round(c.g*.3+20)+','+Math.round(c.b*.3+20)+')';
+  }
+  return '#1e1e30';
+}
+
+function isSameCluster(e, nodeById) {
+  const src = nodeById.get(typeof e.source==='object'?e.source.id:e.source);
+  const tgt = nodeById.get(typeof e.target==='object'?e.target.id:e.target);
+  return !!(src && tgt && src.modClass === tgt.modClass);
+}
+
+// ═══════════════════════════════════════════════════════
+// BUILD VISUALIZATION
+// ═══════════════════════════════════════════════════════
+function buildVisualization(graphData) {
+  const { nodes, edges } = graphData;
+  currentNodes = nodes; currentEdges = edges;
+  neighborMap = buildNeighborMap(nodes, edges);
+  const nodeById = new Map(nodes.map(n => [n.id, n]));
+  const svg = d3.select('#viz-svg');
+  const canvasArea = document.getElementById('canvas-area');
+  const W = canvasArea.clientWidth, H = canvasArea.clientHeight;
+
+  const validX = nodes.map(n=>n.px).filter(v=>v!==null&&!isNaN(v));
+  const validY = nodes.map(n=>n.py).filter(v=>v!==null&&!isNaN(v));
+  const hasPos = validX.length > 0 && validY.length > 0;
+  let scaleX, scaleY;
+  if (hasPos) {
+    scaleX = d3.scaleLinear().domain([d3.min(validX), d3.max(validX)]).range([W*.1, W*.9]);
+    scaleY = d3.scaleLinear().domain([d3.min(validY), d3.max(validY)]).range([H*.9, H*.1]);
+  }
+  nodes.forEach(n => {
+    n.x = (hasPos&&n.px!==null&&!isNaN(n.px)) ? scaleX(n.px) : W/2+(Math.random()-.5)*W*.8;
+    n.fx_anchor = n.x;
+    n.y = (hasPos&&n.py!==null&&!isNaN(n.py)) ? scaleY(n.py) : H/2+(Math.random()-.5)*H*.8;
+    n.fy_anchor = n.y;
+  });
+
+  zoomInstance = d3.zoom().scaleExtent([0.08, 8]).on('zoom', event => {
+    d3.select('#zoom-group').attr('transform', event.transform);
+    updateClusterLabelVisibility(event.transform.k);
+  });
+  svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
+
+  const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
+    .attr('stroke', e => edgeColorStr(e, nodeById))
+    .attr('stroke-opacity', e => isSameCluster(e, nodeById) ? 0.45 : 0.18)
+    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4);
+
+  const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
+    .attr('class','node-g').style('cursor','pointer');
+
+  nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
+    .attr('r', d=>d.size*1.8).attr('fill', d=>d.clusterColor)
+    .style('opacity', d=>0.08+(d.size-8)/21*.18).style('filter','blur(8px)').style('pointer-events','none');
+
+  nodeG.append('circle').attr('class','node-circle')
+    .attr('r', d=>d.size).attr('fill', d=>d.color||d.clusterColor)
+    .attr('filter', d=>d.size>8?'url(#node-glow)':null)
+    .attr('stroke', d=>d.clusterColor).attr('stroke-width',0.5).attr('stroke-opacity',0.4);
+
+  nodeG
+    .on('mouseenter', (event,d) => { if (highlightNode&&highlightNode.id===d.id) return; showTooltip(event,d); if (!highlightNode) applyHover(d); })
+    .on('mousemove', event => positionTooltip(event))
+    .on('mouseleave', () => { hideTooltip(); if (!highlightNode) clearHover(); })
+    .on('click', (event,d) => { event.stopPropagation(); selectNode(d); })
+    .call(d3.drag()
+      .on('start', (event,d) => { if (!event.active) simulation.alphaTarget(0.1).restart(); d.fx=d.x; d.fy=d.y; })
+      .on('drag', (event,d) => { d.fx=event.x; d.fy=event.y; })
+      .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0.003); d.fx=null; d.fy=null; })
+    );
+
+  const topNodes = new Set([...nodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id));
+  d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
+    .attr('class','node-label').text(d=>d.label)
+    .attr('text-anchor','middle').attr('font-family',"'Space Grotesk', sans-serif")
+    .attr('font-size','11px').attr('font-weight','500').attr('fill','#e8e8f0')
+    .attr('paint-order','stroke').attr('stroke','rgba(0,0,0,0.8)').attr('stroke-width','3px')
+    .style('pointer-events','none').style('display', d=>topNodes.has(d.id)?null:'none');
+
+  renderClusterLabels(nodes);
+  renderHulls(nodes);
+
+  simulation = d3.forceSimulation(nodes).alphaDecay(0.025)
+    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.7))
+    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.35))
+    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.35))
+    .on('tick', tick);
+
+  setTimeout(() => { if (simulation) simulation.alphaTarget(0.003).restart(); }, 3000);
+
+  function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
+  function tick() {
+    edgeSel.attr('x1',e=>getNodeObj(e.source).x).attr('y1',e=>getNodeObj(e.source).y)
+            .attr('x2',e=>getNodeObj(e.target).x).attr('y2',e=>getNodeObj(e.target).y);
+    nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
+    d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
+    updateHulls(nodes);
+    updateClusterLabelPositions(nodes);
+  }
+
+  buildLegend(nodes);
+  document.getElementById('stats-footer').innerHTML =
+    nodes.length+' autores · '+edges.length+' co-citações<br>'+
+    '<span style="font-size:9px;opacity:.6">Arraste · Zoom · Clique para explorar</span>';
+  setTimeout(() => { const h=document.getElementById('hint'); h.classList.add('visible'); setTimeout(()=>h.classList.remove('visible'),4000); }, 1200);
+}
+
+// ═══════════════════════════════════════════════════════
+// HULLS
+// ═══════════════════════════════════════════════════════
+function getClusterMap(nodes) {
+  const map = new Map();
+  nodes.forEach(n => { if (!map.has(n.modClass)) map.set(n.modClass,[]); map.get(n.modClass).push(n); });
+  return map;
+}
+function expandHull(pts, cx, cy, amount) {
+  return pts.map(([x,y]) => { const dx=x-cx,dy=y-cy,d=Math.sqrt(dx*dx+dy*dy)||1; return [x+(dx/d)*amount, y+(dy/d)*amount]; });
+}
+const lineGen = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5));
+
+function renderHulls(nodes) {
+  const clusterMap = getClusterMap(nodes);
+  const hullData = [];
+  clusterMap.forEach((clNodes,mc) => hullData.push({mc,clNodes}));
+  d3.select('#hulls-layer').selectAll('.hull-path').data(hullData, d=>d.mc).join('path').attr('class','hull-path')
+    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.08)
+    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.28).attr('stroke-width',1.5)
+    .style('pointer-events','none');
+  updateHulls(nodes);
+}
+function updateHulls(nodes) {
+  const clusterMap = getClusterMap(nodes);
+  d3.select('#hulls-layer').selectAll('.hull-path').each(function(d) {
+    const clNodes = clusterMap.get(d.mc)||[];
+    const pts = clNodes.map(n=>[n.x,n.y]);
+    let pathD='';
+    if (pts.length===0) { pathD=''; }
+    else if (pts.length===1) { const [px,py]=pts[0],r=30; pathD='M'+px+','+(py-r)+' A'+r+','+r+',0,1,1,'+(px-0.01)+','+(py-r)+' Z'; }
+    else if (pts.length===2) {
+      const [ax,ay]=pts[0],[bx,by]=pts[1],len=Math.sqrt((bx-ax)**2+(by-ay)**2)||1;
+      const nx=-(by-ay)/len*28,ny=(bx-ax)/len*28;
+      pathD=lineGen([[ax+nx,ay+ny],[bx+nx,by+ny],[bx-nx,by-ny],[ax-nx,ay-ny]]);
+    } else {
+      const hull=d3.polygonHull(pts);
+      if (hull) { const cx=d3.mean(hull,p=>p[0]),cy=d3.mean(hull,p=>p[1]); pathD=lineGen(expandHull(hull,cx,cy,28)); }
+    }
+    d3.select(this).attr('d',pathD);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// CLUSTER LABELS
+// ═══════════════════════════════════════════════════════
+function clusterCentroid(clNodes) { return { x:d3.mean(clNodes,n=>n.x), y:d3.mean(clNodes,n=>n.y) }; }
+
+function renderClusterLabels(nodes) {
+  const clusterMap = getClusterMap(nodes);
+  const allCx=[],allCy=[];
+  clusterMap.forEach(cn => { const c=clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
+  const gcx=d3.mean(allCx), gcy=d3.mean(allCy);
+  const badgeData=[];
+  clusterMap.forEach((clNodes,mc) => {
+    const c=clusterCentroid(clNodes);
+    const dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
+    const pf=dist<150?2.5:1.8;
+    badgeData.push({ mc, clNodes, bx:c.x+(dx/dist)*dist*(pf-1), by:c.y+(dy/dist)*dist*(pf-1), color:clusterColor(mc), name:clusterName(mc).toUpperCase() });
+  });
+  const layer=d3.select('#cluster-labels-layer');
+  const groups=layer.selectAll('.cluster-badge').data(badgeData,d=>d.mc).join('g').attr('class','cluster-badge').style('pointer-events','none');
+  groups.append('rect').attr('class','badge-rect').attr('fill',d=>d.color).attr('fill-opacity',0.13)
+    .attr('stroke',d=>d.color).attr('stroke-opacity',0.3).attr('stroke-width',1).attr('rx',9).attr('ry',9);
+  groups.append('text').attr('class','badge-text').attr('text-anchor','middle').attr('dominant-baseline','middle')
+    .attr('font-family',"'Space Grotesk', sans-serif").attr('font-size','9px').attr('font-weight','600')
+    .attr('letter-spacing','0.1em').attr('fill',d=>d.color).text(d=>d.name);
+  setTimeout(() => {
+    layer.selectAll('.cluster-badge').each(function() {
+      const g=d3.select(this),textEl=g.select('.badge-text').node();
+      if (!textEl) return;
+      try { const bb=textEl.getBBox(); g.select('.badge-rect').attr('x',-bb.width/2-10).attr('y',-bb.height/2-5).attr('width',bb.width+20).attr('height',bb.height+10); } catch(e) {}
     });
-    if (!clusterNodes[n.mc]) clusterNodes[n.mc] = [];
-    clusterNodes[n.mc].push(n.id);
-  });
-
-  // 5. Adicionar arestas (deduplicar, só entre nós mantidos)
-  const seen = new Set();
-  let eCount = 0;
-  validEdges.forEach(({ s, t, w }) => {
-    if (!keptIds.has(s) || !keptIds.has(t)) return;
-    const key = s < t ? `${s}|${t}` : `${t}|${s}`;
-    if (seen.has(key)) return;
-    seen.add(key);
-    graph.addEdge(s, t, { weight:w, hidden:true });
-    eCount++;
-  });
-
-  document.getElementById('stat-nodes').textContent    = graph.order;
-  document.getElementById('stat-edges').textContent    = eCount;
-  document.getElementById('stat-clusters').textContent = Object.keys(CLUSTERS).filter(k=>clusterNodes[k]).length;
+  }, 200);
+  updateClusterLabelPositions(nodes);
 }
 
-// ── Legenda ───────────────────────────────────────────────
-function buildLegend() {
-  const el = document.getElementById('legend');
-  el.innerHTML = '';
-  Object.entries(CLUSTERS).forEach(([cls, info]) => {
-    if (!clusterNodes[cls]?.length) return;
-    const item = document.createElement('div');
-    item.className = 'legend-item';
-    item.dataset.cls = cls;
-    item.innerHTML = `<div class="legend-dot" style="background:${info.color}"></div><div class="legend-label">${info.name}</div>`;
-    item.addEventListener('click', () => toggleCluster(+cls));
-    el.appendChild(item);
+function updateClusterLabelPositions(nodes) {
+  const clusterMap=getClusterMap(nodes);
+  const allCx=[],allCy=[];
+  clusterMap.forEach(cn=>{ const c=clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
+  const gcx=d3.mean(allCx),gcy=d3.mean(allCy);
+  d3.select('#cluster-labels-layer').selectAll('.cluster-badge').each(function(d) {
+    const clNodes=clusterMap.get(d.mc);
+    if (!clNodes||!clNodes.length) return;
+    const c=clusterCentroid(clNodes),dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
+    const pf=dist<150?2.5:1.8;
+    d3.select(this).attr('transform','translate('+(c.x+(dx/dist)*dist*(pf-1))+','+(c.y+(dy/dist)*dist*(pf-1))+')');
+  });
+}
+function updateClusterLabelVisibility(k) {
+  d3.select('#cluster-labels-layer').style('opacity',(k<0.15||k>2)?0:1).style('transition','opacity 0.3s');
+}
+
+// ═══════════════════════════════════════════════════════
+// LEGEND
+// ═══════════════════════════════════════════════════════
+function buildLegend(nodes) {
+  const clusterMap=getClusterMap(nodes);
+  const legendEl=document.getElementById('cluster-legend');
+  legendEl.innerHTML='';
+  const entries=[];
+  clusterMap.forEach((clNodes,mc) => entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)}));
+  entries.sort((a,b)=>b.count-a.count);
+  entries.forEach(e => {
+    const item=document.createElement('div');
+    item.className='legend-item'; item.dataset.mc=e.mc;
+    item.innerHTML='<div class="legend-dot" style="background:'+e.color+';box-shadow:0 0 5px '+e.color+'55"></div>'+
+      '<div class="legend-name">'+e.name+'</div><div class="legend-count">'+String(e.count).padStart(3,'0')+'</div>';
+    item.addEventListener('click', ()=>selectCluster(e.mc));
+    legendEl.appendChild(item);
   });
 }
 
-// ── Sigma ─────────────────────────────────────────────────
-function initSigma() {
-  renderer = new Sigma(graph, document.getElementById('sigma-container'), {
-    renderEdgeLabels: false,
-    labelFont: 'Inter,system-ui,sans-serif',
-    labelSize: 11,
-    labelWeight: '500',
-    labelColor: { color:'#dde' },
-    minCameraRatio: 0.04,
-    maxCameraRatio: 6,
+// ═══════════════════════════════════════════════════════
+// HIGHLIGHT / SELECT
+// ═══════════════════════════════════════════════════════
+function getTopNodes() { return new Set([...currentNodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id)); }
 
-    nodeReducer: (node, data) => {
-      const res = { ...data };
-      const active = hoveredNode ?? selectedNode;
-      if (active !== null) {
-        if (node === active) { res.highlighted=true; res.size=data.size*1.4; }
-        else if (graph.neighbors(active).includes(node)) { /* normal */ }
-        else { res.color='rgba(60,60,80,0.3)'; res.label=''; }
-      } else if (highlightedCluster !== null) {
-        if (data.modClass !== highlightedCluster) { res.color='rgba(60,60,80,0.25)'; res.label=''; res.size=data.size*0.7; }
-      }
-      return res;
-    },
-
-    edgeReducer: (edge, data) => {
-      const res = { ...data };
-      const [s, t] = graph.extremities(edge);
-      const active = hoveredNode ?? selectedNode;
-
-      if (active !== null) {
-        if (s===active || t===active) {
-          const { r,g,b } = hexToRgb(graph.getNodeAttribute(s,'clusterColor'));
-          res.hidden = false;
-          res.color  = `rgba(${r},${g},${b},0.6)`;
-          res.size   = clamp(data.weight/12, 0.4, 2.5);
-        } else { res.hidden=true; }
-        return res;
-      }
-
-      if (highlightedCluster !== null) {
-        const sm = graph.getNodeAttribute(s,'modClass');
-        const tm = graph.getNodeAttribute(t,'modClass');
-        if (sm===highlightedCluster && tm===highlightedCluster) {
-          const { r,g,b } = hexToRgb(CLUSTERS[highlightedCluster]?.color||'#888888');
-          res.hidden=false; res.color=`rgba(${r},${g},${b},0.35)`; res.size=0.5;
-        } else { res.hidden=true; }
-        return res;
-      }
-
-      res.hidden = true;
-      return res;
-    },
+function applyHover(d) {
+  const neighbors=neighborMap.get(d.id)||new Set();
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.id===d.id||neighbors.has(n.id)?1:0.08);
+  d3.select('#edges-layer').selectAll('.edge').style('opacity', e => {
+    const srcId=typeof e.source==='object'?e.source.id:e.source;
+    const tgtId=typeof e.target==='object'?e.target.id:e.target;
+    return (srcId===d.id||tgtId===d.id)?1:0.03;
   });
-
-  camera = renderer.getCamera();
-
-  renderer.on('enterNode', ({node}) => { hoveredNode=node; showTooltip(node); renderer.refresh(); drawHulls(); });
-  renderer.on('leaveNode', ()       => { hoveredNode=null; hideTooltip(); renderer.refresh(); drawHulls(); });
-  renderer.on('clickNode', ({node}) => {
-    selectedNode = selectedNode===node ? null : node;
-    if (selectedNode) showNodePanel(node); else closeNodePanel();
-    renderer.refresh();
+  d3.select('#labels-layer').selectAll('.node-label').style('display', n=>(n.id===d.id||neighbors.has(n.id))?null:'none');
+}
+function clearHover() {
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity',null);
+  d3.select('#edges-layer').selectAll('.edge').style('opacity',null);
+  const top=getTopNodes();
+  d3.select('#labels-layer').selectAll('.node-label').style('display', d=>top.has(d.id)?null:'none');
+}
+function selectNode(d) {
+  highlightNode=d; highlightCluster=null;
+  applyHover(d); showRipple(d); showNodeCard(d);
+  document.getElementById('btn-reset').style.display='block';
+  document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
+  const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.5;
+  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k));
+}
+function selectCluster(mc) {
+  highlightCluster=mc; highlightNode=null; hideNodeCard();
+  const clIds=new Set(currentNodes.filter(n=>n.modClass===mc).map(n=>n.id));
+  const clNodes=currentNodes.filter(n=>n.modClass===mc);
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>clIds.has(n.id)?1:0.06);
+  d3.select('#edges-layer').selectAll('.edge').style('opacity', e => {
+    const srcId=typeof e.source==='object'?e.source.id:e.source;
+    const tgtId=typeof e.target==='object'?e.target.id:e.target;
+    return (clIds.has(srcId)&&clIds.has(tgtId))?0.6:0.03;
   });
-  renderer.on('clickStage', () => {
-    selectedNode=null; highlightedCluster=null;
-    closeNodePanel();
-    document.querySelectorAll('.legend-item').forEach(e=>e.classList.remove('active'));
-    renderer.refresh(); drawHulls();
-  });
-  renderer.on('afterRender', drawHulls);
+  d3.select('#hulls-layer').selectAll('.hull-path')
+    .attr('fill-opacity', d=>d.mc===mc?0.18:0.03).attr('stroke-opacity', d=>d.mc===mc?0.6:0.08);
+  const top=getTopNodes();
+  d3.select('#labels-layer').selectAll('.node-label').style('display', d=>clIds.has(d.id)&&top.has(d.id)?null:'none');
+  document.querySelectorAll('.legend-item').forEach(el=>el.classList.toggle('active',el.dataset.mc===mc));
+  document.getElementById('btn-reset').style.display='block';
+  const cx=d3.mean(clNodes,n=>n.x), cy=d3.mean(clNodes,n=>n.y);
+  const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight;
+  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-1.4*cx, H/2-1.4*cy).scale(1.4));
+}
+function resetHighlight() {
+  highlightNode=null; highlightCluster=null;
+  clearHover(); hideNodeCard(); hideTooltip();
+  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.08).attr('stroke-opacity',0.28);
+  document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('btn-reset').style.display='none';
+  d3.select('#viz-svg').transition().duration(700).call(zoomInstance.transform, d3.zoomIdentity);
 }
 
-// ── Tooltip ───────────────────────────────────────────────
-function showTooltip(node) {
-  const d = graph.getNodeAttributes(node);
-  document.getElementById('tooltip').innerHTML = `
-    <strong>${d.label}</strong>
-    <div class="tt-row">Cluster <span class="tt-val">${d.clusterName}</span></div>
-    <div class="tt-row">Citações <span class="tt-val">${Math.round(d.cit)}</span></div>
-    <div class="tt-row">Conexões <span class="tt-val">${graph.degree(node)}</span></div>`;
-  document.getElementById('tooltip').style.display = 'block';
+// ═══════════════════════════════════════════════════════
+// RIPPLE / TOOLTIP / NODE CARD
+// ═══════════════════════════════════════════════════════
+function showRipple(d) {
+  const ripple=d3.select('#ripples-layer').append('circle')
+    .attr('cx',d.x).attr('cy',d.y).attr('r',d.size).attr('fill','none')
+    .attr('stroke',d.clusterColor).attr('stroke-width',2).attr('opacity',0.8);
+  ripple.transition().duration(800).ease(d3.easeCubicOut).attr('r',40).attr('opacity',0).remove();
 }
-function hideTooltip() { document.getElementById('tooltip').style.display='none'; }
-document.addEventListener('mousemove', e => {
-  const tip = document.getElementById('tooltip');
-  if (tip.style.display==='none') return;
-  tip.style.left = Math.min(e.clientX+16, window.innerWidth-220)+'px';
-  tip.style.top  = Math.min(e.clientY-10, window.innerHeight-150)+'px';
+function showTooltip(event,d) {
+  document.getElementById('tt-name').textContent=d.label;
+  document.getElementById('tt-cluster').textContent=d.clusterName;
+  document.getElementById('tt-degree').textContent=d.degree+' co-citações';
+  document.getElementById('tooltip').classList.add('visible');
+  positionTooltip(event);
+}
+function positionTooltip(event) {
+  const tt=document.getElementById('tooltip');
+  tt.style.left=Math.min(event.clientX+14, window.innerWidth-tt.offsetWidth-8)+'px';
+  tt.style.top=Math.min(event.clientY-10, window.innerHeight-tt.offsetHeight-8)+'px';
+}
+function hideTooltip() { document.getElementById('tooltip').classList.remove('visible'); }
+
+function showNodeCard(d) {
+  document.getElementById('node-card').style.display='block';
+  const color=d.clusterColor;
+  const tag=document.getElementById('card-tag');
+  tag.textContent=d.clusterName; tag.style.background=color+'22'; tag.style.color=color; tag.style.border='1px solid '+color+'44';
+  document.getElementById('card-name').textContent=d.label;
+  document.getElementById('card-degree').textContent=d.degree;
+  document.getElementById('card-pct').textContent=((d.degree/Math.max(currentEdges.length,1))*100).toFixed(1)+'%';
+  const nbIds=[...(neighborMap.get(d.id)||[])];
+  const topNbs=nbIds.map(id=>currentNodes.find(n=>n.id===id)).filter(Boolean).sort((a,b)=>b.degree-a.degree).slice(0,6);
+  const container=document.getElementById('card-neighbors'); container.innerHTML='';
+  topNbs.forEach(nb => {
+    const chip=document.createElement('span'); chip.className='neighbor-chip'; chip.textContent=nb.label;
+    chip.addEventListener('click',()=>selectNode(nb)); container.appendChild(chip);
+  });
+}
+function hideNodeCard() { document.getElementById('node-card').style.display='none'; }
+
+// ═══════════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════════
+function initSearch() {
+  const input=document.getElementById('search-input'), dropdown=document.getElementById('search-dropdown');
+  input.addEventListener('input', () => {
+    const q=input.value.trim().toLowerCase(); dropdown.innerHTML='';
+    if (!q) { dropdown.classList.remove('open'); return; }
+    const matches=currentNodes.filter(n=>n.label.toLowerCase().includes(q)).sort((a,b)=>b.degree-a.degree).slice(0,8);
+    if (!matches.length) { dropdown.innerHTML='<div class="search-empty">Não encontrado</div>'; }
+    else { matches.forEach(n => { const item=document.createElement('div'); item.className='search-item'; item.textContent=n.label; item.addEventListener('mousedown',ev=>{ev.preventDefault();input.value='';dropdown.classList.remove('open');selectNode(n);}); dropdown.appendChild(item); }); }
+    dropdown.classList.add('open');
+  });
+  input.addEventListener('blur',()=>setTimeout(()=>dropdown.classList.remove('open'),150));
+  input.addEventListener('focus',()=>{ if (input.value.trim()) dropdown.classList.add('open'); });
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPORT PNG
+// ═══════════════════════════════════════════════════════
+document.getElementById('btn-export').addEventListener('click', () => {
+  const svgEl=document.getElementById('viz-svg');
+  let source=new XMLSerializer().serializeToString(svgEl);
+  if (!source.includes('xmlns="http://www.w3.org/2000/svg"')) source=source.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');
+  const blob=new Blob([source],{type:'image/svg+xml;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const img=new Image();
+  img.onload=()=>{
+    const canvas=document.createElement('canvas'); canvas.width=svgEl.clientWidth*2; canvas.height=svgEl.clientHeight*2;
+    const ctx=canvas.getContext('2d'); ctx.fillStyle='#03030a'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.scale(2,2); ctx.drawImage(img,0,0); URL.revokeObjectURL(url);
+    const a=document.createElement('a'); a.download='rede-co-citacao-racismo.png'; a.href=canvas.toDataURL('image/png'); a.click();
+  };
+  img.src=url;
 });
 
-// ── Painel de nó ──────────────────────────────────────────
-function showNodePanel(node) {
-  const d = graph.getNodeAttributes(node);
-  const ci = clusterInfo(d.modClass);
-  document.getElementById('np-name').textContent = d.label;
-  document.getElementById('np-cit').textContent  = Math.round(d.cit);
-  document.getElementById('np-deg').textContent  = graph.degree(node);
-  document.getElementById('np-str').textContent  = Math.round(d.str);
-  const cl = document.getElementById('np-cluster');
-  cl.textContent = ci.name;
-  const {r,g,b} = hexToRgb(ci.color);
-  cl.style.background = `rgba(${r},${g},${b},0.18)`; cl.style.color = ci.color;
-  document.getElementById('node-panel').style.display = 'block';
-}
-function closeNodePanel() {
-  document.getElementById('node-panel').style.display='none'; selectedNode=null;
-}
+document.getElementById('btn-reset').addEventListener('click', resetHighlight);
+document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
 
-// ── Hulls (áreas de cluster) ──────────────────────────────
-function drawHulls() {
-  hullCtx.clearRect(0, 0, hullCanvas.width, hullCanvas.height);
-  Object.keys(CLUSTERS).map(Number).forEach(cls => {
-    const nodes = clusterNodes[cls];
-    if (!nodes || nodes.length < 3) return;
-    const pts = nodes.filter(n=>graph.hasNode(n))
-                     .map(n => renderer.graphToViewport(graph.getNodeAttributes(n)));
-    if (pts.length < 3) return;
-    const hull = convexHull(pts);
-    if (hull.length < 3) return;
-    const {r,g,b} = hexToRgb(CLUSTERS[cls].color);
-    let a = 0.055;
-    if (highlightedCluster !== null) a = highlightedCluster===cls ? 0.15 : 0.015;
-    if (hoveredNode !== null) {
-      const hm = graph.getNodeAttribute(hoveredNode,'modClass');
-      a = hm===cls ? 0.1 : 0.02;
+// ═══════════════════════════════════════════════════════
+// LOAD / PROCESS
+// ═══════════════════════════════════════════════════════
+function showApp() { document.getElementById('app').style.display='flex'; initSearch(); }
+
+function processAndRender(xmlText) {
+  document.getElementById('load-screen').style.display='none';
+  document.getElementById('loading-overlay').style.display='flex';
+  setTimeout(() => {
+    try {
+      const { nodes:rawNodes, edges:rawEdges } = parseGEXF(xmlText);
+      const graphData = processGraph(rawNodes, rawEdges);
+      document.getElementById('loading-overlay').style.display='none';
+      showApp();
+      setTimeout(() => buildVisualization(graphData), 60);
+    } catch(err) {
+      document.getElementById('loading-overlay').style.display='none';
+      document.getElementById('load-screen').style.display='flex';
+      showUploadFallback();
+      alert('Erro ao processar o GEXF: '+err.message);
+      console.error(err);
     }
-    hullCtx.beginPath();
-    drawSmooth(hull, 32);
-    hullCtx.fillStyle   = `rgba(${r},${g},${b},${a})`;
-    hullCtx.strokeStyle = `rgba(${r},${g},${b},${a*2})`;
-    hullCtx.lineWidth   = 1.5;
-    hullCtx.fill(); hullCtx.stroke();
-  });
+  }, 120);
 }
 
-function convexHull(pts) {
-  const p = [...pts].sort((a,b)=>a.x-b.x||a.y-b.y);
-  const cross=(O,A,B)=>(A.x-O.x)*(B.y-O.y)-(A.y-O.y)*(B.x-O.x);
-  const lo=[], hi=[];
-  for (const q of p) { while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],q)<=0)lo.pop(); lo.push(q); }
-  for (let i=p.length-1;i>=0;i--) { const q=p[i]; while(hi.length>=2&&cross(hi[hi.length-2],hi[hi.length-1],q)<=0)hi.pop(); hi.push(q); }
-  hi.pop(); lo.pop(); return lo.concat(hi);
+function showUploadFallback() {
+  document.getElementById('splash-loading').style.display='none';
+  document.getElementById('splash-upload').style.display='flex';
 }
 
-function drawSmooth(pts, pad) {
-  const cx=pts.reduce((s,p)=>s+p.x,0)/pts.length;
-  const cy=pts.reduce((s,p)=>s+p.y,0)/pts.length;
-  const exp=pts.map(p=>{const d=Math.hypot(p.x-cx,p.y-cy)||1;return{x:p.x+(p.x-cx)/d*pad,y:p.y+(p.y-cy)/d*pad};});
-  hullCtx.moveTo((exp[0].x+exp[exp.length-1].x)/2,(exp[0].y+exp[exp.length-1].y)/2);
-  exp.forEach((p,i)=>{const q=exp[(i+1)%exp.length];hullCtx.quadraticCurveTo(p.x,p.y,(p.x+q.x)/2,(p.y+q.y)/2);});
-  hullCtx.closePath();
-}
+const dropZone=document.getElementById('drop-zone'), fileInput=document.getElementById('file-input');
+document.getElementById('browse-link').addEventListener('click',()=>fileInput.click());
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f)loadFile(f);});
+fileInput.addEventListener('change',()=>{if(fileInput.files[0])loadFile(fileInput.files[0]);});
+function loadFile(file) { const r=new FileReader(); r.onload=e=>processAndRender(e.target.result); r.readAsText(file,'UTF-8'); }
 
-// ── Busca ─────────────────────────────────────────────────
-function setupSearch() {
-  const inp  = document.getElementById('search');
-  const sugg = document.getElementById('suggestions');
-  let idx = -1;
-  inp.addEventListener('input', () => {
-    const q = inp.value.toLowerCase().trim();
-    sugg.innerHTML=''; idx=-1;
-    if (!q) { sugg.style.display='none'; return; }
-    const m = graph.nodes().filter(n=>graph.getNodeAttribute(n,'label').toLowerCase().includes(q)).slice(0,8);
-    if (!m.length) { sugg.style.display='none'; return; }
-    m.forEach(n=>{
-      const d=document.createElement('div'); d.className='suggestion';
-      d.textContent=graph.getNodeAttribute(n,'label');
-      d.onclick=()=>{ focusNode(n); sugg.style.display='none'; inp.value=''; };
-      sugg.appendChild(d);
-    });
-    sugg.style.display='block';
-  });
-  inp.addEventListener('keydown', e=>{
-    const items=sugg.querySelectorAll('.suggestion');
-    if (e.key==='ArrowDown') idx=Math.min(idx+1,items.length-1);
-    else if (e.key==='ArrowUp') idx=Math.max(idx-1,0);
-    else if (e.key==='Enter'&&idx>=0){items[idx].click();return;}
-    else if (e.key==='Escape'){sugg.style.display='none';return;}
-    items.forEach((el,i)=>el.classList.toggle('active',i===idx));
-  });
-  document.addEventListener('click', e=>{ if(!inp.contains(e.target)&&!sugg.contains(e.target)) sugg.style.display='none'; });
-}
-
-function focusNode(node) {
-  const a = graph.getNodeAttributes(node);
-  camera.animate({x:a.x, y:a.y, ratio:0.3}, {duration:500});
-  selectedNode=node; showNodePanel(node); renderer.refresh();
-}
-
-// ── Cluster highlight ─────────────────────────────────────
-function toggleCluster(cls) {
-  highlightedCluster = highlightedCluster===cls ? null : cls;
-  document.querySelectorAll('.legend-item').forEach(el=>el.classList.toggle('active', +el.dataset.cls===cls && highlightedCluster!==null));
-  renderer.refresh(); drawHulls();
-}
-
-// ── Controles ─────────────────────────────────────────────
-function togglePanel() {
-  const p=document.getElementById('panel');
-  p.classList.toggle('collapsed');
-  document.getElementById('panel-toggle').textContent = p.classList.contains('collapsed')?'▼':'▲';
-}
-function resetView() {
-  hoveredNode=null; selectedNode=null; highlightedCluster=null;
-  closeNodePanel();
-  document.querySelectorAll('.legend-item').forEach(e=>e.classList.remove('active'));
-  camera.animate({x:0,y:0,ratio:1},{duration:500});
-  renderer.refresh(); drawHulls();
-}
-function exportPNG() {
-  const layers=renderer.getCanvases();
-  const w=hullCanvas.width, h=hullCanvas.height;
-  const out=document.createElement('canvas'); out.width=w; out.height=h;
-  const ctx=out.getContext('2d');
-  ctx.fillStyle='#0a0a18'; ctx.fillRect(0,0,w,h);
-  ctx.drawImage(hullCanvas,0,0);
-  Object.values(layers).forEach(c=>{try{ctx.drawImage(c,0,0);}catch(e){}});
-  const a=document.createElement('a'); a.download='rede_racismo_wos.png'; a.href=out.toDataURL(); a.click();
-}
-
-// ── Hull canvas resize ────────────────────────────────────
-function resizeHull() { hullCanvas.width=window.innerWidth; hullCanvas.height=window.innerHeight; drawHulls(); }
-
-// ── Init ──────────────────────────────────────────────────
-async function init() {
-  hullCanvas = document.getElementById('hull-canvas');
-  hullCtx    = hullCanvas.getContext('2d');
-  resizeHull();
-  window.addEventListener('resize', resizeHull);
-
-  try {
-    await loadAndBuild();
-    buildLegend();
-    initSigma();
-    setupSearch();
-    setTimeout(()=>{
-      const ld=document.getElementById('loading');
-      ld.style.transition='opacity 0.5s'; ld.style.opacity='0';
-      setTimeout(()=>ld.style.display='none', 500);
-    }, 300);
-  } catch(err) {
-    document.getElementById('loading').innerHTML=`
-      <div class="ld-title" style="color:#ff6b6b">Erro ao carregar</div>
-      <div class="ld-sub">${err.message}</div>
-      <div class="ld-sub" style="margin-top:8px;font-size:10px">Arquivo esperado: <code style="color:#aaa">${GEXF_FILE}</code></div>`;
+(async function autoFetch() {
+  if (location.protocol === 'file:') { showUploadFallback(); return; }
+  const bar=document.getElementById('splash-bar'), txt=document.getElementById('splash-loading-text');
+  bar.style.width='20%';
+  for (const fname of GEXF_CANDIDATES) {
+    try {
+      txt.textContent='Buscando '+fname+'…'; bar.style.width='55%';
+      const resp=await fetch('./'+fname);
+      if (!resp.ok) continue;
+      bar.style.width='85%'; txt.textContent='Processando…';
+      const text=await resp.text();
+      bar.style.width='100%';
+      setTimeout(()=>processAndRender(text), 200);
+      return;
+    } catch(_) { continue; }
   }
-}
-
-init();
+  showUploadFallback();
+})();
 </script>
 </body>
 </html>
