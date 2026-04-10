@@ -48,6 +48,17 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .neighbors-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.3);margin-bottom:6px;font-family:'Space Mono',monospace}
 .neighbor-chip{display:inline-block;margin:2px 3px 2px 0;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);font-size:10px;color:rgba(255,255,255,0.6);cursor:pointer;transition:background .15s}
 .neighbor-chip:hover{background:rgba(255,255,255,0.13);color:#fff}
+.papers-section{margin-top:12px}
+.papers-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.3);margin-bottom:7px;font-family:'Space Mono',monospace}
+.paper-item{padding:8px 10px;border-radius:7px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);margin-bottom:5px;transition:background .15s}
+.paper-item:hover{background:rgba(255,255,255,0.08)}
+.paper-meta{font-size:10px;color:rgba(255,255,255,0.55);line-height:1.4;margin-bottom:4px}
+.paper-meta strong{color:rgba(255,255,255,0.85);font-weight:600}
+.paper-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.paper-count{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.28)}
+.paper-doi{font-size:9px;padding:2px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);text-decoration:none;transition:all .15s;white-space:nowrap}
+.paper-doi:hover{border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.07)}
+.papers-empty{font-size:10px;color:rgba(255,255,255,0.25);font-style:italic;padding:4px 0}
 .divider{height:1px;background:rgba(255,255,255,0.06);margin:18px 0}
 .legend-title{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.3);font-family:'Space Mono',monospace;margin-bottom:10px}
 .legend-item{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px;cursor:pointer;margin-bottom:2px;transition:background .15s}
@@ -192,6 +203,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
         </div>
         <div class="neighbors-label">Principais co-citações</div>
         <div id="card-neighbors"></div>
+        <div class="papers-section" id="card-papers-section" style="display:none">
+          <div class="papers-label">Textos no corpus</div>
+          <div id="card-papers"></div>
+        </div>
       </div>
 
       <div class="divider"></div>
@@ -460,6 +475,23 @@ function processGraph(rawNodes, rawEdges) {
 let simulation = null, zoomInstance = null;
 let currentNodes = [], currentEdges = [], neighborMap = new Map(), nodeById = new Map();
 let highlightNode = null, highlightCluster = null;
+let referencesDB = {};   // carregado do references.json
+
+// Normaliza nome de autor igual ao script Python: remove acentos, lowercase, "lastname, ii"
+function normalizeAuthorKey(label) {
+  const s = label.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  // label já vem no formato "lastname, ii" — só garantir sem acento
+  return s;
+}
+
+// Carrega references.json em background (não bloqueia a visualização)
+(async function loadReferences() {
+  if (location.protocol === 'file:') return; // drag-and-drop local: pula
+  try {
+    const resp = await fetch('./references.json');
+    if (resp.ok) { referencesDB = await resp.json(); console.log('references.json carregado:', Object.keys(referencesDB).length, 'autores'); }
+  } catch(_) { /* sem references.json: funciona sem papers */ }
+})();
 
 function buildNeighborMap(nodes, edges) {
   const map = new Map(nodes.map(n => [n.id, new Set()]));
@@ -926,6 +958,39 @@ function showNodeCard(d) {
     const chip=document.createElement('span'); chip.className='neighbor-chip'; chip.textContent=nb.label;
     chip.addEventListener('click',()=>selectNode(nb)); container.appendChild(chip);
   });
+
+  // ── Textos no corpus ──────────────────────────────────
+  const papersSection = document.getElementById('card-papers-section');
+  const papersEl      = document.getElementById('card-papers');
+  papersEl.innerHTML  = '';
+  const authorKey = normalizeAuthorKey(d.label);
+  const papers    = referencesDB[authorKey] || [];
+  if (papers.length === 0) {
+    papersSection.style.display = 'none';
+  } else {
+    papersSection.style.display = 'block';
+    const MAX_PAPERS = 8;
+    papers.slice(0, MAX_PAPERS).forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'paper-item';
+      const doiHtml = p.doi
+        ? `<a class="paper-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">↗ DOI</a>`
+        : `<span class="paper-doi" style="opacity:.3;cursor:default">sem DOI</span>`;
+      item.innerHTML =
+        `<div class="paper-meta"><strong>${p.year}</strong> · ${p.journal}</div>`+
+        `<div class="paper-footer">`+
+          `<span class="paper-count">citado ${p.count}× no corpus</span>`+
+          doiHtml+
+        `</div>`;
+      papersEl.appendChild(item);
+    });
+    if (papers.length > MAX_PAPERS) {
+      const more = document.createElement('div');
+      more.className = 'papers-empty';
+      more.textContent = `+ ${papers.length - MAX_PAPERS} outros textos`;
+      papersEl.appendChild(more);
+    }
+  }
 }
 function hideNodeCard() { document.getElementById('node-card').style.display='none'; }
 
