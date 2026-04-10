@@ -402,11 +402,21 @@ function processGraph(rawNodes, rawEdges) {
   giantEdges.forEach(e => { degMap.set(e.source, (degMap.get(e.source)||0)+1); degMap.set(e.target, (degMap.get(e.target)||0)+1); });
   const maxDeg = Math.max(...degMap.values(), 1);
 
+  // Mesclar clusters pequenos em 'outros'
+  const MIN_CLUSTER_SIZE = 5;
+  const clCount = new Map();
+  giantNodes.forEach(n => clCount.set(n.modClass, (clCount.get(n.modClass)||0)+1));
+  giantNodes.forEach(n => {
+    if (!CLUSTER_MAP[n.modClass] && (clCount.get(n.modClass)||0) < MIN_CLUSTER_SIZE) {
+      n.modClass = 'outros';
+    }
+  });
+
   giantNodes.forEach(n => {
     n.degree = degMap.get(n.id) || 0;
     n.size = 3 + Math.pow(n.degree / maxDeg, 0.55) * 18;
-    n.clusterColor = clusterColor(n.modClass);
-    n.clusterName  = clusterName(n.modClass);
+    n.clusterColor = n.modClass === 'outros' ? '#444460' : clusterColor(n.modClass);
+    n.clusterName  = n.modClass === 'outros' ? 'Outros'   : clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
   });
 
@@ -599,6 +609,7 @@ function renderClusterLabels(nodes) {
   const gcx=d3.mean(allCx), gcy=d3.mean(allCy);
   const badgeData=[];
   clusterMap.forEach((clNodes,mc) => {
+    if (mc === 'outros' || (!CLUSTER_MAP[mc])) return; // só clusters nomeados
     const c=clusterCentroid(clNodes);
     const dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
     const pf=dist<150?2.5:1.8;
@@ -647,7 +658,13 @@ function buildLegend(nodes) {
   legendEl.innerHTML='';
   const entries=[];
   clusterMap.forEach((clNodes,mc) => entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)}));
-  entries.sort((a,b)=>b.count-a.count);
+  entries.sort((a,b)=>{
+    const aOther = a.mc==='outros'||!CLUSTER_MAP[a.mc];
+    const bOther = b.mc==='outros'||!CLUSTER_MAP[b.mc];
+    if (aOther && !bOther) return 1;
+    if (!aOther && bOther) return -1;
+    return b.count-a.count;
+  });
   entries.forEach(e => {
     const item=document.createElement('div');
     item.className='legend-item'; item.dataset.mc=e.mc;
