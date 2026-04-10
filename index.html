@@ -771,18 +771,34 @@ function getTopNodes() { return new Set([...currentNodes].sort((a,b)=>b.degree-a
 function applyHover(d) {
   const neighbors=neighborMap.get(d.id)||new Set();
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.id===d.id||neighbors.has(n.id)?1:0.1);
-  // Mostrar e posicionar só as arestas do nó ativo
+
+  // Limpar gradientes anteriores
+  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
+  const defs = d3.select('#viz-svg defs');
+  let gradIdx = 0;
+
   d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const srcId=typeof e.source==='object'?e.source.id:e.source;
     const tgtId=typeof e.target==='object'?e.target.id:e.target;
     if (srcId===d.id||tgtId===d.id) {
       const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
       const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
+      const sc = (s.clusterColor||'#888'), tc = (t.clusterColor||'#888');
       const same = s.modClass === t.modClass;
+      const gid = 'eg' + (gradIdx++);
+
+      // Gradiente da cor do nó fonte até a cor do nó destino
+      const grad = defs.append('linearGradient')
+        .attr('class','edge-gradient').attr('id', gid)
+        .attr('gradientUnits','userSpaceOnUse')
+        .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
+      grad.append('stop').attr('offset','0%').attr('stop-color', sc);
+      grad.append('stop').attr('offset','100%').attr('stop-color', tc);
+
       d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y)
-        .attr('stroke', d.clusterColor)
+        .attr('stroke','url(#'+gid+')')
         .attr('stroke-width', same ? 2.5 : 1.8)
-        .style('display',null).style('opacity', same ? 0.9 : 0.55);
+        .style('display',null).style('opacity', same ? 0.9 : 0.5);
     } else {
       d3.select(this).style('display','none');
     }
@@ -790,6 +806,7 @@ function applyHover(d) {
   d3.select('#labels-layer').selectAll('.node-label').style('display', n=>(n.id===d.id||neighbors.has(n.id))?null:'none');
 }
 function clearHover() {
+  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity',null);
   d3.select('#edges-layer').selectAll('.edge').style('display','none');
   const top=getTopNodes();
