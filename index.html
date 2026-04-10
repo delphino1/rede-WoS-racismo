@@ -185,18 +185,26 @@ function buildGraph(xml) {
     });
   });
 
-  // 2. Filtrar arestas por peso e coletar nós conectados
-  const validEdges = [];
-  const connectedIds = new Set();
+  // 2. Filtrar arestas por peso e contar grau de cada nó
+  const MIN_DEGREE = 2;
+  const candidateEdges = [];
+  const degree = new Map();
   xml.querySelectorAll('edges > edge').forEach(e => {
     const w = +(e.getAttribute('weight') || 1);
     if (w < WEIGHT_MIN) return;
     const s = e.getAttribute('source'), t = e.getAttribute('target');
     if (s === t || !rawMap.has(s) || !rawMap.has(t)) return;
-    validEdges.push({ s, t, w });
-    connectedIds.add(s);
-    connectedIds.add(t);
+    candidateEdges.push({ s, t, w });
+    degree.set(s, (degree.get(s)||0) + 1);
+    degree.set(t, (degree.get(t)||0) + 1);
   });
+
+  // Manter só nós com grau >= MIN_DEGREE
+  const connectedIds = new Set();
+  degree.forEach((deg, id) => { if (deg >= MIN_DEGREE) connectedIds.add(id); });
+
+  // Manter só arestas onde ambos os endpoints sobrevivem
+  const validEdges = candidateEdges.filter(({s,t}) => connectedIds.has(s) && connectedIds.has(t));
 
   // 3. Calcular centro usando só nós conectados
   let sumX=0, sumY=0;
