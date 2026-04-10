@@ -569,13 +569,43 @@ function buildVisualization(graphData) {
     clusterCentroids.set(mc, { x: d3.mean(ns,n=>n.fx_anchor), y: d3.mean(ns,n=>n.fy_anchor) });
   });
 
+  // Força de repulsão entre clusters: empurra cada nó para longe dos centroides de outros clusters
+  function makeClusterRepulsionForce(repStr, minDist) {
+    let _nodes;
+    function force(alpha) {
+      const centroids = new Map(), counts = new Map();
+      _nodes.forEach(n => {
+        const mc = n.modClass;
+        if (!centroids.has(mc)) { centroids.set(mc,{x:0,y:0}); counts.set(mc,0); }
+        const c = centroids.get(mc);
+        c.x += n.x; c.y += n.y;
+        counts.set(mc, counts.get(mc)+1);
+      });
+      centroids.forEach((c,mc) => { const cnt=counts.get(mc)||1; c.x/=cnt; c.y/=cnt; });
+      _nodes.forEach(n => {
+        centroids.forEach((c,mc) => {
+          if (mc === n.modClass) return;
+          const dx=n.x-c.x, dy=n.y-c.y;
+          const d=Math.sqrt(dx*dx+dy*dy)||1;
+          if (d > minDist) return;
+          const f = repStr * alpha * (minDist-d)/minDist;
+          n.vx += (dx/d)*f;
+          n.vy += (dy/d)*f;
+        });
+      });
+    }
+    force.initialize = function(n) { _nodes = n; };
+    return force;
+  }
+
   simulation = d3.forceSimulation(nodes)
-    .alphaDecay(0.06).velocityDecay(0.6).alphaMin(0.003)
-    .force('collide', d3.forceCollide(d=>d.size+2).strength(0.85))
-    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.5))
-    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.5))
-    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.12))
-    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.12))
+    .alphaDecay(0.04).velocityDecay(0.55).alphaMin(0.003)
+    .force('collide', d3.forceCollide(d=>d.size+3).strength(0.9))
+    .force('anchorX', d3.forceX(d=>d.fx_anchor).strength(0.28))
+    .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.28))
+    .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.32))
+    .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.32))
+    .force('clusterRepel', makeClusterRepulsionForce(6, 220))
     .on('tick', tick)
     .on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
 
@@ -680,21 +710,27 @@ function updateClusterLabelPositions(nodes) {
   const allCx=[],allCy=[];
   clusterMap.forEach(cn=>{ const c=clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
   const gcx=d3.mean(allCx),gcy=d3.mean(allCy);
-  // Limites em coordenadas SVG (sem zoom)
   const W=document.getElementById('canvas-area').clientWidth;
   const H=document.getElementById('canvas-area').clientHeight;
-  const pad=70;
+  const pad=80;
   d3.select('#cluster-labels-layer').selectAll('.cluster-badge').each(function(d) {
     const clNodes=clusterMap.get(d.mc);
     if (!clNodes||!clNodes.length) return;
-    const c=clusterCentroid(clNodes),dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
-    const pf=dist<150?2.2:1.6;
-    // Posição ideal: empurrar para fora do centroide global
-    let bx=c.x+(dx/dist)*dist*(pf-1);
-    let by=c.y+(dy/dist)*dist*(pf-1);
-    // Clamp dentro do canvas (coordenadas SVG ≈ screen no zoom inicial)
-    bx=Math.max(pad, Math.min(W-pad, bx));
-    by=Math.max(pad, Math.min(H-pad, by));
+    const c=clusterCentroid(clNodes);
+    const dx=c.x-gcx, dy=c.y-gcy, dist=Math.sqrt(dx*dx+dy*dy)||1;
+    const ux=dx/dist, uy=dy/dist; // unit vector outward from global centroid
+
+    // Raio do hull: distância máxima de qualquer nó ao centroide do cluster
+    const hullRadius = d3.max(clNodes, n=>Math.sqrt((n.x-c.x)**2+(n.y-c.y)**2)) || 60;
+
+    // Badge fica além do hull no sentido de fora + folga fixa
+    const pushDist = hullRadius + 55;
+    let bx = c.x + ux * pushDist;
+    let by = c.y + uy * pushDist;
+
+    // Clamp dentro do canvas
+    bx = Math.max(pad, Math.min(W-pad, bx));
+    by = Math.max(pad, Math.min(H-pad, by));
     d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
