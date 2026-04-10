@@ -605,7 +605,7 @@ function buildVisualization(graphData) {
     .force('anchorY', d3.forceY(d=>d.fy_anchor).strength(0.28))
     .force('clusterX', d3.forceX(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.x:d.fx_anchor; }).strength(0.32))
     .force('clusterY', d3.forceY(d=>{ const c=clusterCentroids.get(d.modClass); return c?c.y:d.fy_anchor; }).strength(0.32))
-    .force('clusterRepel', makeClusterRepulsionForce(6, 220))
+    .force('clusterRepel', makeClusterRepulsionForce(9, 260))
     .on('tick', tick)
     .on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
 
@@ -728,9 +728,11 @@ function updateClusterLabelPositions(nodes) {
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
-    // Clamp dentro do canvas
-    bx = Math.max(pad, Math.min(W-pad, bx));
-    by = Math.max(pad, Math.min(H-pad, by));
+    // Estimativa da meia-largura do badge para evitar corte nas bordas
+    const badgeHalfW = Math.min(d.name.length * 5.5 + 20, 200);
+    const badgeHalfH = 18;
+    bx = Math.max(pad + badgeHalfW, Math.min(W - pad - badgeHalfW, bx));
+    by = Math.max(pad + badgeHalfH, Math.min(H - pad - badgeHalfH, by));
     d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
