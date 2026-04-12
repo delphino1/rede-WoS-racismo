@@ -1016,7 +1016,49 @@ function showRightPanel(d) {
   const papersEl = document.getElementById('rp-papers');
   papersEl.innerHTML = '';
   const authorKey = normalizeAuthorKey(d.label);
-  const papers = referencesDB[authorKey] || [];
+  const rawPapers = referencesDB[authorKey] || [];
+
+  // Deduplica edições diferentes do mesmo livro/artigo
+  // Usa as 2 primeiras palavras significativas (>3 chars) como chave
+  function deduplicatePapers(list) {
+    function normKey(p) {
+      const raw = p.title || p.source || p.journal || '';
+      const words = raw.normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .split(/[^a-z0-9]+/)
+        .filter(w => w.length > 3);
+      const key = words.slice(0, 2).join(' ');
+      return key || ('_' + raw.slice(0, 10));
+    }
+    const groups = new Map();
+    list.forEach(p => {
+      const k = normKey(p);
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(p);
+    });
+    const result = [];
+    groups.forEach(grp => {
+      if (grp.length === 1) { result.push(grp[0]); return; }
+      // Prefere entrada com título; em empate, título mais longo
+      grp.sort((a, b) => {
+        const ha = a.title ? 1 : 0, hb = b.title ? 1 : 0;
+        if (ha !== hb) return hb - ha;
+        return (b.title || b.source || '').length - (a.title || a.source || '').length;
+      });
+      const best = { ...grp[0] };
+      // Ano mais antigo do grupo
+      const years = grp.map(p => parseInt(p.year)).filter(y => y > 999);
+      if (years.length) best.year = String(Math.min(...years));
+      // Soma de citações
+      best.count = grp.reduce((s, p) => s + (p.count || 1), 0);
+      result.push(best);
+    });
+    // Reordena por contagem descendente
+    return result.sort((a, b) => (b.count || 0) - (a.count || 0));
+  }
+
+  const papers = deduplicatePapers(rawPapers);
 
   if (papers.length === 0) {
     papersEl.innerHTML = '<div class="rp-empty">Nenhum texto encontrado<br>no references.json</div>';
