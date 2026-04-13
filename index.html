@@ -622,7 +622,7 @@ function buildVisualization(graphData) {
   const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
     .attr('stroke', e => edgeColorStr(e, nodeById))
     .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4)
-    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.16 : 0.08)
+    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.19 : 0.12)
     .style('display', null);
 
   // Pré-computa mapa nodeId → arestas SVG adjacentes (evita varrer 5033 elementos no hover)
@@ -1130,7 +1130,7 @@ function clearHover() {
     } else {
       const w = (e && e.weight) || 1;
       el.style.display = null;
-      el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
+      el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.19 : 0.12;
       el.setAttribute('stroke', edgeColorStr(e, nodeById));
       el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
     }
@@ -1244,7 +1244,7 @@ function resetHighlight() {
   d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const w = (e && e.weight) || 1;
     this.style.display = null;
-    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
+    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.19 : 0.12;
     this.setAttribute('stroke', edgeColorStr(e, nodeById));
     this.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
   });
