@@ -893,7 +893,7 @@ function updateClusterLabelPositions(nodes) {
     const ux = dx/dist, uy = dy/dist;
 
     const hullRadius = d3.max(clNodes, n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)) || 60;
-    const pushDist = hullRadius + 55;
+    const pushDist = hullRadius + 110;
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
