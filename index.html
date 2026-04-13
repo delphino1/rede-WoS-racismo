@@ -106,6 +106,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 
 /* ── Canvas ── */
 #canvas-area{flex:1;position:relative;overflow:hidden}
+#zoom-group{will-change:transform}
+#nodes-layer .node-g{will-change:opacity}
+#edges-layer line{shape-rendering:optimizeSpeed}
 #viz-svg{width:100%;height:100%;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%);cursor:grab;display:block}
 #viz-svg:active{cursor:grabbing}
 
@@ -515,6 +518,7 @@ function processGraph(rawNodes, rawEdges) {
 let simulation = null, zoomInstance = null;
 let currentNodes = [], currentEdges = [], neighborMap = new Map(), nodeById = new Map();
 let highlightNode = null, highlightCluster = null;
+let _currentZoomLevel = -1; // para zoom semântico (-1 = forçar primeiro update)
 let referencesDB = {};   // carregado do references.json
 
 // Normaliza nome de autor igual ao script Python: remove acentos, lowercase, "lastname, ii"
@@ -587,10 +591,14 @@ function buildVisualization(graphData) {
     n.fy_anchor = n.y;
   });
 
-  zoomInstance = d3.zoom().scaleExtent([0.08, 8]).on('zoom', event => {
-    d3.select('#zoom-group').attr('transform', event.transform);
-    updateClusterLabelVisibility(event.transform.k);
-  });
+  zoomInstance = d3.zoom()
+    .scaleExtent([0.08, 8])
+    // Scroll 2.5× mais rápido que o padrão D3
+    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 2.5)
+    .on('zoom', event => {
+      d3.select('#zoom-group').attr('transform', event.transform);
+      applySemanticZoom(event.transform.k);
+    });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
   // Arestas ocultas por padrão — só aparecem no hover (evita atualizar 5033 SVG lines por tick)
@@ -600,7 +608,7 @@ function buildVisualization(graphData) {
     .style('display', 'none');
 
   const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
-    .attr('class','node-g').style('cursor','pointer');
+    .attr('class','node-g').attr('data-tier', d => d.zoomTier).style('cursor','pointer');
 
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
     .attr('r', d=>d.size*1.8).attr('fill', d=>d.clusterColor)
@@ -621,6 +629,17 @@ function buildVisualization(graphData) {
       .on('drag', (event,d) => { d.fx=event.x; d.fy=event.y; })
       .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0.003); d.fx=null; d.fy=null; })
     );
+
+  // ── Zoom semântico: atribui tier por rank de grau dentro do cluster ──
+  // Tier 0 (top 20%) → sempre visível | Tier 1 (20–50%) → zoom médio | Tier 2 (50–100%) → zoom alto
+  (function assignZoomTiers() {
+    const byCluster = new Map();
+    nodes.forEach(n => { if (!byCluster.has(n.modClass)) byCluster.set(n.modClass,[]); byCluster.get(n.modClass).push(n); });
+    byCluster.forEach(cl => {
+      cl.sort((a,b) => b.degree - a.degree);
+      cl.forEach((n,i) => { const p = i/cl.length; n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2; });
+    });
+  })();
 
   const topNodes = new Set([...nodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id));
   d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
@@ -808,8 +827,34 @@ function updateClusterLabelPositions(nodes) {
     d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
-function updateClusterLabelVisibility(k) {
-  d3.select('#cluster-labels-layer').style('opacity',(k<0.15||k>2)?0:1).style('transition','opacity 0.3s');
+function applySemanticZoom(k) {
+  // Labels de cluster: somem em zoom muito baixo ou muito alto
+  d3.select('#cluster-labels-layer')
+    .style('opacity', (k < 0.15 || k > 2.5) ? 0 : 1)
+    .style('transition', 'opacity 0.3s');
+
+  // Níveis: 0 = visão geral (k<0.45), 1 = médio (0.45–0.85), 2 = detalhe (>0.85)
+  const newLevel = k < 0.45 ? 0 : k < 0.85 ? 1 : 2;
+  if (newLevel === _currentZoomLevel) return; // só atualiza ao cruzar limiar
+  _currentZoomLevel = newLevel;
+
+  // Não interfere se hover ativo — clearHover vai reapllicar
+  if (highlightNode || highlightCluster) return;
+
+  // Visibilidade dos nós por tier
+  d3.select('#nodes-layer').selectAll('.node-g')
+    .style('opacity', d => d.zoomTier <= newLevel ? null : 0)
+    .style('pointer-events', d => d.zoomTier <= newLevel ? 'auto' : 'none');
+
+  // Labels: tier-0 sempre, tier-1 no nível médio+, tier-2 só no detalhe
+  // No nível 2 mostra todos os labels dos nós visíveis (mais informação no zoom)
+  const topSet = getTopNodes();
+  d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
+    if (d.zoomTier > newLevel) return 'none';          // nó oculto → label oculto
+    if (topSet.has(d.id)) return null;                 // top global → sempre mostra label
+    if (newLevel >= 2 && d.zoomTier <= 1) return null; // zoom alto → mostra tier 0-1
+    return 'none';
+  });
 }
 
 // ═══════════════════════════════════════════════════════
@@ -911,10 +956,11 @@ function applyHover(d) {
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  d3.select('#nodes-layer').selectAll('.node-g').style('opacity',null);
   d3.select('#edges-layer').selectAll('.edge').style('display','none');
-  const top=getTopNodes();
-  d3.select('#labels-layer').selectAll('.node-label').style('display', d=>top.has(d.id)?null:'none');
+  // Reaplica zoom semântico (reseta opacidade dos nós + labels)
+  _currentZoomLevel = -1; // força re-render
+  const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
+  applySemanticZoom(k);
 }
 function selectNode(d) {
   highlightNode=d; highlightCluster=null;
