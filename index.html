@@ -597,12 +597,13 @@ function buildVisualization(graphData) {
     scaleX = d3.scaleLinear().domain([d3.min(validX), d3.max(validX)]).range([W*.1, W*.9]);
     scaleY = d3.scaleLinear().domain([d3.min(validY), d3.max(validY)]).range([H*.9, H*.1]);
   }
-  // Posições GEXF → âncoras fixas. A simulação só previne sobreposição.
+  // Posições GEXF → âncoras expandidas 35% para fora do centro.
+  // Preserva a topologia do Gephi mas afasta os clusters sobrepostos.
   nodes.forEach(n => {
     n.x = (hasPos&&n.px!==null&&!isNaN(n.px)) ? scaleX(n.px) : W/2+(Math.random()-.5)*W*.8;
     n.y = (hasPos&&n.py!==null&&!isNaN(n.py)) ? scaleY(n.py) : H/2+(Math.random()-.5)*H*.8;
-    n.fx_anchor = n.x;
-    n.fy_anchor = n.y;
+    n.fx_anchor = W/2 + (n.x - W/2) * 1.35;
+    n.fy_anchor = H/2 + (n.y - H/2) * 1.35;
   });
 
   zoomInstance = d3.zoom()
@@ -705,12 +706,12 @@ function buildVisualization(graphData) {
   simulation = d3.forceSimulation(nodes)
     .alphaDecay(0.025).velocityDecay(0.55).alphaMin(0.002)
 
-    // ① Cada nó é puxado para a sua posição original GEXF
-    .force('anchorX', d3.forceX(d => d.fx_anchor).strength(0.35))
-    .force('anchorY', d3.forceY(d => d.fy_anchor).strength(0.35))
+    // ① Cada nó é puxado para a sua posição GEXF expandida
+    .force('anchorX', d3.forceX(d => d.fx_anchor).strength(0.25))
+    .force('anchorY', d3.forceY(d => d.fy_anchor).strength(0.25))
 
-    // ② Colisão suave — evita sobreposição sem deslocar clusters
-    .force('collide', d3.forceCollide(d => d.size + 3).strength(0.75))
+    // ② Colisão com folga maior — afasta nós sobrepostos sem partir clusters
+    .force('collide', d3.forceCollide(d => d.size + 6).strength(0.80))
 
     .on('tick', tick)
     .on('end', () => {
@@ -848,7 +849,7 @@ function updateClusterLabelPositions(nodes) {
     const ux = dx/dist, uy = dy/dist;
 
     const hullRadius = d3.max(clNodes, n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)) || 60;
-    const pushDist = hullRadius + 110;
+    const pushDist = hullRadius + 60;
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
