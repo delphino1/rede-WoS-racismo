@@ -619,9 +619,27 @@ function buildVisualization(graphData) {
     nodeEdgeEls.get(tid).push({el: this, e});
   });
 
+  // ── Opacidade base + tiers — ANTES de criar nodeG ──
+  // Hubs: opacos | periféricos: quase invisíveis (névoa de fundo)
+  // Expoente 0.35 → curva mais agressiva: top autores quase 1.0, resto cai rápido
+  (function assignZoomTiers() {
+    const _maxDeg = d3.max(nodes, d => d.degree) || 1;
+    const byCluster = new Map();
+    nodes.forEach(n => { if (!byCluster.has(n.modClass)) byCluster.set(n.modClass,[]); byCluster.get(n.modClass).push(n); });
+    byCluster.forEach(cl => {
+      cl.sort((a,b) => b.degree - a.degree);
+      cl.forEach((n,i) => {
+        const p = i/cl.length;
+        n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2;
+        // Expoente 0.35: contraste alto — top autores ~1.0, metade inferior ~0.12–0.25
+        n.baseOpacity = 0.08 + Math.pow(n.degree / _maxDeg, 0.35) * 0.92;
+      });
+    });
+  })();
+
   const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
     .attr('class','node-g').attr('data-tier', d => d.zoomTier)
-    .style('opacity', d => d.baseOpacity)
+    .style('opacity', d => d.baseOpacity)   // aplicado com baseOpacity já calculado
     .style('cursor','pointer');
 
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
@@ -643,24 +661,6 @@ function buildVisualization(graphData) {
       .on('drag', (event,d) => { d.fx=event.x; d.fy=event.y; })
       .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0.003); d.fx=null; d.fy=null; })
     );
-
-  // ── Opacidade base + tiers de zoom ──
-  // Todos os nós ficam sempre visíveis, mas com opacidade proporcional ao grau.
-  // Hubs: quase opacos | periféricos: transparentes (névoa de fundo)
-  (function assignZoomTiers() {
-    const _maxDeg = d3.max(nodes, d => d.degree) || 1;
-    const byCluster = new Map();
-    nodes.forEach(n => { if (!byCluster.has(n.modClass)) byCluster.set(n.modClass,[]); byCluster.get(n.modClass).push(n); });
-    byCluster.forEach(cl => {
-      cl.sort((a,b) => b.degree - a.degree);
-      cl.forEach((n,i) => {
-        const p = i/cl.length;
-        n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2;
-        // Curva de potência: hubs ficam perto de 1.0, periféricos ficam perto de 0.10
-        n.baseOpacity = 0.10 + Math.pow(n.degree / _maxDeg, 0.50) * 0.90;
-      });
-    });
-  })();
 
   const topNodes = new Set([...nodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id));
   d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
@@ -894,12 +894,12 @@ function applySemanticZoom(k) {
   d3.select('#nodes-layer').selectAll('.node-g')
     .style('pointer-events', d => d.zoomTier <= newLevel ? 'auto' : 'none');
 
-  // Labels: controlados pelo zoom (labels são mais poluentes que nós)
+  // Labels: tier 2 (metade inferior) NUNCA mostra label — evita explosão de texto no zoom
   const topSet = getTopNodes();
   d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
-    if (topSet.has(d.id)) return null;                  // top global → sempre
-    if (newLevel >= 2) return null;                     // zoom alto → todos
-    if (newLevel >= 1 && d.zoomTier <= 1) return null; // zoom médio → tier 0-1
+    if (d.zoomTier === 2) return 'none';                // periféricos: sem label em nenhum zoom
+    if (topSet.has(d.id) || d.zoomTier === 0) return null;          // top global + tier 0 → sempre
+    if (newLevel >= 1 && d.zoomTier === 1) return null; // tier 1 → aparece no zoom médio
     return 'none';
   });
 }
