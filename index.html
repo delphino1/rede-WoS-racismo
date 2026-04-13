@@ -518,7 +518,9 @@ function processGraph(rawNodes, rawEdges) {
 let simulation = null, zoomInstance = null;
 let currentNodes = [], currentEdges = [], neighborMap = new Map(), nodeById = new Map();
 let highlightNode = null, highlightCluster = null;
-let _currentZoomLevel = -1; // para zoom semântico (-1 = forçar primeiro update)
+let _currentZoomLevel = -1;   // zoom semântico
+let nodeEdgeEls = new Map();  // nodeId → [{el, e}] — precomputado para hover rápido
+let _prevShownEdgeEls = [];   // arestas mostradas no último hover (para esconder sem varrer todas)
 let referencesDB = {};   // carregado do references.json
 
 // Normaliza nome de autor igual ao script Python: remove acentos, lowercase, "lastname, ii"
@@ -593,8 +595,8 @@ function buildVisualization(graphData) {
 
   zoomInstance = d3.zoom()
     .scaleExtent([0.08, 8])
-    // Scroll 2.5× mais rápido que o padrão D3
-    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 2.5)
+    // Scroll 1.6× mais rápido que o padrão D3 (confortável)
+    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 1.6)
     .on('zoom', event => {
       d3.select('#zoom-group').attr('transform', event.transform);
       applySemanticZoom(event.transform.k);
@@ -606,6 +608,17 @@ function buildVisualization(graphData) {
     .attr('stroke', e => edgeColorStr(e, nodeById))
     .attr('stroke-width', e => isSameCluster(e, nodeById) ? 1.2 : 0.6)
     .style('display', 'none');
+
+  // Pré-computa mapa nodeId → arestas SVG adjacentes (evita varrer 5033 elementos no hover)
+  nodeEdgeEls = new Map();
+  edgeSel.each(function(e) {
+    const sid = typeof e.source==='object' ? e.source.id : e.source;
+    const tid = typeof e.target==='object' ? e.target.id : e.target;
+    if (!nodeEdgeEls.has(sid)) nodeEdgeEls.set(sid, []);
+    if (!nodeEdgeEls.has(tid)) nodeEdgeEls.set(tid, []);
+    nodeEdgeEls.get(sid).push({el: this, e});
+    nodeEdgeEls.get(tid).push({el: this, e});
+  });
 
   const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
     .attr('class','node-g').attr('data-tier', d => d.zoomTier).style('cursor','pointer');
@@ -716,6 +729,10 @@ function buildVisualization(graphData) {
     nodes.length+' autores · '+edges.length+' co-citações<br>'+
     '<span style="font-size:9px;opacity:.6">Arraste · Zoom · Clique para explorar</span>';
   setTimeout(() => { const h=document.getElementById('hint'); h.classList.add('visible'); setTimeout(()=>h.classList.remove('visible'),4000); }, 1200);
+
+  // Aplica zoom semântico inicial (k=1 → só top autores visíveis)
+  _currentZoomLevel = -1;
+  applySemanticZoom(1);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -833,8 +850,11 @@ function applySemanticZoom(k) {
     .style('opacity', (k < 0.15 || k > 2.5) ? 0 : 1)
     .style('transition', 'opacity 0.3s');
 
-  // Níveis: 0 = visão geral (k<0.45), 1 = médio (0.45–0.85), 2 = detalhe (>0.85)
-  const newLevel = k < 0.45 ? 0 : k < 0.85 ? 1 : 2;
+  // Níveis relativos ao zoom inicial (k≈1):
+  // 0 = visão geral (k<1.4) → top 20% por cluster
+  // 1 = médio      (1.4–2.4) → top 50% por cluster
+  // 2 = detalhe    (>2.4)    → todos os nós
+  const newLevel = k < 1.4 ? 0 : k < 2.4 ? 1 : 2;
   if (newLevel === _currentZoomLevel) return; // só atualiza ao cruzar limiar
   _currentZoomLevel = newLevel;
 
@@ -886,58 +906,51 @@ function buildLegend(nodes) {
 function getTopNodes() { return new Set([...currentNodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id)); }
 
 function applyHover(d) {
-  const neighbors=neighborMap.get(d.id)||new Set();
+  const neighbors = neighborMap.get(d.id) || new Set();
 
-  // Peso de cada aresta para este nó → top N vizinhos mais fortes
-  const edgeWeights=new Map();
-  currentEdges.forEach(e=>{
-    const sid=typeof e.source==='object'?e.source.id:e.source;
-    const tid=typeof e.target==='object'?e.target.id:e.target;
-    if(sid===d.id) edgeWeights.set(tid, e.weight||1);
-    else if(tid===d.id) edgeWeights.set(sid, e.weight||1);
+  // ── Usa mapa pré-computado: O(grau) em vez de O(5033) ──
+  const myEdges = nodeEdgeEls.get(d.id) || [];
+
+  // Pesos e top vizinhos
+  const edgeWeights = new Map();
+  myEdges.forEach(({e}) => {
+    const sid = typeof e.source==='object' ? e.source.id : e.source;
+    const tid = typeof e.target==='object' ? e.target.id : e.target;
+    edgeWeights.set(sid === d.id ? tid : sid, e.weight || 1);
   });
   const TOP_NB = 30;
-  const topNeighbors=new Set(
-    [...neighbors].sort((a,b)=>(edgeWeights.get(b)||0)-(edgeWeights.get(a)||0)).slice(0,TOP_NB)
+  const topNeighbors = new Set(
+    [...neighbors].sort((a,b) => (edgeWeights.get(b)||0) - (edgeWeights.get(a)||0)).slice(0, TOP_NB)
   );
 
-  // Dois níveis de opacidade: selecionado+top / resto
-  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>{
-    if(n.id===d.id) return 1;
-    if(topNeighbors.has(n.id)) return 0.9;
-    if(neighbors.has(n.id)) return 0.15;
+  // Opacidade dos nós
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n => {
+    if (n.id === d.id) return 1;
+    if (topNeighbors.has(n.id)) return 0.9;
+    if (neighbors.has(n.id)) return 0.15;
     return 0.05;
   });
 
-  // Labels: só nó selecionado + top vizinhos — sem haze de texto ilegível
+  // Labels
   d3.select('#labels-layer').selectAll('.node-label')
     .style('opacity', null)
-    .style('display', n=>{
-      if(n.id===d.id || topNeighbors.has(n.id)) return null;
-      return 'none';
-    });
+    .style('display', n => (n.id === d.id || topNeighbors.has(n.id)) ? null : 'none');
 
-  // Limpar gradientes anteriores
+  // ── Arestas: esconde apenas as do hover anterior, não todas as 5033 ──
+  _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
+  _prevShownEdgeEls = [];
+
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   const defs = d3.select('#viz-svg defs');
   let gradIdx = 0;
 
-  // Limitar às top 35 arestas mais pesadas do nó ativo
   const MAX_EDGES_HOVER = 35;
-  const activeEdges = [];
-  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
-    const srcId=typeof e.source==='object'?e.source.id:e.source;
-    const tgtId=typeof e.target==='object'?e.target.id:e.target;
-    if (srcId===d.id||tgtId===d.id) activeEdges.push({ el: this, e });
-  });
-  activeEdges.sort((a,b) => (b.e.weight||0) - (a.e.weight||0));
-  const visibleSet = new Set(activeEdges.slice(0, MAX_EDGES_HOVER).map(x => x.el));
+  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0)).slice(0, MAX_EDGES_HOVER);
 
-  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
-    if (!visibleSet.has(this)) { d3.select(this).style('display','none'); return; }
-    const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
-    const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
-    const sc = (s.clusterColor||'#888'), tc = (t.clusterColor||'#888');
+  sortedEdges.forEach(({el, e}) => {
+    const s = typeof e.source==='object' ? e.source : nodeById.get(e.source) || {x:0,y:0};
+    const t = typeof e.target==='object' ? e.target : nodeById.get(e.target) || {x:0,y:0};
+    const sc = s.clusterColor || '#888', tc = t.clusterColor || '#888';
     const same = s.modClass === t.modClass;
     const gid = 'eg' + (gradIdx++);
 
@@ -948,17 +961,22 @@ function applyHover(d) {
     grad.append('stop').attr('offset','0%').attr('stop-color', sc);
     grad.append('stop').attr('offset','100%').attr('stop-color', tc);
 
-    d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y)
-      .attr('stroke','url(#'+gid+')')
-      .attr('stroke-width', same ? 2.2 : 1.6)
-      .style('display',null).style('opacity', same ? 0.65 : 0.35);
+    el.setAttribute('x1', s.x); el.setAttribute('y1', s.y);
+    el.setAttribute('x2', t.x); el.setAttribute('y2', t.y);
+    el.setAttribute('stroke', 'url(#'+gid+')');
+    el.setAttribute('stroke-width', same ? 2.2 : 1.6);
+    el.style.display = null;
+    el.style.opacity = same ? 0.65 : 0.35;
+    _prevShownEdgeEls.push(el);
   });
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  d3.select('#edges-layer').selectAll('.edge').style('display','none');
-  // Reaplica zoom semântico (reseta opacidade dos nós + labels)
-  _currentZoomLevel = -1; // força re-render
+  // Esconde só as arestas que foram mostradas (não itera todas as 5033)
+  _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
+  _prevShownEdgeEls = [];
+  // Reaplica zoom semântico
+  _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
   applySemanticZoom(k);
 }
