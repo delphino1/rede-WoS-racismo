@@ -1114,10 +1114,21 @@ function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   _prevShownEdgeEls.forEach(el => {
     const e = d3.select(el).datum();
-    const w = (e && e.weight) || 1;
-    el.style.display = null;
-    el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
-    el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
+    const src = e && (typeof e.source==='object' ? e.source : nodeById.get(e.source));
+    const tgt = e && (typeof e.target==='object' ? e.target : nodeById.get(e.target));
+    if (highlightCluster) {
+      // Restaura estado de cluster: internas visíveis, externas ocultas
+      const within = src && tgt && src.modClass === highlightCluster && tgt.modClass === highlightCluster;
+      el.style.display = within ? null : 'none';
+      el.style.opacity = within ? '0.40' : '0';
+      el.setAttribute('stroke', within ? clusterColor(highlightCluster) : '#1e1e30');
+      el.setAttribute('stroke-width', within ? '1.2' : '0.4');
+    } else {
+      const w = (e && e.weight) || 1;
+      el.style.display = null;
+      el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
+      el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
+    }
   });
   _prevShownEdgeEls = [];
 
@@ -1158,14 +1169,14 @@ function selectCluster(mc) {
   // Arestas: só as internas ao cluster, com cor vibrante do cluster
   const clColor = clusterColor(mc);
   d3.select('#edges-layer').selectAll('.edge').each(function(e) {
-    const srcId=typeof e.source==='object'?e.source.id:e.source;
-    const tgtId=typeof e.target==='object'?e.target.id:e.target;
-    const within=clIds.has(srcId)&&clIds.has(tgtId);
+    const src = typeof e.source==='object' ? e.source : nodeById.get(e.source);
+    const tgt = typeof e.target==='object' ? e.target : nodeById.get(e.target);
+    const within = src && tgt && src.modClass === mc && tgt.modClass === mc;
     if (within) {
       d3.select(this).attr('stroke', clColor).attr('stroke-width', 1.2)
         .style('display', null).style('opacity', 0.40);
     } else {
-      d3.select(this).style('display', 'none');
+      d3.select(this).style('display', 'none').style('opacity', 0);
     }
   });
 
