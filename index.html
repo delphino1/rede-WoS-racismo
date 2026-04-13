@@ -675,7 +675,7 @@ function buildVisualization(graphData) {
   nodeG
     .on('mouseenter', (event,d) => { if (highlightNode&&highlightNode.id===d.id) return; showTooltip(event,d); if (!highlightNode) applyHover(d); })
     .on('mousemove', event => positionTooltip(event))
-    .on('mouseleave', () => { hideTooltip(); if (!highlightNode) clearHover(); })
+    .on('mouseleave', () => { hideTooltip(); clearHover(); })
     .on('click', (event,d) => { event.stopPropagation(); selectNode(d); })
     .call(d3.drag()
       .on('start', (event,d) => { if (!event.active) simulation.alphaTarget(0.1).restart(); d.fx=d.x; d.fy=d.y; })
@@ -1111,6 +1111,7 @@ function applyHover(d) {
   });
 }
 function clearHover() {
+  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   _prevShownEdgeEls.forEach(el => {
     const e = d3.select(el).datum();
     const src = e && (typeof e.source==='object' ? e.source : nodeById.get(e.source));
@@ -1130,6 +1131,7 @@ function clearHover() {
       const w = (e && e.weight) || 1;
       el.style.display = null;
       el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
+      el.setAttribute('stroke', edgeColorStr(e, nodeById));
       el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
     }
   });
