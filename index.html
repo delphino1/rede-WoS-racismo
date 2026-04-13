@@ -667,14 +667,13 @@ function buildVisualization(graphData) {
   d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
     .attr('class','node-label').text(d=>d.label)
     .attr('text-anchor','middle').attr('font-family',"'Space Grotesk', sans-serif")
-    // Tier 0: 11px bold, branco suave | Tier 1: 9.5px regular, cinza-azulado
-    .attr('font-size', d => d.zoomTier === 0 ? '11px' : '9.5px')
-    .attr('font-weight', d => d.zoomTier === 0 ? '600' : '400')
-    .attr('fill', d => d.zoomTier === 0 ? 'rgba(240,242,255,0.92)' : 'rgba(195,200,225,0.88)')
+    // Tier 0: grande/bold/branco · Tier 1: médio/regular · Tier 2: pequeno/sutil
+    .attr('font-size', d => d.zoomTier === 0 ? '12px' : d.zoomTier === 1 ? '9.5px' : '8.5px')
+    .attr('font-weight', d => d.zoomTier === 0 ? '700' : '400')
+    .attr('fill', d => d.zoomTier === 0 ? 'rgba(255,255,255,0.95)' : 'rgba(200,205,230,0.82)')
     .attr('paint-order','stroke')
-    .attr('stroke','rgba(0,0,0,0.70)')
-    .attr('stroke-width', d => d.zoomTier === 0 ? '2.5px' : '2px')
-    // Opacidade comprimida: range 0.45–0.90 (nem muito apagado nem muito brilhante)
+    .attr('stroke','rgba(0,0,0,0.80)')
+    .attr('stroke-width', d => d.zoomTier === 0 ? '3px' : '2px')
     .style('opacity', d => 0.45 + d.baseOpacity * 0.48)
     .style('pointer-events','none').style('display', d=>topNodes.has(d.id)?null:'none');
 
@@ -747,7 +746,13 @@ function buildVisualization(graphData) {
     .force('collide', d3.forceCollide(d=>d.size+4).strength(0.9))
 
     .on('tick', tick)
-    .on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
+    .on('end', () => {
+      updateHulls(nodes);
+      updateClusterLabelPositions(nodes);
+      // Roda detecção de colisão de labels com posições finais dos nós
+      const t = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()) : d3.zoomIdentity;
+      updateLabelViewport(t);
+    });
 
   let _tick = 0;
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
@@ -872,36 +877,79 @@ function updateClusterLabelPositions(nodes) {
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
-    // Estimativa da meia-largura do badge para evitar corte nas bordas
-    const badgeHalfW = Math.min(d.name.length * 5.5 + 20, 200);
-    const badgeHalfH = 18;
+    // Estimativa da meia-largura do badge: ~6px por char (Space Grotesk 10px, letter-spacing)
+    // Sem limite de 200 — nomes longos (ex: "DESIGUALDADES RACIAIS E ESTRATIFICAÇÃO") precisam de espaço
+    const badgeHalfW = d.name.length * 6.2 + 24;
+    const badgeHalfH = 20;
     bx = Math.max(pad + badgeHalfW, Math.min(W - pad - badgeHalfW, bx));
     by = Math.max(pad + badgeHalfH, Math.min(H - pad - badgeHalfH, by));
     d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
-// Mostra labels apenas para nós dentro da área visível atual
-// O tier visível aumenta com o zoom — quanto mais perto, mais labels aparecem
+// Mostra labels no viewport aplicando:
+//   1. Filtro de tier × zoom  (qual tier é elegível ao nível atual)
+//   2. Detecção de colisão greedy  (evita sobreposição de texto)
+// Labels são priorizados por tier e grau — os mais importantes sempre ganham espaço.
 function updateLabelViewport(transform) {
   if (highlightNode || highlightCluster) return;
   const cw = document.getElementById('canvas-area').clientWidth;
   const ch = document.getElementById('canvas-area').clientHeight;
   const k  = transform.k;
+  const tx = transform.x, ty = transform.y;
   const pad = 60;
-  const x0 = (-transform.x - pad) / k;
-  const x1 = (cw - transform.x + pad) / k;
-  const y0 = (-transform.y - pad) / k;
-  const y1 = (ch - transform.y + pad) / k;
+  const x0 = (-tx - pad) / k;
+  const x1 = (cw - tx + pad) / k;
+  const y0 = (-ty - pad) / k;
+  const y1 = (ch - ty + pad) / k;
 
   const topSet = getTopNodes();
+
+  // ── 1. Candidatos: nós no viewport que passam no filtro de tier/zoom ──
+  const candidates = [];
+  currentNodes.forEach(d => {
+    if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return;
+    if (k >= 1.6) { candidates.push(d); return; }        // zoom próximo: todos
+    if (d.zoomTier === 2) return;                         // tier 2: só com zoom próximo
+    if (topSet.has(d.id) || d.zoomTier === 0) { candidates.push(d); return; }
+    if (k >= 1.0 && d.zoomTier === 1) { candidates.push(d); return; }
+  });
+
+  // ── 2. Ordena por importância (tier 0 → 1 → 2, depois por grau) ──
+  candidates.sort((a, b) => {
+    if (a.zoomTier !== b.zoomTier) return a.zoomTier - b.zoomTier;
+    return b.degree - a.degree;
+  });
+
+  // ── 3. Detecção de colisão greedy em espaço de tela (pixels) ──
+  // Bounding box: largura ∝ comprimento do label × fontSize; altura = fontSize + padding
+  // Coordenadas de tela: sx = dataX*k + tx   (label centralizado horizontalmente)
+  //                      sy = (dataY - node.size - 3)*k + ty   (label acima do nó)
+  const shown = new Set();
+  const placed = [];  // [{sx, sy, hw, hh}]
+
+  candidates.forEach(d => {
+    const isT0 = d.zoomTier === 0 || topSet.has(d.id);
+    const fontSize = isT0 ? 12 : (d.zoomTier === 1 ? 9.5 : 8.5);
+    const charW    = fontSize * 0.58;          // largura média por caractere
+    const hw       = d.label.length * charW / 2 + 5;   // meia-largura + padding
+    const hh       = fontSize / 2 + 4;                  // meia-altura + padding
+
+    const sx = d.x * k + tx;
+    const sy = (d.y - d.size - 3) * k + ty;
+
+    let collides = false;
+    for (const p of placed) {
+      if (Math.abs(sx - p.sx) < hw + p.hw && Math.abs(sy - p.sy) < hh + p.hh) {
+        collides = true; break;
+      }
+    }
+    if (!collides) { shown.add(d.id); placed.push({sx, sy, hw, hh}); }
+  });
+
+  // ── 4. Aplica display baseado no resultado da detecção ──
   d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
-    if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return 'none'; // fora do viewport
-    // Usa k diretamente — sem depender de _currentZoomLevel (evita atrasos de limiar)
-    if (k >= 1.6) return null;                                          // próximo: todos no viewport
-    if (d.zoomTier === 2) return 'none';                                // tier 2: só no zoom próximo
-    if (topSet.has(d.id) || d.zoomTier === 0) return null;             // tier 0: sempre
-    if (k >= 1.0 && d.zoomTier === 1) return null;                     // tier 1: zoom médio+
-    return 'none';
+    if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return 'none';
+    return shown.has(d.id) ? null : 'none';
   });
 }
 
