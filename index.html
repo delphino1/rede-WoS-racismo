@@ -1175,6 +1175,14 @@ function clearHover() {
   // Estado global: restaura opacidade base
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
   d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => 0.45 + d.baseOpacity * 0.48);
+  // Restaura TODAS as arestas ao estado de fundo (applyHover coloca todas em 0.02)
+  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
+    const w = (e && e.weight) || 1;
+    this.style.display = null;
+    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.19 : 0.12;
+    this.setAttribute('stroke', edgeColorStr(e, nodeById));
+    this.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
+  });
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
   applySemanticZoom(k);
