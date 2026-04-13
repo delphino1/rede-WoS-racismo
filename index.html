@@ -881,11 +881,12 @@ function updateClusterLabelPositions(nodes) {
   });
 }
 // Mostra labels apenas para nós dentro da área visível atual
+// O tier visível aumenta com o zoom — quanto mais perto, mais labels aparecem
 function updateLabelViewport(transform) {
   if (highlightNode || highlightCluster) return;
   const cw = document.getElementById('canvas-area').clientWidth;
   const ch = document.getElementById('canvas-area').clientHeight;
-  const pad = 60; // px de margem extra além da borda
+  const pad = 60;
   const x0 = (-transform.x - pad) / transform.k;
   const x1 = (cw - transform.x + pad) / transform.k;
   const y0 = (-transform.y - pad) / transform.k;
@@ -893,10 +894,12 @@ function updateLabelViewport(transform) {
 
   const topSet = getTopNodes();
   d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
-    if (d.zoomTier === 2) return 'none';                        // tier 2: nunca
     if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return 'none'; // fora do viewport
-    if (topSet.has(d.id) || d.zoomTier === 0) return null;     // tier 0: sempre (se visível)
-    if (_currentZoomLevel >= 1 && d.zoomTier === 1) return null; // tier 1: zoom médio+
+    // Libera mais labels conforme o zoom aumenta
+    if (_currentZoomLevel >= 2) return null;                            // zoom alto: todos no viewport
+    if (d.zoomTier === 2) return 'none';                                // tier 2: só no zoom alto
+    if (topSet.has(d.id) || d.zoomTier === 0) return null;             // tier 0: sempre
+    if (_currentZoomLevel >= 1 && d.zoomTier === 1) return null;        // tier 1: zoom médio+
     return 'none';
   });
 }
@@ -977,18 +980,27 @@ function applyHover(d) {
     [...neighbors].sort((a,b) => (edgeWeights.get(b)||0) - (edgeWeights.get(a)||0)).slice(0, TOP_NB)
   );
 
-  // Opacidade dos nós
+  // Opacidade dos nós: 3 níveis — selecionado / vizinhos fortes / resto esmaecido
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n => {
     if (n.id === d.id) return 1;
-    if (topNeighbors.has(n.id)) return 0.9;
-    if (neighbors.has(n.id)) return 0.15;
-    return 0.05;
+    if (topNeighbors.has(n.id)) return 0.95;  // top 30 por peso: destaque total
+    if (neighbors.has(n.id)) return 0.50;     // outros vizinhos: visíveis mas suaves
+    return 0.04;                              // não-vizinhos: quase invisíveis → contraste claro
   });
 
-  // Labels no hover: nó selecionado + vizinhos em destaque, resto oculto
+  // Labels: TODOS os vizinhos ganham label (não só top 30)
+  // Opacidade proporcional ao peso da conexão
   d3.select('#labels-layer').selectAll('.node-label')
-    .style('opacity', n => (n.id === d.id) ? 1 : topNeighbors.has(n.id) ? Math.min(1, n.baseOpacity * 1.3) : null)
-    .style('display', n => (n.id === d.id || topNeighbors.has(n.id)) ? null : 'none');
+    .style('opacity', n => {
+      if (n.id === d.id) return 1;
+      if (topNeighbors.has(n.id)) return 1;                        // conexões fortes: plena
+      if (neighbors.has(n.id)) return Math.max(0.5, n.baseOpacity); // conexões leves: visíveis
+      return null;
+    })
+    .style('display', n => {
+      if (n.id === d.id || neighbors.has(n.id)) return null; // TODOS os vizinhos têm label
+      return 'none';
+    });
 
   // ── Arestas: esconde apenas as do hover anterior, não todas as 5033 ──
   _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
