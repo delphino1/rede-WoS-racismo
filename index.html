@@ -1068,54 +1068,19 @@ function applyHover(d) {
     .filter(n => n.id === d.id)
     .raise();
 
-  // ── Arestas de fundo: esmaece todas para destacar as do nó selecionado ──
-  // (não esconde — mantém a estrutura da rede visível ao fundo)
-  d3.select('#edges-layer').selectAll('.edge').style('opacity', 0.02);
-  _prevShownEdgeEls.forEach(el => { el.style.opacity = 0.02; });
+  // ── Arestas: mantém fundo sutil, destaca as do nó levemente ──
   _prevShownEdgeEls = [];
-
-  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  const defs = d3.select('#viz-svg defs');
-  let gradIdx = 0;
-
-  // Ordena por peso — sem limite de quantidade (mostra TODAS as arestas)
-  const GRADIENT_LIMIT = 50; // gradientes só para as mais pesadas (performance)
-  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0));
-
-  sortedEdges.forEach(({el, e}, idx) => {
+  myEdges.forEach(({el, e}) => {
     const s = typeof e.source==='object' ? e.source : nodeById.get(e.source) || {x:0,y:0};
-    const t = typeof e.target==='object' ? e.target : nodeById.get(e.target) || {x:0,y:0};
-    const sc = s.clusterColor || '#888', tc = t.clusterColor || '#888';
-    const same = s.modClass === t.modClass;
-
-    el.setAttribute('x1', s.x); el.setAttribute('y1', s.y);
-    el.setAttribute('x2', t.x); el.setAttribute('y2', t.y);
-
-    if (idx < GRADIENT_LIMIT) {
-      // Arestas mais fortes: gradiente cor do cluster origem → destino
-      const gid = 'eg' + (gradIdx++);
-      const grad = defs.append('linearGradient')
-        .attr('class','edge-gradient').attr('id', gid)
-        .attr('gradientUnits','userSpaceOnUse')
-        .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
-      grad.append('stop').attr('offset','0%').attr('stop-color', sc);
-      grad.append('stop').attr('offset','100%').attr('stop-color', tc);
-      el.setAttribute('stroke', 'url(#'+gid+')');
-      el.setAttribute('stroke-width', same ? 2.2 : 1.6);
-      el.style.opacity = same ? 0.65 : 0.38;
-    } else {
-      // Arestas mais fracas: cor sólida do cluster de origem
-      el.setAttribute('stroke', sc);
-      el.setAttribute('stroke-width', same ? 1.4 : 1.1);
-      el.style.opacity = same ? 0.38 : 0.20;
-    }
-
+    const same = s.modClass === (typeof e.target==='object' ? e.target : nodeById.get(e.target)||{}).modClass;
+    el.setAttribute('stroke', s.clusterColor || '#888');
+    el.setAttribute('stroke-width', same ? 1.2 : 0.8);
+    el.style.opacity = same ? '0.45' : '0.25';
     el.style.display = null;
     _prevShownEdgeEls.push(el);
   });
 }
 function clearHover() {
-  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   _prevShownEdgeEls.forEach(el => {
     const e = d3.select(el).datum();
     const src = e && (typeof e.source==='object' ? e.source : nodeById.get(e.source));
