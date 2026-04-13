@@ -527,6 +527,9 @@ let highlightNode = null, highlightCluster = null;
 let _currentZoomLevel = -1;   // zoom semântico
 let nodeEdgeEls = new Map();  // nodeId → [{el, e}] — precomputado para hover rápido
 let _prevShownEdgeEls = [];   // arestas mostradas no último hover (para esconder sem varrer todas)
+let _zoomRafId = null;        // RAF throttle para zoom
+let _cachedClusterMap = null; // cache do mapa de clusters (evita recriar Map a cada tick/zoom)
+let _simDone = false;         // flag: simulação terminou → para atualização de arestas no tick
 let referencesDB = {};    // carregado do references.json
 let authorNamesDB = {};  // carregado do author_names.json  { "telles, e": "Edward Telles" }
 
@@ -611,10 +614,14 @@ function buildVisualization(graphData) {
     // Scroll 1.6× mais rápido que o padrão D3 (confortável)
     .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 1.6)
     .on('zoom', event => {
-      d3.select('#zoom-group').attr('transform', event.transform);
-      applySemanticZoom(event.transform.k);
-      updateLabelViewport(event.transform);
-      updateClusterLabelPositions(currentNodes); // mantém badges visíveis ao pan/zoom
+      d3.select('#zoom-group').attr('transform', event.transform); // imediato — sem lag visual
+      if (_zoomRafId) cancelAnimationFrame(_zoomRafId);
+      _zoomRafId = requestAnimationFrame(() => {
+        applySemanticZoom(event.transform.k);
+        updateLabelViewport(event.transform);
+        updateClusterLabelPositions(currentNodes);
+        _zoomRafId = null;
+      });
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
@@ -715,6 +722,7 @@ function buildVisualization(graphData) {
 
     .on('tick', tick)
     .on('end', () => {
+      _simDone = true; // para atualização de coordenadas de arestas no tick
       updateHulls(nodes);
       updateClusterLabelPositions(nodes);
       const t = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()) : d3.zoomIdentity;
@@ -725,10 +733,12 @@ function buildVisualization(graphData) {
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
     _tick++;
-    // Arestas: atualiza coordenadas todo tick
-    edgeSel
-      .attr('x1', e => getNodeObj(e.source).x).attr('y1', e => getNodeObj(e.source).y)
-      .attr('x2', e => getNodeObj(e.target).x).attr('y2', e => getNodeObj(e.target).y);
+    // Arestas: só durante a simulação (após _simDone não movem mais)
+    if (!_simDone) {
+      edgeSel
+        .attr('x1', e => getNodeObj(e.source).x).attr('y1', e => getNodeObj(e.source).y)
+        .attr('x2', e => getNodeObj(e.target).x).attr('y2', e => getNodeObj(e.target).y);
+    }
     // Nós e labels
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
@@ -751,8 +761,11 @@ function buildVisualization(graphData) {
 // HULLS
 // ═══════════════════════════════════════════════════════
 function getClusterMap(nodes) {
+  // Cache: os nós são sempre os mesmos objetos (posições mudam in-place), não precisa recriar
+  if (_cachedClusterMap) return _cachedClusterMap;
   const map = new Map();
   nodes.forEach(n => { if (!map.has(n.modClass)) map.set(n.modClass,[]); map.get(n.modClass).push(n); });
+  _cachedClusterMap = map;
   return map;
 }
 function expandHull(pts, cx, cy, amount) {
