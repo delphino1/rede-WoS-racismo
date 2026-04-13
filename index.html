@@ -766,7 +766,7 @@ function buildVisualization(graphData) {
     '<span style="font-size:9px;opacity:.6">Arraste · Zoom · Clique para explorar</span>';
   setTimeout(() => { const h=document.getElementById('hint'); h.classList.add('visible'); setTimeout(()=>h.classList.remove('visible'),4000); }, 1200);
 
-  // Aplica zoom semântico inicial (k=1 → só top autores visíveis)
+  // Aplica zoom semântico inicial (k=1 → tier 0+1 visíveis; tier 2 oculto até k≥1.6)
   _currentZoomLevel = -1;
   applySemanticZoom(1);
 }
@@ -886,20 +886,21 @@ function updateLabelViewport(transform) {
   if (highlightNode || highlightCluster) return;
   const cw = document.getElementById('canvas-area').clientWidth;
   const ch = document.getElementById('canvas-area').clientHeight;
+  const k  = transform.k;
   const pad = 60;
-  const x0 = (-transform.x - pad) / transform.k;
-  const x1 = (cw - transform.x + pad) / transform.k;
-  const y0 = (-transform.y - pad) / transform.k;
-  const y1 = (ch - transform.y + pad) / transform.k;
+  const x0 = (-transform.x - pad) / k;
+  const x1 = (cw - transform.x + pad) / k;
+  const y0 = (-transform.y - pad) / k;
+  const y1 = (ch - transform.y + pad) / k;
 
   const topSet = getTopNodes();
   d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
     if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return 'none'; // fora do viewport
-    // Libera mais labels conforme o zoom aumenta
-    if (_currentZoomLevel >= 2) return null;                            // zoom alto: todos no viewport
-    if (d.zoomTier === 2) return 'none';                                // tier 2: só no zoom alto
+    // Usa k diretamente — sem depender de _currentZoomLevel (evita atrasos de limiar)
+    if (k >= 1.6) return null;                                          // próximo: todos no viewport
+    if (d.zoomTier === 2) return 'none';                                // tier 2: só no zoom próximo
     if (topSet.has(d.id) || d.zoomTier === 0) return null;             // tier 0: sempre
-    if (_currentZoomLevel >= 1 && d.zoomTier === 1) return null;        // tier 1: zoom médio+
+    if (k >= 1.0 && d.zoomTier === 1) return null;                     // tier 1: zoom médio+
     return 'none';
   });
 }
@@ -911,18 +912,17 @@ function applySemanticZoom(k) {
     .style('transition', 'opacity 0.3s');
 
   // Níveis relativos ao zoom inicial (k≈1):
-  // 0 = visão geral (k<1.4) → top 20% por cluster
-  // 1 = médio      (1.4–2.4) → top 50% por cluster
-  // 2 = detalhe    (>2.4)    → todos os nós
-  const newLevel = k < 1.4 ? 0 : k < 2.4 ? 1 : 2;
+  // 0 = visão geral  (k<1.0) → top 20% por cluster
+  // 1 = médio        (1.0–1.6) → top 50% por cluster
+  // 2 = detalhe      (>1.6)  → todos os nós
+  const newLevel = k < 1.0 ? 0 : k < 1.6 ? 1 : 2;
   if (newLevel === _currentZoomLevel) return; // só atualiza ao cruzar limiar
   _currentZoomLevel = newLevel;
 
   // Não interfere se hover ativo
   if (highlightNode || highlightCluster) return;
 
-  // Nós: SEMPRE visíveis (opacity controlada por baseOpacity, não pelo zoom)
-  // Só pointer-events mudam: nós periféricos não são clicáveis no zoom geral
+  // Nós: pointer-events habilitados conforme o nível de zoom atual
   d3.select('#nodes-layer').selectAll('.node-g')
     .style('pointer-events', d => d.zoomTier <= newLevel ? 'auto' : 'none');
 
@@ -1010,29 +1010,39 @@ function applyHover(d) {
   const defs = d3.select('#viz-svg defs');
   let gradIdx = 0;
 
-  const MAX_EDGES_HOVER = 35;
-  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0)).slice(0, MAX_EDGES_HOVER);
+  // Ordena por peso — sem limite de quantidade (mostra TODAS as arestas)
+  const GRADIENT_LIMIT = 50; // gradientes só para as mais pesadas (performance)
+  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0));
 
-  sortedEdges.forEach(({el, e}) => {
+  sortedEdges.forEach(({el, e}, idx) => {
     const s = typeof e.source==='object' ? e.source : nodeById.get(e.source) || {x:0,y:0};
     const t = typeof e.target==='object' ? e.target : nodeById.get(e.target) || {x:0,y:0};
     const sc = s.clusterColor || '#888', tc = t.clusterColor || '#888';
     const same = s.modClass === t.modClass;
-    const gid = 'eg' + (gradIdx++);
-
-    const grad = defs.append('linearGradient')
-      .attr('class','edge-gradient').attr('id', gid)
-      .attr('gradientUnits','userSpaceOnUse')
-      .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
-    grad.append('stop').attr('offset','0%').attr('stop-color', sc);
-    grad.append('stop').attr('offset','100%').attr('stop-color', tc);
 
     el.setAttribute('x1', s.x); el.setAttribute('y1', s.y);
     el.setAttribute('x2', t.x); el.setAttribute('y2', t.y);
-    el.setAttribute('stroke', 'url(#'+gid+')');
-    el.setAttribute('stroke-width', same ? 2.2 : 1.6);
+
+    if (idx < GRADIENT_LIMIT) {
+      // Arestas mais fortes: gradiente da cor dos dois clusters
+      const gid = 'eg' + (gradIdx++);
+      const grad = defs.append('linearGradient')
+        .attr('class','edge-gradient').attr('id', gid)
+        .attr('gradientUnits','userSpaceOnUse')
+        .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
+      grad.append('stop').attr('offset','0%').attr('stop-color', sc);
+      grad.append('stop').attr('offset','100%').attr('stop-color', tc);
+      el.setAttribute('stroke', 'url(#'+gid+')');
+      el.setAttribute('stroke-width', same ? 2.2 : 1.6);
+      el.style.opacity = same ? 0.65 : 0.38;
+    } else {
+      // Arestas mais fracas: cor sólida do cluster de origem (mais leve, sem custo de gradiente)
+      el.setAttribute('stroke', sc);
+      el.setAttribute('stroke-width', same ? 1.4 : 1.1);
+      el.style.opacity = same ? 0.38 : 0.20;
+    }
+
     el.style.display = null;
-    el.style.opacity = same ? 0.65 : 0.35;
     _prevShownEdgeEls.push(el);
   });
 }
