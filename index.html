@@ -615,11 +615,12 @@ function buildVisualization(graphData) {
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
-  // Arestas ocultas por padrão — só aparecem no hover (evita atualizar 5033 SVG lines por tick)
+  // Arestas: visíveis por padrão com opacidade baixa — mostram estrutura da rede na visão geral
   const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
     .attr('stroke', e => edgeColorStr(e, nodeById))
-    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 1.2 : 0.6)
-    .style('display', 'none');
+    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4)
+    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.12 : 0.05)
+    .style('display', null);
 
   // Pré-computa mapa nodeId → arestas SVG adjacentes (evita varrer 5033 elementos no hover)
   nodeEdgeEls = new Map();
@@ -701,10 +702,10 @@ function buildVisualization(graphData) {
   // Hubs (alto grau) têm gravidade extra — migram para as bordas entre clusters.
   const maxDeg = d3.max(nodes, d => d.degree) || 1;
 
-  // Comprime posições GEXF 35% em direção ao centro do canvas
+  // Expande posições GEXF 15% para fora do centro — clusters ficam mais separados
   nodes.forEach(n => {
-    n.x = W/2 + (n.x - W/2) * 0.65;
-    n.y = H/2 + (n.y - H/2) * 0.65;
+    n.x = W/2 + (n.x - W/2) * 1.15;
+    n.y = H/2 + (n.y - H/2) * 1.15;
   });
 
   // Centroides por cluster derivados das posições comprimidas
@@ -741,25 +742,24 @@ function buildVisualization(graphData) {
   }
 
   simulation = d3.forceSimulation(nodes)
-    .alphaDecay(0.030).velocityDecay(0.50).alphaMin(0.002)
+    .alphaDecay(0.025).velocityDecay(0.55).alphaMin(0.002)
 
     // ① Coesão de cluster: mantém nós perto do centroide do seu grupo
-    .force('clusterX', d3.forceX(d=>{const c=clusterCentroids.get(d.modClass);return c?c.x:W/2;}).strength(0.26))
-    .force('clusterY', d3.forceY(d=>{const c=clusterCentroids.get(d.modClass);return c?c.y:H/2;}).strength(0.26))
+    .force('clusterX', d3.forceX(d=>{const c=clusterCentroids.get(d.modClass);return c?c.x:W/2;}).strength(0.20))
+    .force('clusterY', d3.forceY(d=>{const c=clusterCentroids.get(d.modClass);return c?c.y:H/2;}).strength(0.20))
 
-    // ② Gravidade por grau: hubs flutuam para o centro das fronteiras entre clusters
-    //    Hasenbalg/Freyre/Bourdieu: ~0.07 | periféricos: ~0.002
-    .force('gravX', d3.forceX(W/2).strength(d => (d.degree/maxDeg) * 0.07))
-    .force('gravY', d3.forceY(H/2).strength(d => (d.degree/maxDeg) * 0.07))
+    // ② Gravidade central fraca — só hubs puxados levemente ao centro
+    .force('gravX', d3.forceX(W/2).strength(d => (d.degree/maxDeg) * 0.025))
+    .force('gravY', d3.forceY(H/2).strength(d => (d.degree/maxDeg) * 0.025))
 
-    // ③ Repulsão local entre nós (evita amontoar sem ilhas)
-    .force('charge', d3.forceManyBody().strength(d => -35 - d.size * 1.5).distanceMax(200))
+    // ③ Repulsão local forte — nós se espalham dentro do cluster
+    .force('charge', d3.forceManyBody().strength(d => -80 - d.size * 2.5).distanceMax(320))
 
-    // ④ Repulsão suave entre clusters (permite sobreposição leve nas bordas)
-    .force('clusterRepel', makeClusterRepulsionForce(5, 140))
+    // ④ Repulsão entre clusters mais agressiva — separação clara entre grupos
+    .force('clusterRepel', makeClusterRepulsionForce(10, 220))
 
-    // ⑤ Colisão
-    .force('collide', d3.forceCollide(d=>d.size+4).strength(0.9))
+    // ⑤ Colisão com folga maior
+    .force('collide', d3.forceCollide(d=>d.size+8).strength(0.85))
 
     .on('tick', tick)
     .on('end', () => {
@@ -1094,8 +1094,10 @@ function applyHover(d) {
     .filter(n => n.id === d.id)
     .raise();
 
-  // ── Arestas: esconde apenas as do hover anterior, não todas as 5033 ──
-  _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
+  // ── Arestas de fundo: esmaece todas para destacar as do nó selecionado ──
+  // (não esconde — mantém a estrutura da rede visível ao fundo)
+  d3.select('#edges-layer').selectAll('.edge').style('opacity', 0.02);
+  _prevShownEdgeEls.forEach(el => { el.style.opacity = 0.02; });
   _prevShownEdgeEls = [];
 
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
@@ -1140,7 +1142,14 @@ function applyHover(d) {
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
+  // Restaura arestas ao estado de fundo (visíveis com opacidade baixa)
+  _prevShownEdgeEls.forEach(el => {
+    const e = d3.select(el).datum();
+    const w = (e && e.weight) || 1;
+    el.style.display = null;
+    el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.12 : 0.05;
+    el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
+  });
   _prevShownEdgeEls = [];
   // Restaura opacidade base de nós e labels
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
