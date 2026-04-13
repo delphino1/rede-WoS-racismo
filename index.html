@@ -1029,11 +1029,15 @@ function applyHover(d) {
   );
 
   // Opacidade dos nós: 3 níveis — selecionado / vizinhos fortes / resto esmaecido
+  // Se um cluster estiver ativo, nós externos ao cluster ficam no estado esmaecido do cluster (0.06)
+  const clusterActive = !!highlightCluster;
+  const clIds = clusterActive ? new Set(currentNodes.filter(n => n.modClass === highlightCluster).map(n => n.id)) : null;
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n => {
     if (n.id === d.id) return 1;
+    if (clusterActive && !clIds.has(n.id)) return 0.06; // fora do cluster: mantém esmaecido
     if (topNeighbors.has(n.id)) return 0.95;
     if (neighbors.has(n.id)) return 0.50;
-    return 0.04;
+    return clusterActive ? 0.12 : 0.04; // dentro do cluster mas sem conexão: ligeiramente visível
   });
 
   // Nó focado fica por cima dos vizinhos na renderização
@@ -1108,7 +1112,6 @@ function applyHover(d) {
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  // Restaura arestas ao estado de fundo (visíveis com opacidade baixa)
   _prevShownEdgeEls.forEach(el => {
     const e = d3.select(el).datum();
     const w = (e && e.weight) || 1;
@@ -1117,10 +1120,21 @@ function clearHover() {
     el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
   });
   _prevShownEdgeEls = [];
-  // Restaura opacidade base de nós e labels
+
+  // Se um cluster está ativo, restaura o estado do cluster (não o estado global)
+  if (highlightCluster) {
+    const clIds = new Set(currentNodes.filter(n => n.modClass === highlightCluster).map(n => n.id));
+    d3.select('#nodes-layer').selectAll('.node-g')
+      .style('opacity', n => clIds.has(n.id) ? 1 : 0.06);
+    d3.select('#labels-layer').selectAll('.node-label')
+      .style('display', d => clIds.has(d.id) ? null : 'none')
+      .style('opacity', d => clIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
+    return;
+  }
+
+  // Estado global: restaura opacidade base
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
   d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => 0.45 + d.baseOpacity * 0.48);
-  // Reaplica zoom semântico (labels + pointer-events)
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
   applySemanticZoom(k);
