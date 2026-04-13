@@ -108,7 +108,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 #canvas-area{flex:1;position:relative;overflow:hidden}
 #zoom-group{will-change:transform}
 #nodes-layer .node-g{will-change:opacity}
-#edges-layer{transition:opacity 0.15s ease}
 #edges-layer line{shape-rendering:optimizeSpeed}
 #viz-svg{width:100%;height:100%;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%);cursor:grab;display:block}
 #viz-svg:active{cursor:grabbing}
@@ -625,23 +624,16 @@ function buildVisualization(graphData) {
     .on('zoom', event => {
       // 1. Transform SVG: imediato, sem custo extra
       d3.select('#zoom-group').attr('transform', event.transform);
-      // 2. Esconde arestas durante zoom (5033 SVG lines são caras de repintar)
-      if (!_zoomRafId) {
-        d3.select('#edges-layer').style('opacity', 0);
-      }
-      // 3. Leve (threshold + cluster badges): 1× por frame no máximo
+      // 2. Leve (threshold + cluster badges): 1× por frame no máximo
       if (_zoomRafId) cancelAnimationFrame(_zoomRafId);
       _zoomRafId = requestAnimationFrame(() => {
         applySemanticZoom(event.transform.k);
         updateClusterLabelPositions(currentNodes);
         _zoomRafId = null;
       });
-      // 4. Restaura arestas + labels após parar de zoomar
+      // 3. Pesado (collision detection de labels): só após parar de zoomar
       clearTimeout(_labelDebounceId);
-      _labelDebounceId = setTimeout(() => {
-        d3.select('#edges-layer').style('opacity', null);
-        updateLabelViewport(event.transform);
-      }, 150);
+      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 120);
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
