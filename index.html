@@ -527,7 +527,8 @@ let highlightNode = null, highlightCluster = null;
 let _currentZoomLevel = -1;   // zoom semântico
 let nodeEdgeEls = new Map();  // nodeId → [{el, e}] — precomputado para hover rápido
 let _prevShownEdgeEls = [];   // arestas mostradas no último hover (para esconder sem varrer todas)
-let referencesDB = {};   // carregado do references.json
+let referencesDB = {};    // carregado do references.json
+let authorNamesDB = {};  // carregado do author_names.json  { "telles, e": "Edward Telles" }
 
 // Normaliza nome de autor igual ao script Python: remove acentos, lowercase, "lastname, ii"
 function normalizeAuthorKey(label) {
@@ -541,8 +542,12 @@ function normalizeAuthorKey(label) {
   if (location.protocol === 'file:') return; // drag-and-drop local: pula
   try {
     const resp = await fetch('./references.json');
-    if (resp.ok) { referencesDB = await resp.json(); console.log('references.json carregado:', Object.keys(referencesDB).length, 'autores'); }
-  } catch(_) { /* sem references.json: funciona sem papers */ }
+    if (resp.ok) { referencesDB = await resp.json(); }
+  } catch(_) { /* sem references.json */ }
+  try {
+    const resp2 = await fetch('./author_names.json');
+    if (resp2.ok) { authorNamesDB = await resp2.json(); }
+  } catch(_) { /* sem author_names.json */ }
 })();
 
 function buildNeighborMap(nodes, edges) {
@@ -1234,7 +1239,17 @@ function showNodeCard(d) {
 
 function showRightPanel(d) {
   const color = d.clusterColor;
-  document.getElementById('rp-author').textContent = d.label;
+  const authorKey = normalizeAuthorKey(d.label);
+  const fullName = authorNamesDB[authorKey] || '';
+  const authorEl = document.getElementById('rp-author');
+  if (fullName) {
+    // Nome completo em destaque + abreviação do corpus como subtítulo
+    authorEl.innerHTML =
+      fullName +
+      `<span style="display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,0.35);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:.05em">${d.label}</span>`;
+  } else {
+    authorEl.textContent = d.label;
+  }
   const tag = document.getElementById('rp-cluster-tag');
   tag.textContent = d.clusterName;
   tag.style.background = color + '22';
@@ -1244,7 +1259,6 @@ function showRightPanel(d) {
 
   const papersEl = document.getElementById('rp-papers');
   papersEl.innerHTML = '';
-  const authorKey = normalizeAuthorKey(d.label);
   const rawPapers = referencesDB[authorKey] || [];
 
   // Deduplica edições diferentes do mesmo livro/artigo
