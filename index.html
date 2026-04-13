@@ -620,7 +620,9 @@ function buildVisualization(graphData) {
   });
 
   const nodeG = d3.select('#nodes-layer').selectAll('.node-g').data(nodes, d=>d.id).join('g')
-    .attr('class','node-g').attr('data-tier', d => d.zoomTier).style('cursor','pointer');
+    .attr('class','node-g').attr('data-tier', d => d.zoomTier)
+    .style('opacity', d => d.baseOpacity)
+    .style('cursor','pointer');
 
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
     .attr('r', d=>d.size*1.8).attr('fill', d=>d.clusterColor)
@@ -642,14 +644,21 @@ function buildVisualization(graphData) {
       .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0.003); d.fx=null; d.fy=null; })
     );
 
-  // ── Zoom semântico: atribui tier por rank de grau dentro do cluster ──
-  // Tier 0 (top 20%) → sempre visível | Tier 1 (20–50%) → zoom médio | Tier 2 (50–100%) → zoom alto
+  // ── Opacidade base + tiers de zoom ──
+  // Todos os nós ficam sempre visíveis, mas com opacidade proporcional ao grau.
+  // Hubs: quase opacos | periféricos: transparentes (névoa de fundo)
   (function assignZoomTiers() {
+    const _maxDeg = d3.max(nodes, d => d.degree) || 1;
     const byCluster = new Map();
     nodes.forEach(n => { if (!byCluster.has(n.modClass)) byCluster.set(n.modClass,[]); byCluster.get(n.modClass).push(n); });
     byCluster.forEach(cl => {
       cl.sort((a,b) => b.degree - a.degree);
-      cl.forEach((n,i) => { const p = i/cl.length; n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2; });
+      cl.forEach((n,i) => {
+        const p = i/cl.length;
+        n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2;
+        // Curva de potência: hubs ficam perto de 1.0, periféricos ficam perto de 0.10
+        n.baseOpacity = 0.10 + Math.pow(n.degree / _maxDeg, 0.50) * 0.90;
+      });
     });
   })();
 
@@ -877,21 +886,20 @@ function applySemanticZoom(k) {
   if (newLevel === _currentZoomLevel) return; // só atualiza ao cruzar limiar
   _currentZoomLevel = newLevel;
 
-  // Não interfere se hover ativo — clearHover vai reapllicar
+  // Não interfere se hover ativo
   if (highlightNode || highlightCluster) return;
 
-  // Visibilidade dos nós por tier
+  // Nós: SEMPRE visíveis (opacity controlada por baseOpacity, não pelo zoom)
+  // Só pointer-events mudam: nós periféricos não são clicáveis no zoom geral
   d3.select('#nodes-layer').selectAll('.node-g')
-    .style('opacity', d => d.zoomTier <= newLevel ? null : 0)
     .style('pointer-events', d => d.zoomTier <= newLevel ? 'auto' : 'none');
 
-  // Labels: tier-0 sempre, tier-1 no nível médio+, tier-2 só no detalhe
-  // No nível 2 mostra todos os labels dos nós visíveis (mais informação no zoom)
+  // Labels: controlados pelo zoom (labels são mais poluentes que nós)
   const topSet = getTopNodes();
   d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
-    if (d.zoomTier > newLevel) return 'none';          // nó oculto → label oculto
-    if (topSet.has(d.id)) return null;                 // top global → sempre mostra label
-    if (newLevel >= 2 && d.zoomTier <= 1) return null; // zoom alto → mostra tier 0-1
+    if (topSet.has(d.id)) return null;                  // top global → sempre
+    if (newLevel >= 2) return null;                     // zoom alto → todos
+    if (newLevel >= 1 && d.zoomTier <= 1) return null; // zoom médio → tier 0-1
     return 'none';
   });
 }
@@ -991,10 +999,11 @@ function applyHover(d) {
 }
 function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  // Esconde só as arestas que foram mostradas (não itera todas as 5033)
   _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
   _prevShownEdgeEls = [];
-  // Reaplica zoom semântico
+  // Restaura opacidade base de cada nó (gradiente por grau)
+  d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
+  // Reaplica zoom semântico (labels + pointer-events)
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
   applySemanticZoom(k);
