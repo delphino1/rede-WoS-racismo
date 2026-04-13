@@ -1124,7 +1124,7 @@ function clearHover() {
       const clIds = new Set(currentNodes.filter(n => n.modClass === highlightCluster).map(n => n.id));
       const within = srcId && tgtId && clIds.has(srcId) && clIds.has(tgtId);
       el.style.display = within ? null : 'none';
-      el.style.opacity = within ? '0.30' : '0';
+      el.style.opacity = within ? '0.20' : '0';
       el.setAttribute('stroke', within ? clusterColor(highlightCluster) : '#1e1e30');
       el.setAttribute('stroke-width', within ? '1.0' : '0.4');
     } else {
@@ -1163,7 +1163,7 @@ function clearHover() {
         if (clIds.has(srcId) && clIds.has(tgtId)) {
           shownEdges.add(el);
           el.style.display = null;
-          el.style.opacity = '0.30';
+          el.style.opacity = '0.20';
           el.setAttribute('stroke', clColor);
           el.setAttribute('stroke-width', '1.0');
         }
@@ -1207,7 +1207,7 @@ function selectCluster(mc) {
       if (clIds.has(srcId) && clIds.has(tgtId)) {
         shownEdges.add(el);
         el.style.display = null;
-        el.style.opacity = '0.30';
+        el.style.opacity = '0.20';
         el.setAttribute('stroke', clColor);
         el.setAttribute('stroke-width', '1.0');
       }
