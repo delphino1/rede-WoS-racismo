@@ -597,10 +597,12 @@ function buildVisualization(graphData) {
     scaleX = d3.scaleLinear().domain([d3.min(validX), d3.max(validX)]).range([W*.1, W*.9]);
     scaleY = d3.scaleLinear().domain([d3.min(validY), d3.max(validY)]).range([H*.9, H*.1]);
   }
-  // Posições iniciais das GEXF (só ponto de partida — a simulação vai reorganizar)
+  // Posições GEXF → âncoras fixas. A simulação só previne sobreposição.
   nodes.forEach(n => {
     n.x = (hasPos&&n.px!==null&&!isNaN(n.px)) ? scaleX(n.px) : W/2+(Math.random()-.5)*W*.8;
     n.y = (hasPos&&n.py!==null&&!isNaN(n.py)) ? scaleY(n.py) : H/2+(Math.random()-.5)*H*.8;
+    n.fx_anchor = n.x;
+    n.fy_anchor = n.y;
   });
 
   zoomInstance = d3.zoom()
@@ -697,75 +699,23 @@ function buildVisualization(graphData) {
   renderClusterLabels(nodes);
   renderHulls(nodes);
 
-  // ── Layout híbrido: estrutura GEXF comprimida + gravidade por grau ──
-  // Preserva os clusters do Gephi mas os traz 35% mais perto do centro.
-  // Hubs (alto grau) têm gravidade extra — migram para as bordas entre clusters.
-  const maxDeg = d3.max(nodes, d => d.degree) || 1;
-
-  // Expande posições GEXF 15% para fora do centro — clusters ficam mais separados
-  nodes.forEach(n => {
-    n.x = W/2 + (n.x - W/2) * 1.15;
-    n.y = H/2 + (n.y - H/2) * 1.15;
-  });
-
-  // Centroides por cluster derivados das posições comprimidas
-  const clusterCentroids = new Map();
-  const clusterMap0 = new Map();
-  nodes.forEach(n => { if (!clusterMap0.has(n.modClass)) clusterMap0.set(n.modClass,[]); clusterMap0.get(n.modClass).push(n); });
-  clusterMap0.forEach((ns, mc) => {
-    clusterCentroids.set(mc, { x: d3.mean(ns,n=>n.x), y: d3.mean(ns,n=>n.y) });
-  });
-
-  // Repulsão suave entre clusters para evitar sobreposição completa
-  function makeClusterRepulsionForce(repStr, minDist) {
-    let _nodes;
-    function force(alpha) {
-      const centroids = new Map(), counts = new Map();
-      _nodes.forEach(n => {
-        if (!centroids.has(n.modClass)) { centroids.set(n.modClass,{x:0,y:0}); counts.set(n.modClass,0); }
-        centroids.get(n.modClass).x += n.x; centroids.get(n.modClass).y += n.y;
-        counts.set(n.modClass, counts.get(n.modClass)+1);
-      });
-      centroids.forEach((c,mc) => { const cnt=counts.get(mc)||1; c.x/=cnt; c.y/=cnt; });
-      _nodes.forEach(n => {
-        centroids.forEach((c,mc) => {
-          if (mc===n.modClass) return;
-          const dx=n.x-c.x, dy=n.y-c.y, d=Math.sqrt(dx*dx+dy*dy)||1;
-          if (d>minDist) return;
-          const f=repStr*alpha*(minDist-d)/minDist;
-          n.vx+=(dx/d)*f; n.vy+=(dy/d)*f;
-        });
-      });
-    }
-    force.initialize = function(n){_nodes=n;};
-    return force;
-  }
-
+  // ── Simulação leve: âncoras GEXF + só colisão ──
+  // O layout já vem do ForceAtlas2 (Gephi). A simulação apenas empurra nós
+  // sobrepostos para fora, sem distorcer a estrutura de clusters.
   simulation = d3.forceSimulation(nodes)
     .alphaDecay(0.025).velocityDecay(0.55).alphaMin(0.002)
 
-    // ① Coesão de cluster: mantém nós perto do centroide do seu grupo
-    .force('clusterX', d3.forceX(d=>{const c=clusterCentroids.get(d.modClass);return c?c.x:W/2;}).strength(0.20))
-    .force('clusterY', d3.forceY(d=>{const c=clusterCentroids.get(d.modClass);return c?c.y:H/2;}).strength(0.20))
+    // ① Cada nó é puxado para a sua posição original GEXF
+    .force('anchorX', d3.forceX(d => d.fx_anchor).strength(0.35))
+    .force('anchorY', d3.forceY(d => d.fy_anchor).strength(0.35))
 
-    // ② Gravidade central fraca — só hubs puxados levemente ao centro
-    .force('gravX', d3.forceX(W/2).strength(d => (d.degree/maxDeg) * 0.025))
-    .force('gravY', d3.forceY(H/2).strength(d => (d.degree/maxDeg) * 0.025))
-
-    // ③ Repulsão local forte — nós se espalham dentro do cluster
-    .force('charge', d3.forceManyBody().strength(d => -80 - d.size * 2.5).distanceMax(320))
-
-    // ④ Repulsão entre clusters mais agressiva — separação clara entre grupos
-    .force('clusterRepel', makeClusterRepulsionForce(10, 220))
-
-    // ⑤ Colisão com folga maior
-    .force('collide', d3.forceCollide(d=>d.size+8).strength(0.85))
+    // ② Colisão suave — evita sobreposição sem deslocar clusters
+    .force('collide', d3.forceCollide(d => d.size + 3).strength(0.75))
 
     .on('tick', tick)
     .on('end', () => {
       updateHulls(nodes);
       updateClusterLabelPositions(nodes);
-      // Roda detecção de colisão de labels com posições finais dos nós
       const t = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()) : d3.zoomIdentity;
       updateLabelViewport(t);
     });
