@@ -725,7 +725,11 @@ function buildVisualization(graphData) {
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
     _tick++;
-    // Nós e labels: todo tick (leve — ~340 elementos)
+    // Arestas: atualiza coordenadas todo tick
+    edgeSel
+      .attr('x1', e => getNodeObj(e.source).x).attr('y1', e => getNodeObj(e.source).y)
+      .attr('x2', e => getNodeObj(e.target).x).attr('y2', e => getNodeObj(e.target).y);
+    // Nós e labels
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
     // Hulls: a cada 4 ticks (pesado)
