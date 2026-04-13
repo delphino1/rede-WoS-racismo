@@ -1141,12 +1141,18 @@ function selectCluster(mc) {
   // Nós: cluster em destaque, resto esmaecido
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>clIds.has(n.id)?1:0.06);
 
-  // Arestas: só as internas ao cluster
+  // Arestas: só as internas ao cluster, com cor vibrante do cluster
+  const clColor = clusterColor(mc);
   d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const srcId=typeof e.source==='object'?e.source.id:e.source;
     const tgtId=typeof e.target==='object'?e.target.id:e.target;
     const within=clIds.has(srcId)&&clIds.has(tgtId);
-    d3.select(this).style('display', within?null:'none').style('opacity', within?0.6:0);
+    if (within) {
+      d3.select(this).attr('stroke', clColor).attr('stroke-width', 1.2)
+        .style('display', null).style('opacity', 0.40);
+    } else {
+      d3.select(this).style('display', 'none');
+    }
   });
 
   // Hulls
