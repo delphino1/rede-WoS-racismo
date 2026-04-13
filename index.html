@@ -763,7 +763,7 @@ function renderHulls(nodes) {
   d3.select('#hulls-layer').selectAll('.hull-path').data(hullData, d=>d.mc).join('path').attr('class','hull-path')
     .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.10)
     .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.45).attr('stroke-width',1.8)
-    .attr('stroke-dasharray','6 4')  // pontilhado leve — marca fronteira sem poluir
+    .attr('stroke-dasharray', null)
     .style('pointer-events','none');
   updateHulls(nodes);
 }
