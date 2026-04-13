@@ -666,8 +666,15 @@ function buildVisualization(graphData) {
   d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
     .attr('class','node-label').text(d=>d.label)
     .attr('text-anchor','middle').attr('font-family',"'Space Grotesk', sans-serif")
-    .attr('font-size','11px').attr('font-weight','500').attr('fill','#e8e8f0')
-    .attr('paint-order','stroke').attr('stroke','rgba(0,0,0,0.8)').attr('stroke-width','3px')
+    // Tier 0: fonte maior, bold, branco | Tier 1: menor, regular, levemente cinza
+    .attr('font-size', d => d.zoomTier === 0 ? '11px' : '9px')
+    .attr('font-weight', d => d.zoomTier === 0 ? '600' : '400')
+    .attr('fill', d => d.zoomTier === 0 ? '#ffffff' : 'rgba(220,220,240,0.75)')
+    .attr('paint-order','stroke')
+    .attr('stroke','rgba(0,0,0,0.75)')
+    .attr('stroke-width', d => d.zoomTier === 0 ? '2.5px' : '2px')
+    // Opacidade do label acompanha a do nó (mesma hierarquia visual)
+    .style('opacity', d => Math.min(1, d.baseOpacity * 1.15))
     .style('pointer-events','none').style('display', d=>topNodes.has(d.id)?null:'none');
 
   renderClusterLabels(nodes);
@@ -958,9 +965,9 @@ function applyHover(d) {
     return 0.05;
   });
 
-  // Labels
+  // Labels no hover: nó selecionado + vizinhos em destaque, resto oculto
   d3.select('#labels-layer').selectAll('.node-label')
-    .style('opacity', null)
+    .style('opacity', n => (n.id === d.id) ? 1 : topNeighbors.has(n.id) ? Math.min(1, n.baseOpacity * 1.3) : null)
     .style('display', n => (n.id === d.id || topNeighbors.has(n.id)) ? null : 'none');
 
   // ── Arestas: esconde apenas as do hover anterior, não todas as 5033 ──
@@ -1001,8 +1008,9 @@ function clearHover() {
   d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
   _prevShownEdgeEls.forEach(el => { el.style.display = 'none'; });
   _prevShownEdgeEls = [];
-  // Restaura opacidade base de cada nó (gradiente por grau)
+  // Restaura opacidade base de nós e labels
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
+  d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => Math.min(1, d.baseOpacity * 1.15));
   // Reaplica zoom semântico (labels + pointer-events)
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
