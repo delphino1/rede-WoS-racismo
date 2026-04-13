@@ -599,6 +599,7 @@ function buildVisualization(graphData) {
     .on('zoom', event => {
       d3.select('#zoom-group').attr('transform', event.transform);
       applySemanticZoom(event.transform.k);
+      updateLabelViewport(event.transform);
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
@@ -631,8 +632,8 @@ function buildVisualization(graphData) {
       cl.forEach((n,i) => {
         const p = i/cl.length;
         n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2;
-        // Expoente 0.35: contraste alto — top autores ~1.0, metade inferior ~0.12–0.25
-        n.baseOpacity = 0.08 + Math.pow(n.degree / _maxDeg, 0.35) * 0.92;
+        // Piso 0.22 → periféricos visíveis mas sutis; teto 0.92 → hubs em destaque
+        n.baseOpacity = 0.22 + Math.pow(n.degree / _maxDeg, 0.50) * 0.70;
       });
     });
   })();
@@ -666,15 +667,15 @@ function buildVisualization(graphData) {
   d3.select('#labels-layer').selectAll('.node-label').data(nodes, d=>d.id).join('text')
     .attr('class','node-label').text(d=>d.label)
     .attr('text-anchor','middle').attr('font-family',"'Space Grotesk', sans-serif")
-    // Tier 0: fonte maior, bold, branco | Tier 1: menor, regular, levemente cinza
-    .attr('font-size', d => d.zoomTier === 0 ? '11px' : '9px')
+    // Tier 0: 11px bold, branco suave | Tier 1: 9.5px regular, cinza-azulado
+    .attr('font-size', d => d.zoomTier === 0 ? '11px' : '9.5px')
     .attr('font-weight', d => d.zoomTier === 0 ? '600' : '400')
-    .attr('fill', d => d.zoomTier === 0 ? '#ffffff' : 'rgba(220,220,240,0.75)')
+    .attr('fill', d => d.zoomTier === 0 ? 'rgba(240,242,255,0.92)' : 'rgba(195,200,225,0.88)')
     .attr('paint-order','stroke')
-    .attr('stroke','rgba(0,0,0,0.75)')
+    .attr('stroke','rgba(0,0,0,0.70)')
     .attr('stroke-width', d => d.zoomTier === 0 ? '2.5px' : '2px')
-    // Opacidade do label acompanha a do nó (mesma hierarquia visual)
-    .style('opacity', d => Math.min(1, d.baseOpacity * 1.15))
+    // Opacidade comprimida: range 0.45–0.90 (nem muito apagado nem muito brilhante)
+    .style('opacity', d => 0.45 + d.baseOpacity * 0.48)
     .style('pointer-events','none').style('display', d=>topNodes.has(d.id)?null:'none');
 
   renderClusterLabels(nodes);
@@ -879,6 +880,27 @@ function updateClusterLabelPositions(nodes) {
     d3.select(this).attr('transform','translate('+bx+','+by+')');
   });
 }
+// Mostra labels apenas para nós dentro da área visível atual
+function updateLabelViewport(transform) {
+  if (highlightNode || highlightCluster) return;
+  const cw = document.getElementById('canvas-area').clientWidth;
+  const ch = document.getElementById('canvas-area').clientHeight;
+  const pad = 60; // px de margem extra além da borda
+  const x0 = (-transform.x - pad) / transform.k;
+  const x1 = (cw - transform.x + pad) / transform.k;
+  const y0 = (-transform.y - pad) / transform.k;
+  const y1 = (ch - transform.y + pad) / transform.k;
+
+  const topSet = getTopNodes();
+  d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
+    if (d.zoomTier === 2) return 'none';                        // tier 2: nunca
+    if (d.x < x0 || d.x > x1 || d.y < y0 || d.y > y1) return 'none'; // fora do viewport
+    if (topSet.has(d.id) || d.zoomTier === 0) return null;     // tier 0: sempre (se visível)
+    if (_currentZoomLevel >= 1 && d.zoomTier === 1) return null; // tier 1: zoom médio+
+    return 'none';
+  });
+}
+
 function applySemanticZoom(k) {
   // Labels de cluster: somem em zoom muito baixo ou muito alto
   d3.select('#cluster-labels-layer')
@@ -901,14 +923,12 @@ function applySemanticZoom(k) {
   d3.select('#nodes-layer').selectAll('.node-g')
     .style('pointer-events', d => d.zoomTier <= newLevel ? 'auto' : 'none');
 
-  // Labels: tier 2 (metade inferior) NUNCA mostra label — evita explosão de texto no zoom
-  const topSet = getTopNodes();
-  d3.select('#labels-layer').selectAll('.node-label').style('display', d => {
-    if (d.zoomTier === 2) return 'none';                // periféricos: sem label em nenhum zoom
-    if (topSet.has(d.id) || d.zoomTier === 0) return null;          // top global + tier 0 → sempre
-    if (newLevel >= 1 && d.zoomTier === 1) return null; // tier 1 → aparece no zoom médio
-    return 'none';
-  });
+  // Labels são gerenciados por updateLabelViewport (chamado no evento de zoom)
+  // Aqui só dispara a atualização com o transform atual
+  const currentTransform = zoomInstance
+    ? d3.zoomTransform(d3.select('#viz-svg').node())
+    : d3.zoomIdentity;
+  updateLabelViewport(currentTransform);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1010,7 +1030,7 @@ function clearHover() {
   _prevShownEdgeEls = [];
   // Restaura opacidade base de nós e labels
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
-  d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => Math.min(1, d.baseOpacity * 1.15));
+  d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => 0.45 + d.baseOpacity * 0.48);
   // Reaplica zoom semântico (labels + pointer-events)
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
