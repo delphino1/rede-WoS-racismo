@@ -622,7 +622,7 @@ function buildVisualization(graphData) {
   const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
     .attr('stroke', e => edgeColorStr(e, nodeById))
     .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4)
-    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.12 : 0.05)
+    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.16 : 0.08)
     .style('display', null);
 
   // Pré-computa mapa nodeId → arestas SVG adjacentes (evita varrer 5033 elementos no hover)
@@ -761,8 +761,8 @@ function renderHulls(nodes) {
   const hullData = [];
   clusterMap.forEach((clNodes,mc) => hullData.push({mc,clNodes}));
   d3.select('#hulls-layer').selectAll('.hull-path').data(hullData, d=>d.mc).join('path').attr('class','hull-path')
-    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.055)
-    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.35).attr('stroke-width',1.8)
+    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.10)
+    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.45).attr('stroke-width',1.8)
     .attr('stroke-dasharray','6 4')  // pontilhado leve — marca fronteira sem poluir
     .style('pointer-events','none');
   updateHulls(nodes);
@@ -1098,7 +1098,7 @@ function clearHover() {
     const e = d3.select(el).datum();
     const w = (e && e.weight) || 1;
     el.style.display = null;
-    el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.12 : 0.05;
+    el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
     el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
   });
   _prevShownEdgeEls = [];
@@ -1148,7 +1148,7 @@ function selectCluster(mc) {
 function resetHighlight() {
   highlightNode=null; highlightCluster=null;
   clearHover(); hideNodeCard(); hideTooltip();
-  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.055).attr('stroke-opacity',0.35);
+  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.10).attr('stroke-opacity',0.45);
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('btn-reset').style.display='none';
   d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity);
