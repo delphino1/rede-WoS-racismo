@@ -384,6 +384,11 @@ const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'netwo
   init(); resize();
   window.addEventListener('resize', resize);
 })();
+// Atualiza cache de dimensões ao redimensionar a janela
+window.addEventListener('resize', () => {
+  const ca = document.getElementById('canvas-area');
+  if (ca) { _canvasW = ca.clientWidth; _canvasH = ca.clientHeight; }
+});
 
 // ═══════════════════════════════════════════════════════
 // GEXF PARSER
@@ -528,7 +533,9 @@ let _currentZoomLevel = -1;   // zoom semântico
 let nodeEdgeEls = new Map();  // nodeId → [{el, e}] — precomputado para hover rápido
 let _prevShownEdgeEls = [];   // arestas mostradas no último hover (para esconder sem varrer todas)
 let _zoomRafId = null;        // RAF throttle para zoom
+let _labelDebounceId = null;  // debounce para updateLabelViewport (collision detection)
 let _cachedClusterMap = null; // cache do mapa de clusters (evita recriar Map a cada tick/zoom)
+let _canvasW = 0, _canvasH = 0; // dimensões cacheadas (evita clientWidth/clientHeight reflow)
 let _simDone = false;         // flag: simulação terminou → para atualização de arestas no tick
 let referencesDB = {};    // carregado do references.json
 let authorNamesDB = {};  // carregado do author_names.json  { "telles, e": "Edward Telles" }
@@ -590,7 +597,8 @@ function buildVisualization(graphData) {
   nodeById = new Map(nodes.map(n => [n.id, n]));
   const svg = d3.select('#viz-svg');
   const canvasArea = document.getElementById('canvas-area');
-  const W = canvasArea.clientWidth, H = canvasArea.clientHeight;
+  _canvasW = canvasArea.clientWidth; _canvasH = canvasArea.clientHeight;
+  const W = _canvasW, H = _canvasH;
 
   const validX = nodes.map(n=>n.px).filter(v=>v!==null&&!isNaN(v));
   const validY = nodes.map(n=>n.py).filter(v=>v!==null&&!isNaN(v));
@@ -612,16 +620,20 @@ function buildVisualization(graphData) {
   zoomInstance = d3.zoom()
     .scaleExtent([0.08, 8])
     // Scroll 1.6× mais rápido que o padrão D3 (confortável)
-    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 1.6)
+    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 0.8)
     .on('zoom', event => {
-      d3.select('#zoom-group').attr('transform', event.transform); // imediato — sem lag visual
+      // 1. Transform SVG: imediato, sem custo extra
+      d3.select('#zoom-group').attr('transform', event.transform);
+      // 2. Leve (threshold + cluster badges): 1× por frame no máximo
       if (_zoomRafId) cancelAnimationFrame(_zoomRafId);
       _zoomRafId = requestAnimationFrame(() => {
         applySemanticZoom(event.transform.k);
-        updateLabelViewport(event.transform);
         updateClusterLabelPositions(currentNodes);
         _zoomRafId = null;
       });
+      // 3. Pesado (collision detection de labels): só após parar de zoomar
+      clearTimeout(_labelDebounceId);
+      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 120);
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
@@ -846,8 +858,8 @@ function updateClusterLabelPositions(nodes) {
   clusterMap.forEach(cn => { const c = clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
   const gcx = d3.mean(allCx), gcy = d3.mean(allCy);
 
-  const W = document.getElementById('canvas-area').clientWidth;
-  const H = document.getElementById('canvas-area').clientHeight;
+  const W = _canvasW || document.getElementById('canvas-area').clientWidth;
+  const H = _canvasH || document.getElementById('canvas-area').clientHeight;
 
   // Transform atual: converte coordenadas de dados → pixels de tela
   // Fórmula: screenX = dataX * k + tx
@@ -909,8 +921,8 @@ function updateLabelViewport(transform) {
       .style('opacity', d => clIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
     return;
   }
-  const cw = document.getElementById('canvas-area').clientWidth;
-  const ch = document.getElementById('canvas-area').clientHeight;
+  const cw = _canvasW || document.getElementById('canvas-area').clientWidth;
+  const ch = _canvasH || document.getElementById('canvas-area').clientHeight;
   const k  = transform.k;
   const tx = transform.x, ty = transform.y;
   const pad = 60;
