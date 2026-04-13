@@ -664,53 +664,70 @@ function buildVisualization(graphData) {
   renderClusterLabels(nodes);
   renderHulls(nodes);
 
-  // ── Centroides de cluster dispostos em círculo ao redor do centro ──
-  // Hubs de alto grau migram para o centro via gravidade; clusters ficam nas bordas
+  // ── Layout híbrido: estrutura GEXF comprimida + gravidade por grau ──
+  // Preserva os clusters do Gephi mas os traz 35% mais perto do centro.
+  // Hubs (alto grau) têm gravidade extra — migram para as bordas entre clusters.
   const maxDeg = d3.max(nodes, d => d.degree) || 1;
-  const clusterIds = [...new Set(nodes.map(n => n.modClass))];
-  const clusterCentroids = new Map();
-  const R_cluster = Math.min(W, H) * 0.26;
-  clusterIds.forEach((mc, i) => {
-    const angle = (i / clusterIds.length) * 2 * Math.PI - Math.PI / 2;
-    clusterCentroids.set(mc, {
-      x: W/2 + R_cluster * Math.cos(angle),
-      y: H/2 + R_cluster * Math.sin(angle)
-    });
+
+  // Comprime posições GEXF 35% em direção ao centro do canvas
+  nodes.forEach(n => {
+    n.x = W/2 + (n.x - W/2) * 0.65;
+    n.y = H/2 + (n.y - H/2) * 0.65;
   });
 
-  // Posição inicial: nós começam em torno do centroide do seu cluster
-  nodes.forEach(n => {
-    const c = clusterCentroids.get(n.modClass) || {x: W/2, y: H/2};
-    n.x = c.x + (Math.random() - 0.5) * 150;
-    n.y = c.y + (Math.random() - 0.5) * 150;
+  // Centroides por cluster derivados das posições comprimidas
+  const clusterCentroids = new Map();
+  const clusterMap0 = new Map();
+  nodes.forEach(n => { if (!clusterMap0.has(n.modClass)) clusterMap0.set(n.modClass,[]); clusterMap0.get(n.modClass).push(n); });
+  clusterMap0.forEach((ns, mc) => {
+    clusterCentroids.set(mc, { x: d3.mean(ns,n=>n.x), y: d3.mean(ns,n=>n.y) });
   });
+
+  // Repulsão suave entre clusters para evitar sobreposição completa
+  function makeClusterRepulsionForce(repStr, minDist) {
+    let _nodes;
+    function force(alpha) {
+      const centroids = new Map(), counts = new Map();
+      _nodes.forEach(n => {
+        if (!centroids.has(n.modClass)) { centroids.set(n.modClass,{x:0,y:0}); counts.set(n.modClass,0); }
+        centroids.get(n.modClass).x += n.x; centroids.get(n.modClass).y += n.y;
+        counts.set(n.modClass, counts.get(n.modClass)+1);
+      });
+      centroids.forEach((c,mc) => { const cnt=counts.get(mc)||1; c.x/=cnt; c.y/=cnt; });
+      _nodes.forEach(n => {
+        centroids.forEach((c,mc) => {
+          if (mc===n.modClass) return;
+          const dx=n.x-c.x, dy=n.y-c.y, d=Math.sqrt(dx*dx+dy*dy)||1;
+          if (d>minDist) return;
+          const f=repStr*alpha*(minDist-d)/minDist;
+          n.vx+=(dx/d)*f; n.vy+=(dy/d)*f;
+        });
+      });
+    }
+    force.initialize = function(n){_nodes=n;};
+    return force;
+  }
 
   simulation = d3.forceSimulation(nodes)
-    .alphaDecay(0.022).velocityDecay(0.42).alphaMin(0.002)
+    .alphaDecay(0.030).velocityDecay(0.50).alphaMin(0.002)
 
-    // ① Arestas atraem nós conectados — força proporcional ao peso da co-citação
-    //    Efeito: hubs (muitas conexões) ficam no centro puxados de todos os lados
-    .force('link', d3.forceLink(edges).id(d => d.id)
-      .strength(e => Math.min(0.5, (e.weight || 1) / 25))
-      .distance(50))
+    // ① Coesão de cluster: mantém nós perto do centroide do seu grupo
+    .force('clusterX', d3.forceX(d=>{const c=clusterCentroids.get(d.modClass);return c?c.x:W/2;}).strength(0.26))
+    .force('clusterY', d3.forceY(d=>{const c=clusterCentroids.get(d.modClass);return c?c.y:H/2;}).strength(0.26))
 
-    // ② Repulsão global entre nós — nós maiores repelem mais
-    //    Efeito: distribui nós no espaço sem amontoar, sem ilhas artificiais
-    .force('charge', d3.forceManyBody()
-      .strength(d => -60 - d.size * 2.5)
-      .distanceMax(400))
+    // ② Gravidade por grau: hubs flutuam para o centro das fronteiras entre clusters
+    //    Hasenbalg/Freyre/Bourdieu: ~0.07 | periféricos: ~0.002
+    .force('gravX', d3.forceX(W/2).strength(d => (d.degree/maxDeg) * 0.07))
+    .force('gravY', d3.forceY(H/2).strength(d => (d.degree/maxDeg) * 0.07))
 
-    // ③ Coesão de cluster — puxa cada nó para o centroide do seu cluster (suave)
-    .force('clusterX', d3.forceX(d => { const c=clusterCentroids.get(d.modClass); return c?c.x:W/2; }).strength(0.10))
-    .force('clusterY', d3.forceY(d => { const c=clusterCentroids.get(d.modClass); return c?c.y:H/2; }).strength(0.10))
+    // ③ Repulsão local entre nós (evita amontoar sem ilhas)
+    .force('charge', d3.forceManyBody().strength(d => -35 - d.size * 1.5).distanceMax(200))
 
-    // ④ Gravidade central por grau — autores mais citados flutuam para o centro
-    //    Hasenbalg, Freyre, Bourdieu: strength ≈ 0.09 | autores periféricos: ≈ 0.004
-    .force('gravX', d3.forceX(W/2).strength(d => 0.004 + (d.degree/maxDeg) * 0.09))
-    .force('gravY', d3.forceY(H/2).strength(d => 0.004 + (d.degree/maxDeg) * 0.09))
+    // ④ Repulsão suave entre clusters (permite sobreposição leve nas bordas)
+    .force('clusterRepel', makeClusterRepulsionForce(5, 140))
 
-    // ⑤ Colisão — evita sobreposição de círculos
-    .force('collide', d3.forceCollide(d => d.size + 4).strength(0.85))
+    // ⑤ Colisão
+    .force('collide', d3.forceCollide(d=>d.size+4).strength(0.9))
 
     .on('tick', tick)
     .on('end', () => { updateHulls(nodes); updateClusterLabelPositions(nodes); });
