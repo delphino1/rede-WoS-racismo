@@ -1239,6 +1239,15 @@ function selectCluster(mc) {
 function resetHighlight() {
   highlightNode=null; highlightCluster=null;
   clearHover(); hideNodeCard(); hideTooltip();
+  // Restore ALL edges to background state (cluster selection sets them directly,
+  // not via _prevShownEdgeEls, so clearHover alone won't fix them)
+  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
+    const w = (e && e.weight) || 1;
+    this.style.display = null;
+    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.16 : 0.08;
+    this.setAttribute('stroke', edgeColorStr(e, nodeById));
+    this.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
+  });
   d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.10).attr('stroke-opacity',0.45);
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('btn-reset').style.display='none';
