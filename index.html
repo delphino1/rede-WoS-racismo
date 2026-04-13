@@ -876,7 +876,22 @@ function updateClusterLabelPositions(nodes) {
 //   2. Detecção de colisão greedy  (evita sobreposição de texto)
 // Labels são priorizados por tier e grau — os mais importantes sempre ganham espaço.
 function updateLabelViewport(transform) {
-  if (highlightNode || highlightCluster) return;
+  if (highlightNode) return;
+
+  // Modo cluster focado: atualiza labels do cluster respeitando zoom
+  if (highlightCluster) {
+    const clIds=new Set(currentNodes.filter(n=>n.modClass===highlightCluster).map(n=>n.id));
+    const k=transform.k;
+    d3.select('#labels-layer').selectAll('.node-label')
+      .style('display', d => {
+        if (!clIds.has(d.id)) return 'none';
+        if (k >= 1.8) return null;           // zoom detalhe: todos
+        if (d.zoomTier === 2) return k >= 1.0 ? null : 'none';
+        return null;                          // tier 0+1: sempre visíveis
+      })
+      .style('opacity', d => clIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
+    return;
+  }
   const cw = document.getElementById('canvas-area').clientWidth;
   const ch = document.getElementById('canvas-area').clientHeight;
   const k  = transform.k;
@@ -1122,28 +1137,39 @@ function selectCluster(mc) {
   highlightCluster=mc; highlightNode=null; hideNodeCard();
   const clIds=new Set(currentNodes.filter(n=>n.modClass===mc).map(n=>n.id));
   const clNodes=currentNodes.filter(n=>n.modClass===mc);
+
+  // Nós: cluster em destaque, resto esmaecido
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>clIds.has(n.id)?1:0.06);
+
+  // Arestas: só as internas ao cluster
   d3.select('#edges-layer').selectAll('.edge').each(function(e) {
     const srcId=typeof e.source==='object'?e.source.id:e.source;
     const tgtId=typeof e.target==='object'?e.target.id:e.target;
     const within=clIds.has(srcId)&&clIds.has(tgtId);
-    if (within) {
-      const s=typeof e.source==='object'?e.source:nodeById.get(e.source)||{x:0,y:0};
-      const t=typeof e.target==='object'?e.target:nodeById.get(e.target)||{x:0,y:0};
-      d3.select(this).attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y).style('display',null).style('opacity',0.6);
-    } else {
-      d3.select(this).style('display','none');
-    }
+    d3.select(this).style('display', within?null:'none').style('opacity', within?0.6:0);
   });
+
+  // Hulls
   d3.select('#hulls-layer').selectAll('.hull-path')
     .attr('fill-opacity', d=>d.mc===mc?0.18:0.03).attr('stroke-opacity', d=>d.mc===mc?0.6:0.08);
-  const top=getTopNodes();
-  d3.select('#labels-layer').selectAll('.node-label').style('display', d=>clIds.has(d.id)&&top.has(d.id)?null:'none');
+
+  // Labels: todos os nós do cluster, com opacidade por importância
+  d3.select('#labels-layer').selectAll('.node-label')
+    .style('display', d => clIds.has(d.id) ? null : 'none')
+    .style('opacity', d => clIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
+
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.toggle('active',el.dataset.mc===mc));
   document.getElementById('btn-reset').style.display='block';
-  const cx=d3.mean(clNodes,n=>n.x), cy=d3.mean(clNodes,n=>n.y);
+
+  // Zoom para enquadrar o cluster inteiro com padding
+  const xs=clNodes.map(n=>n.x), ys=clNodes.map(n=>n.y);
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
   const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight;
-  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-1.4*cx, H/2-1.4*cy).scale(1.4));
+  const pad=90;
+  const k=Math.min(W/(x1-x0+pad*2), H/(y1-y0+pad*2), 3.5);
+  const cx=(x0+x1)/2, cy=(y0+y1)/2;
+  d3.select('#viz-svg').transition().duration(500)
+    .call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*cx, H/2-k*cy).scale(k));
 }
 function resetHighlight() {
   highlightNode=null; highlightCluster=null;
