@@ -1068,14 +1068,44 @@ function applyHover(d) {
     .filter(n => n.id === d.id)
     .raise();
 
-  // ── Arestas: mantém fundo sutil, destaca as do nó levemente ──
+  // ── Arestas de fundo: esmaece todas para destacar as do nó selecionado ──
+  d3.select('#edges-layer').selectAll('.edge').style('opacity', 0.02);
+  _prevShownEdgeEls.forEach(el => { el.style.opacity = 0.02; });
   _prevShownEdgeEls = [];
-  myEdges.forEach(({el, e}) => {
+
+  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
+  const defs = d3.select('#viz-svg defs');
+  let gradIdx = 0;
+
+  const GRADIENT_LIMIT = 50;
+  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0));
+
+  sortedEdges.forEach(({el, e}, idx) => {
     const s = typeof e.source==='object' ? e.source : nodeById.get(e.source) || {x:0,y:0};
-    const same = s.modClass === (typeof e.target==='object' ? e.target : nodeById.get(e.target)||{}).modClass;
-    el.setAttribute('stroke', s.clusterColor || '#888');
-    el.setAttribute('stroke-width', same ? 1.2 : 0.8);
-    el.style.opacity = same ? '0.45' : '0.25';
+    const t = typeof e.target==='object' ? e.target : nodeById.get(e.target) || {x:0,y:0};
+    const sc = s.clusterColor || '#888', tc = t.clusterColor || '#888';
+    const same = s.modClass === t.modClass;
+
+    el.setAttribute('x1', s.x); el.setAttribute('y1', s.y);
+    el.setAttribute('x2', t.x); el.setAttribute('y2', t.y);
+
+    if (idx < GRADIENT_LIMIT) {
+      const gid = 'eg' + (gradIdx++);
+      const grad = defs.append('linearGradient')
+        .attr('class','edge-gradient').attr('id', gid)
+        .attr('gradientUnits','userSpaceOnUse')
+        .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
+      grad.append('stop').attr('offset','0%').attr('stop-color', sc);
+      grad.append('stop').attr('offset','100%').attr('stop-color', tc);
+      el.setAttribute('stroke', 'url(#'+gid+')');
+      el.setAttribute('stroke-width', same ? 2.2 : 1.6);
+      el.style.opacity = same ? 0.65 : 0.38;
+    } else {
+      el.setAttribute('stroke', sc);
+      el.setAttribute('stroke-width', same ? 1.4 : 1.1);
+      el.style.opacity = same ? 0.38 : 0.20;
+    }
+
     el.style.display = null;
     _prevShownEdgeEls.push(el);
   });
