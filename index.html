@@ -652,14 +652,14 @@ function buildVisualization(graphData) {
 
   // Halo externo: maior e mais brilhante para hubs (tier 0)
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
-    .attr('r', d => d.zoomTier === 0 ? d.size * 2.4 : d.size * 1.8)
+    .attr('r', d => d.zoomTier === 0 ? d.size * 1.6 : d.size * 1.5)
     .attr('fill', d=>d.clusterColor)
-    .style('opacity', d => d.zoomTier === 0 ? 0.22 + (d.size-8)/21*0.20 : 0.08+(d.size-8)/21*0.12)
-    .style('filter','blur(10px)').style('pointer-events','none');
+    .style('opacity', d => d.zoomTier === 0 ? 0.10 + (d.size-8)/21*0.08 : 0.06+(d.size-8)/21*0.06)
+    .style('filter','blur(7px)').style('pointer-events','none');
 
   nodeG.append('circle').attr('class','node-circle')
     .attr('r', d=>d.size).attr('fill', d=>d.clusterColor)
-    .attr('filter', d => d.zoomTier === 0 ? 'url(#node-glow-hub)' : (d.size>8 ? 'url(#node-glow)' : null))
+    .attr('filter', d => d.zoomTier === 0 ? 'url(#node-glow)' : null)
     .attr('stroke', d=>d.clusterColor).attr('stroke-width', d => d.zoomTier === 0 ? 1.8 : 1.2)
     .attr('stroke-opacity', d => d.zoomTier === 0 ? 0.9 : 0.7);
 
