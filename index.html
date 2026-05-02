@@ -67,6 +67,22 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .legend-name{font-size:11px;color:rgba(255,255,255,0.7);flex:1;line-height:1.3}
 .legend-count{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);flex-shrink:0}
+/* ── Cluster stats ── */
+#cluster-stats{margin-top:12px}
+.cs-block{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:11px 13px;margin-bottom:8px}
+.cs-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.cs-row:last-child{margin-bottom:0}
+.cs-lbl{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:.08em}
+.cs-val{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.7);font-weight:700}
+.cs-top-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.cs-author{display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.cs-author:last-child{border-bottom:none}
+.cs-rank{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.22);width:12px;flex-shrink:0}
+.cs-name{font-size:11px;color:rgba(255,255,255,0.72);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-cit{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);flex-shrink:0}
+/* ── Size legend ── */
+#size-legend-inner{padding:6px 0 2px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.sl-caption{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-align:center}
 .sobre-block{margin-top:4px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px}
 .sobre-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
 .sobre-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.1em}
@@ -105,11 +121,11 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .rp-empty{font-size:11px;color:rgba(255,255,255,0.28);font-style:italic;text-align:center;padding:24px 0}
 
 /* ── Canvas ── */
-#canvas-area{flex:1;position:relative;overflow:hidden}
+#canvas-area{flex:1;position:relative;overflow:hidden;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%)}
 #zoom-group{will-change:transform}
 #nodes-layer .node-g{will-change:opacity}
-#edges-layer line{shape-rendering:optimizeSpeed}
-#viz-svg{width:100%;height:100%;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%);cursor:grab;display:block}
+#edges-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#viz-svg{position:relative;z-index:1;width:100%;height:100%;cursor:grab;display:block}
 #viz-svg:active{cursor:grabbing}
 
 /* ── Buttons ── */
@@ -123,11 +139,19 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 #hint.visible{opacity:1}
 
 /* ── Tooltip ── */
-#tooltip{position:fixed;z-index:200;pointer-events:none;background:rgba(8,8,22,0.95);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.85);max-width:220px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,0.5);opacity:0;transition:opacity .15s;backdrop-filter:blur(10px)}
+#tooltip{position:fixed;z-index:200;pointer-events:none;background:rgba(8,8,22,0.95);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.85);max-width:240px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,0.5);opacity:0;transition:opacity .15s;backdrop-filter:blur(10px)}
 #tooltip.visible{opacity:1}
-.tt-name{font-weight:600;color:#fff;margin-bottom:4px;font-size:13px}
+.tt-name{font-weight:600;color:#fff;margin-bottom:2px;font-size:13px}
 .tt-cluster{font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em}
-.tt-degree{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
+.tt-stats{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.38);margin-top:4px;display:flex;gap:14px}
+.tt-nb-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.22);margin-top:9px;margin-bottom:4px;font-family:'Space Mono',monospace;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px}
+.tt-nb-item{display:flex;align-items:center;gap:7px;padding:2px 0}
+.tt-nb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tt-nb-name{font-size:11px;color:rgba(255,255,255,0.68);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-nb-w{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.28);flex-shrink:0}
+/* ── Botão centralizar ── */
+#btn-center{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;font-size:17px;border-radius:50%}
+#btn-center:hover{transform:rotate(20deg);transition:transform .25s}
 
 /* ── Splash ── */
 #load-screen{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:radial-gradient(ellipse at 55% 45%,#0a0a22 0%,#03030a 70%)}
@@ -144,6 +168,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .splash-bar-wrap{width:240px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
 .splash-bar{height:100%;width:0%;background:linear-gradient(90deg,#7b6fff,#40c4ff);border-radius:2px;transition:width .4s ease;animation:bar-pulse 2s ease-in-out infinite}
 @keyframes bar-pulse{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes hub-pulse{0%{transform:scale(1);opacity:0.45}100%{transform:scale(2.8);opacity:0}}
+.pulse-ring{transform-box:fill-box;transform-origin:center;pointer-events:none;fill:none;stroke-width:1.5}
 .splash-loading-text{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:.1em}
 .splash-upload{display:none;flex-direction:column;align-items:center;gap:12px;margin-top:8px}
 .drop-zone{width:320px;height:130px;border:1.5px dashed rgba(255,255,255,0.16);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(255,255,255,0.02)}
@@ -241,6 +267,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
       <div class="divider"></div>
       <div class="legend-title">Comunidades Temáticas</div>
       <div id="cluster-legend"></div>
+      <div id="cluster-stats" style="display:none">
+        <div id="cluster-stats-inner"></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="legend-title">Tamanho dos Nós</div>
+      <div id="size-legend-inner"></div>
 
       <div class="divider"></div>
       <div class="legend-title">Metodologia</div>
@@ -255,7 +288,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
         </div>
         <div class="sobre-row">
           <span class="sobre-label">Filtragem</span>
-          <span class="sobre-value">Co-citações com peso ≥ 8</span>
+          <span class="sobre-value">Co-citações com peso ≥ 10</span>
         </div>
         <div class="sobre-row">
           <span class="sobre-label">Layout</span>
@@ -263,7 +296,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
         </div>
         <div class="sobre-row">
           <span class="sobre-label">Clusters</span>
-          <span class="sobre-value">Modularidade de Louvain</span>
+          <span class="sobre-value">VOS Clustering (VOSviewer)</span>
         </div>
         <div class="sobre-row">
           <span class="sobre-label">Stack</span>
@@ -279,6 +312,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
   </div>
 
   <div id="canvas-area">
+    <canvas id="edges-canvas"></canvas>
     <svg id="viz-svg">
       <defs>
         <!-- Glow suave: nós tier 1–2 -->
@@ -305,7 +339,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
     <div id="tooltip">
       <div class="tt-name" id="tt-name"></div>
       <div class="tt-cluster" id="tt-cluster"></div>
-      <div class="tt-degree" id="tt-degree"></div>
+      <div class="tt-stats" id="tt-stats"></div>
+      <div id="tt-neighbors"></div>
     </div>
 
     <!-- Painel direito: textos no corpus -->
@@ -324,7 +359,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 
     <div id="fixed-buttons">
       <button class="fixed-btn" id="btn-reset">&#8634; visão geral</button>
-      <button class="fixed-btn" id="btn-export">&#8595; exportar PNG</button>
+      <button class="fixed-btn" id="btn-center" title="Centralizar visão">&#8982;</button>
     </div>
 
     <div id="hint">scroll · arraste · clique para explorar</div>
@@ -337,12 +372,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '69': { name: 'Identidade, Raça e Diáspora',         color: '#c87cff' },
-  '32': { name: 'Teoria Social Brasileira',             color: '#82c914' },
-  '43': { name: 'Teoria Crítica e Interseccionalidade', color: '#00c4ff' },
-  '72': { name: 'Saúde e Epidemiologia Racial',         color: '#00d2a0' },
-  '67': { name: 'Relações Raciais e Estratificação',    color: '#ff9020' },
+  '1': { name: 'Teoria Crítica, Decolonial e Interseccionalidade', color: '#c87cff' },
+  '2': { name: 'Sociologia Brasileira Clássica',                   color: '#82c914' },
+  '3': { name: 'Relações Raciais e Estratificação Social',         color: '#ff8c42' },
+  '4': { name: 'Saúde e Epidemiologia Racial',                     color: '#00d2a0' },
 };
+// Clusters excluídos da visualização
+const EXCLUDED_CLUSTERS = new Set(['5']);
 const FALLBACK_COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#cc5de8','#f06595'];
 
 function clusterColor(mc) {
@@ -354,9 +390,10 @@ function clusterName(mc) {
   return CLUSTER_MAP[mc] ? CLUSTER_MAP[mc].name : 'Cluster ' + mc;
 }
 
-const WEIGHT_THRESHOLD = 8;
+const WEIGHT_THRESHOLD = 10;  // limiar visual (arestas fortes, bem visíveis)
+const MIN_EDGE_WEIGHT   = 1;   // inclui todas as arestas (conectividade completa)
 const TOP_LABELS = 20;
-const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
+const GEXF_CANDIDATES = ['rede_WoS_racismo_teste2.gexf', 'rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
 
 // ═══════════════════════════════════════════════════════
 // STAR FIELD
@@ -385,10 +422,7 @@ const GEXF_CANDIDATES = ['rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'netwo
   window.addEventListener('resize', resize);
 })();
 // Atualiza cache de dimensões ao redimensionar a janela
-window.addEventListener('resize', () => {
-  const ca = document.getElementById('canvas-area');
-  if (ca) { _canvasW = ca.clientWidth; _canvasH = ca.clientHeight; }
-});
+
 
 // ═══════════════════════════════════════════════════════
 // GEXF PARSER
@@ -397,12 +431,14 @@ function parseGEXF(xmlText) {
   const parser = new DOMParser();
   const xml = parser.parseFromString(xmlText, 'text/xml');
 
-  let modAttrId = null;
+  // Localiza atributos: prefere cluster VOSviewer sobre modularity_class Gephi
+  let modAttrId = null, citationsAttrId = null;
   xml.querySelectorAll('attributes attribute').forEach(a => {
+    const id    = a.getAttribute('id') || '';
     const title = (a.getAttribute('title') || '').toLowerCase();
-    if (title.includes('modularity') || title.includes('community') || title.includes('cluster')) {
-      modAttrId = a.getAttribute('id');
-    }
+    if (id === 'cluster' || title === 'cluster') modAttrId = id;          // VOSviewer cluster (prioridade)
+    if (!modAttrId && (title.includes('modularity') || title.includes('community'))) modAttrId = id;
+    if (title.includes('citations')) citationsAttrId = id;
   });
 
   const nodes = [];
@@ -418,18 +454,13 @@ function parseGEXF(xmlText) {
     let px = null, py = null;
     if (posEl) { px = parseFloat(posEl.getAttribute('x')||0); py = parseFloat(posEl.getAttribute('y')||0); }
 
-    let modClass = null;
+    let modClass = null, citations = 0;
     n.querySelectorAll('attvalue').forEach(av => {
       const forKey = av.getAttribute('for') || av.getAttribute('id') || '';
-      if (modAttrId !== null && forKey === modAttrId) modClass = av.getAttribute('value');
+      if (modAttrId && forKey === modAttrId) modClass = av.getAttribute('value');
+      if (citationsAttrId && forKey === citationsAttrId) citations = parseFloat(av.getAttribute('value') || 0);
     });
-    if (modClass === null) {
-      n.querySelectorAll('attvalue').forEach(av => {
-        const k = (av.getAttribute('for') || av.getAttribute('id') || '').toLowerCase();
-        if (k.includes('modularity') || k.includes('community') || k.includes('cluster')) modClass = av.getAttribute('value');
-      });
-    }
-    nodes.push({ id, label, color, px, py, modClass: modClass !== null ? String(modClass) : '0' });
+    nodes.push({ id, label, color, px, py, modClass: modClass !== null ? String(modClass) : '0', citations });
   });
 
   const edges = [];
@@ -444,7 +475,7 @@ function parseGEXF(xmlText) {
 // GRAPH PROCESSING
 // ═══════════════════════════════════════════════════════
 function processGraph(rawNodes, rawEdges) {
-  const filteredEdges = rawEdges.filter(e => e.weight >= WEIGHT_THRESHOLD);
+  const filteredEdges = rawEdges.filter(e => e.weight >= MIN_EDGE_WEIGHT);
   const nodeMap = new Map(rawNodes.map(n => [n.id, n]));
   const connectedIds = new Set();
   filteredEdges.forEach(e => {
@@ -469,25 +500,32 @@ function processGraph(rawNodes, rawEdges) {
 
   const degMap = new Map(giantNodes.map(n => [n.id, 0]));
   giantEdges.forEach(e => { degMap.set(e.source, (degMap.get(e.source)||0)+1); degMap.set(e.target, (degMap.get(e.target)||0)+1); });
+
+  // Remove clusters excluídos
+  const coreNodes = giantNodes.filter(n => !EXCLUDED_CLUSTERS.has(String(n.modClass)));
+  const coreIds = new Set(coreNodes.map(n => n.id));
+  const coreEdges = giantEdges.filter(e => coreIds.has(e.source) && coreIds.has(e.target));
+  const coreDegMap = new Map(coreNodes.map(n => [n.id, 0]));
+  coreEdges.forEach(e => { coreDegMap.set(e.source, (coreDegMap.get(e.source)||0)+1); coreDegMap.set(e.target, (coreDegMap.get(e.target)||0)+1); });
   const maxDeg = Math.max(...degMap.values(), 1);
 
   // Reatribuir nós de clusters pequenos ao cluster nomeado mais conectado
-  const MIN_CLUSTER_SIZE = 10;
+  const MIN_CLUSTER_SIZE = 5;
   const clCount = new Map();
-  giantNodes.forEach(n => clCount.set(n.modClass, (clCount.get(n.modClass)||0)+1));
+  coreNodes.forEach(n => clCount.set(n.modClass, (clCount.get(n.modClass)||0)+1));
 
   // Mapa de vizinhos
-  const nbMap = new Map(giantNodes.map(n => [n.id, new Set()]));
-  giantEdges.forEach(e => { nbMap.get(e.source)?.add(e.target); nbMap.get(e.target)?.add(e.source); });
+  const nbMap = new Map(coreNodes.map(n => [n.id, new Set()]));
+  coreEdges.forEach(e => { nbMap.get(e.source)?.add(e.target); nbMap.get(e.target)?.add(e.source); });
 
   // Nós em clusters pequenos não-nomeados
   const pendingIds = new Set();
-  giantNodes.forEach(n => {
+  coreNodes.forEach(n => {
     if (!CLUSTER_MAP[n.modClass] && (clCount.get(n.modClass)||0) < MIN_CLUSTER_SIZE) pendingIds.add(n.id);
   });
 
   // Mapa mutável de modClass
-  const mcMap = new Map(giantNodes.map(n => [n.id, n.modClass]));
+  const mcMap = new Map(coreNodes.map(n => [n.id, n.modClass]));
 
   // Até 8 passagens: propaga atribuições a partir dos clusters nomeados vizinhos
   for (let pass = 0; pass < 8; pass++) {
@@ -510,17 +548,20 @@ function processGraph(rawNodes, rawEdges) {
   }
 
   // Aplicar modClasses finais
-  giantNodes.forEach(n => { n.modClass = mcMap.get(n.id) || n.modClass; });
+  coreNodes.forEach(n => { n.modClass = mcMap.get(n.id) || n.modClass; });
 
-  giantNodes.forEach(n => {
-    n.degree = degMap.get(n.id) || 0;
-    n.size = 1 + Math.pow(n.degree / maxDeg, 0.8) * 26;
+  const maxCit = Math.max(...coreNodes.map(n => n.citations || 0), 1);
+  coreNodes.forEach(n => {
+    n.degree = coreDegMap.get(n.id) || 0;
+    // Tamanho por citações totais (VOSviewer) — mais fiel à relevância no corpus
+    n.size = 5 + Math.pow((n.citations || 0) / maxCit, 0.65) * 24;
     n.clusterColor = clusterColor(n.modClass);
     n.clusterName  = clusterName(n.modClass);
     if (!n.color) n.color = n.clusterColor;
   });
 
-  return { nodes: giantNodes, edges: giantEdges };
+  console.log(`Grafo: ${coreNodes.length} nós, ${coreEdges.length} arestas`);
+  return { nodes: coreNodes, edges: coreEdges };
 }
 
 // ═══════════════════════════════════════════════════════
@@ -530,13 +571,15 @@ let simulation = null, zoomInstance = null;
 let currentNodes = [], currentEdges = [], neighborMap = new Map(), nodeById = new Map();
 let highlightNode = null, highlightCluster = null;
 let _currentZoomLevel = -1;   // zoom semântico
-let nodeEdgeEls = new Map();  // nodeId → [{el, e}] — precomputado para hover rápido
-let _prevShownEdgeEls = [];   // arestas mostradas no último hover (para esconder sem varrer todas)
+let nodeEdgeEls = new Map();  // nodeId → edge[] — precomputado para hover rápido
+let _prevShownEdgeEls = [];   // (legado — não usado no canvas)
 let _zoomRafId = null;        // RAF throttle para zoom
 let _labelDebounceId = null;  // debounce para updateLabelViewport (collision detection)
-let _cachedClusterMap = null; // cache do mapa de clusters (evita recriar Map a cada tick/zoom)
-let _canvasW = 0, _canvasH = 0; // dimensões cacheadas (evita clientWidth/clientHeight reflow)
-let _simDone = false;         // flag: simulação terminou → para atualização de arestas no tick
+let _cachedClusterMap = null; // cache do mapa de clusters
+let _canvasW = 0, _canvasH = 0; // dimensões cacheadas
+let _simDone = false;         // flag: simulação terminou
+let _hoverEdgeSet = null;     // Set<edge> do nó em hover (para canvas)
+let _clusterNodeIds = null;   // Set<nodeId> do cluster selecionado (para canvas)
 let referencesDB = {};    // carregado do references.json
 let authorNamesDB = {};  // carregado do author_names.json  { "telles, e": "Edward Telles" }
 
@@ -622,9 +665,10 @@ function buildVisualization(graphData) {
     // Scroll 1.6× mais rápido que o padrão D3 (confortável)
     .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 0.8)
     .on('zoom', event => {
-      // 1. Transform SVG: imediato, sem custo extra
+      // 1. SVG transform + canvas: imediatos, sem custo extra
       d3.select('#zoom-group').attr('transform', event.transform);
-      // 2. Leve (threshold + cluster badges): 1× por frame no máximo
+      drawEdgesOnCanvas();
+      // 2. Leve (semantic zoom + cluster badges): 1× por frame no máximo
       if (_zoomRafId) cancelAnimationFrame(_zoomRafId);
       _zoomRafId = requestAnimationFrame(() => {
         applySemanticZoom(event.transform.k);
@@ -637,22 +681,20 @@ function buildVisualization(graphData) {
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
-  // Arestas: visíveis por padrão com opacidade baixa — mostram estrutura da rede na visão geral
-  const edgeSel = d3.select('#edges-layer').selectAll('.edge').data(edges).join('line').attr('class','edge')
-    .attr('stroke', e => edgeColorStr(e, nodeById))
-    .attr('stroke-width', e => isSameCluster(e, nodeById) ? 0.8 : 0.4)
-    .style('opacity', e => (e.weight || 1) >= WEIGHT_THRESHOLD ? 0.22 : 0.15)
-    .style('display', null);
+  // Arestas → canvas (não SVG). Guarda referência global para o renderer.
+  currentEdges = edges;
+  resizeEdgesCanvas();
+  drawEdgesOnCanvas();
 
-  // Pré-computa mapa nodeId → arestas SVG adjacentes (evita varrer 5033 elementos no hover)
+  // Pré-computa mapa nodeId → arestas adjacentes (O(grau) no hover, sem varrer tudo)
   nodeEdgeEls = new Map();
-  edgeSel.each(function(e) {
+  edges.forEach(e => {
     const sid = typeof e.source==='object' ? e.source.id : e.source;
     const tid = typeof e.target==='object' ? e.target.id : e.target;
     if (!nodeEdgeEls.has(sid)) nodeEdgeEls.set(sid, []);
     if (!nodeEdgeEls.has(tid)) nodeEdgeEls.set(tid, []);
-    nodeEdgeEls.get(sid).push({el: this, e});
-    nodeEdgeEls.get(tid).push({el: this, e});
+    nodeEdgeEls.get(sid).push(e);
+    nodeEdgeEls.get(tid).push(e);
   });
 
   // ── Opacidade base + tiers — ANTES de criar nodeG ──
@@ -678,6 +720,14 @@ function buildVisualization(graphData) {
     .style('opacity', d => d.baseOpacity)   // aplicado com baseOpacity já calculado
     .style('cursor','pointer');
 
+  // Pulse ring: anel expansivo nos 6 autores mais citados
+  const topHubIds = new Set([...nodes].sort((a,b)=>(b.citations||0)-(a.citations||0)).slice(0,6).map(n=>n.id));
+  nodeG.filter(d=>topHubIds.has(d.id)).append('circle')
+    .attr('class','pulse-ring')
+    .attr('r', d=>d.size)
+    .attr('stroke', d=>d.clusterColor)
+    .style('animation', (d,i)=>'hub-pulse 3.5s ease-out '+(i*0.6)+'s infinite');
+
   // Halo externo: maior e mais brilhante para hubs (tier 0)
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
     .attr('r', d => d.zoomTier === 0 ? d.size * 1.6 : d.size * 1.5)
@@ -699,7 +749,7 @@ function buildVisualization(graphData) {
     .call(d3.drag()
       .on('start', (event,d) => { if (!event.active) simulation.alphaTarget(0.1).restart(); d.fx=d.x; d.fy=d.y; })
       .on('drag', (event,d) => { d.fx=event.x; d.fy=event.y; })
-      .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0.003); d.fx=null; d.fy=null; })
+      .on('end', (event,d) => { if (!event.active) simulation.alphaTarget(0).alpha(0.4).restart(); d.fx=null; d.fy=null; })
     );
 
   const topNodes = new Set([...nodes].sort((a,b)=>b.degree-a.degree).slice(0,TOP_LABELS).map(n=>n.id));
@@ -745,22 +795,19 @@ function buildVisualization(graphData) {
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
     _tick++;
-    // Arestas: só durante a simulação (após _simDone não movem mais)
-    if (!_simDone) {
-      edgeSel
-        .attr('x1', e => getNodeObj(e.source).x).attr('y1', e => getNodeObj(e.source).y)
-        .attr('x2', e => getNodeObj(e.target).x).attr('y2', e => getNodeObj(e.target).y);
-    }
     // Nós e labels
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
+    // Canvas: redesenha arestas com posições atualizadas
+    drawEdgesOnCanvas();
     // Hulls: a cada 4 ticks (pesado)
     if (_tick % 4 === 0) { updateHulls(nodes); updateClusterLabelPositions(nodes); }
   }
 
   buildLegend(nodes);
+  const visibleEdgeCount = edges.filter(e=>(e.weight||0) >= WEIGHT_THRESHOLD).length;
   document.getElementById('stats-footer').innerHTML =
-    nodes.length+' autores · '+edges.length+' co-citações<br>'+
+    nodes.length+' autores · '+visibleEdgeCount+' co-citações<br>'+
     '<span style="font-size:9px;opacity:.6">Arraste · Zoom · Clique para explorar</span>';
   setTimeout(() => { const h=document.getElementById('hint'); h.classList.add('visible'); setTimeout(()=>h.classList.remove('visible'),4000); }, 1200);
 
@@ -790,12 +837,97 @@ function renderHulls(nodes) {
   const hullData = [];
   clusterMap.forEach((clNodes,mc) => hullData.push({mc,clNodes}));
   d3.select('#hulls-layer').selectAll('.hull-path').data(hullData, d=>d.mc).join('path').attr('class','hull-path')
-    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.10)
-    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.45).attr('stroke-width',1.8)
+    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.05)
+    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.27).attr('stroke-width',1.8)
     .attr('stroke-dasharray', null)
     .style('pointer-events','none');
   updateHulls(nodes);
 }
+// ═══════════════════════════════════════════════════════
+// CANVAS EDGE RENDERER
+// ═══════════════════════════════════════════════════════
+function drawEdgesOnCanvas() {
+  const canvas = document.getElementById('edges-canvas');
+  if (!canvas || !currentEdges.length || !nodeById) return;
+  const dpr = window.devicePixelRatio || 1;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const transform = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()) : d3.zoomIdentity;
+  const k = transform.k, tx = transform.x, ty = transform.y;
+  const cw = canvas.width / dpr, ch = canvas.height / dpr;
+
+  ctx.save();
+  ctx.scale(dpr, dpr);
+
+  currentEdges.forEach(e => {
+    const src = typeof e.source==='object' ? e.source : nodeById.get(e.source);
+    const tgt = typeof e.target==='object' ? e.target : nodeById.get(e.target);
+    if (!src || !tgt) return;
+
+    const x1 = src.x * k + tx, y1 = src.y * k + ty;
+    const x2 = tgt.x * k + tx, y2 = tgt.y * k + ty;
+
+    // Viewport culling — pula arestas fora da tela
+    if (Math.min(x1,x2) > cw+20 || Math.max(x1,x2) < -20 || Math.min(y1,y2) > ch+20 || Math.max(y1,y2) < -20) return;
+
+    let alpha, color, lineW;
+
+    if (_hoverEdgeSet) {
+      // Estado hover: arestas do nó em destaque com gradiente, resto esmaecido
+      if (_hoverEdgeSet.has(e)) {
+        const same = src.modClass === tgt.modClass;
+        const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+        grad.addColorStop(0, src.clusterColor || '#888');
+        grad.addColorStop(1, tgt.clusterColor || '#888');
+        ctx.globalAlpha = same ? 0.65 : 0.38;
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = same ? 2.2 : 1.6;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      } else {
+        ctx.globalAlpha = 0.02;
+        ctx.strokeStyle = '#888';
+        ctx.lineWidth = 0.4;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      }
+      return;
+    }
+
+    if (_clusterNodeIds) {
+      // Estado cluster: só arestas internas com cor do cluster
+      const srcId = src.id, tgtId = tgt.id;
+      if (!_clusterNodeIds.has(srcId) || !_clusterNodeIds.has(tgtId)) return;
+      alpha = 0.20; color = clusterColor(highlightCluster); lineW = 1.0;
+    } else {
+      // Estado normal: arestas fortes visíveis; fracas em 3% (mostram conectividade sem poluir)
+      const w = e.weight || 1;
+      if (w >= WEIGHT_THRESHOLD) {
+        alpha = 0.22; lineW = isSameCluster(e, nodeById) ? 0.9 : 0.5;
+      } else {
+        alpha = 0.08; lineW = 0.3;
+      }
+      color = edgeColorStr(e, nodeById);
+    }
+
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  });
+
+  ctx.restore();
+}
+
+function resizeEdgesCanvas() {
+  const canvas = document.getElementById('edges-canvas');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const area = document.getElementById('canvas-area');
+  const w = area.clientWidth, h = area.clientHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+}
+
 function updateHulls(nodes) {
   const clusterMap = getClusterMap(nodes);
   d3.select('#hulls-layer').selectAll('.hull-path').each(function(d) {
@@ -1020,7 +1152,7 @@ function buildLegend(nodes) {
   legendEl.innerHTML='';
   const entries=[];
   clusterMap.forEach((clNodes,mc) => {
-    if (!CLUSTER_MAP[mc]) return; // ignorar clusters não-nomeados residuais
+    if (!CLUSTER_MAP[mc]) return;
     entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)});
   });
   entries.sort((a,b) => b.count-a.count);
@@ -1032,6 +1164,63 @@ function buildLegend(nodes) {
     item.addEventListener('click', ()=>selectCluster(e.mc));
     legendEl.appendChild(item);
   });
+  buildSizeLegend(nodes);
+}
+
+function buildSizeLegend(nodes) {
+  const maxCit = Math.max(...nodes.map(n=>n.citations||0), 1);
+  const samples = [
+    { cit: Math.round(maxCit*0.08), label: 'baixa' },
+    { cit: Math.round(maxCit*0.35), label: 'média' },
+    { cit: maxCit,                  label: 'alta'  },
+  ];
+  samples.forEach(s => { s.r = Math.round(5 + Math.pow(s.cit/maxCit, 0.65)*24); });
+  const maxR = samples[2].r;
+  const svgH = maxR*2 + 28;
+  const totalW = samples.reduce((acc,s)=>acc+s.r*2, 0) + 40;
+  let svg = `<svg width="${totalW}" height="${svgH}" style="overflow:visible">`;
+  let x = samples[0].r + 4;
+  samples.forEach((s,i) => {
+    const cy = svgH - 18 - s.r;
+    svg += `<circle cx="${x}" cy="${cy}" r="${s.r}" fill="rgba(200,205,230,0.10)" stroke="rgba(200,205,230,0.35)" stroke-width="1"/>`;
+    svg += `<text x="${x}" y="${svgH-4}" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.28)" font-family="Space Mono,monospace">${s.cit}</text>`;
+    x += s.r + (samples[i+1]?samples[i+1].r:0) + 16;
+  });
+  svg += '</svg>';
+  document.getElementById('size-legend-inner').innerHTML =
+    svg + '<div class="sl-caption">citações totais</div>';
+}
+
+function showClusterStats(mc) {
+  const clNodes = currentNodes.filter(n=>n.modClass===mc);
+  const clIds = new Set(clNodes.map(n=>n.id));
+  let internal=0, external=0;
+  currentEdges.forEach(e=>{
+    const sid=typeof e.source==='object'?e.source.id:e.source;
+    const tid=typeof e.target==='object'?e.target.id:e.target;
+    const si=clIds.has(sid), ti=clIds.has(tid);
+    if(si&&ti) internal++;
+    else if(si||ti) external++;
+  });
+  const top5=[...clNodes].sort((a,b)=>(b.citations||0)-(a.citations||0)).slice(0,5);
+  const color=clusterColor(mc);
+  let html=`<div class="cs-block">
+    <div class="cs-row"><span class="cs-lbl">Autores</span><span class="cs-val">${clNodes.length}</span></div>
+    <div class="cs-row"><span class="cs-lbl">Conexões internas</span><span class="cs-val">${internal}</span></div>
+    <div class="cs-row"><span class="cs-lbl">Conexões externas</span><span class="cs-val">${external}</span></div>
+  </div>
+  <div class="cs-top-label">Top por citações</div>
+  <div class="cs-block" style="padding:8px 13px">`;
+  top5.forEach((n,i)=>{
+    html+=`<div class="cs-author">
+      <span class="cs-rank">${i+1}</span>
+      <span class="cs-name" style="color:${color}">${n.label}</span>
+      <span class="cs-cit">${n.citations||0} cit.</span>
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('cluster-stats-inner').innerHTML=html;
+  document.getElementById('cluster-stats').style.display='block';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1047,7 +1236,7 @@ function applyHover(d) {
 
   // Pesos e top vizinhos
   const edgeWeights = new Map();
-  myEdges.forEach(({e}) => {
+  myEdges.forEach(e => {
     const sid = typeof e.source==='object' ? e.source.id : e.source;
     const tid = typeof e.target==='object' ? e.target.id : e.target;
     edgeWeights.set(sid === d.id ? tid : sid, e.weight || 1);
@@ -1093,121 +1282,28 @@ function applyHover(d) {
     .filter(n => n.id === d.id)
     .raise();
 
-  // ── Arestas de fundo: esmaece todas para destacar as do nó selecionado ──
-  d3.select('#edges-layer').selectAll('.edge').style('opacity', 0.02);
-  _prevShownEdgeEls.forEach(el => { el.style.opacity = 0.02; });
-  _prevShownEdgeEls = [];
-
-  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  const defs = d3.select('#viz-svg defs');
-  let gradIdx = 0;
-
-  const GRADIENT_LIMIT = 50;
-  const sortedEdges = [...myEdges].sort((a,b) => (b.e.weight||0) - (a.e.weight||0));
-
-  sortedEdges.forEach(({el, e}, idx) => {
-    const s = typeof e.source==='object' ? e.source : nodeById.get(e.source) || {x:0,y:0};
-    const t = typeof e.target==='object' ? e.target : nodeById.get(e.target) || {x:0,y:0};
-    const sc = s.clusterColor || '#888', tc = t.clusterColor || '#888';
-    const same = s.modClass === t.modClass;
-
-    el.setAttribute('x1', s.x); el.setAttribute('y1', s.y);
-    el.setAttribute('x2', t.x); el.setAttribute('y2', t.y);
-
-    if (idx < GRADIENT_LIMIT) {
-      const gid = 'eg' + (gradIdx++);
-      const grad = defs.append('linearGradient')
-        .attr('class','edge-gradient').attr('id', gid)
-        .attr('gradientUnits','userSpaceOnUse')
-        .attr('x1',s.x).attr('y1',s.y).attr('x2',t.x).attr('y2',t.y);
-      grad.append('stop').attr('offset','0%').attr('stop-color', sc);
-      grad.append('stop').attr('offset','100%').attr('stop-color', tc);
-      el.setAttribute('stroke', 'url(#'+gid+')');
-      el.setAttribute('stroke-width', same ? 2.2 : 1.6);
-      el.style.opacity = same ? 0.65 : 0.38;
-    } else {
-      el.setAttribute('stroke', sc);
-      el.setAttribute('stroke-width', same ? 1.4 : 1.1);
-      el.style.opacity = same ? 0.38 : 0.20;
-    }
-
-    el.style.display = null;
-    _prevShownEdgeEls.push(el);
-  });
+  // Canvas: marca arestas do nó e redesenha
+  _hoverEdgeSet = new Set(myEdges);
+  drawEdgesOnCanvas();
 }
 function clearHover() {
-  d3.select('#viz-svg defs').selectAll('.edge-gradient').remove();
-  _prevShownEdgeEls.forEach(el => {
-    const e = d3.select(el).datum();
-    const src = e && (typeof e.source==='object' ? e.source : nodeById.get(e.source));
-    const tgt = e && (typeof e.target==='object' ? e.target : nodeById.get(e.target));
-    if (highlightCluster) {
-      // Restaura estado de cluster via nodeEdgeEls (mesmo mecanismo do selectCluster)
-      // Apenas esconde as arestas que o hover tinha revelado fora do cluster
-      const srcId = src && src.id;
-      const tgtId = tgt && tgt.id;
-      const clIds = new Set(currentNodes.filter(n => n.modClass === highlightCluster).map(n => n.id));
-      const within = srcId && tgtId && clIds.has(srcId) && clIds.has(tgtId);
-      el.style.display = within ? null : 'none';
-      el.style.opacity = within ? '0.20' : '0';
-      el.setAttribute('stroke', within ? clusterColor(highlightCluster) : '#1e1e30');
-      el.setAttribute('stroke-width', within ? '1.0' : '0.4');
-    } else {
-      const w = (e && e.weight) || 1;
-      el.style.display = null;
-      el.style.opacity = w >= WEIGHT_THRESHOLD ? 0.22 : 0.15;
-      el.setAttribute('stroke', edgeColorStr(e, nodeById));
-      el.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
-    }
-  });
-  _prevShownEdgeEls = [];
+  // Limpa estado de hover e redesenha canvas (restaura cluster ou global conforme estado)
+  _hoverEdgeSet = null;
 
-  // Se um cluster está ativo, restaura o estado completo do cluster
   if (highlightCluster) {
-    const mc = highlightCluster;
-    const clIds = new Set(currentNodes.filter(n => n.modClass === mc).map(n => n.id));
-    const clColor = clusterColor(mc);
-
-    // Nós
     d3.select('#nodes-layer').selectAll('.node-g')
-      .style('opacity', n => clIds.has(n.id) ? 1 : 0.06);
-
-    // Labels
+      .style('opacity', n => _clusterNodeIds && _clusterNodeIds.has(n.id) ? 1 : 0.06);
     d3.select('#labels-layer').selectAll('.node-label')
-      .style('display', d => clIds.has(d.id) ? null : 'none')
-      .style('opacity', d => clIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
-
-    // Arestas: esconde todas, reexibe as internas
-    d3.select('#edges-layer').selectAll('.edge').style('display', 'none').style('opacity', 0);
-    const shownEdges = new Set();
-    clIds.forEach(nodeId => {
-      (nodeEdgeEls.get(nodeId) || []).forEach(({el, e}) => {
-        if (shownEdges.has(el)) return;
-        const srcId = typeof e.source==='object' ? e.source.id : e.source;
-        const tgtId = typeof e.target==='object' ? e.target.id : e.target;
-        if (clIds.has(srcId) && clIds.has(tgtId)) {
-          shownEdges.add(el);
-          el.style.display = null;
-          el.style.opacity = '0.20';
-          el.setAttribute('stroke', clColor);
-          el.setAttribute('stroke-width', '1.0');
-        }
-      });
-    });
+      .style('display', d => _clusterNodeIds && _clusterNodeIds.has(d.id) ? null : 'none')
+      .style('opacity', d => _clusterNodeIds && _clusterNodeIds.has(d.id) ? Math.max(0.75, 0.45 + d.baseOpacity * 0.48) : 0);
+    drawEdgesOnCanvas();
     return;
   }
 
-  // Estado global: restaura opacidade base
+  // Estado global
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', d => d.baseOpacity);
   d3.select('#labels-layer').selectAll('.node-label').style('opacity', d => 0.45 + d.baseOpacity * 0.48);
-  // Restaura TODAS as arestas ao estado de fundo (applyHover coloca todas em 0.02)
-  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
-    const w = (e && e.weight) || 1;
-    this.style.display = null;
-    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.22 : 0.15;
-    this.setAttribute('stroke', edgeColorStr(e, nodeById));
-    this.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
-  });
+  drawEdgesOnCanvas();
   _currentZoomLevel = -1;
   const k = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()).k : 1;
   applySemanticZoom(k);
@@ -1228,28 +1324,14 @@ function selectCluster(mc) {
   // Nós: cluster em destaque, resto esmaecido
   d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>clIds.has(n.id)?1:0.06);
 
-  // Arestas: esconde todas, depois revela só as internas usando nodeEdgeEls
-  const clColor = clusterColor(mc);
-  d3.select('#edges-layer').selectAll('.edge').style('display', 'none').style('opacity', 0);
-  const shownEdges = new Set();
-  clIds.forEach(nodeId => {
-    (nodeEdgeEls.get(nodeId) || []).forEach(({el, e}) => {
-      if (shownEdges.has(el)) return;
-      const srcId = typeof e.source==='object' ? e.source.id : e.source;
-      const tgtId = typeof e.target==='object' ? e.target.id : e.target;
-      if (clIds.has(srcId) && clIds.has(tgtId)) {
-        shownEdges.add(el);
-        el.style.display = null;
-        el.style.opacity = '0.20';
-        el.setAttribute('stroke', clColor);
-        el.setAttribute('stroke-width', '1.0');
-      }
-    });
-  });
+  // Canvas: define estado do cluster e redesenha
+  _clusterNodeIds = clIds;
+  _hoverEdgeSet = null;
+  drawEdgesOnCanvas();
 
   // Hulls
   d3.select('#hulls-layer').selectAll('.hull-path')
-    .attr('fill-opacity', d=>d.mc===mc?0.18:0.03).attr('stroke-opacity', d=>d.mc===mc?0.6:0.08);
+    .attr('fill-opacity', d=>d.mc===mc?0.11:0.02).attr('stroke-opacity', d=>d.mc===mc?0.42:0.05);
 
   // Labels: todos os nós do cluster, com opacidade por importância
   d3.select('#labels-layer').selectAll('.node-label')
@@ -1258,6 +1340,7 @@ function selectCluster(mc) {
 
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.toggle('active',el.dataset.mc===mc));
   document.getElementById('btn-reset').style.display='block';
+  showClusterStats(mc);
 
   // Zoom para enquadrar o cluster inteiro com padding
   const xs=clNodes.map(n=>n.x), ys=clNodes.map(n=>n.y);
@@ -1271,18 +1354,11 @@ function selectCluster(mc) {
 }
 function resetHighlight() {
   highlightNode=null; highlightCluster=null;
+  _hoverEdgeSet=null; _clusterNodeIds=null;
   clearHover(); hideNodeCard(); hideTooltip();
-  // Restore ALL edges to background state (cluster selection sets them directly,
-  // not via _prevShownEdgeEls, so clearHover alone won't fix them)
-  d3.select('#edges-layer').selectAll('.edge').each(function(e) {
-    const w = (e && e.weight) || 1;
-    this.style.display = null;
-    this.style.opacity = w >= WEIGHT_THRESHOLD ? 0.22 : 0.15;
-    this.setAttribute('stroke', edgeColorStr(e, nodeById));
-    this.setAttribute('stroke-width', isSameCluster(e, nodeById) ? 0.8 : 0.4);
-  });
-  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.10).attr('stroke-opacity',0.45);
+  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.05).attr('stroke-opacity',0.27);
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('cluster-stats').style.display='none';
   document.getElementById('btn-reset').style.display='none';
   d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity);
 }
@@ -1299,7 +1375,34 @@ function showRipple(d) {
 function showTooltip(event,d) {
   document.getElementById('tt-name').textContent=d.label;
   document.getElementById('tt-cluster').textContent=d.clusterName;
-  document.getElementById('tt-degree').textContent=d.degree+' co-citações';
+  document.getElementById('tt-stats').innerHTML=
+    '<span>'+(d.citations||0)+' cit.</span><span>'+d.degree+' conexões</span>';
+
+  // Top 3 co-citados por peso de aresta
+  const myEdges = nodeEdgeEls.get(d.id) || [];
+  const top3 = myEdges
+    .map(e => {
+      const sid=typeof e.source==='object'?e.source.id:e.source;
+      const tid=typeof e.target==='object'?e.target.id:e.target;
+      const nb=nodeById.get(sid===d.id?tid:sid);
+      return nb ? {nb, w:e.weight||1} : null;
+    })
+    .filter(Boolean)
+    .sort((a,b)=>b.w-a.w)
+    .slice(0,3);
+
+  let nbHtml='';
+  if(top3.length){
+    nbHtml='<div class="tt-nb-label">Principais co-citações</div>';
+    top3.forEach(({nb,w})=>{
+      nbHtml+=`<div class="tt-nb-item">
+        <div class="tt-nb-dot" style="background:${nb.clusterColor}"></div>
+        <span class="tt-nb-name">${nb.label}</span>
+        <span class="tt-nb-w">${w}×</span>
+      </div>`;
+    });
+  }
+  document.getElementById('tt-neighbors').innerHTML=nbHtml;
   document.getElementById('tooltip').classList.add('visible');
   positionTooltip(event);
 }
@@ -1463,23 +1566,17 @@ function initSearch() {
 // ═══════════════════════════════════════════════════════
 // EXPORT PNG
 // ═══════════════════════════════════════════════════════
-document.getElementById('btn-export').addEventListener('click', () => {
-  const svgEl=document.getElementById('viz-svg');
-  let source=new XMLSerializer().serializeToString(svgEl);
-  if (!source.includes('xmlns="http://www.w3.org/2000/svg"')) source=source.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');
-  const blob=new Blob([source],{type:'image/svg+xml;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const img=new Image();
-  img.onload=()=>{
-    const canvas=document.createElement('canvas'); canvas.width=svgEl.clientWidth*2; canvas.height=svgEl.clientHeight*2;
-    const ctx=canvas.getContext('2d'); ctx.fillStyle='#03030a'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.scale(2,2); ctx.drawImage(img,0,0); URL.revokeObjectURL(url);
-    const a=document.createElement('a'); a.download='rede-co-citacao-racismo.png'; a.href=canvas.toDataURL('image/png'); a.click();
-  };
-  img.src=url;
+// Canvas resize + cache de dimensões ao redimensionar janela
+window.addEventListener('resize', () => {
+  const ca = document.getElementById('canvas-area');
+  if (ca) { _canvasW = ca.clientWidth; _canvasH = ca.clientHeight; }
+  resizeEdgesCanvas(); drawEdgesOnCanvas();
 });
 
 document.getElementById('btn-reset').addEventListener('click', resetHighlight);
+document.getElementById('btn-center').addEventListener('click', () => {
+  if(zoomInstance) d3.select('#viz-svg').transition().duration(500).call(zoomInstance.transform, d3.zoomIdentity);
+});
 document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
 document.getElementById('rp-close-btn').addEventListener('click', () => { hideRightPanel(); resetHighlight(); });
 
