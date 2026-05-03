@@ -80,9 +80,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .cs-rank{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.22);width:12px;flex-shrink:0}
 .cs-name{font-size:11px;color:rgba(255,255,255,0.72);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cs-cit{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);flex-shrink:0}
-/* ── Size legend ── */
-#size-legend-inner{padding:6px 0 2px;display:flex;flex-direction:column;align-items:center;gap:10px}
-.sl-caption{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-align:center}
+
 .sobre-block{margin-top:4px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px}
 .sobre-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
 .sobre-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.1em}
@@ -149,6 +147,20 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 .tt-nb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .tt-nb-name{font-size:11px;color:rgba(255,255,255,0.68);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tt-nb-w{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.28);flex-shrink:0}
+/* ── Card flutuante (modo apresentação) ── */
+#present-card{position:absolute;bottom:72px;left:20px;z-index:20;background:rgba(7,7,20,0.95);border:1px solid rgba(255,255,255,0.11);border-radius:12px;padding:16px 18px;width:310px;display:none;backdrop-filter:blur(20px);box-shadow:0 8px 36px rgba(0,0,0,0.65)}
+body.present-mode #present-card.visible{display:block}
+#pc-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+#pc-name{font-size:17px;font-weight:700;color:#f0f0ff;margin-bottom:3px;line-height:1.2}
+#pc-fullname{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.32);margin-bottom:11px;letter-spacing:.03em;line-height:1.4}
+#pc-stat-row{display:flex;gap:18px;margin-bottom:13px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.pc-stat-item{display:flex;flex-direction:column;gap:2px}
+.pc-stat-val{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:#f0f0ff}
+.pc-stat-lbl{font-size:9px;color:rgba(255,255,255,0.32);text-transform:uppercase;letter-spacing:.08em}
+.pc-nb-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.28);margin-bottom:7px;font-family:'Space Mono',monospace}
+#pc-neighbors{display:flex;flex-wrap:wrap;gap:4px}
+.pc-chip{display:inline-block;padding:3px 9px;border-radius:4px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);font-size:10px;color:rgba(255,255,255,0.65);cursor:pointer;transition:background .15s,color .15s}
+.pc-chip:hover{background:rgba(255,255,255,0.14);color:#fff}
 /* ── Botão centralizar ── */
 #btn-center{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;font-size:17px;border-radius:50%}
 #btn-center:hover{transform:rotate(20deg);transition:transform .25s}
@@ -156,7 +168,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 #btn-present{display:flex;align-items:center;gap:7px}
 body.present-mode #panel{width:0;min-width:0;transform:translateX(0)}
 body.present-mode #panel-toggle{opacity:0;pointer-events:none}
-body.present-mode #right-panel{transform:translateX(100%)}
+body.present-mode #right-panel:not(.open){transform:translateX(100%)}
 body.present-mode #fixed-buttons{bottom:20px;right:20px}
 body.present-mode #btn-present-label::before{content:'✕  sair'}
 #btn-present-label::before{content:'⛶  apresentar'}
@@ -282,10 +294,6 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
       </div>
 
       <div class="divider"></div>
-      <div class="legend-title">Tamanho dos Nós</div>
-      <div id="size-legend-inner"></div>
-
-      <div class="divider"></div>
       <div class="legend-title">Metodologia</div>
       <div class="sobre-block">
         <div class="sobre-row">
@@ -337,7 +345,7 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
         </filter>
       </defs>
       <g id="zoom-group">
-        <g id="hulls-layer"></g>
+        <g id="hulls-layer" style="display:none"></g>
         <g id="edges-layer"></g>
         <g id="nodes-layer"></g>
         <g id="labels-layer"></g>
@@ -367,6 +375,28 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
       </div>
     </div>
 
+    <div id="present-card">
+      <div id="pc-tag"></div>
+      <div id="pc-name"></div>
+      <div id="pc-fullname"></div>
+      <div id="pc-stat-row">
+        <div class="pc-stat-item">
+          <div class="pc-stat-val" id="pc-degree">0</div>
+          <div class="pc-stat-lbl">Conexões</div>
+        </div>
+        <div class="pc-stat-item">
+          <div class="pc-stat-val" id="pc-cit">0</div>
+          <div class="pc-stat-lbl">Citações</div>
+        </div>
+        <div class="pc-stat-item">
+          <div class="pc-stat-val" id="pc-pct">0%</div>
+          <div class="pc-stat-lbl">da rede</div>
+        </div>
+      </div>
+      <div class="pc-nb-label">Principais co-citações</div>
+      <div id="pc-neighbors"></div>
+    </div>
+
     <div id="fixed-buttons">
       <button class="fixed-btn" id="btn-present"><span id="btn-present-label"></span></button>
       <button class="fixed-btn" id="btn-reset">&#8634; visão geral</button>
@@ -383,10 +413,10 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '1': { name: 'Teoria Crítica, Decolonial e Interseccionalidade', color: '#c87cff' },
-  '2': { name: 'Sociologia Brasileira Clássica',                   color: '#82c914' },
-  '3': { name: 'Relações Raciais e Estratificação Social',         color: '#ff8c42' },
-  '4': { name: 'Saúde e Epidemiologia Racial',                     color: '#00d2a0' },
+  '1': { name: 'Identidades e Pensamento Social',       color: '#c87cff' },
+  '2': { name: 'Sociologia das Relações Raciais',       color: '#82c914' },
+  '3': { name: 'Relações Raciais e Estratificação Social', color: '#ff8c42' },
+  '4': { name: 'Saúde e Relações Raciais',              color: '#00d2a0' },
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
@@ -1035,8 +1065,10 @@ function updateClusterLabelPositions(nodes) {
     const dx = c.x - gcx, dy = c.y - gcy, dist = Math.sqrt(dx*dx + dy*dy) || 1;
     const ux = dx/dist, uy = dy/dist;
 
-    const hullRadius = d3.max(clNodes, n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)) || 60;
-    const pushDist = hullRadius + 60;
+    // Usa percentil 75 das distâncias ao centróide (ignora outliers que inflam o raio)
+    const dists = clNodes.map(n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)).sort((a,b)=>a-b);
+    const hullRadius = dists[Math.floor(dists.length * 0.75)] || 60;
+    const pushDist = hullRadius + 48;
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
@@ -1193,43 +1225,20 @@ function buildLegend(nodes) {
       const clIds=new Set(currentNodes.filter(n=>n.modClass===e.mc).map(n=>n.id));
       d3.select('#nodes-layer').selectAll('.node-g')
         .style('opacity', n=>clIds.has(n.id)?1:0.12);
+      // Mostra hulls temporariamente no hover
+      d3.select('#hulls-layer').style('display', null);
       d3.select('#hulls-layer').selectAll('.hull-path')
-        .attr('fill-opacity', h=>h.mc===e.mc?0.09:0.02)
-        .attr('stroke-opacity', h=>h.mc===e.mc?0.38:0.05);
+        .attr('fill-opacity', h=>h.mc===e.mc?0.09:0.01)
+        .attr('stroke-opacity', h=>h.mc===e.mc?0.38:0.03);
     });
     item.addEventListener('mouseleave', () => {
       if (highlightCluster) return;
       d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.baseOpacity);
-      d3.select('#hulls-layer').selectAll('.hull-path')
-        .attr('fill-opacity',0.03).attr('stroke-opacity',0.20);
+      // Oculta hulls ao sair
+      d3.select('#hulls-layer').style('display', 'none');
     });
     legendEl.appendChild(item);
   });
-  buildSizeLegend(nodes);
-}
-
-function buildSizeLegend(nodes) {
-  const maxCit = Math.max(...nodes.map(n=>n.citations||0), 1);
-  const samples = [
-    { cit: Math.round(maxCit*0.08), label: 'baixa' },
-    { cit: Math.round(maxCit*0.35), label: 'média' },
-    { cit: maxCit,                  label: 'alta'  },
-  ];
-  samples.forEach(s => { s.r = Math.round(5 + Math.pow(s.cit/maxCit, 0.65)*24); });
-  const maxR = samples[2].r;
-  const svgH = maxR*2 + 28;
-  const totalW = samples.reduce((acc,s)=>acc+s.r*2, 0) + 40;
-  let svg = `<svg width="${totalW}" height="${svgH}" style="overflow:visible">`;
-  let x = samples[0].r + 4;
-  samples.forEach((s,i) => {
-    const cy = svgH - 18 - s.r;
-    svg += `<circle cx="${x}" cy="${cy}" r="${s.r}" fill="rgba(200,205,230,0.10)" stroke="rgba(200,205,230,0.35)" stroke-width="1"/>`;
-    svg += `<text x="${x}" y="${svgH-4}" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.28)" font-family="Space Mono,monospace">${s.cit}</text>`;
-    x += s.r + (samples[i+1]?samples[i+1].r:0) + 16;
-  });
-  svg += '</svg>';
-  document.getElementById('size-legend-inner').innerHTML =
-    svg + '<div class="sl-caption">citações totais</div>';
 }
 
 function showClusterStats(mc) {
@@ -1375,6 +1384,7 @@ function selectCluster(mc) {
   drawEdgesOnCanvas();
 
   // Hulls
+  d3.select('#hulls-layer').style('display', null);
   d3.select('#hulls-layer').selectAll('.hull-path')
     .attr('fill-opacity', d=>d.mc===mc?0.09:0.01).attr('stroke-opacity', d=>d.mc===mc?0.35:0.04);
 
@@ -1401,7 +1411,7 @@ function resetHighlight() {
   highlightNode=null; highlightCluster=null;
   _hoverEdgeSet=null; _clusterNodeIds=null;
   clearHover(); hideNodeCard(); hideTooltip();
-  d3.select('#hulls-layer').selectAll('.hull-path').attr('fill-opacity',0.05).attr('stroke-opacity',0.27);
+  d3.select('#hulls-layer').style('display','none');
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('cluster-stats').style.display='none';
   document.getElementById('btn-reset').style.display='none';
@@ -1461,6 +1471,55 @@ function hideTooltip() { document.getElementById('tooltip').classList.remove('vi
 function showNodeCard(d) {
   document.getElementById('node-card').style.display='block';
   const color=d.clusterColor;
+
+  // ── Card flutuante para modo apresentação ──
+  if (_presentMode) {
+    const pc = document.getElementById('present-card');
+
+    // Cluster tag
+    const tag = document.getElementById('pc-tag');
+    tag.textContent = d.clusterName;
+    tag.style.background = color+'22'; tag.style.color = color; tag.style.border = '1px solid '+color+'44';
+
+    // Nome abreviado (label do GEXF)
+    document.getElementById('pc-name').textContent = d.label;
+
+    // Nome completo do authorNamesDB, se disponível
+    const pcFullEl = document.getElementById('pc-fullname');
+    const pcFullName = authorNamesDB[normalizeAuthorKey(d.label)] || '';
+    if (pcFullName) {
+      pcFullEl.textContent = pcFullName;
+      pcFullEl.style.display = '';
+    } else {
+      pcFullEl.style.display = 'none';
+    }
+
+    // Stats: grau, citações, % da rede
+    document.getElementById('pc-degree').textContent = d.degree;
+    document.getElementById('pc-cit').textContent = d.citations || 0;
+    document.getElementById('pc-pct').textContent =
+      ((d.degree / Math.max(currentEdges.length, 1)) * 100).toFixed(1) + '%';
+
+    // Neighbor chips — top 6 por grau, clicáveis
+    const pcNbIds = [...(neighborMap.get(d.id) || [])];
+    const pcTopNbs = pcNbIds
+      .map(id => currentNodes.find(n => n.id === id))
+      .filter(Boolean)
+      .sort((a, b) => b.degree - a.degree)
+      .slice(0, 6);
+    const pcNbEl = document.getElementById('pc-neighbors');
+    pcNbEl.innerHTML = '';
+    pcTopNbs.forEach(nb => {
+      const chip = document.createElement('span');
+      chip.className = 'pc-chip';
+      chip.textContent = nb.label;
+      chip.style.borderColor = nb.clusterColor + '55';
+      chip.addEventListener('click', () => selectNode(nb));
+      pcNbEl.appendChild(chip);
+    });
+
+    pc.classList.add('visible');
+  }
   const tag=document.getElementById('card-tag');
   tag.textContent=d.clusterName; tag.style.background=color+'22'; tag.style.color=color; tag.style.border='1px solid '+color+'44';
   document.getElementById('card-name').textContent=d.label;
@@ -1589,7 +1648,11 @@ function showRightPanel(d) {
 function hideRightPanel() {
   document.getElementById('right-panel').classList.remove('open');
 }
-function hideNodeCard() { document.getElementById('node-card').style.display='none'; hideRightPanel(); }
+function hideNodeCard() {
+  document.getElementById('node-card').style.display='none';
+  document.getElementById('present-card').classList.remove('visible');
+  hideRightPanel();
+}
 
 // ═══════════════════════════════════════════════════════
 // SEARCH
