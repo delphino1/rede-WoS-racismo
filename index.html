@@ -16,7 +16,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 #app{position:relative;z-index:1;display:flex;width:100%;height:100%}
 
 /* ── Panel ── */
-#panel{position:relative;width:280px;min-width:280px;height:100%;background:rgba(7,7,18,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;z-index:10;transition:transform .35s cubic-bezier(.4,0,.2,1),min-width .35s;overflow:hidden}
+#panel{position:relative;width:280px;min-width:280px;height:100%;background:rgba(7,7,18,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;z-index:10;transition:transform .35s cubic-bezier(.4,0,.2,1),min-width .35s,width .38s cubic-bezier(.4,0,.2,1);overflow:hidden}
 #panel.collapsed{transform:translateX(-280px);min-width:0}
 #panel-toggle{position:absolute;right:-28px;top:50%;transform:translateY(-50%);width:28px;height:56px;background:rgba(7,7,18,0.97);border:1px solid rgba(255,255,255,0.07);border-left:none;border-radius:0 10px 10px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.45);font-size:13px;transition:color .2s,background .2s;z-index:11;outline:none}
 #panel-toggle:hover{color:#fff;background:rgba(14,14,36,0.99)}
@@ -124,7 +124,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 #canvas-area{flex:1;position:relative;overflow:hidden;background:radial-gradient(ellipse at 58% 48%,#08081e 0%,#03030a 68%)}
 #zoom-group{will-change:transform}
 #nodes-layer .node-g{will-change:opacity}
-#edges-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#edges-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;will-change:contents}
 #viz-svg{position:relative;z-index:1;width:100%;height:100%;cursor:grab;display:block}
 #viz-svg:active{cursor:grabbing}
 
@@ -152,6 +152,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
 /* ── Botão centralizar ── */
 #btn-center{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;font-size:17px;border-radius:50%}
 #btn-center:hover{transform:rotate(20deg);transition:transform .25s}
+/* ── Modo apresentação ── */
+#btn-present{display:flex;align-items:center;gap:7px}
+body.present-mode #panel{width:0;min-width:0;transform:translateX(0)}
+body.present-mode #panel-toggle{opacity:0;pointer-events:none}
+body.present-mode #right-panel{transform:translateX(100%)}
+body.present-mode #fixed-buttons{bottom:20px;right:20px}
+body.present-mode #btn-present-label::before{content:'✕  sair'}
+#btn-present-label::before{content:'⛶  apresentar'}
+/* ── Hover na legenda ── */
+.legend-item.preview{background:rgba(255,255,255,0.04)}
 
 /* ── Splash ── */
 #load-screen{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:radial-gradient(ellipse at 55% 45%,#0a0a22 0%,#03030a 70%)}
@@ -358,6 +368,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Space Grotesk',san
     </div>
 
     <div id="fixed-buttons">
+      <button class="fixed-btn" id="btn-present"><span id="btn-present-label"></span></button>
       <button class="fixed-btn" id="btn-reset">&#8634; visão geral</button>
       <button class="fixed-btn" id="btn-center" title="Centralizar visão">&#8982;</button>
     </div>
@@ -573,7 +584,9 @@ let highlightNode = null, highlightCluster = null;
 let _currentZoomLevel = -1;   // zoom semântico
 let nodeEdgeEls = new Map();  // nodeId → edge[] — precomputado para hover rápido
 let _prevShownEdgeEls = [];   // (legado — não usado no canvas)
-let _zoomRafId = null;        // RAF throttle para zoom
+let _zoomRafId = null;        // RAF throttle para applySemanticZoom
+let _drawRafId  = null;       // RAF throttle para drawEdgesOnCanvas (1 draw/frame máximo)
+let _clusterLabelDebounceId = null; // debounce para updateClusterLabelPositions
 let _labelDebounceId = null;  // debounce para updateLabelViewport (collision detection)
 let _cachedClusterMap = null; // cache do mapa de clusters
 let _canvasW = 0, _canvasH = 0; // dimensões cacheadas
@@ -665,19 +678,32 @@ function buildVisualization(graphData) {
     // Scroll 1.6× mais rápido que o padrão D3 (confortável)
     .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 0.8)
     .on('zoom', event => {
-      // 1. SVG transform + canvas: imediatos, sem custo extra
+      // 1. SVG transform: imediato (mantém nodes/hulls em sincronia visual)
       d3.select('#zoom-group').attr('transform', event.transform);
-      drawEdgesOnCanvas();
-      // 2. Leve (semantic zoom + cluster badges): 1× por frame no máximo
+
+      // 2. Canvas: RAF-throttled — no máximo 1 draw por frame de animação
+      //    (browser pode disparar vários eventos wheel entre dois frames)
+      if (!_drawRafId) {
+        _drawRafId = requestAnimationFrame(() => {
+          drawEdgesOnCanvas();
+          _drawRafId = null;
+        });
+      }
+
+      // 3. Semantic zoom (mostra/oculta labels por tier): 1× por frame, early-exit se nível não mudou
       if (_zoomRafId) cancelAnimationFrame(_zoomRafId);
       _zoomRafId = requestAnimationFrame(() => {
         applySemanticZoom(event.transform.k);
-        updateClusterLabelPositions(currentNodes);
         _zoomRafId = null;
       });
-      // 3. Pesado (collision detection de labels): só após parar de zoomar
+
+      // 4. Cluster label positions (cálculo pesado): só após parar de zoomar
+      clearTimeout(_clusterLabelDebounceId);
+      _clusterLabelDebounceId = setTimeout(() => updateClusterLabelPositions(currentNodes), 120);
+
+      // 5. Collision detection de labels de nós: após parar de zoomar
       clearTimeout(_labelDebounceId);
-      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 120);
+      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 160);
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
@@ -837,8 +863,8 @@ function renderHulls(nodes) {
   const hullData = [];
   clusterMap.forEach((clNodes,mc) => hullData.push({mc,clNodes}));
   d3.select('#hulls-layer').selectAll('.hull-path').data(hullData, d=>d.mc).join('path').attr('class','hull-path')
-    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.05)
-    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.27).attr('stroke-width',1.8)
+    .attr('fill', d=>clusterColor(d.mc)).attr('fill-opacity',0.03)
+    .attr('stroke', d=>clusterColor(d.mc)).attr('stroke-opacity',0.20).attr('stroke-width',1.8)
     .attr('stroke-dasharray', null)
     .style('pointer-events','none');
   updateHulls(nodes);
@@ -1162,6 +1188,21 @@ function buildLegend(nodes) {
     item.innerHTML='<div class="legend-dot" style="background:'+e.color+';box-shadow:0 0 5px '+e.color+'55"></div>'+
       '<div class="legend-name">'+e.name+'</div><div class="legend-count">'+String(e.count).padStart(3,'0')+'</div>';
     item.addEventListener('click', ()=>selectCluster(e.mc));
+    item.addEventListener('mouseenter', () => {
+      if (highlightCluster) return;
+      const clIds=new Set(currentNodes.filter(n=>n.modClass===e.mc).map(n=>n.id));
+      d3.select('#nodes-layer').selectAll('.node-g')
+        .style('opacity', n=>clIds.has(n.id)?1:0.12);
+      d3.select('#hulls-layer').selectAll('.hull-path')
+        .attr('fill-opacity', h=>h.mc===e.mc?0.09:0.02)
+        .attr('stroke-opacity', h=>h.mc===e.mc?0.38:0.05);
+    });
+    item.addEventListener('mouseleave', () => {
+      if (highlightCluster) return;
+      d3.select('#nodes-layer').selectAll('.node-g').style('opacity', n=>n.baseOpacity);
+      d3.select('#hulls-layer').selectAll('.hull-path')
+        .attr('fill-opacity',0.03).attr('stroke-opacity',0.20);
+    });
     legendEl.appendChild(item);
   });
   buildSizeLegend(nodes);
@@ -1310,11 +1351,15 @@ function clearHover() {
 }
 function selectNode(d) {
   highlightNode=d; highlightCluster=null;
-  applyHover(d); showRipple(d); showNodeCard(d);
   document.getElementById('btn-reset').style.display='block';
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
-  const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.5;
-  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k));
+  // Inicia o zoom imediatamente (frame do clique fica leve)
+  const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.8;
+  d3.select('#viz-svg').transition().duration(600).ease(d3.easeCubicInOut)
+    .call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k))
+    .on('end', () => showRipple(d));
+  // Defer: hover (D3 selectAll pesado) e card para o próximo frame
+  requestAnimationFrame(() => { applyHover(d); showNodeCard(d); });
 }
 function selectCluster(mc) {
   highlightCluster=mc; highlightNode=null; hideNodeCard();
@@ -1331,7 +1376,7 @@ function selectCluster(mc) {
 
   // Hulls
   d3.select('#hulls-layer').selectAll('.hull-path')
-    .attr('fill-opacity', d=>d.mc===mc?0.11:0.02).attr('stroke-opacity', d=>d.mc===mc?0.42:0.05);
+    .attr('fill-opacity', d=>d.mc===mc?0.09:0.01).attr('stroke-opacity', d=>d.mc===mc?0.35:0.04);
 
   // Labels: todos os nós do cluster, com opacidade por importância
   d3.select('#labels-layer').selectAll('.node-label')
@@ -1579,6 +1624,29 @@ document.getElementById('btn-center').addEventListener('click', () => {
 });
 document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
 document.getElementById('rp-close-btn').addEventListener('click', () => { hideRightPanel(); resetHighlight(); });
+
+// ── Modo apresentação ──
+let _presentMode = false;
+document.getElementById('btn-present').addEventListener('click', () => {
+  _presentMode = !_presentMode;
+  document.body.classList.toggle('present-mode', _presentMode);
+  if (_presentMode) {
+    // Painel colapsa via CSS (body.present-mode #panel{width:0})
+    // Centraliza a rede após a transição do painel (380ms)
+    setTimeout(() => {
+      if (zoomInstance) d3.select('#viz-svg').transition().duration(600)
+        .call(zoomInstance.transform, d3.zoomIdentity);
+    }, 380);
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+  // Redimensiona canvas após a transição completa do painel
+  setTimeout(()=>{ resizeEdgesCanvas(); drawEdgesOnCanvas(); }, 420);
+});
 
 // ═══════════════════════════════════════════════════════
 // LOAD / PROCESS
