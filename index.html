@@ -218,17 +218,17 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
   <div class="splash-sub">Web of Science · 4.416 artigos analisados</div>
   <div class="splash-stats">
     <div class="splash-stat">
-      <div class="splash-stat-num">342</div>
+      <div class="splash-stat-num">248</div>
       <div class="splash-stat-lbl">Autores</div>
     </div>
     <div class="splash-divider"></div>
     <div class="splash-stat">
-      <div class="splash-stat-num">5027</div>
+      <div class="splash-stat-num">3871</div>
       <div class="splash-stat-lbl">Co-citações</div>
     </div>
     <div class="splash-divider"></div>
     <div class="splash-stat">
-      <div class="splash-stat-num">5</div>
+      <div class="splash-stat-num">4</div>
       <div class="splash-stat-lbl">Comunidades</div>
     </div>
   </div>
@@ -289,7 +289,10 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
       </div>
 
       <div class="divider"></div>
-      <div class="legend-title">Comunidades Temáticas</div>
+      <div class="legend-title" style="display:flex;justify-content:space-between;align-items:baseline">
+        <span>Comunidades Temáticas</span>
+        <span style="font-size:8px;opacity:.4;letter-spacing:.06em">aut.</span>
+      </div>
       <div id="cluster-legend"></div>
       <div id="cluster-stats" style="display:none">
         <div id="cluster-stats-inner"></div>
@@ -305,10 +308,6 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
         <div class="sobre-row">
           <span class="sobre-label">Período</span>
           <span class="sobre-value">2000–2026</span>
-        </div>
-        <div class="sobre-row">
-          <span class="sobre-label">Filtragem</span>
-          <span class="sobre-value">Co-citações com peso ≥ 10</span>
         </div>
         <div class="sobre-row">
           <span class="sobre-label">Layout</span>
@@ -336,13 +335,12 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
     <svg id="viz-svg">
       <defs>
         <!-- Glow suave: nós tier 1–2 -->
-        <filter id="node-glow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+        <filter id="node-glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-        <!-- Glow forte: hubs tier 0 -->
-        <filter id="node-glow-hub" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
+        <filter id="node-glow-hub" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
@@ -415,10 +413,10 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '1': { name: 'Identidades e Pensamento Social',       color: '#c87cff' },
-  '2': { name: 'Sociologia das Relações Raciais',       color: '#82c914' },
-  '3': { name: 'Relações Raciais e Estratificação Social', color: '#ff8c42' },
-  '4': { name: 'Saúde e Relações Raciais',              color: '#00d2a0' },
+  '1': { name: 'Identidades e Pensamento Social',          color: '#C43D32' }, // Tijolo médio
+  '2': { name: 'Sociologia das Relações Raciais',          color: '#D4B800' }, // Âmbar médio
+  '3': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado
+  '4': { name: 'Relações Raciais e Estratificação Social', color: '#6CCDD4' }, // Teal médio
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
@@ -436,7 +434,7 @@ function clusterName(mc) {
 const WEIGHT_THRESHOLD = 10;  // limiar visual (arestas fortes, bem visíveis)
 const MIN_EDGE_WEIGHT   = 1;   // inclui todas as arestas (conectividade completa)
 const TOP_LABELS = 20;
-const GEXF_CANDIDATES = ['rede_WoS_racismo_teste2.gexf', 'rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
+const GEXF_CANDIDATES = ['rede_WoS_racismo_teste3.gexf', 'rede_WoS_racismo_teste2.gexf', 'rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
 
 // ═══════════════════════════════════════════════════════
 // STAR FIELD
@@ -619,6 +617,8 @@ let _prevShownEdgeEls = [];   // (legado — não usado no canvas)
 let _zoomRafId = null;        // RAF throttle para applySemanticZoom
 let _drawRafId  = null;       // RAF throttle para drawEdgesOnCanvas (1 draw/frame máximo)
 let _clusterLabelDebounceId = null; // debounce para updateClusterLabelPositions
+let _isZooming = false;       // true durante zoom ativo — reduz arestas desenhadas
+let _zoomEndId  = null;       // timeout para detectar fim do zoom
 let _labelDebounceId = null;  // debounce para updateLabelViewport (collision detection)
 let _cachedClusterMap = null; // cache do mapa de clusters
 let _canvasW = 0, _canvasH = 0; // dimensões cacheadas
@@ -714,7 +714,14 @@ function buildVisualization(graphData) {
       d3.select('#zoom-group').attr('transform', event.transform);
 
       // 2. Canvas: RAF-throttled — no máximo 1 draw por frame de animação
-      //    (browser pode disparar vários eventos wheel entre dois frames)
+      //    Durante zoom ativo: só arestas fortes (~400) em vez de 16k → muito mais fluido
+      _isZooming = true;
+      clearTimeout(_zoomEndId);
+      _zoomEndId = setTimeout(() => {
+        _isZooming = false;
+        drawEdgesOnCanvas(); // redraw completo ao parar
+      }, 120);
+
       if (!_drawRafId) {
         _drawRafId = requestAnimationFrame(() => {
           drawEdgesOnCanvas();
@@ -767,8 +774,8 @@ function buildVisualization(graphData) {
       cl.forEach((n,i) => {
         const p = i/cl.length;
         n.zoomTier = p < 0.20 ? 0 : p < 0.50 ? 1 : 2;
-        // Piso 0.22 → periféricos visíveis mas sutis; teto 0.92 → hubs em destaque
-        n.baseOpacity = 0.22 + Math.pow(n.degree / _maxDeg, 0.50) * 0.70;
+        // Piso 0.62 → periféricos bem visíveis; teto 0.96 → hubs em destaque
+        n.baseOpacity = 0.62 + Math.pow(n.degree / _maxDeg, 0.50) * 0.34;
       });
     });
   })();
@@ -788,16 +795,17 @@ function buildVisualization(graphData) {
 
   // Halo externo: maior e mais brilhante para hubs (tier 0)
   nodeG.filter(d=>d.size>8).append('circle').attr('class','glow-bg')
-    .attr('r', d => d.zoomTier === 0 ? d.size * 1.6 : d.size * 1.5)
+    .attr('r', d => d.zoomTier === 0 ? d.size * 1.25 : d.size * 1.15)
     .attr('fill', d=>d.clusterColor)
-    .style('opacity', d => d.zoomTier === 0 ? 0.10 + (d.size-8)/21*0.08 : 0.06+(d.size-8)/21*0.06)
-    .style('filter','blur(7px)').style('pointer-events','none');
+    .style('opacity', d => d.zoomTier === 0 ? 0.02 + (d.size-8)/21*0.015 : 0.01+(d.size-8)/21*0.015)
+    .style('filter','blur(2px)').style('pointer-events','none');
 
   nodeG.append('circle').attr('class','node-circle')
     .attr('r', d=>d.size).attr('fill', d=>d.clusterColor)
     .attr('filter', d => d.zoomTier === 0 ? 'url(#node-glow)' : null)
-    .attr('stroke', d=>d.clusterColor).attr('stroke-width', d => d.zoomTier === 0 ? 1.8 : 1.2)
-    .attr('stroke-opacity', d => d.zoomTier === 0 ? 0.9 : 0.7);
+    .attr('stroke', d => d.clusterColor === '#B8C4C6' ? 'rgba(255,255,255,0.55)' : d.clusterColor)
+    .attr('stroke-width', d => d.clusterColor === '#B8C4C6' ? (d.zoomTier === 0 ? 2 : 1.5) : (d.zoomTier === 0 ? 1.8 : 1.2))
+    .attr('stroke-opacity', d => d.clusterColor === '#B8C4C6' ? 1 : (d.zoomTier === 0 ? 0.9 : 0.7));
 
   nodeG
     .on('mouseenter', (event,d) => { if (highlightNode&&highlightNode.id===d.id) return; showTooltip(event,d); if (!highlightNode) applyHover(d); })
@@ -918,59 +926,86 @@ function drawEdgesOnCanvas() {
   ctx.save();
   ctx.scale(dpr, dpr);
 
-  currentEdges.forEach(e => {
+  // Helper: resolve nó e coordenadas de tela; retorna null se fora do viewport
+  function edgeCoords(e) {
     const src = typeof e.source==='object' ? e.source : nodeById.get(e.source);
     const tgt = typeof e.target==='object' ? e.target : nodeById.get(e.target);
-    if (!src || !tgt) return;
+    if (!src || !tgt) return null;
+    const x1=src.x*k+tx, y1=src.y*k+ty, x2=tgt.x*k+tx, y2=tgt.y*k+ty;
+    if (Math.min(x1,x2)>cw+20||Math.max(x1,x2)<-20||Math.min(y1,y2)>ch+20||Math.max(y1,y2)<-20) return null;
+    return {src, tgt, x1, y1, x2, y2};
+  }
 
-    const x1 = src.x * k + tx, y1 = src.y * k + ty;
-    const x2 = tgt.x * k + tx, y2 = tgt.y * k + ty;
+  // ── ESTADO HOVER ──────────────────────────────────────────
+  if (_hoverEdgeSet) {
+    // Batch 1: todas as arestas esmaecidas (1 stroke)
+    ctx.globalAlpha = 0.02; ctx.strokeStyle = '#888'; ctx.lineWidth = 0.4;
+    ctx.beginPath();
+    currentEdges.forEach(e => {
+      if (_hoverEdgeSet.has(e)) return;
+      const c = edgeCoords(e); if (!c) return;
+      ctx.moveTo(c.x1, c.y1); ctx.lineTo(c.x2, c.y2);
+    });
+    ctx.stroke();
+    // Batch 2: arestas em destaque com gradiente (1 stroke por aresta — inevitável)
+    _hoverEdgeSet.forEach(e => {
+      const c = edgeCoords(e); if (!c) return;
+      const same = c.src.modClass === c.tgt.modClass;
+      const grad = ctx.createLinearGradient(c.x1, c.y1, c.x2, c.y2);
+      grad.addColorStop(0, c.src.clusterColor||'#888');
+      grad.addColorStop(1, c.tgt.clusterColor||'#888');
+      ctx.globalAlpha = same ? 0.65 : 0.38;
+      ctx.strokeStyle = grad; ctx.lineWidth = same ? 2.2 : 1.6;
+      ctx.beginPath(); ctx.moveTo(c.x1, c.y1); ctx.lineTo(c.x2, c.y2); ctx.stroke();
+    });
+    ctx.restore(); return;
+  }
 
-    // Viewport culling — pula arestas fora da tela
-    if (Math.min(x1,x2) > cw+20 || Math.max(x1,x2) < -20 || Math.min(y1,y2) > ch+20 || Math.max(y1,y2) < -20) return;
+  // ── ESTADO CLUSTER ────────────────────────────────────────
+  if (_clusterNodeIds) {
+    ctx.globalAlpha = 0.20; ctx.strokeStyle = clusterColor(highlightCluster); ctx.lineWidth = 1.0;
+    ctx.beginPath();
+    currentEdges.forEach(e => {
+      const c = edgeCoords(e); if (!c) return;
+      if (!_clusterNodeIds.has(c.src.id) || !_clusterNodeIds.has(c.tgt.id)) return;
+      ctx.moveTo(c.x1, c.y1); ctx.lineTo(c.x2, c.y2);
+    });
+    ctx.stroke();
+    ctx.restore(); return;
+  }
 
-    let alpha, color, lineW;
+  // ── ESTADO NORMAL ─────────────────────────────────────────
+  // Batch 1: arestas fracas — puladas durante zoom ativo para máxima fluidez
+  if (!_isZooming) {
+    ctx.globalAlpha = 0.05; ctx.strokeStyle = '#888888'; ctx.lineWidth = 0.3;
+    ctx.beginPath();
+    currentEdges.forEach(e => {
+      if ((e.weight||1) >= WEIGHT_THRESHOLD) return;
+      const c = edgeCoords(e); if (!c) return;
+      ctx.moveTo(c.x1, c.y1); ctx.lineTo(c.x2, c.y2);
+    });
+    ctx.stroke();
+  }
 
-    if (_hoverEdgeSet) {
-      // Estado hover: arestas do nó em destaque com gradiente, resto esmaecido
-      if (_hoverEdgeSet.has(e)) {
-        const same = src.modClass === tgt.modClass;
-        const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-        grad.addColorStop(0, src.clusterColor || '#888');
-        grad.addColorStop(1, tgt.clusterColor || '#888');
-        ctx.globalAlpha = same ? 0.65 : 0.38;
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = same ? 2.2 : 1.6;
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      } else {
-        ctx.globalAlpha = 0.02;
-        ctx.strokeStyle = '#888';
-        ctx.lineWidth = 0.4;
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      }
-      return;
-    }
-
-    if (_clusterNodeIds) {
-      // Estado cluster: só arestas internas com cor do cluster
-      const srcId = src.id, tgtId = tgt.id;
-      if (!_clusterNodeIds.has(srcId) || !_clusterNodeIds.has(tgtId)) return;
-      alpha = 0.20; color = clusterColor(highlightCluster); lineW = 1.0;
-    } else {
-      // Estado normal: arestas fortes visíveis; fracas em 3% (mostram conectividade sem poluir)
-      const w = e.weight || 1;
-      if (w >= WEIGHT_THRESHOLD) {
-        alpha = 0.22; lineW = isSameCluster(e, nodeById) ? 0.9 : 0.5;
-      } else {
-        alpha = 0.08; lineW = 0.3;
-      }
-      color = edgeColorStr(e, nodeById);
-    }
-
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineW;
-    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  // Batch 2: arestas fortes agrupadas por cor (4–5 grupos no máximo)
+  const buckets = new Map();
+  currentEdges.forEach(e => {
+    if ((e.weight||1) < WEIGHT_THRESHOLD) return;
+    const c = edgeCoords(e); if (!c) return;
+    const same = c.src.modClass === c.tgt.modClass;
+    const col  = same ? (c.src.clusterColor||'#888') : '#777777';
+    const lw   = same ? 0.9 : 0.5;
+    const key  = col + '|' + lw;
+    if (!buckets.has(key)) buckets.set(key, {col, lw, segs:[]});
+    const b = buckets.get(key);
+    b.segs.push(c.x1, c.y1, c.x2, c.y2);
+  });
+  ctx.globalAlpha = 0.11;
+  buckets.forEach(({col, lw, segs}) => {
+    ctx.strokeStyle = col; ctx.lineWidth = lw;
+    ctx.beginPath();
+    for (let i=0; i<segs.length; i+=4) { ctx.moveTo(segs[i], segs[i+1]); ctx.lineTo(segs[i+2], segs[i+3]); }
+    ctx.stroke();
   });
 
   ctx.restore();
@@ -1065,12 +1100,19 @@ function updateClusterLabelPositions(nodes) {
     if (!clNodes || !clNodes.length) return;
     const c = clusterCentroid(clNodes);
     const dx = c.x - gcx, dy = c.y - gcy, dist = Math.sqrt(dx*dx + dy*dy) || 1;
-    const ux = dx/dist, uy = dy/dist;
+    let ux = dx/dist, uy = dy/dist;
+
+    // Override de direção por cluster (evita sobreposição entre badges vizinhos)
+    const BADGE_DIR_OVERRIDE = {
+      '2': { ux: -0.55, uy: -0.72 } // cluster amarelo: empurra para cima-esquerda
+    };
+    const ovr = BADGE_DIR_OVERRIDE[d.mc];
+    if (ovr) { ux = ovr.ux; uy = ovr.uy; }
 
     // Usa percentil 75 das distâncias ao centróide (ignora outliers que inflam o raio)
     const dists = clNodes.map(n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)).sort((a,b)=>a-b);
     const hullRadius = dists[Math.floor(dists.length * 0.75)] || 60;
-    const pushDist = hullRadius + 48;
+    const pushDist = hullRadius * 0.55 + 32;
     let bx = c.x + ux * pushDist;
     let by = c.y + uy * pushDist;
 
@@ -1368,8 +1410,8 @@ function selectNode(d) {
   const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.8;
   d3.select('#viz-svg').transition().duration(600).ease(d3.easeCubicInOut)
     .call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k))
-    .on('end', () => showRipple(d));
-  // Defer: hover (D3 selectAll pesado) e card para o próximo frame
+    .on('end', () => { showRipple(d); showRightPanel(d); }); // painel pesado só após zoom
+  // Defer: hover + card leve (sem painel direito) para o próximo frame
   requestAnimationFrame(() => { applyHover(d); showNodeCard(d); });
 }
 function selectCluster(mc) {
@@ -1535,8 +1577,6 @@ function showNodeCard(d) {
     chip.addEventListener('click',()=>selectNode(nb)); container.appendChild(chip);
   });
 
-  // ── Painel direito: textos no corpus ─────────────────
-  showRightPanel(d);
 }
 
 function showRightPanel(d) {
