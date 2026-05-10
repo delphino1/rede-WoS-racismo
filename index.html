@@ -415,8 +415,8 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 const CLUSTER_MAP = {
   '1': { name: 'Identidades e Pensamento Social',          color: '#C43D32' }, // Tijolo médio
   '2': { name: 'Sociologia das Relações Raciais',          color: '#D4B800' }, // Âmbar médio
-  '3': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado
-  '4': { name: 'Relações Raciais e Estratificação Social', color: '#6CCDD4' }, // Teal médio
+  '3': { name: 'Relações Raciais e Estratificação Social', color: '#6CCDD4' }, // Teal médio
+  '4': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
@@ -434,7 +434,7 @@ function clusterName(mc) {
 const WEIGHT_THRESHOLD = 10;  // limiar visual (arestas fortes, bem visíveis)
 const MIN_EDGE_WEIGHT   = 1;   // inclui todas as arestas (conectividade completa)
 const TOP_LABELS = 20;
-const GEXF_CANDIDATES = ['rede_WoS_racismo_teste4.gexf', 'rede_WoS_racismo_teste3.gexf', 'rede_WoS_racismo_teste2.gexf', 'rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
+const GEXF_CANDIDATES = ['rede_WoS_racismo_teste3.gexf', 'rede_WoS_racismo_teste2.gexf', 'rede_WoS_racismo_teste.gexf', 'rede_raca.gexf', 'network.gexf'];
 
 // ═══════════════════════════════════════════════════════
 // STAR FIELD
@@ -619,6 +619,7 @@ let _drawRafId  = null;       // RAF throttle para drawEdgesOnCanvas (1 draw/fra
 let _clusterLabelDebounceId = null; // debounce para updateClusterLabelPositions
 let _isZooming = false;       // true durante zoom ativo — reduz arestas desenhadas
 let _zoomEndId  = null;       // timeout para detectar fim do zoom
+let _bfDisabled = false;      // backdrop-filter desativado durante zoom
 let _labelDebounceId = null;  // debounce para updateLabelViewport (collision detection)
 let _cachedClusterMap = null; // cache do mapa de clusters
 let _canvasW = 0, _canvasH = 0; // dimensões cacheadas
@@ -708,7 +709,7 @@ function buildVisualization(graphData) {
   zoomInstance = d3.zoom()
     .scaleExtent([0.08, 8])
     // Scroll 1.6× mais rápido que o padrão D3 (confortável)
-    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 0.8)
+    .wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.002) * 2.0)
     .on('zoom', event => {
       // 1. SVG transform: imediato (mantém nodes/hulls em sincronia visual)
       d3.select('#zoom-group').attr('transform', event.transform);
@@ -716,11 +717,27 @@ function buildVisualization(graphData) {
       // 2. Canvas: RAF-throttled — no máximo 1 draw por frame de animação
       //    Durante zoom ativo: só arestas fortes (~400) em vez de 16k → muito mais fluido
       _isZooming = true;
+      // Desativa backdrop-filter durante zoom: evita repaints caros do compositor
+      if (!_bfDisabled) {
+        _bfDisabled = true;
+        document.getElementById('panel').style.backdropFilter = 'none';
+        document.getElementById('panel').style.webkitBackdropFilter = 'none';
+        const rp = document.getElementById('right-panel');
+        if (rp) { rp.style.backdropFilter = 'none'; rp.style.webkitBackdropFilter = 'none'; }
+      }
       clearTimeout(_zoomEndId);
       _zoomEndId = setTimeout(() => {
         _isZooming = false;
+        // Reativa backdrop-filter após parar de zoomar
+        if (_bfDisabled) {
+          _bfDisabled = false;
+          document.getElementById('panel').style.backdropFilter = '';
+          document.getElementById('panel').style.webkitBackdropFilter = '';
+          const rp = document.getElementById('right-panel');
+          if (rp) { rp.style.backdropFilter = ''; rp.style.webkitBackdropFilter = ''; }
+        }
         drawEdgesOnCanvas(); // redraw completo ao parar
-      }, 120);
+      }, 60);
 
       if (!_drawRafId) {
         _drawRafId = requestAnimationFrame(() => {
@@ -736,13 +753,13 @@ function buildVisualization(graphData) {
         _zoomRafId = null;
       });
 
-      // 4. Cluster label positions (cálculo pesado): só após parar de zoomar
+      // 4. Cluster labels: ancorados na borda do cluster, tamanho constante
       clearTimeout(_clusterLabelDebounceId);
-      _clusterLabelDebounceId = setTimeout(() => updateClusterLabelPositions(currentNodes), 120);
+      _clusterLabelDebounceId = setTimeout(() => updateClusterLabelPositions(currentNodes), 70);
 
       // 5. Collision detection de labels de nós: após parar de zoomar
       clearTimeout(_labelDebounceId);
-      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 160);
+      _labelDebounceId = setTimeout(() => updateLabelViewport(event.transform), 90);
     });
   svg.call(zoomInstance).on('click', event => { if (!event.target.closest('.node-g')) resetHighlight(); });
 
@@ -987,22 +1004,25 @@ function drawEdgesOnCanvas() {
     ctx.stroke();
   }
 
-  // Batch 2: arestas fortes agrupadas por cor (4–5 grupos no máximo)
+  // Batch 2: arestas fortes — espessura e opacidade proporcionais ao peso
+  // Tier 1 (peso 10–24): fino  |  Tier 2 (25–59): médio  |  Tier 3 (≥60): grosso
   const buckets = new Map();
   currentEdges.forEach(e => {
     if ((e.weight||1) < WEIGHT_THRESHOLD) return;
     const c = edgeCoords(e); if (!c) return;
-    const same = c.src.modClass === c.tgt.modClass;
-    const col  = same ? (c.src.clusterColor||'#888') : '#777777';
-    const lw   = same ? 0.9 : 0.5;
-    const key  = col + '|' + lw;
-    if (!buckets.has(key)) buckets.set(key, {col, lw, segs:[]});
-    const b = buckets.get(key);
-    b.segs.push(c.x1, c.y1, c.x2, c.y2);
+    const same  = c.src.modClass === c.tgt.modClass;
+    const col   = same ? (c.src.clusterColor||'#888') : '#888888';
+    const w     = e.weight || 1;
+    const lw    = same
+      ? (w >= 60 ? 2.2 : w >= 25 ? 1.3 : 0.7)
+      : (w >= 60 ? 1.3 : w >= 25 ? 0.8 : 0.45);
+    const alpha = w >= 60 ? 0.20 : w >= 25 ? 0.13 : 0.09;
+    const key   = col + '|' + lw + '|' + alpha;
+    if (!buckets.has(key)) buckets.set(key, {col, lw, alpha, segs:[]});
+    buckets.get(key).segs.push(c.x1, c.y1, c.x2, c.y2);
   });
-  ctx.globalAlpha = 0.11;
-  buckets.forEach(({col, lw, segs}) => {
-    ctx.strokeStyle = col; ctx.lineWidth = lw;
+  buckets.forEach(({col, lw, alpha, segs}) => {
+    ctx.globalAlpha = alpha; ctx.strokeStyle = col; ctx.lineWidth = lw;
     ctx.beginPath();
     for (let i=0; i<segs.length; i+=4) { ctx.moveTo(segs[i], segs[i+1]); ctx.lineTo(segs[i+2], segs[i+3]); }
     ctx.stroke();
@@ -1083,17 +1103,9 @@ function updateClusterLabelPositions(nodes) {
   clusterMap.forEach(cn => { const c = clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
   const gcx = d3.mean(allCx), gcy = d3.mean(allCy);
 
-  const W = _canvasW || document.getElementById('canvas-area').clientWidth;
-  const H = _canvasH || document.getElementById('canvas-area').clientHeight;
-
-  // Transform atual: converte coordenadas de dados → pixels de tela
-  // Fórmula: screenX = dataX * k + tx
-  const t  = (zoomInstance && d3.select('#viz-svg').node())
-    ? d3.zoomTransform(d3.select('#viz-svg').node())
-    : d3.zoomIdentity;
-  const k = t.k, tx = t.x, ty = t.y;
-
-  const screenPad = 18; // margem mínima das bordas (em pixels de tela)
+  const k = (zoomInstance && d3.select('#viz-svg').node())
+    ? d3.zoomTransform(d3.select('#viz-svg').node()).k
+    : 1;
 
   d3.select('#cluster-labels-layer').selectAll('.cluster-badge').each(function(d) {
     const clNodes = clusterMap.get(d.mc);
@@ -1102,36 +1114,22 @@ function updateClusterLabelPositions(nodes) {
     const dx = c.x - gcx, dy = c.y - gcy, dist = Math.sqrt(dx*dx + dy*dy) || 1;
     let ux = dx/dist, uy = dy/dist;
 
-    // Override de direção por cluster (evita sobreposição entre badges vizinhos)
+    // Override de direção por cluster
     const BADGE_DIR_OVERRIDE = {
-      '2': { ux: -0.55, uy: -0.72 } // cluster amarelo: empurra para cima-esquerda
+      '2': { ux: -0.55, uy: -0.72 }
     };
     const ovr = BADGE_DIR_OVERRIDE[d.mc];
     if (ovr) { ux = ovr.ux; uy = ovr.uy; }
 
-    // Usa percentil 75 das distâncias ao centróide (ignora outliers que inflam o raio)
+    // Posição na borda do cluster (percentil 75 do raio)
     const dists = clNodes.map(n => Math.sqrt((n.x-c.x)**2 + (n.y-c.y)**2)).sort((a,b)=>a-b);
     const hullRadius = dists[Math.floor(dists.length * 0.75)] || 60;
-    const pushDist = hullRadius * 0.55 + 32;
-    let bx = c.x + ux * pushDist;
-    let by = c.y + uy * pushDist;
+    const pushDist = hullRadius + 24;
+    const bx = c.x + ux * pushDist;
+    const by = c.y + uy * pushDist;
 
-    // ── Clamping em espaço de tela (pixels) — converte, clipa, converte de volta ──
-    // badgeHalfW em pixels de tela: independente do zoom
-    const badgeHalfW = d.name.length * 6.2 + 24;
-    const badgeHalfH = 20;
-
-    let sx = bx * k + tx;
-    let sy = by * k + ty;
-
-    sx = Math.max(screenPad + badgeHalfW, Math.min(W - screenPad - badgeHalfW, sx));
-    sy = Math.max(screenPad + badgeHalfH, Math.min(H - screenPad - badgeHalfH, sy));
-
-    // Converte de volta para coordenadas de dados
-    bx = (sx - tx) / k;
-    by = (sy - ty) / k;
-
-    d3.select(this).attr('transform', 'translate(' + bx + ',' + by + ')');
+    // Counter-scale: mantém tamanho visual constante independente do zoom
+    d3.select(this).attr('transform', `translate(${bx},${by}) scale(${1/k})`);
   });
 }
 // Mostra labels no viewport aplicando:
@@ -1408,7 +1406,7 @@ function selectNode(d) {
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   // Inicia o zoom imediatamente (frame do clique fica leve)
   const W=document.getElementById('canvas-area').clientWidth, H=document.getElementById('canvas-area').clientHeight, k=2.8;
-  d3.select('#viz-svg').transition().duration(600).ease(d3.easeCubicInOut)
+  d3.select('#viz-svg').transition().duration(320).ease(d3.easeCubicOut)
     .call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*d.x, H/2-k*d.y).scale(k))
     .on('end', () => { showRipple(d); showRightPanel(d); }); // painel pesado só após zoom
   // Defer: hover + card leve (sem painel direito) para o próximo frame
@@ -1448,7 +1446,7 @@ function selectCluster(mc) {
   const pad=90;
   const k=Math.min(W/(x1-x0+pad*2), H/(y1-y0+pad*2), 3.5);
   const cx=(x0+x1)/2, cy=(y0+y1)/2;
-  d3.select('#viz-svg').transition().duration(500)
+  d3.select('#viz-svg').transition().duration(280)
     .call(zoomInstance.transform, d3.zoomIdentity.translate(W/2-k*cx, H/2-k*cy).scale(k));
 }
 function resetHighlight() {
@@ -1459,7 +1457,7 @@ function resetHighlight() {
   document.querySelectorAll('.legend-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('cluster-stats').style.display='none';
   document.getElementById('btn-reset').style.display='none';
-  d3.select('#viz-svg').transition().duration(400).call(zoomInstance.transform, d3.zoomIdentity);
+  d3.select('#viz-svg').transition().duration(220).call(zoomInstance.transform, d3.zoomIdentity);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1643,7 +1641,17 @@ function showRightPanel(d) {
     return result.sort((a, b) => (b.count || 0) - (a.count || 0));
   }
 
-  const papers = deduplicatePapers(rawPapers);
+  // Detecta abreviações de revista uppercase do WoS (ex: "REV CIENCIAS SOCIAI")
+  // Critério: sem título, source em caixa alta, sem letras minúsculas
+  const isJournalAbbrev = src =>
+    src && !src.match(/[a-z]/) && src === src.toUpperCase() && src.length < 60;
+
+  const papers = deduplicatePapers(rawPapers).filter(p => {
+    if (p.title) return true;                        // tem título real → mantém
+    const src = p.source || p.journal || '';
+    if (isJournalAbbrev(src)) return false;          // só abreviação uppercase → descarta
+    return src.trim().length > 0;                    // source misto (livro) → mantém
+  });
 
   if (papers.length === 0) {
     papersEl.innerHTML = '<div class="rp-empty">Nenhum texto encontrado<br>no references.json</div>';
@@ -1732,7 +1740,7 @@ window.addEventListener('resize', () => {
 
 document.getElementById('btn-reset').addEventListener('click', resetHighlight);
 document.getElementById('btn-center').addEventListener('click', () => {
-  if(zoomInstance) d3.select('#viz-svg').transition().duration(500).call(zoomInstance.transform, d3.zoomIdentity);
+  if(zoomInstance) d3.select('#viz-svg').transition().duration(260).call(zoomInstance.transform, d3.zoomIdentity);
 });
 document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
 document.getElementById('rp-close-btn').addEventListener('click', () => { hideRightPanel(); resetHighlight(); });
