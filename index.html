@@ -1677,16 +1677,21 @@ function showRightPanel(d) {
         : `<div class="rp-paper-journal rp-paper-journal--source">${source || '—'}</div>`+
           `<div class="rp-paper-source">${year}</div>`;
 
-      // Botão de acesso: DOI direto, ou busca no Google Livros, ou nada
-      const booksQuery = encodeURIComponent(
-        [title || source, p.author ? p.author.split(' ')[0] : '', year].filter(Boolean).join(' ')
-      );
-      const booksUrl = `https://www.google.com/search?tbm=bks&q=${booksQuery}`;
+      // Botão de acesso: DOI direto, URL direta Open Library, busca Google Livros, ou nada
+      const bookTitle  = (title || source || '').trim();
+      const bookAuthor = p.author ? p.author.split(/[\s,]+/)[0] : '';
+      const booksQuery = bookTitle
+        ? `intitle:${encodeURIComponent('"' + bookTitle.slice(0, 50) + '"')}` +
+          (bookAuthor ? `+inauthor:${encodeURIComponent(bookAuthor)}` : '')
+        : encodeURIComponent([bookAuthor, year].filter(Boolean).join(' '));
+      const booksUrl = `https://books.google.com/books?q=${booksQuery}`;
       const doiBtn = safeStr(p.doi)
         ? `<a class="rp-doi-btn has-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">↗ Abrir DOI</a>`
-        : (title || source)
-          ? `<a class="rp-doi-btn books-btn" href="${booksUrl}" target="_blank" rel="noopener">📚 Google Livros</a>`
-          : `<span class="rp-doi-btn no-doi">sem dados</span>`;
+        : safeStr(p.book_url)
+          ? `<a class="rp-doi-btn books-btn" href="${p.book_url}" target="_blank" rel="noopener">📚 Open Library</a>`
+          : bookTitle
+            ? `<a class="rp-doi-btn books-btn" href="${booksUrl}" target="_blank" rel="noopener">📚 Google Livros</a>`
+            : `<span class="rp-doi-btn no-doi">sem dados</span>`;
 
       item.innerHTML =
         titleHtml+
