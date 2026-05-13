@@ -1607,11 +1607,13 @@ function showRightPanel(d) {
     function normKey(p) {
       const raw = p.title || p.source || p.journal || '';
       const words = raw.normalize('NFKD')
-        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u0300-\u036f]/g, '')   // remove acentos
         .toLowerCase()
+        .replace(/[-\u2013\u2014]/g, '')             // remove h\u00edfens ("afro-latino" = "afrolatino")
+        .replace(/\b(1st|2nd|3rd|\d+th|ed|edition|vol|volume|rev|org|eds)\b/g, '')
         .split(/[^a-z0-9]+/)
         .filter(w => w.length > 3);
-      const key = words.slice(0, 2).join(' ');
+      const key = words.slice(0, 3).join(' ');  // 3 palavras \u2192 menos falsos positivos
       return key || ('_' + raw.slice(0, 10));
     }
     const groups = new Map();
@@ -1667,9 +1669,11 @@ function showRightPanel(d) {
       const source = safeStr(p.source) || safeStr(p.journal);
       const year   = safeStr(p.year) || '';
 
+      // Não repete source quando é igual ao título (livros com source copiado para title)
+      const displaySource = (source && source.trim() !== title?.trim()) ? source : null;
       const titleHtml = title
         ? `<div class="rp-paper-journal">${title}</div>`+
-          `<div class="rp-paper-source">${source ? source + ' · ' : ''}${year}</div>`
+          `<div class="rp-paper-source">${displaySource ? displaySource + ' · ' : ''}${year}</div>`
         : `<div class="rp-paper-journal rp-paper-journal--source">${source || '—'}</div>`+
           `<div class="rp-paper-source">${year}</div>`;
 
