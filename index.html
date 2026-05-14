@@ -1594,7 +1594,9 @@ function showRightPanel(d) {
   tag.style.background = color + '22';
   tag.style.color = color;
   tag.style.border = '1px solid ' + color + '44';
-  document.getElementById('rp-stat').textContent = d.degree + ' co-citações no corpus';
+  const _totalCit = (referencesDB[authorKey] || []).reduce((s, p) => s + (p.count || 0), 0);
+  document.getElementById('rp-stat').textContent =
+    (_totalCit > 0 ? _totalCit.toLocaleString('pt-BR') : d.degree) + ' citações no corpus';
 
   const papersEl = document.getElementById('rp-papers');
   papersEl.innerHTML = '';
