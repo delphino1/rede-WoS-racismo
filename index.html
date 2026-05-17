@@ -1610,9 +1610,10 @@ function showRightPanel(d) {
     }
 
     // Passo 1: deduplicar por chave de titulo (mesma obra, titulo similar)
+    // Se dois itens têm DOIs diferentes, são obras distintas — nunca mesclar
     const titleGroups = new Map();
     list.forEach(p => {
-      const k = normKey(p);
+      const k = p.doi ? ('doi:' + p.doi) : normKey(p);
       if (!titleGroups.has(k)) titleGroups.set(k, []);
       titleGroups.get(k).push(p);
     });
