@@ -1672,13 +1672,22 @@ function showRightPanel(d) {
         : `<div class="rp-paper-journal rp-paper-journal--source">${source || '—'}</div>`+
           `<div class="rp-paper-source">${year}</div>`;
 
-      // Botão de acesso: DOI direto para artigos; badge neutro para livros/sem DOI
+      // Botão de acesso: detecta tipo de link para label adequado
       const doiVal = safeStr(p.doi);
       const doiHref = doiVal
         ? (doiVal.startsWith('http') ? doiVal : `https://doi.org/${doiVal}`)
         : null;
-      const doiBtn = doiHref
-        ? `<a class="rp-doi-btn has-doi" href="${doiHref}" target="_blank" rel="noopener">↗ Abrir DOI</a>`
+      function linkLabel(href, rawDoi) {
+        if (!href) return null;
+        if (rawDoi && !rawDoi.startsWith('http')) return '↗ Abrir DOI';
+        if (href.includes('youtube.com') || href.includes('youtu.be')) return '▶ Assistir';
+        if (href.includes('books.google') || href.includes('amazon.')) return '📖 Ver livro';
+        if (href.includes('enciclopedia') || href.includes('pucsp')) return '↗ Ver verbete';
+        return '↗ Abrir link';
+      }
+      const btnLabel = linkLabel(doiHref, doiVal);
+      const doiBtn = btnLabel
+        ? `<a class="rp-doi-btn has-doi" href="${doiHref}" target="_blank" rel="noopener">${btnLabel}</a>`
         : (title || source)
           ? `<span class="rp-doi-btn book-badge">📖 livro / capítulo</span>`
           : `<span class="rp-doi-btn no-doi">sem dados</span>`;
