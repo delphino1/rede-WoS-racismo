@@ -1620,22 +1620,7 @@ function showRightPanel(d) {
     const afterPass1 = [];
     titleGroups.forEach(grp => afterPass1.push(grp.length === 1 ? grp[0] : mergeBest(grp)));
 
-    // Passo 2: para papers SEM DOI, agrupa pelo ano de publicacao
-    // Edicoes e traducoes do mesmo livro compartilham o ano original;
-    // e raro que o mesmo autor tenha dois livros distintos no mesmo ano no corpus.
-    const withDoi = afterPass1.filter(p => p.doi);
-    const noDoi   = afterPass1.filter(p => !p.doi);
-
-    const yearGroups = new Map();
-    noDoi.forEach(p => {
-      const k = String(p.year || '__noyr__');
-      if (!yearGroups.has(k)) yearGroups.set(k, []);
-      yearGroups.get(k).push(p);
-    });
-    const afterPass2 = [...withDoi];
-    yearGroups.forEach(grp => afterPass2.push(grp.length === 1 ? grp[0] : mergeBest(grp)));
-
-    return afterPass2.sort((a, b) => (b.count || 0) - (a.count || 0));
+    return afterPass1.sort((a, b) => (b.count || 0) - (a.count || 0));
   }
 
   // Detecta abreviações de revista uppercase do WoS (ex: "REV CIENCIAS SOCIAI")
