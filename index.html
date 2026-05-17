@@ -1069,33 +1069,8 @@ function updateHulls(nodes) {
 function clusterCentroid(clNodes) { return { x:d3.mean(clNodes,n=>n.x), y:d3.mean(clNodes,n=>n.y) }; }
 
 function renderClusterLabels(nodes) {
-  const clusterMap = getClusterMap(nodes);
-  const allCx=[],allCy=[];
-  clusterMap.forEach(cn => { const c=clusterCentroid(cn); allCx.push(c.x); allCy.push(c.y); });
-  const gcx=d3.mean(allCx), gcy=d3.mean(allCy);
-  const badgeData=[];
-  clusterMap.forEach((clNodes,mc) => {
-    if (!CLUSTER_MAP[mc]) return; // só clusters nomeados
-    const c=clusterCentroid(clNodes);
-    const dx=c.x-gcx,dy=c.y-gcy,dist=Math.sqrt(dx*dx+dy*dy)||1;
-    const pf=dist<150?2.5:1.8;
-    badgeData.push({ mc, clNodes, bx:c.x+(dx/dist)*dist*(pf-1), by:c.y+(dy/dist)*dist*(pf-1), color:clusterColor(mc), name:clusterName(mc).toUpperCase() });
-  });
-  const layer=d3.select('#cluster-labels-layer');
-  const groups=layer.selectAll('.cluster-badge').data(badgeData,d=>d.mc).join('g').attr('class','cluster-badge').style('pointer-events','none');
-  groups.append('rect').attr('class','badge-rect').attr('fill',d=>d.color).attr('fill-opacity',0.13)
-    .attr('stroke',d=>d.color).attr('stroke-opacity',0.3).attr('stroke-width',1).attr('rx',9).attr('ry',9);
-  groups.append('text').attr('class','badge-text').attr('text-anchor','middle').attr('dominant-baseline','middle')
-    .attr('font-family',"'Space Grotesk', sans-serif").attr('font-size','9px').attr('font-weight','600')
-    .attr('letter-spacing','0.1em').attr('fill',d=>d.color).text(d=>d.name);
-  setTimeout(() => {
-    layer.selectAll('.cluster-badge').each(function() {
-      const g=d3.select(this),textEl=g.select('.badge-text').node();
-      if (!textEl) return;
-      try { const bb=textEl.getBBox(); g.select('.badge-rect').attr('x',-bb.width/2-10).attr('y',-bb.height/2-5).attr('width',bb.width+20).attr('height',bb.height+10); } catch(e) {}
-    });
-  }, 200);
-  updateClusterLabelPositions(nodes);
+  // Nomes dos clusters removidos da visualização
+  d3.select('#cluster-labels-layer').selectAll('*').remove();
 }
 
 function updateClusterLabelPositions(nodes) {
