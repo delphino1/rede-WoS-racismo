@@ -413,9 +413,9 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
   '1': { name: 'Identidades e Pensamento Social',          color: '#C43D32' }, // Tijolo médio
-  '2': { name: 'Sociologia das Relações Raciais',          color: '#D4B800' }, // Âmbar médio
+  '2': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado (branco)
   '3': { name: 'Relações Raciais e Estratificação Social', color: '#6CCDD4' }, // Teal médio
-  '4': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado
+  '4': { name: 'Sociologia das Relações Raciais',          color: '#D4B800' }, // Âmbar médio (amarelo)
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
@@ -855,7 +855,9 @@ function buildVisualization(graphData) {
   // O layout já vem do ForceAtlas2 (Gephi). A simulação apenas empurra nós
   // sobrepostos para fora, sem distorcer a estrutura de clusters.
   simulation = d3.forceSimulation(nodes)
-    .alphaDecay(0.025).velocityDecay(0.55).alphaMin(0.002)
+    .alphaDecay(0.055).velocityDecay(0.72).alphaMin(0.003)
+    // alphaDecay 0.055 → ~90 ticks (vs 246 antes) — converge 3× mais rápido
+    // velocityDecay 0.72 → mais amortecimento, menos oscilação
 
     // ① Cada nó é puxado para a sua posição GEXF expandida
     .force('anchorX', d3.forceX(d => d.fx_anchor).strength(0.25))
@@ -867,6 +869,7 @@ function buildVisualization(graphData) {
     .on('tick', tick)
     .on('end', () => {
       _simDone = true; // para atualização de coordenadas de arestas no tick
+      drawEdgesOnCanvas();  // redraw final completo
       updateHulls(nodes);
       updateClusterLabelPositions(nodes);
       const t = zoomInstance ? d3.zoomTransform(d3.select('#viz-svg').node()) : d3.zoomIdentity;
@@ -877,13 +880,13 @@ function buildVisualization(graphData) {
   function getNodeObj(ref) { return (ref&&typeof ref==='object') ? ref : (nodeById.get(ref)||{x:0,y:0}); }
   function tick() {
     _tick++;
-    // Nós e labels
+    // Nós e labels — sempre atualiza posição (leve: só move elementos SVG)
     nodeG.attr('transform', d=>'translate('+d.x+','+d.y+')');
     d3.select('#labels-layer').selectAll('.node-label').attr('x',d=>d.x).attr('y',d=>d.y-d.size-3);
-    // Canvas: redesenha arestas com posições atualizadas
-    drawEdgesOnCanvas();
-    // Hulls: a cada 4 ticks (pesado)
-    if (_tick % 4 === 0) { updateHulls(nodes); updateClusterLabelPositions(nodes); }
+    // Canvas: redesenha arestas só a cada 4 ticks — é a operação mais pesada
+    if (_tick % 4 === 0) drawEdgesOnCanvas();
+    // Hulls: a cada 6 ticks (pesado)
+    if (_tick % 6 === 0) { updateHulls(nodes); updateClusterLabelPositions(nodes); }
   }
 
   buildLegend(nodes);
