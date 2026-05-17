@@ -593,7 +593,7 @@
     {
       "author": "Campos LA",
       "year": "2015",
-      "source": "Dados",
+      "source": "Dados: Revista de Ciências Sociais",
       "doi": "https://doi.org/10.1590/00115258201556",
       "title": "Socialismo moreno, conservadorismo pálido? Cor e recrutamento partidário em São Paulo e Rio de Janeiro nas eleições de 2012",
       "count": 5
@@ -665,9 +665,9 @@
     {
       "author": "Campos Luiz Augusto",
       "year": "2013",
-      "source": "Rev. Bras. Ciênc. Polít.",
-      "doi": null,
-      "title": "Rev. Bras. Ciênc. Polít.",
+      "source": "Revista Brasileira de Ciência Política",
+      "doi": "https://doi.org/10.1590/S0103-33522013000200001",
+      "title": "Administrando o debate público: O Globo e a controvérsia em torno das cotas raciais",
       "count": 1
     },
     {
@@ -798,7 +798,7 @@
       "source": "Dados: Revista de Ciências Sociais",
       "doi": "10.1590/S0011-52582006000400006",
       "title": "Classe, raça e mobilidade social no Brasil",
-      "count": 25
+      "count": 29
     },
     {
       "author": "Ribeiro CAC",
@@ -814,22 +814,22 @@
       "source": "Dados: Revista de Ciências Sociais",
       "doi": "10.1590/S0011-52582011000100002",
       "title": "Desigualdade de oportunidades e resultados educacionais no Brasil",
-      "count": 10
+      "count": 11
     },
     {
       "author": "Ribeiro Carlos Antonio Costa",
       "year": "2017",
-      "source": "Rev. bras. Ci. Soc.",
+      "source": "Revista Brasileira de Ciências Sociais",
       "doi": "10.17666/329503/2017",
-      "title": "CONTÍNUO RACIAL, MOBILIDADE SOCIAL E “EMBRANQUECIMENTO”",
+      "title": "Contínuo racial, mobilidade social e “embranquecimento”",
       "count": 9
     },
     {
       "author": "Ribeiro C. A. C.",
       "year": "2020",
-      "source": "BIB. Revista Brasileira de Informao Bibliogrfica Em Cincias Sociais",
-      "doi": null,
-      "title": "BIB. Revista Brasileira de Informao Bibliogrfica Em Cincias Sociais",
+      "source": "BIB. Revista Brasileira de Informao Bibliogrfica Em Ciências Sociais",
+      "doi": "https://bibanpocs.emnuvens.com.br/revista/article/view/504",
+      "title": "Estratificação e mobilidade social no Brasil: uma revisão da literatura na sociologia de 2000 a 2018",
       "count": 4
     },
     {
@@ -841,28 +841,12 @@
       "count": 4
     },
     {
-      "author": "Ribeiro C.A.C.",
-      "year": "2006",
-      "source": "Dados: Revista de Ciências Sociais",
-      "doi": null,
-      "title": null,
-      "count": 4
-    },
-    {
-      "author": "Ribeiro Carlos",
-      "year": "2013",
-      "source": "Rev. bras. educ. fís. esporte",
-      "doi": "10.1590/S1807-55092013000300007",
-      "title": "Tem um queniano correndo entre nós: atletismo e migração no Brasil",
-      "count": 3
-    },
-    {
       "author": "Ribeiro Carlos Antonio Costa",
       "year": "2015",
-      "source": "Trajetorias das desigualdades: Como o Brasil mudou nos ultimos cinquenta anos",
-      "doi": null,
-      "title": "Trajetorias das desigualdades: Como o Brasil mudou nos ultimos cinquenta anos",
-      "count": 3
+      "source": "Trajetórias das desigualdades: Como o Brasil mudou nos ultimos cinquenta anos",
+      "doi": "https://www.google.com.br/books/edition/Trajet%C3%B3rias_das_desigualdades/LdOXdO3KmKAC?hl=pt-BR&gbpv=0&bsq=Trajet%C3%B3rias%20das%20desigualdades:%20Como%20o%20Brasil%20mudou%20nos%20ultimos%20cinquenta%20anos",
+      "title": "Estratificação educacional entre jovens no Brasil: 1960 a 2010",
+      "count": 8
     },
     {
       "author": "Ribeiro CAC",
@@ -929,14 +913,6 @@
       "count": 2
     },
     {
-      "author": "RIBEIRO C. C.",
-      "year": "2015",
-      "source": "TRAJETORIAS DESIGUAL",
-      "doi": null,
-      "title": "TRAJETORIAS DESIGUAL",
-      "count": 2
-    },
-    {
       "author": "Ribeiro CAC",
       "year": "2024",
       "source": "SOCIOL COMPASS",
@@ -969,35 +945,11 @@
       "count": 1
     },
     {
-      "author": "Ribeiro C. A. R.",
-      "year": "2019",
-      "source": "Paths of Inequality in Brazil",
-      "doi": "10.1007/978-3-319-78184-65",
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "RIBEIRO C. M. R.",
       "year": "2019",
       "source": "Semina: Ciencias Sociais e Humanas",
       "doi": "10.5433/1679-0383.2019v40n1p43",
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "Ribeiro C.A. C.",
-      "year": "2019",
-      "source": "Paths of Inequality in Brazil",
-      "doi": "10.1007/978-3-31978184-6_3",
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Ribeiro CAC.",
-      "year": "2018",
-      "source": "PATHS INEQUALITY BRA",
-      "doi": null,
-      "title": "PATHS INEQUALITY BRA",
       "count": 1
     },
     {
@@ -1085,10 +1037,10 @@
     {
       "author": "Daflon Verônica Toste",
       "year": "2013",
-      "source": "Cad. Pesqui.",
-      "doi": null,
-      "title": "Cad. Pesqui.",
-      "count": 17
+      "source": "Cadernos de Pesquisa",
+      "doi": "https://doi.org/10.1590/S0100-15742013000100015",
+      "title": "Ações afirmativas raciais no ensino superior público brasileiro: um panorama analítico",
+      "count": 23
     },
     {
       "author": "Daflon VT",
@@ -1100,82 +1052,18 @@
     },
     {
       "author": "DAFLON V.T.",
-      "year": "2014",
-      "source": "Acao afirmativa: conceito",
+      "year": "2018",
+      "source": "Tão longe, tão perto: pretos e pardos e o enigma racial brasileiro",
       "doi": null,
-      "title": "Tão longe, tão perto",
-      "count": 5
-    },
-    {
-      "author": "Daflon V.T.",
-      "year": "2017",
-      "source": "Tao longe",
-      "doi": null,
-      "title": "Tao longe",
-      "count": 4
-    },
-    {
-      "author": "DAFLON V.T",
-      "year": "2013",
-      "source": "CADERNOS PESQUISA",
-      "doi": null,
-      "title": "CADERNOS PESQUISA",
-      "count": 4
-    },
-    {
-      "author": "Daflon",
-      "year": "2011",
-      "source": "GLOBO",
-      "doi": null,
-      "title": null,
-      "count": 2
-    },
-    {
-      "author": "Daflon V.T.",
-      "year": "2013",
-      "source": "CAD PESQUISI",
-      "doi": "10.1590/S0100-15742013000100015",
-      "title": "Ações afirmativas raciais no ensino superior público brasileiro: um panorama analítico",
-      "count": 1
-    },
-    {
-      "author": "Daflon Veronica Toste.",
-      "year": "2013",
-      "source": "CAD PESQUISI",
-      "doi": null,
-      "title": "CAD PESQUISI",
-      "count": 1
+      "title": "Tão longe, tão perto: pretos e pardos e o enigma racial brasileiro",
+      "count": 9
     },
     {
       "author": "Daflon Veronica",
       "year": "2022",
       "source": "Raca & Estado",
-      "doi": null,
-      "title": "Raca & Estado",
-      "count": 1
-    },
-    {
-      "author": "Daflon Veronica Toste",
-      "year": "2014",
-      "source": "Levantamento das Politicas de Acao Afirmativa (GEMAA)",
-      "doi": null,
-      "title": "Levantamento das Politicas de Acao Afirmativa (GEMAA)",
-      "count": 1
-    },
-    {
-      "author": "DAFLON Veronica Toste",
-      "year": "2010",
-      "source": "INSIGHT INTELIGENCIA",
-      "doi": null,
-      "title": "INSIGHT INTELIGENCIA",
-      "count": 1
-    },
-    {
-      "author": "Daflon Veronica T.",
-      "year": "2014",
-      "source": "LEVANTAMENTO POLITIC",
-      "doi": null,
-      "title": "LEVANTAMENTO POLITIC",
+      "doi": "https://www.google.com.br/books/edition/Ra%C3%A7a_estado/xLnRzwEACAAJ?hl=pt-BR",
+      "title": "Raça, Estado e burocracias: as comissões de heteroclassificação nas Instituições Federais de Ensino Superior",
       "count": 1
     }
   ],
@@ -1184,128 +1072,96 @@
       "author": "DuBois W.E.B.",
       "year": "1903",
       "source": "The Souls of Black Folk",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/The_Souls_of_Black_Folk/MsykIho4n5MC?hl=pt-BR&gbpv=0",
       "title": "The Souls of Black Folk",
-      "count": 15
+      "count": 23
     },
     {
       "author": "Du Bois W.E.B.",
       "year": "1935",
       "source": "Black Reconstruction in America",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Black_Reconstruction_in_America_1860_188/Nt5mglDCNHEC?hl=pt-BR&gbpv=0",
       "title": "Black Reconstruction in America",
-      "count": 9
-    },
-    {
-      "author": "DuBois W.E.B.",
-      "year": "2018",
-      "source": "The Souls of Black Folk: Essays and Sketches",
-      "doi": null,
-      "title": "The Souls of Black Folk: Essays and Sketches",
-      "count": 4
-    },
-    {
-      "author": "Du Bois W.E.B.",
-      "year": "1998",
-      "source": "BLACK RECONSTRUCTION",
-      "doi": null,
-      "title": "BLACK RECONSTRUCTION",
-      "count": 3
+      "count": 12
     },
     {
       "author": "DUBOIS WEB",
       "year": "1915",
-      "source": "NEGRO",
-      "doi": null,
-      "title": null,
+      "source": "The Negro",
+      "doi": "https://www.google.com.br/books/edition/The_Negro/NSQR3uU07asC?hl=pt-BR&gbpv=0&bsq=web%20du%20bois%20%22the%20negro%22",
+      "title": "The Negro",
       "count": 3
-    },
-    {
-      "author": "Du Bois W.E.B.",
-      "year": "1903",
-      "source": "CRISIS",
-      "doi": null,
-      "title": null,
-      "count": 2
     },
     {
       "author": "Du Bois W.E.B.",
       "year": "1920",
       "source": "Darkwater: Voices from Within the Veil",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Darkwater_Voices_from_Within_the_Veil_Un/Z1HmEAAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "Darkwater: Voices from Within the Veil",
-      "count": 2
+      "count": 3
     },
     {
       "author": "Du Bois W.E.B.",
       "year": "1899",
-      "source": "PHILADELPHIA NEGRO",
+      "source": "The Philadelphia Negro: A Social Study",
+      "doi": "https://www.google.com.br/books/edition/The_Philadelphia_Negro/FtQ0EWDevHwC?hl=pt-BR&gbpv=0",
+      "title": "The Philadelphia Negro: A Social Study",
+      "count": 3
+    },
+    {
+      "author": "Du Bois W.E.B.",
+      "year": "1947",
+      "source": "The World and Africa: An Inquiry into the Part Which Africa Has Played in World History",
       "doi": null,
-      "title": "PHILADELPHIA NEGRO",
+      "title": "The World and Africa: An Inquiry into the Part Which Africa Has Played in World History",
+      "count": 3
+    },
+    {
+      "author": "Du Bois W.E.B.",
+      "year": "1903",
+      "source": "The Crisis",
+      "doi": null,
+      "title": null,
       "count": 2
     },
     {
-      "author": "Du Bois W.E. B.",
-      "year": "1904",
-      "source": "The souls of black folks",
-      "doi": null,
-      "title": "The souls of black folks",
+      "author": "Du Bois W.E.B.",
+      "year": "2014",
+      "source": "The Problem of the Color Line at the Turn of the Twentieth Century",
+      "doi": "10.5422/fordham/9780823254545.001.0001",
+      "title": "The Problem of the Color Line at the Turn of the Twentieth Century",
       "count": 2
     },
     {
       "author": "Du Bois WEB",
       "year": "2000",
-      "source": "BOUNDARY TWO",
+      "source": "Boundary 2",
       "doi": "10.1215/01903659-27-3-37",
       "title": "Sociology Hesitant",
       "count": 1
     },
     {
       "author": "Du Bois W.E.B.",
-      "year": "2014",
-      "source": "The problem of the color line at the turn of the twentieth century: The essential early essays",
-      "doi": "10.5422/fordham/9780823254545.001.0001",
-      "title": "The Problem of the Color Line at the Turn of the Twentieth Century",
-      "count": 1
-    },
-    {
-      "author": "Du Bois W.E.B.",
-      "year": "1999",
-      "source": "DARKWATER",
-      "doi": null,
-      "title": "DARKWATER",
-      "count": 1
-    },
-    {
-      "author": "Du Bois W.E.B.",
       "year": "1945",
-      "source": "COLOR DEMOCRACY",
+      "source": "Color and Democracy: Colonies and Peace",
       "doi": null,
-      "title": "COLOR DEMOCRACY",
+      "title": "Color and Democracy: Colonies and Peace",
       "count": 1
     },
     {
-      "author": "Du Bois W.E.B.",
-      "year": "2007",
-      "source": "The world and Africa: An inquiry into the part which Africa has played in world history",
+      "author": "Du Bois W. E. B.",
+      "year": "1897",
+      "source": "The Conservation of Races",
       "doi": null,
-      "title": "The world and Africa: An inquiry into the part which Africa has played in world history",
+      "title": "The Conservation of Races",
       "count": 1
     },
     {
-      "author": "Dubois W.E.B.",
-      "year": "1979",
-      "source": "The World and Africa",
+      "author": "Du Bois W.E. B.",
+      "year": "1896",
+      "source": "The Suppression of the African Slave-Trade to the United States of America, 1638-1870",
       "doi": null,
-      "title": "The World and Africa",
-      "count": 1
-    },
-    {
-      "author": "DUBOIS WEB",
-      "year": "1898",
-      "source": "ANN AM ACAD POLI JAN",
-      "doi": null,
-      "title": null,
+      "title": "The Suppression of the African Slave-Trade to the United States of America, 1638-1870",
       "count": 1
     },
     {
@@ -1317,65 +1173,33 @@
       "count": 1
     },
     {
-      "author": "DuBois W.E.B.",
-      "year": "1994",
-      "source": "Within the Circle: An Anthology of African American Literary Criticism from the Harlem Renaissance to the Present",
+      "author": "Du Bois W. E. B.",
+      "year": "1996",
+      "source": "The Oxford W.E.B. Du Bois Reader",
       "doi": null,
-      "title": "Within the Circle: An Anthology of African American Literary Criticism from the Harlem Renaissance to the Present",
+      "title": "The Oxford W.E.B. Du Bois Reader",
       "count": 1
     },
     {
       "author": "DU BOIS W. E. B.",
       "year": "1970",
-      "source": "B BOIS SPEAKS SPEECH",
+      "source": "W.E.B. Du Bois Speaks: Speeches and Addresses",
       "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Du Bois W. E. B.",
-      "year": "2014",
-      "source": "PROBLEM COLOR LINE T",
-      "doi": null,
-      "title": null,
+      "title": "W.E.B. Du Bois Speaks: Speeches and Addresses",
       "count": 1
     },
     {
       "author": "Du Bois W. E. B",
-      "year": "2014",
-      "source": "BATTLE PEACE STORY M",
+      "year": "1952",
+      "source": "In Battle for Peace: The Story of My 83rd Birthday",
       "doi": null,
-      "title": null,
+      "title": "In Battle for Peace: The Story of My 83rd Birthday",
       "count": 1
     },
     {
-      "author": "Du Bois W. E. B.",
-      "year": "1996",
-      "source": "OXFORD WEB BOIS READ",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Du Bois W. E. B.",
-      "year": "2023",
-      "source": "The Philadelphia Negro: A social study",
-      "doi": null,
-      "title": "The Philadelphia Negro: A social study",
-      "count": 1
-    },
-    {
-      "author": "Du Bois W. E. B.",
-      "year": "2004",
-      "source": "CONSERVATION RACES",
-      "doi": null,
-      "title": "CONSERVATION RACES",
-      "count": 1
-    },
-    {
-      "author": "DU BOIS W. E. B.",
-      "year": "2021",
-      "source": "ALMAS POVO PRETO",
+      "author": "DUBOIS WEB",
+      "year": "1898",
+      "source": "Annals of the American Academy of Political and Social Science",
       "doi": null,
       "title": null,
       "count": 1
@@ -1383,17 +1207,17 @@
     {
       "author": "DU BOIS W. E. B.",
       "year": "1965",
-      "source": "3 NEGRO CLASSICS",
+      "source": "Three Negro Classics",
       "doi": null,
-      "title": "3 NEGRO CLASSICS",
+      "title": "Three Negro Classics",
       "count": 1
     },
     {
-      "author": "DU BOIS W. E. B.",
-      "year": "1999",
-      "source": "ALMAS GENTE NEGRA",
+      "author": "DuBois W.E.B.",
+      "year": "1994",
+      "source": "Within the Circle: An Anthology of African American Literary Criticism",
       "doi": null,
-      "title": null,
+      "title": "Within the Circle: An Anthology of African American Literary Criticism",
       "count": 1
     },
     {
@@ -1401,23 +1225,7 @@
       "year": "1926",
       "source": "The North American Review",
       "doi": null,
-      "title": "The North American Review",
-      "count": 1
-    },
-    {
-      "author": "Du Bois W.E. B.",
-      "year": "1947",
-      "source": "WORLD AFRICA INQUIRY",
-      "doi": null,
-      "title": "WORLD AFRICA INQUIRY",
-      "count": 1
-    },
-    {
-      "author": "Du Bois W.E. B.",
-      "year": "2007",
-      "source": "SUPPRESSION AFRICAN",
-      "doi": null,
-      "title": "SUPPRESSION AFRICAN",
+      "title": null,
       "count": 1
     }
   ],
@@ -1425,15 +1233,15 @@
     {
       "author": "FERES Joao JUNIOR.",
       "year": "2018",
-      "source": "Acao Afirmativa: conceito",
-      "doi": null,
-      "title": "Acao Afirmativa: conceito",
-      "count": 7
+      "source": "Acao Afirmativa: conceito, história e debates",
+      "doi": "https://books.scielo.org/id/2mvbb",
+      "title": "Acao Afirmativa: conceito, história e debates",
+      "count": 9
     },
     {
       "author": "Feres Júnior João",
       "year": "2015",
-      "source": "Opin. Publica",
+      "source": "Opinião Publica",
       "doi": "10.1590/1807-01912015212238",
       "title": "A nata e as cotas raciais: genealogia de um argumento público",
       "count": 3
@@ -1441,24 +1249,24 @@
     {
       "author": "Feres Júnior João",
       "year": "2006",
-      "source": "Rev. bras. Ci. Soc.",
-      "doi": null,
-      "title": "Rev. bras. Ci. Soc.",
+      "source": "Revista Brasileira de Ciências Sociais",
+      "doi": "https://doi.org/10.1590/S0102-6909200600020000",
+      "title": "Aspectos semânticos da discriminação racial no Brasil: para além da teoria da modernidade",
       "count": 3
     },
     {
       "author": "Feres Júnior João",
       "year": "2016",
       "source": "Lua Nova",
-      "doi": "10.1590/0102-6445257-293/99",
-      "title": "AÇÃO AFIRMATIVA NO BRASIL: MULTICULTURALISMO OU JUSTIÇA SOCIAL?",
+      "doi": "http://dx.doi.org/10.1590/ 0102-6445257-293/99",
+      "title": "Ação afirmativa no Brasil: multiculturalismo ou justiça social?",
       "count": 2
     },
     {
       "author": "Feres Júnior João",
       "year": "2019",
-      "source": "Opin. Publica",
-      "doi": "10.1590/1807-01912019253495",
+      "source": "Opinião Publica",
+      "doi": "https://doi.org/10.1590/1807-0191201925349",
       "title": "A cobertura jornalística das greves gerais de 2017: paradigma de protesto ou militância política",
       "count": 2
     },
@@ -1620,23 +1428,23 @@
       "author": "Flauzina ALP.",
       "year": "2008",
       "source": "Corpo negro caido no chao: o sistema penal e o projeto genocida do Estado brasileiro",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Corpo_negro_ca%C3%ADdo_no_ch%C3%A3o/m6oOAQAAMAAJ?hl=pt-BR&gbpv=0&bsq=Corpo%20negro%20caido%20no%20chao:%20o%20sistema%20penal%20e%20o%20projeto%20genocida%20do%20Estado%20brasileiro",
       "title": "Corpo negro caido no chao: o sistema penal e o projeto genocida do Estado brasileiro",
-      "count": 16
+      "count": 17
     },
     {
       "author": "FLAUZINA Ana Luiza Pinheiro",
       "year": "2006",
-      "source": "Dissertacao defendida junto ao",
-      "doi": null,
-      "title": "Dissertacao defendida junto ao",
-      "count": 5
+      "source": "Dissertação de Mestrado",
+      "doi": "https://repositorio.unb.br/bitstream/10482/5117/1/2006_AnaLuizaPinheiroFlauzina.pdf",
+      "title": "Corpo negro caído no chão: o sistema penal e o projeto genocida do Estado brasileiro",
+      "count": 11
     },
     {
       "author": "Flauzina A",
       "year": "2008",
-      "source": "THESIS U BRASILIA",
-      "doi": null,
+      "source": "Manual de capacitação sobre enfrentamento ao tráfico de pessoas",
+      "doi": "https://www.gov.br/mj/pt-br/assuntos/sua-protecao/trafico-de-pessoas/publicacoes/guias-e-manuais/manualcapacitacao-1.pdf",
       "title": "Manual de capacitação sobre enfrentamento ao tráfico de pessoas",
       "count": 5
     },
@@ -1644,23 +1452,15 @@
       "author": "Flauzina ALP",
       "year": "2017",
       "source": "Revista Brasileira de Ciências Criminais",
-      "doi": null,
-      "title": "Revista Brasileira de Ciências Criminais",
-      "count": 4
-    },
-    {
-      "author": "FLAUZINA Ana Luiza Pinheiro",
-      "year": "2006",
-      "source": "Corpo negro caido no chdo: o sistema penal e o projeto genocida do Estado brasileiro",
-      "doi": null,
-      "title": "Corpo negro caido no chdo: o sistema penal e o projeto genocida do Estado brasileiro",
+      "doi": "https://arquivo.ibccrim.org.br/rbccrim/146-/?ano_filtro=2017",
+      "title": "Do paradoxal privilégio de ser vítima : terror de estado e a negação do sofrimento negro no Brasil",
       "count": 4
     },
     {
       "author": "Flauzina A",
       "year": "2020",
-      "source": "DIREITO PRAX",
-      "doi": "10.1590/2179-8966/2020/50270",
+      "source": "Direito e Práxis",
+      "doi": "https://doi.org/10.1590/2179-8966/2020/50270",
       "title": "Supremo Tribunal Federal e a naturalização da barbárie",
       "count": 3
     },
@@ -1705,35 +1505,11 @@
       "count": 1
     },
     {
-      "author": "FLAUZINA Ana Luiza Pinheiro",
-      "year": "2006",
-      "source": "THESIS U BRASILIA",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Flauzina Ana.",
-      "year": "2010",
-      "source": "CORPO NEGRO CAIDO NO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "FLAUZINA Ana L. P.",
       "year": "2013",
       "source": "U JUS",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "FLAUZINA Ana Luiza Pinheiro",
-      "year": "2006",
-      "source": "Dissertarcao (Mestrado em Direito)",
-      "doi": null,
-      "title": "Dissertarcao (Mestrado em Direito)",
       "count": 1
     },
     {
@@ -1773,26 +1549,42 @@
     {
       "author": "Fry Peter",
       "year": "2000",
-      "source": "DAEDALUS",
-      "doi": null,
-      "title": null,
-      "count": 48
+      "source": "Daedalus",
+      "doi": "https://www.jstor.org/stable/20027630",
+      "title": "Politics, Nationality, and the Meanings of 'Race' in Brazil",
+      "count": 49
     },
     {
       "author": "Fry Peter.",
       "year": "2007",
-      "source": "DIVISOES PERIGOSAS P",
-      "doi": null,
-      "title": "DIVISOES PERIGOSAS P",
-      "count": 44
+      "source": "Divisões Perigosas: Políticas raciais no Brasil contemporâneo",
+      "doi": "https://www.google.com.br/books/edition/Divis%C3%B5es_perigosas/FhsJL04wGRwC?hl=pt-BR&gbpv=0",
+      "title": "Divisões Perigosas: Políticas raciais no Brasil contemporâneo",
+      "count": 46
     },
     {
       "author": "Fry Peter.",
       "year": "2005",
-      "source": "A Persistencia da Raca: ensaios antropologicos sobre o Brasil e a Africa austral",
-      "doi": null,
-      "title": "A Persistencia da Raca: ensaios antropologicos sobre o Brasil e a Africa austral",
-      "count": 34
+      "source": "A Persistência da Raça: ensaios antropológicos sobre o Brasil e a África austral",
+      "doi": "https://www.google.com.br/books/edition/A_persist%C3%AAncia_da_ra%C3%A7a/tXRiZi3MT4oC?hl=pt-BR&gbpv=0",
+      "title": "A Persistência da Raça: ensaios antropológicos sobre o Brasil e a África austral",
+      "count": 35
+    },
+    {
+      "author": "FRY Peter",
+      "year": "1982",
+      "source": "Para Inglês Ver: Identidade e Política na Cultura Brasileira",
+      "doi": "https://www.google.com.br/books/edition/Para_ingl%C3%AAs_ver/NsUTAQAAIAAJ?hl=pt-BR&gbpv=0&bsq=Para%20Ingl%C3%AAs%20Ver:%20Identidade%20e%20Pol%C3%ADtica%20na%20Cultura%20Brasileira",
+      "title": "Para Inglês Ver: Identidade e Política na Cultura Brasileira",
+      "count": 18
+    },
+    {
+      "author": "Fry Peter H.",
+      "year": "2005",
+      "source": "História, Ciências, Saúde-Manguinhos",
+      "doi": "10.1590/S0104-59702005000200007",
+      "title": "O significado da anemia falciforme no contexto da 'política racial' do governo brasileiro 1995-2004",
+      "count": 12
     },
     {
       "author": "Fry PH",
@@ -1811,268 +1603,52 @@
       "count": 11
     },
     {
-      "author": "Fry Peter H.",
-      "year": "2005",
-      "source": "Hist. cienc. saude-Manguinhos",
-      "doi": "10.1590/S0104-59702005000200007",
-      "title": "O significado da anemia falciforme no contexto da 'política racial' do governo brasileiro 1995-2004",
-      "count": 10
-    },
-    {
-      "author": "FRY Peter",
-      "year": "1982",
-      "source": "INGLES VER IDENTIDAD",
+      "author": "Fry Peter",
+      "year": "1995",
+      "source": "Times Literary Supplement",
       "doi": null,
-      "title": "INGLES VER IDENTIDAD",
-      "count": 7
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "1982",
-      "source": "Para Ingles Ver: Identidade e Politica na Cultura Brasileira",
-      "doi": null,
-      "title": "Para Ingles Ver: Identidade e Politica na Cultura Brasileira",
-      "count": 6
+      "title": null,
+      "count": 5
     },
     {
       "author": "Fry P.",
       "year": "2004",
-      "source": "EC MICA REV P S GRAD",
+      "source": "Econômica",
       "doi": null,
       "title": null,
-      "count": 4
+      "count": 5
     },
     {
       "author": "FRY P",
       "year": "1996",
       "source": "Revista USP",
       "doi": "10.11606/issn.2316-9036.v0i28p122-135",
-      "title": "O que a Cinderela negra tem a dizer sobre a \"política racial\" no Brasil",
-      "count": 3
-    },
-    {
-      "author": "Fry Peter",
-      "year": "1995",
-      "source": "TIMES LIT SUPPL 1208",
-      "doi": null,
-      "title": null,
+      "title": "O que a Cinderela negra tem a dizer sobre a 'política racial' no Brasil",
       "count": 3
     },
     {
       "author": "Fry P",
       "year": "2007",
-      "source": "STUD AM",
+      "source": "Estudos Americanos",
       "doi": null,
       "title": null,
       "count": 3
     },
     {
       "author": "Fry Peter.",
-      "year": "2004",
-      "source": "Etnicidade na America Latina",
-      "doi": null,
-      "title": null,
-      "count": 2
-    },
-    {
-      "author": "Fry Peter.",
       "year": "2006",
-      "source": "REV DA USP",
+      "source": "Revista USP",
       "doi": null,
       "title": null,
       "count": 2
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "2007",
-      "source": "DIVSOES PERIGOSAS PO",
-      "doi": null,
-      "title": "DIVSOES PERIGOSAS PO",
-      "count": 2
-    },
-    {
-      "author": "FRY P",
-      "year": "1995",
-      "source": "TIMES LIT SUPPLEMENT",
-      "doi": null,
-      "title": "TIMES LIT SUPPLEMENT",
-      "count": 2
-    },
-    {
-      "author": "FRY Peter",
-      "year": "2002",
-      "source": "BRASIL FARDO PASSADO",
-      "doi": null,
-      "title": "BRASIL FARDO PASSADO",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "2007",
-      "source": "FOLHA SAO PAULO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "2007",
-      "source": "PERSISTENCIA RACA EN",
-      "doi": null,
-      "title": "PERSISTENCIA RACA EN",
-      "count": 1
-    },
-    {
-      "author": "FRY Peter",
-      "year": "2005",
-      "source": "REV USP S O PAULO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "2002",
-      "source": "INGLS VER IDENTIDADE",
-      "doi": null,
-      "title": "INGLS VER IDENTIDADE",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter H.",
-      "year": "2005",
-      "source": "HIST CIENC SAUDE-MAN",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "1982",
-      "source": "Pra Ingles Ver",
-      "doi": null,
-      "title": "Pra Ingles Ver",
-      "count": 1
     },
     {
       "author": "Fry Peter.",
       "year": "2004",
-      "source": "EC MICA",
+      "source": "Etnicidade na América Latina",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "1986",
-      "source": "REV BRAS CIENC SOCI",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "1982",
-      "source": "IDENTIDADE POLITICA",
-      "doi": null,
-      "title": "IDENTIDADE POLITICA",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "2006",
-      "source": "ANIMISMO FETICHISTA",
-      "doi": null,
-      "title": "ANIMISMO FETICHISTA",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "2009",
-      "source": "Journal de la Societe des Americanistes",
-      "doi": null,
-      "title": "Journal de la Societe des Americanistes",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "2003",
-      "source": "GLOBO           0321",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "1982",
-      "source": "CAMINHOS CRUZADOS LI",
-      "doi": null,
-      "title": "CAMINHOS CRUZADOS LI",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter",
-      "year": "1977",
-      "source": "ENSAIOS OPINAO",
-      "doi": null,
-      "title": "ENSAIOS OPINAO",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "1991",
-      "source": "Estudos Afro-Asiaticos",
-      "doi": null,
-      "title": "Estudos Afro-Asiaticos",
-      "count": 1
-    },
-    {
-      "author": "Fry Peter.",
-      "year": "1984",
-      "source": "Comunicacoes do ISER",
-      "doi": null,
-      "title": "Comunicacoes do ISER",
-      "count": 1
-    },
-    {
-      "author": "FRY P",
-      "year": "1994",
-      "source": "TIMES LITERARY SUPPL",
-      "doi": null,
-      "title": "TIMES LITERARY SUPPL",
-      "count": 1
-    },
-    {
-      "author": "FRY P",
-      "year": "1997",
-      "source": "ENSAIOS OPINIAO",
-      "doi": null,
-      "title": "ENSAIOS OPINIAO",
-      "count": 1
-    },
-    {
-      "author": "FRY P.",
-      "year": "2007",
-      "source": "Nu e vestido: dez antropologos revelam a cultura do corpo carioca",
-      "doi": null,
-      "title": "Nu e vestido: dez antropologos revelam a cultura do corpo carioca",
-      "count": 1
-    },
-    {
-      "author": "FRY P",
-      "year": "2000",
-      "source": "SPRING POLITICS NATI",
-      "doi": null,
-      "title": "SPRING POLITICS NATI",
-      "count": 1
-    },
-    {
-      "author": "FRY P.",
-      "year": "1984",
-      "source": "RELIG AFRICANA UNPUB",
-      "doi": null,
-      "title": "RELIG AFRICANA UNPUB",
-      "count": 1
+      "count": 2
     },
     {
       "author": "Fry P.",
@@ -2080,46 +1656,38 @@
       "source": "The (un)rule of law and the underprivileged in Latin America",
       "doi": null,
       "title": "The (un)rule of law and the underprivileged in Latin America",
-      "count": 1
+      "count": 2
     },
     {
       "author": "FRY P",
-      "year": "1985",
-      "source": "CULTURA PSICANALISE",
+      "year": "1994",
+      "source": "Times Literary Supplement",
       "doi": null,
-      "title": "CULTURA PSICANALISE",
+      "title": null,
       "count": 1
     },
     {
-      "author": "Fry P.",
-      "year": "1982",
-      "source": "INGL S VER IDENTIDAD",
+      "author": "FRY Peter",
+      "year": "2002",
+      "source": "Brasil: Fardo do Passado, Promessa do Futuro",
       "doi": null,
-      "title": "INGL S VER IDENTIDAD",
+      "title": null,
       "count": 1
     },
     {
-      "author": "Fry P.",
-      "year": "2007",
-      "source": "VENTURA SANTOS",
+      "author": "Fry Peter",
+      "year": "1986",
+      "source": "Revista Brasileira de Ciências Sociais",
       "doi": null,
-      "title": "VENTURA SANTOS",
+      "title": null,
       "count": 1
     },
     {
-      "author": "Fry P",
-      "year": "1999",
-      "source": "UNRULE LAW UNDERPRIV",
+      "author": "Fry Peter.",
+      "year": "1991",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "UNRULE LAW UNDERPRIV",
-      "count": 1
-    },
-    {
-      "author": "FRY P",
-      "year": "1988",
-      "source": "ESCRAVIDAO INVENCAO",
-      "doi": null,
-      "title": "ESCRAVIDAO INVENCAO",
+      "title": null,
       "count": 1
     },
     {
@@ -2131,9 +1699,49 @@
       "count": 1
     },
     {
+      "author": "Fry Peter.",
+      "year": "2009",
+      "source": "Journal de la Société des Américanistes",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Fry Peter",
+      "year": "1977",
+      "source": "Ensaios de Opinião",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Fry Peter.",
+      "year": "1984",
+      "source": "Comunicações do ISER",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
       "author": "FRY P.",
       "year": "2007",
-      "source": "ESTADO SAO PAULO",
+      "source": "Nu e vestido: dez antropólogos revelam a cultura do corpo carioca",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Fry Peter",
+      "year": "1982",
+      "source": "Caminhos Cruzados: Linguagem, Antropologia e Ciências Naturais",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Fry Peter",
+      "year": "2006",
+      "source": "Animismo fetichista",
       "doi": null,
       "title": null,
       "count": 1
@@ -2141,23 +1749,55 @@
     {
       "author": "FRY P",
       "year": "2000",
-      "source": "RACA ETNICIDADE AM L",
+      "source": "Raça, etnicidade e América Latina",
       "doi": null,
       "title": null,
       "count": 1
     },
     {
-      "author": "Fry P.",
-      "year": "1982",
-      "source": "IDENTITY POLITICS BR",
+      "author": "Fry Peter",
+      "year": "2007",
+      "source": "Folha de S. Paulo",
       "doi": null,
-      "title": "IDENTITY POLITICS BR",
+      "title": null,
       "count": 1
     },
     {
-      "author": "FRY PO",
-      "year": "2005",
-      "source": "HIST CIENCIAS SAUDE",
+      "author": "FRY P.",
+      "year": "2007",
+      "source": "O Estado de S. Paulo",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Fry Peter",
+      "year": "2003",
+      "source": "O Globo",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "FRY P",
+      "year": "1985",
+      "source": "Cultura e Psicanálise",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "FRY P",
+      "year": "1988",
+      "source": "Escravidão, invenção e liberdade",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "FRY P",
+      "year": "1997",
+      "source": "Ensaios de Opinião",
       "doi": null,
       "title": null,
       "count": 1
@@ -2166,67 +1806,51 @@
   "guimaraes, as": [
     {
       "author": "GUIMARAES AS",
-      "year": "1997",
+      "year": "1999",
       "source": "Racismo e Anti-Racismo no Brasil",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Racismo_e_anti_racismo_no_Brasil/jA4hnXoxMNIC?hl=pt-BR&gbpv=0",
       "title": "Racismo e Anti-Racismo no Brasil",
-      "count": 64
+      "count": 107
     },
     {
       "author": "Guimaraes A.S. A.",
       "year": "2002",
-      "source": "CLASSES R",
-      "doi": null,
-      "title": "CLASSES R",
-      "count": 36
+      "source": "Classes, Raças e Democracia",
+      "doi": "https://www.google.com.br/books/edition/Classes_ra%C3%A7as_e_democracia/k7cEzL4awMAC?hl=pt-BR&gbpv=0",
+      "title": "Classes, Raças e Democracia",
+      "count": 51
     },
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "1992",
+      "year": "1995",
       "source": "Novos Estudos CEBRAP",
-      "doi": null,
-      "title": "Novos Estudos CEBRAP",
+      "doi": "https://estudosetnicosraciaisufabc.wordpress.com/wp-content/uploads/2016/02/racismo-e-anti-racismo.pdf",
+      "title": "Racismo e Anti-Racismo no Brasli",
       "count": 35
     },
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2006",
       "source": "Tempo Social",
-      "doi": null,
-      "title": "Tempo soc.",
-      "count": 31
+      "doi": "https://doi.org/10.1590/S0103-20702006000200014",
+      "title": "Depois da democracia racial",
+      "count": 32
     },
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2004",
-      "source": "REV ANTROPOL SAO PAU",
-      "doi": null,
-      "title": null,
-      "count": 22
+      "source": "Revista de Antropologia",
+      "doi": "https://doi.org/10.1590/S0034-77012004000100001",
+      "title": "Preconceito de cor e racismo no Brasil",
+      "count": 25
     },
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2003",
-      "source": "Educ. Pesqui.",
+      "source": "Educação e Pesquisa",
       "doi": null,
-      "title": "Educ. Pesqui.",
-      "count": 21
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio",
-      "year": "1999",
-      "source": "RACISMO ANTIRACISMO",
-      "doi": null,
-      "title": "RACISMO ANTIRACISMO",
-      "count": 21
-    },
-    {
-      "author": "GUIMARAES Antonio",
-      "year": "1999",
-      "source": "Racismo e Antirracismo no Brasil.",
-      "doi": null,
-      "title": "Racismo e Antirracismo no Brasil.",
-      "count": 21
+      "title": null,
+      "count": 22
     },
     {
       "author": "Guimaraes ASA",
@@ -2234,46 +1858,70 @@
       "source": "Ethnic and Racial Studies",
       "doi": "10.1080/01419870.2011.632022",
       "title": "The Brazilian system of racial classification",
-      "count": 16
+      "count": 18
     },
     {
       "author": "Guimaraes AntonioSergio Alfredo.",
       "year": "2005",
-      "source": "Imagining Brazil (Global Encounters)",
+      "source": "Imagining Brazil",
       "doi": null,
-      "title": "Imagining Brazil (Global Encounters)",
-      "count": 15
+      "title": "Imagining Brazil",
+      "count": 18
     },
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2004",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": null,
-      "title": "Estud. av.",
+      "title": null,
       "count": 11
     },
     {
       "author": "Guimaraes AntonioSergio Alfredo.",
       "year": "2000",
-      "source": "RACISM RACE INEQUALI",
+      "source": "Racism, Race Inequality and Democracy",
       "doi": null,
-      "title": "RACISM RACE INEQUALI",
+      "title": null,
       "count": 8
+    },
+    {
+      "author": "GUIMARAES Antonio Sergio Alfredo",
+      "year": "2021",
+      "source": "Modernidades Negras: A formação racial brasileira (1930-1970)",
+      "doi": null,
+      "title": "Modernidades Negras: A formação racial brasileira (1930-1970)",
+      "count": 7
+    },
+    {
+      "author": "Guimaraes AntonioSergio.",
+      "year": "2008",
+      "source": "Preconceito Racial: Modos, Temas e Tempos",
+      "doi": null,
+      "title": "Preconceito Racial: Modos, Temas e Tempos",
+      "count": 7
+    },
+    {
+      "author": "Guimaraes AntonioSergio A.",
+      "year": "1999",
+      "source": "Revista Brasileira de Ciências Sociais",
+      "doi": null,
+      "title": null,
+      "count": 7
+    },
+    {
+      "author": "GUIMARAES ASA",
+      "year": "1987",
+      "source": "Novos Estudos CEBRAP",
+      "doi": null,
+      "title": null,
+      "count": 6
     },
     {
       "author": "Guimaraes A.S. A.",
       "year": "1995",
-      "source": "Racism and anti-racism in world perspective",
+      "source": "Racism and Anti-Racism in World Perspective",
       "doi": null,
-      "title": "Racism and anti-racism in world perspective",
-      "count": 6
-    },
-    {
-      "author": "Guimaraes AntonioSergio.",
-      "year": "2007",
-      "source": "Preconceito racial. Modos",
-      "doi": null,
-      "title": "Preconceito racial. Modos",
+      "title": "Racism and Anti-Racism in World Perspective",
       "count": 6
     },
     {
@@ -2281,15 +1929,23 @@
       "year": "1996",
       "source": "Tempo Social",
       "doi": null,
-      "title": "Tempo Social",
+      "title": null,
       "count": 6
     },
     {
       "author": "Guimaraes AntonioSergio Alfredo.",
+      "year": "2004",
+      "source": "Preconceito e Discriminação",
+      "doi": null,
+      "title": "Preconceito e Discriminação",
+      "count": 5
+    },
+    {
+      "author": "Guimaraes AntonioSergio Alfredo.",
       "year": "2002",
-      "source": "ESTUDIOS SOCIOL GICO",
+      "source": "Estudios Sociológicos",
       "doi": "10.24201/es.2002v20n59.512",
-      "title": "Democracia racial : el ideal, el pacto y el mito",
+      "title": "Democracia racial: el ideal, el pacto y el mito",
       "count": 5
     },
     {
@@ -2303,39 +1959,23 @@
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2008",
-      "source": "Novos estud. CEBRAP",
+      "source": "Novos Estudos CEBRAP",
       "doi": null,
-      "title": "Novos estud. CEBRAP",
+      "title": null,
       "count": 5
     },
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2003",
-      "source": "Cad. Pesqui.",
+      "source": "Cadernos de Pesquisa",
       "doi": null,
-      "title": "Cad. Pesqui.",
-      "count": 5
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2021",
-      "source": "Modernidades negras: A formacao racial brasileira (1930-1970)",
-      "doi": null,
-      "title": "Modernidades negras: A formacao racial brasileira (1930-1970)",
+      "title": null,
       "count": 5
     },
     {
       "author": "GUIMARAES Antonio S. A.",
       "year": "1997",
-      "source": "MULTICULTURALISMO RA",
-      "doi": null,
-      "title": "MULTICULTURALISMO RA",
-      "count": 5
-    },
-    {
-      "author": "Guimaraes AntonioSergio A.",
-      "year": "1999",
-      "source": "Revista Brasileira de Ciencias Sociais",
+      "source": "Multiculturalismo e Racismo",
       "doi": null,
       "title": null,
       "count": 5
@@ -2343,31 +1983,15 @@
     {
       "author": "Guimaraes A.",
       "year": "2001",
-      "source": "Rev. Sociol. Sao Pulo:USP",
-      "doi": null,
-      "title": "Rev. Sociol. Sao Pulo:USP",
-      "count": 5
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "1987",
-      "source": "NOVOS ESTUD",
+      "source": "Tempo Social",
       "doi": null,
       "title": null,
       "count": 5
     },
     {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2000",
-      "source": "CLASSES RACAS DEMOCR",
-      "doi": null,
-      "title": "CLASSES RACAS DEMOCR",
-      "count": 5
-    },
-    {
       "author": "GUIMARÃES ANTONIO SÉRGIO A.",
       "year": "2020",
-      "source": "Novos estud. CEBRAP",
+      "source": "Novos Estudos CEBRAP",
       "doi": "10.25091/s01013300202000020004",
       "title": "Coletivos negros e novas identidades raciais",
       "count": 4
@@ -2381,11 +2005,11 @@
       "count": 4
     },
     {
-      "author": "Guimaraes AntonioSergio Alfredo.",
-      "year": "2004",
-      "source": "Preconceito e Discriminacao",
+      "author": "Guimaraes AntonioSergio.",
+      "year": "1998",
+      "source": "Preconceito e Discriminação",
       "doi": null,
-      "title": "Preconceito e Discriminacao",
+      "title": "Preconceito e Discriminação",
       "count": 4
     },
     {
@@ -2399,17 +2023,17 @@
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "1995",
-      "source": "ESTUDOS AFRO ASIATIC",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "ESTUDOS AFRO ASIATIC",
+      "title": null,
       "count": 4
     },
     {
       "author": "Guimaraes AntonioSergio.",
-      "year": "1998",
-      "source": "PRECONCEITO DISCRIMI",
+      "year": "1999",
+      "source": "Race in Contemporary Brazil: From Indifference to Inequality",
       "doi": null,
-      "title": "PRECONCEITO DISCRIMI",
+      "title": "Race in Contemporary Brazil: From Indifference to Inequality",
       "count": 4
     },
     {
@@ -2429,129 +2053,57 @@
       "count": 3
     },
     {
-      "author": "Guimarães Antonio Sérgio Alfredo",
-      "year": "2005",
-      "source": "Horiz. antropol.",
+      "author": "Guimaraes AntonioS.",
+      "year": "2001",
+      "source": "NACLA Report on the Americas",
       "doi": null,
-      "title": "Horiz. antropol.",
+      "title": null,
       "count": 3
     },
     {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2007",
-      "source": "IMAGINING BRAZIL",
+      "author": "Guimaraes AntonioSergio A.",
+      "year": "2000",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "IMAGINING BRAZIL",
+      "title": null,
       "count": 3
     },
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "1996",
-      "source": "RACA CIENCIA SOCIEDA",
-      "doi": null,
-      "title": "RACA CIENCIA SOCIEDA",
-      "count": 3
-    },
-    {
-      "author": "Guimaraes AntonioS.",
-      "year": "2001",
-      "source": "NACLA REPORT AMERICA",
+      "source": "Raça, Ciência e Sociedade",
       "doi": null,
       "title": null,
       "count": 3
     },
     {
-      "author": "Guimaraes AntonioSergio A.",
+      "author": "Guimarães Antonio Sérgio Alfredo",
+      "year": "2005",
+      "source": "Horizontes Antropológicos",
+      "doi": null,
+      "title": null,
+      "count": 3
+    },
+    {
+      "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "2000",
-      "source": "ESTUDOS AFRO ASI TIC",
+      "source": "Tirando a Máscara: Ensaios sobre o Racismo no Brasil",
       "doi": null,
       "title": null,
-      "count": 3
-    },
-    {
-      "author": "Guimaraes AntonioSergio.",
-      "year": "1999",
-      "source": "Contemporary Brazil: From Indifference to Inequality",
-      "doi": null,
-      "title": "Contemporary Brazil: From Indifference to Inequality",
       "count": 3
     },
     {
       "author": "Guimaraes A. S. A.",
       "year": "2007",
-      "source": "UCLA HARVARD INTERDI",
-      "doi": null,
-      "title": "UCLA HARVARD INTERDI",
-      "count": 3
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "1999",
-      "source": "Editora",
+      "source": "UCLA Harvard Interdisciplinary",
       "doi": null,
       "title": null,
       "count": 3
-    },
-    {
-      "author": "GUIMARAES AS",
-      "year": "2012",
-      "source": "Ethnic and Racial Studies",
-      "doi": null,
-      "title": "Ethnic and Racial Studies",
-      "count": 2
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2002",
-      "source": "CLASSES RACA DEMOCRA",
-      "doi": null,
-      "title": "CLASSES RACA DEMOCRA",
-      "count": 2
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2000",
-      "source": "Documento de Tra- balho n. 3 do Projeto Ford/USP",
-      "doi": null,
-      "title": "Documento de Tra- balho n. 3 do Projeto Ford/USP",
-      "count": 2
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo.",
-      "year": "2022",
-      "source": "Modernidades Negras",
-      "doi": null,
-      "title": "Modernidades Negras",
-      "count": 2
-    },
-    {
-      "author": "GuimarAes Antonio Sergio Alfredo",
-      "year": "2000",
-      "source": "TIRANDO MASCARA ENSI",
-      "doi": null,
-      "title": "TIRANDO MASCARA ENSI",
-      "count": 2
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "1999",
-      "source": "REV BRASILEIRA CIENC",
-      "doi": null,
-      "title": null,
-      "count": 2
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2004",
-      "source": "REV ANTROPOLOGIA SAO",
-      "doi": null,
-      "title": null,
-      "count": 2
     },
     {
       "author": "Guimaraes AntonioSergio Alfredo.",
-      "year": "2002",
-      "source": "CLASSES RA AS DEMOCR",
+      "year": "2008",
+      "source": "Estudios Interdisciplinarios de América Latina y el Caribe",
       "doi": null,
       "title": null,
       "count": 2
@@ -2559,61 +2111,29 @@
     {
       "author": "Guimaraes AntonioSergio A.",
       "year": "2002",
-      "source": "Raca e pobreza no Brasil",
+      "source": "Raça e pobreza no Brasil",
       "doi": null,
-      "title": "Raca e pobreza no Brasil",
-      "count": 2
-    },
-    {
-      "author": "Guimaraes AntonioSergio Alfredo.",
-      "year": "2008",
-      "source": "Estudios Interdisciplinarios de America Latina y el Caribe",
-      "doi": null,
-      "title": "Estudios Interdisciplinarios de America Latina y el Caribe",
-      "count": 2
-    },
-    {
-      "author": "GuimarAes A. S. A.",
-      "year": "2010",
-      "source": "TEXTO DISCUSSAO",
-      "doi": null,
-      "title": "TEXTO DISCUSSAO",
+      "title": "Raça e pobreza no Brasil",
       "count": 2
     },
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "1997",
-      "source": "THESIS",
+      "year": "2000",
+      "source": "Documento de Trabalho n. 3 do Projeto Ford/USP",
       "doi": null,
       "title": null,
       "count": 2
     },
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2004",
-      "source": "CLASSE RACAS DEMOCRA",
+      "year": "1997",
+      "source": "Tese",
       "doi": null,
-      "title": "CLASSE RACAS DEMOCRA",
+      "title": null,
       "count": 2
     },
     {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2001",
-      "source": "DEMOCRACIA RACIAL ID",
-      "doi": null,
-      "title": "DEMOCRACIA RACIAL ID",
-      "count": 2
-    },
-    {
-      "author": "Guimaraes AS",
-      "year": "2016",
-      "source": "BMC WOMENS HEALTH",
-      "doi": "10.1186/s12905-016-0316-4",
-      "title": "Prenatal care and childbirth assistance in Amazonian women before and after the Pacific Highway Construction (2003–2011): a cross-sectional study",
-      "count": 1
-    },
-    {
-      "author": "Guimarães AS",
+      "author": "GUIMARÃES ANTONIO SÉRGIO A.",
       "year": "2020",
       "source": "Afro-Ásia",
       "doi": "10.9771/aa.v0i60.36247",
@@ -2623,25 +2143,25 @@
     {
       "author": "Guimarães Antonio Sérgio Alfredo",
       "year": "2015",
-      "source": "Novos estud. CEBRAP",
+      "source": "Novos Estudos CEBRAP",
       "doi": "10.1590/s0101-33002015000100001",
-      "title": "AÇÃO AFIRMATIVA, AUTORITARISMO E LIBERALISMO NO BRASIL DE 1968",
+      "title": "Ação afirmativa, autoritarismo e liberalismo no Brasil de 1968",
       "count": 1
     },
     {
       "author": "Guimaraes Antonio S.",
       "year": "2010",
-      "source": "GROWING GAPS",
+      "source": "Growing Gaps",
       "doi": "10.1093/acprof:oso/9780199732180.003.0003",
-      "title": "Entrance into Prestigious Universities and the Performance of Groups That Have Been Discriminated Against on the Vestibular",
+      "title": "Entrance into Prestigious Universities and the Performance of Groups That Have Been Discriminated Against",
       "count": 1
     },
     {
       "author": "Guimaraes Antonio",
       "year": "2023",
-      "source": "Comunicacao coordenada-palestra dada no Centro de Estudos Afro- -Asiaticos",
+      "source": "Comunicação no Centro de Estudos Afro-Asiáticos",
       "doi": "10.13140/RG.2.2.29697.63842",
-      "title": "Raça e cor no Brasil contemporâneo, oportunismo político e tendência histórica 1",
+      "title": "Raça e cor no Brasil contemporâneo, oportunismo político e tendência histórica",
       "count": 1
     },
     {
@@ -2663,7 +2183,7 @@
     {
       "author": "Guimaraes A. S. A.",
       "year": "2010",
-      "source": "COLOUR RACE BRAZIL W",
+      "source": "Colour and Race in Brazil",
       "doi": "10.5871/bacad/9780197265246.003.0002",
       "title": "Colour and Race in Brazil: From Whitening to the Search for Afro-Descent",
       "count": 1
@@ -2673,109 +2193,13 @@
       "year": "1999",
       "source": "Transforming Anthropology",
       "doi": "10.1525/tran.1999.8.1-2.192",
-      "title": "Racism in a Racial Democracy: The Maintenance of White Supremacy in Brazil.",
+      "title": "Racism in a Racial Democracy: The Maintenance of White Supremacy in Brazil",
       "count": 1
     },
     {
-      "author": "GUIMARAES AS",
-      "year": "2001",
-      "source": "RACISM",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES AS",
-      "year": "1997",
-      "source": "AFROASIA",
-      "doi": null,
-      "title": "AFROASIA",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES AS",
-      "year": "1997",
-      "source": "ESTUD AFRO-ASIAT",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio",
-      "year": "2003",
-      "source": "EDUCACAO PESQUISA",
-      "doi": null,
-      "title": "EDUCACAO PESQUISA",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2004",
-      "source": "PRECONCEITO COR RACI",
-      "doi": null,
-      "title": "PRECONCEITO COR RACI",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio",
+      "author": "GUIMARAES Antonio S. A.",
       "year": "2002",
-      "source": "CLASSES SOCIAIS RACA",
-      "doi": null,
-      "title": "CLASSES SOCIAIS RACA",
-      "count": 1
-    },
-    {
-      "author": "GuimarAes Antonio Sergio A",
-      "year": "2000",
-      "source": "INT C LAT AM STUD AS",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "1987",
-      "source": "Novos Estudos",
-      "doi": null,
-      "title": "Novos Estudos",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2003",
-      "source": "Memorial",
-      "doi": null,
-      "title": "Memorial",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2010",
-      "source": "INT SEM METR IN 24 2",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio S. A.",
-      "year": "2017",
-      "source": "2017 C LAT AM STUD A",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2001",
-      "source": "UNRISD RAC PUBL POL",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio A.",
-      "year": "2001",
-      "source": "25 ENCONTRO ANPOCS",
+      "source": "Ações Afirmativas: Políticas Públicas Contra as Desigualdades Raciais",
       "doi": null,
       "title": null,
       "count": 1
@@ -2783,47 +2207,31 @@
     {
       "author": "GUIMARAES Antonio Sergio",
       "year": "1999",
-      "source": "O que ler na ciencia social brasileira",
-      "doi": null,
-      "title": "O que ler na ciencia social brasileira",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2006",
-      "source": "Folha de S.Paulo nov.",
-      "doi": null,
-      "title": "Folha de S.Paulo nov.",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2012",
-      "source": "COMP PERSPECTIVES AF",
-      "doi": null,
-      "title": "COMP PERSPECTIVES AF",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2016",
-      "source": "GENRE RACE CLASSE TR",
+      "source": "O que ler na ciência social brasileira",
       "doi": null,
       "title": null,
       "count": 1
     },
     {
-      "author": "GUIMARAES Antonio S. A.",
-      "year": "2002",
-      "source": "ACOES AFIRMATIVAS PO",
+      "author": "GUIMARAES Antonio Sergio Alfredo",
+      "year": "2006",
+      "source": "Folha de S.Paulo",
       "doi": null,
-      "title": "ACOES AFIRMATIVAS PO",
+      "title": null,
       "count": 1
     },
     {
-      "author": "Guimaraes Antonio Sergio",
+      "author": "Guimaraes A. S. A.",
       "year": "2012",
-      "source": "P BR ACAD",
+      "source": "Racism and Ethnic Relations in the Portuguese-Speaking World",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Guimaraes Antonio Sergio Alfredo",
+      "year": "2012",
+      "source": "Comparative Perspectives on Afro-Latin America",
       "doi": null,
       "title": null,
       "count": 1
@@ -2831,39 +2239,7 @@
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "2008",
-      "source": "RACA NOVAS PERSPECTI",
-      "doi": null,
-      "title": "RACA NOVAS PERSPECTI",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2001",
-      "source": "ENCONTRO ANUAL ANPOC",
-      "doi": null,
-      "title": "ENCONTRO ANUAL ANPOC",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES AntOnio Sergio A",
-      "year": "2000",
-      "source": "TIRANDO0 MASCARA ENS",
-      "doi": null,
-      "title": "TIRANDO0 MASCARA ENS",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2006",
-      "source": "REV SOCIOLOGIA USP",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2003",
-      "source": "REV TEORIA PESQUISA",
+      "source": "Raça: novas perspectivas antropológicas",
       "doi": null,
       "title": null,
       "count": 1
@@ -2879,79 +2255,95 @@
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "2018",
-      "source": "Para alem do pos(-)colonial",
+      "source": "Para além do pós-colonial",
       "doi": null,
-      "title": "Para alem do pos(-)colonial",
+      "title": "Para além do pós-colonial",
       "count": 1
     },
     {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2018",
-      "source": "NEGROS NAS CIDADES B",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio Sergio A.",
-      "year": "2007",
-      "source": "PROJETO UNESCO NO BR",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES Antonio S. A.",
-      "year": "1993",
-      "source": "REV BRAS CIENC SOCI",
+      "author": "Guimaraes AntonioS.",
+      "year": "2003",
+      "source": "Ações Afirmativas: Políticas Públicas Contra as Desigualdades Raciais",
       "doi": null,
       "title": null,
       "count": 1
     },
     {
       "author": "GUIMARAES Antonio Sergio Alfredo",
-      "year": "2004",
-      "source": "REV ANTROPOL-S PAULO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes Antonio Sergio Alfredo",
-      "year": "2000",
-      "source": "INT C LATIN AM STUDI",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes AntonioS.",
-      "year": "2003",
-      "source": "Acoes Afrimativas: Politicas Publicas Contra As Desigualdades Raciais",
-      "doi": null,
-      "title": "Acoes Afrimativas: Politicas Publicas Contra As Desigualdades Raciais",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes AntonioSergio Alfredo.",
-      "year": "1999",
-      "source": "Race in Contemporary Brazil: From Indifference to Inequality",
-      "doi": null,
-      "title": "Race in Contemporary Brazil: From Indifference to Inequality",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "2000",
-      "source": "9 LAT AM CAR REG SUS",
+      "year": "1993",
+      "source": "Revista Brasileira de Ciências Sociais",
       "doi": null,
       "title": null,
       "count": 1
     },
     {
       "author": "GUIMARAES ASA",
+      "year": "1998",
+      "source": "Sonho de Classe e Trabalhadores",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES ASA",
+      "year": "1990",
+      "source": "Cadernos do Centro de Recursos Humanos",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES ASA",
+      "year": "1995",
+      "source": "Imagens e Identidades do Negro na Cultura Brasileira",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES A. S. A.",
+      "year": "2018",
+      "source": "Identidades",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "Guimaraes A. S. A.",
+      "year": "2011",
+      "source": "Cadernos de Campo",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES A. S. A.",
+      "year": "2013",
+      "source": "Cadernos de Pesquisa USP",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES Antonio Sergio Alfredo",
       "year": "2003",
-      "source": "BRAZIL 1985 EC POLIT",
+      "source": "Memorial",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES A",
+      "year": "2017",
+      "source": "Social Identities",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "GUIMARAES Antonio Sergio Alfredo",
+      "year": "2001",
+      "source": "UNRISD — Race and Public Policies",
       "doi": null,
       "title": null,
       "count": 1
@@ -2965,379 +2357,115 @@
       "count": 1
     },
     {
-      "author": "GUIMARAES ASA",
-      "year": "2001",
-      "source": "RAC PUBL POL C DURB",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "1999",
-      "source": "ASA GUIMARAES RACISM",
-      "doi": null,
-      "title": "ASA GUIMARAES RACISM",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "1998",
-      "source": "SONHO CLASSE TRABALH",
-      "doi": null,
-      "title": "SONHO CLASSE TRABALH",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "1990",
-      "source": "CADERNOS CTR RECURSO",
-      "doi": null,
-      "title": "CADERNOS CTR RECURSO",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES ASA",
-      "year": "1995",
-      "source": "IMAGENS IDENTIDADES",
-      "doi": null,
-      "title": "IMAGENS IDENTIDADES",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A. S. A.",
-      "year": "2012",
-      "source": "Racism and Ethnic Relations in the Portuguese-Speaking World",
-      "doi": null,
-      "title": "Racism and Ethnic Relations in the Portuguese-Speaking World",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A. S. A.",
-      "year": "2011",
-      "source": "CADERNOS CAMPO",
-      "doi": null,
-      "title": "CADERNOS CAMPO",
-      "count": 1
-    },
-    {
-      "author": "GuimarAes A. S. A.",
-      "year": "2002",
-      "source": "RACIAL DEMOCRACY CAD",
-      "doi": null,
-      "title": "RACIAL DEMOCRACY CAD",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A. S. A",
-      "year": "2011",
-      "source": "NON TRADITIONAL REF",
-      "doi": null,
-      "title": "NON TRADITIONAL REF",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A. S. A.",
-      "year": "2013",
-      "source": "CADERNOS PESQUISA US",
-      "doi": null,
-      "title": "CADERNOS PESQUISA US",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A.",
-      "year": "1999",
-      "source": "CINII",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A. S. A.",
-      "year": "2018",
-      "source": "IDENTIDADES",
-      "doi": null,
-      "title": "IDENTIDADES",
-      "count": 1
-    },
-    {
-      "author": "GuimarAes A.",
-      "year": "2020",
-      "source": "PAIS",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A. P.",
-      "year": "1981",
-      "source": "CLASSES PERIGOSAS BA",
-      "doi": null,
-      "title": "CLASSES PERIGOSAS BA",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A. S",
-      "year": "2003",
-      "source": "COMO TRABALHAR COM R",
-      "doi": null,
-      "title": "COMO TRABALHAR COM R",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A.",
-      "year": "2012",
-      "source": "FMSHPP201204",
-      "doi": null,
-      "title": "FMSHPP201204",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A",
-      "year": "1981",
-      "source": "QUATRO SECULOS LATIF",
-      "doi": null,
-      "title": "QUATRO SECULOS LATIF",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A. S. A.",
-      "year": "2013",
-      "source": "52 INT RES NETW INT",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "Guimaraes A.",
       "year": "2020",
-      "source": "O Panico como politica",
+      "source": "O Pânico como política",
       "doi": null,
-      "title": "O Panico como politica",
-      "count": 1
-    },
-    {
-      "author": "GUIMARAES A",
-      "year": "2017",
-      "source": "SOCIAL IDENTITIES J",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A. S. A.",
-      "year": "2017",
-      "source": "PRECONCEITO RACIAL M",
-      "doi": null,
-      "title": "PRECONCEITO RACIAL M",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A.",
-      "year": "1991",
-      "source": "Lung disease in the tropics.",
-      "doi": null,
-      "title": "Lung disease in the tropics.",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes A C",
-      "year": "1982",
-      "source": "Arq Bras Cardiol",
-      "doi": null,
-      "title": "Arq Bras Cardiol",
-      "count": 1
-    },
-    {
-      "author": "Guimaraes AntonioSergioAlfredo.",
-      "year": "1996",
-      "source": "RA A 101 NCIA SOCIED",
-      "doi": null,
-      "title": null,
+      "title": "O Pânico como política",
       "count": 1
     }
   ],
   "hasenbalg, ca": [
     {
-      "author": "Hasenbalg CarlosAlfredo.",
+      "author": "Hasenbalg Carlos Alfredo",
       "year": "1979",
-      "source": "DISCRIMINACAO DESIGU",
-      "doi": null,
-      "title": "DISCRIMINACAO DESIGU",
-      "count": 89
-    },
-    {
-      "author": "Hasenbalg Carlos.",
-      "year": "1985",
-      "source": "Race",
-      "doi": null,
-      "title": null,
-      "count": 37
-    },
-    {
-      "author": "Hasenbalg CarlosAlfredo.",
-      "year": "1983",
-      "source": "ESTRUTURA SOCIAL MOB",
-      "doi": null,
-      "title": "ESTRUTURA SOCIAL MOB",
-      "count": 36
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "2005",
-      "source": "Discriminacao e desigualdades raciais no Brasil",
-      "doi": null,
-      "title": "Discriminacao e desigualdades raciais no Brasil",
-      "count": 33
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "1979",
-      "source": "Raca",
-      "doi": null,
-      "title": "Race relations in modern Brazil",
-      "count": 32
+      "source": "Discriminação e Desigualdades Raciais no Brasil",
+      "doi": "https://www.google.com.br/books/edition/Discrimina%C3%A7%C3%A3o_e_desigualdades_raciais/cB4XAQAAMAAJ?hl=pt-BR&gbpv=0&bsq=Discrimina%C3%A7%C3%A3o%20e%20Desigualdades%20Raciais%20no%20Brasil",
+      "title": "Discriminação e Desigualdades Raciais no Brasil",
+      "count": 131
     },
     {
       "author": "HASENBALG Carlos",
       "year": "1992",
-      "source": "Relacoes Raciais no Brasil Contemporaneo",
-      "doi": null,
-      "title": "Relacoes Raciais no Brasil Contemporaneo",
-      "count": 12
+      "source": "Relações Raciais no Brasil Contemporâneo",
+      "doi": "https://www.google.com.br/books/edition/Rela%C3%A7%C3%B5es_raciais_no_Brasil_contempor%C3%A2/UooYAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=Rela%C3%A7%C3%B5es%20Raciais%20no%20Brasil%20Contempor%C3%A2neo",
+      "title": "Relações Raciais no Brasil Contemporâneo",
+      "count": 55
+    },
+    {
+      "author": "Hasenbalg Carlos",
+      "year": "1985",
+      "source": "Race, Class and Power in Brazil",
+      "doi": "https://www.google.com.br/books/edition/Race_Class_and_Power_in_Brazil/c04sAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=Race,%20Class%20and%20Power%20in%20Brazil",
+      "title": "Race and Socioeconomic Inequalities in Brazil",
+      "count": 37
+    },
+    {
+      "author": "Hasenbalg Carlos Alfredo",
+      "year": "1983",
+      "source": "Estrutura Social, Mobilidade e Raça",
+      "doi": "https://www.google.com.br/books/edition/Estrutura_social_mobilidade_e_ra%C3%A7a/YiK8AAAAIAAJ?hl=pt-BR&gbpv=0&bsq=Estrutura%20Social,%20Mobilidade%20e%20Ra%C3%A7a",
+      "title": "Estrutura Social, Mobilidade e Raça",
+      "count": 36
     },
     {
       "author": "Hasenbalg C",
       "year": "1999",
-      "source": "Cor e estratificacao social",
-      "doi": null,
-      "title": "Cor e estratificacao social",
-      "count": 11
+      "source": "Cor e Estratificação Social",
+      "doi": "https://www.google.com.br/books/edition/Cor_e_estratifica%C3%A7%C3%A3o_social/sxkTAQAAIAAJ?hl=pt-BR&gbpv=0&bsq=Cor%20e%20Estratifica%C3%A7%C3%A3o%20Social",
+      "title": "Cor e Estratificação Social",
+      "count": 18
     },
     {
-      "author": "Hasenbalg Carlos.",
-      "year": "1999",
-      "source": "RACIAL POLITICS CONT",
+      "author": "Hasenbalg Carlos Alfredo",
+      "year": "1978",
+      "source": "Race Relations in Post-Abolition Brazil: The Smooth Preservation of Racial Inequalities",
       "doi": null,
-      "title": "RACIAL POLITICS CONT",
-      "count": 9
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "2003",
-      "source": "Origens e destinos: desigualdades sociais ao longo da vida",
-      "doi": null,
-      "title": "Origens e destinos: desigualdades sociais ao longo da vida",
-      "count": 4
+      "title": "Race Relations in Post-Abolition Brazil: The Smooth Preservation of Racial Inequalities",
+      "count": 6
     },
     {
       "author": "Hasenbalg C.",
       "year": "1991",
-      "source": "DESIGUALDADES RACIAI",
+      "source": "Desigualdades Raciais no Brasil",
       "doi": null,
-      "title": "DESIGUALDADES RACIAI",
-      "count": 4
+      "title": "Desigualdades Raciais no Brasil",
+      "count": 5
     },
     {
-      "author": "Hasenbalg Carlos A.",
-      "year": "1977",
-      "source": "Revista Dados",
+      "author": "Hasenbalg C.",
+      "year": "2003",
+      "source": "Origens e Destinos: Desigualdades Sociais ao Longo da Vida",
       "doi": null,
-      "title": "Revista Dados",
+      "title": "Origens e Destinos: Desigualdades Sociais ao Longo da Vida",
       "count": 4
     },
     {
       "author": "HASENBALG C.",
       "year": "1982",
-      "source": "Lugar de negro",
+      "source": "Lugar de Negro",
       "doi": null,
-      "title": "Lugar de negro",
+      "title": "Lugar de Negro",
       "count": 4
     },
     {
-      "author": "Hasenbalg CarlosAlfredo.",
-      "year": "1998",
-      "source": "RACISMO PERSPECTIVAS",
+      "author": "Hasenbalg Carlos A.",
+      "year": "1977",
+      "source": "Dados: Revista de Ciências Sociais",
       "doi": null,
-      "title": "RACISMO PERSPECTIVAS",
-      "count": 3
-    },
-    {
-      "author": "HASENBALG C",
-      "year": "1999",
-      "source": "COR ESTRATIFICACAO S",
-      "doi": null,
-      "title": "COR ESTRATIFICACAO S",
-      "count": 3
-    },
-    {
-      "author": "HASENBALG Carlos",
-      "year": "1979",
-      "source": "Tese (Doutorado em Sociologia",
-      "doi": null,
-      "title": "Tese (Doutorado em Sociologia",
-      "count": 3
+      "title": null,
+      "count": 4
     },
     {
       "author": "Hasenbalg C",
       "year": "1996",
-      "source": "CONSTRUCTING DEMOCRA",
+      "source": "Constructing Democracy: Human Rights, Citizenship, and Society in Latin America",
       "doi": null,
-      "title": "CONSTRUCTING DEMOCRA",
+      "title": null,
+      "count": 4
+    },
+    {
+      "author": "Hasenbalg Carlos Alfredo",
+      "year": "1998",
+      "source": "Racismo: Perspectivas para um Estudo Contextualizado da Discriminação",
+      "doi": null,
+      "title": null,
       "count": 3
     },
     {
-      "author": "Hasenbalg CarlosAlfredo.",
-      "year": "1978",
-      "source": "Race Relations in Post-abolition Brazil: The Smooth Preservation of Racial Inequalities",
-      "doi": null,
-      "title": "Race Relations in Post-abolition Brazil: The Smooth Preservation of Racial Inequalities",
-      "count": 2
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "1989",
-      "source": "Estudos Afro-Asiaticos",
-      "doi": null,
-      "title": "Estudos Afro-Asiaticos",
-      "count": 2
-    },
-    {
-      "author": "Hasenbalg C.A.",
-      "year": "1982",
-      "source": "Humboldt Journal of Social Relations",
-      "doi": null,
-      "title": "Humboldt Journal of Social Relations",
-      "count": 2
-    },
-    {
       "author": "Hasenbalg Carlos",
-      "year": "2006",
-      "source": "PUEBLOS INDIGENAS AF",
-      "doi": null,
-      "title": "PUEBLOS INDIGENAS AF",
-      "count": 2
-    },
-    {
-      "author": "Hasenbalg Carlos Alfredo.",
-      "year": "1979",
-      "source": "DISCRIMINACAO E DESI",
-      "doi": null,
-      "title": "DISCRIMINACAO E DESI",
-      "count": 2
-    },
-    {
-      "author": "Hasenbalg Carlos.",
       "year": "1999",
-      "source": "BLACK BRAZIL CULTURE",
-      "doi": null,
-      "title": "BLACK BRAZIL CULTURE",
-      "count": 2
-    },
-    {
-      "author": "Hasenbalg CarlosA.",
-      "year": "1993",
-      "source": "ESTUDOS AFRO ASI TIC",
+      "source": "Black Brazil: Culture, Identity, and Social Mobilization",
       "doi": null,
       "title": null,
       "count": 2
@@ -3345,129 +2473,49 @@
     {
       "author": "HASENBALG Carlos",
       "year": "1987",
-      "source": "ESTUD AFRO-ASIAT",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
       "title": null,
       "count": 2
     },
     {
-      "author": "HASENBALG C",
-      "year": "1991",
-      "source": "DESIGUALDADE RACIAL",
-      "doi": null,
-      "title": "DESIGUALDADE RACIAL",
-      "count": 1
-    },
-    {
       "author": "Hasenbalg C.",
-      "year": "1979",
-      "source": "DISCRIMINOCAO DESIGU",
+      "year": "1989",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "DISCRIMINOCAO DESIGU",
-      "count": 1
+      "title": null,
+      "count": 2
     },
     {
-      "author": "Hasenbalg C.",
-      "year": "1991",
-      "source": "PESQUISA MIGRACOES U",
+      "author": "Hasenbalg Carlos A.",
+      "year": "1993",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "PESQUISA MIGRACOES U",
-      "count": 1
+      "title": null,
+      "count": 2
     },
     {
-      "author": "HASENBALG C",
-      "year": "1999",
-      "source": "CORE ESTRATIFICAO SO",
+      "author": "Hasenbalg C.A.",
+      "year": "1982",
+      "source": "Humboldt Journal of Social Relations",
       "doi": null,
-      "title": "CORE ESTRATIFICAO SO",
-      "count": 1
+      "title": null,
+      "count": 2
     },
     {
-      "author": "HASENBALG C",
-      "year": "1999",
-      "source": "COR ESTRATIFICAO",
+      "author": "Hasenbalg Carlos",
+      "year": "2006",
+      "source": "Pueblos Indígenas y Afrodescendientes de América Latina y el Caribe",
       "doi": null,
-      "title": "COR ESTRATIFICAO",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "1992",
-      "source": "Relaes Raciais No Brasil contemporneo",
-      "doi": null,
-      "title": "Relaes Raciais No Brasil contemporneo",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "2005",
-      "source": "Discriminao e desigualdades raciais no Brasil",
-      "doi": null,
-      "title": "Discriminao e desigualdades raciais no Brasil",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "1999",
-      "source": "Cor e estratificao social",
-      "doi": null,
-      "title": "Cor e estratificao social",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg C.",
-      "year": "2003",
-      "source": "ESTATSTICAS SCULO 20",
-      "doi": null,
-      "title": "ESTATSTICAS SCULO 20",
-      "count": 1
+      "title": null,
+      "count": 2
     },
     {
       "author": "HASENBALG CA",
       "year": "1997",
-      "source": "ESTUDOS AFROASIATICO",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": "ESTUDOS AFROASIATICO",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg CA",
-      "year": "1979",
-      "source": "BIBLIOTECA CIENCIAS",
-      "doi": null,
-      "title": "BIBLIOTECA CIENCIAS",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG CA",
-      "year": "1979",
-      "source": "DISCRIMINACAO DESIGA",
-      "doi": null,
-      "title": "DISCRIMINACAO DESIGA",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG CA",
-      "year": "1996",
-      "source": "RACA CIENCIA SOCIEDA",
-      "doi": null,
-      "title": "RACA CIENCIA SOCIEDA",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos",
-      "year": "1979",
-      "source": "DISCRIMINACCIO DESIG",
-      "doi": null,
-      "title": "DISCRIMINACCIO DESIG",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos",
-      "year": "1992",
-      "source": "NOSOTRAS LATINOAMERI",
-      "doi": null,
-      "title": "NOSOTRAS LATINOAMERI",
+      "title": null,
       "count": 1
     },
     {
@@ -3480,48 +2528,32 @@
     },
     {
       "author": "Hasenbalg Carlos",
-      "year": "1999",
-      "source": "CORE ESTRATIFICACAO",
-      "doi": null,
-      "title": "CORE ESTRATIFICACAO",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos",
-      "year": "1988",
-      "source": "VISOES DA ABOLICAO",
+      "year": "2000",
+      "source": "Dados: Revista de Ciências Sociais",
       "doi": null,
       "title": null,
       "count": 1
     },
     {
-      "author": "Hasenbalg Carlos",
-      "year": "1984",
-      "source": "RELACOES RACIAIS BRA",
+      "author": "Hasenbalg C.",
+      "year": "1991",
+      "source": "Pesquisa sobre Migrações Urbanas",
       "doi": null,
-      "title": "RELACOES RACIAIS BRA",
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "HASENBALG Carlos",
+      "year": "1988",
+      "source": "Visões da Abolição",
+      "doi": null,
+      "title": null,
       "count": 1
     },
     {
       "author": "HASENBALG Carlos",
       "year": "1976",
-      "source": "OPINIAO         1015",
-      "doi": null,
-      "title": "OPINIAO         1015",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg Carlos.",
-      "year": "1996",
-      "source": "Constructing Democracy: Human Rights",
-      "doi": null,
-      "title": "Constructing Democracy: Human Rights",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg Carlos.",
-      "year": "2000",
-      "source": "DADOS REV CIENCIAS S",
+      "source": "Opinião",
       "doi": null,
       "title": null,
       "count": 1
@@ -3529,23 +2561,39 @@
     {
       "author": "HASENBALG Carlos",
       "year": "1998",
-      "source": "ESTUDOS PESQUISAS NI",
+      "source": "Estudos e Pesquisas",
       "doi": null,
-      "title": "ESTUDOS PESQUISAS NI",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg Carlos",
-      "year": "1979",
-      "source": "Discriminacao e desigualdades raciais no Brazil",
-      "doi": null,
-      "title": "Discriminacao e desigualdades raciais no Brazil",
+      "title": null,
       "count": 1
     },
     {
       "author": "HASENBALG Carlos",
       "year": "1987",
-      "source": "STATE SOC BRAZIL CON",
+      "source": "State and Society in Brazil",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "HASENBALG Carlos",
+      "year": "1992",
+      "source": "Nosotras Latinoamericanas",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "HASENBALG CA",
+      "year": "1996",
+      "source": "Raça, Ciência e Sociedade",
+      "doi": null,
+      "title": null,
+      "count": 1
+    },
+    {
+      "author": "HASENBALG Carlos",
+      "year": "1981",
+      "source": "Perspectivas sobre Raça e Classe",
       "doi": null,
       "title": null,
       "count": 1
@@ -3553,7 +2601,7 @@
     {
       "author": "HASENBALG Carlos A.",
       "year": "1979",
-      "source": "GINO GERMANI 1911 19",
+      "source": "Gino Germani (Festschrift)",
       "doi": null,
       "title": null,
       "count": 1
@@ -3561,47 +2609,15 @@
     {
       "author": "HASENBALG Carlos A.",
       "year": "1968",
-      "source": "EMPRESARIOS DESENVOL",
+      "source": "Empresários e Desenvolvimento",
       "doi": null,
-      "title": "EMPRESARIOS DESENVOL",
+      "title": null,
       "count": 1
     },
     {
       "author": "HASENBALG Carlos A.",
       "year": "1971",
-      "source": "FORMACAO EMPRESARIO",
-      "doi": null,
-      "title": "FORMACAO EMPRESARIO",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos Alfredo",
-      "year": "1979",
-      "source": "Diferenca e repeticao",
-      "doi": null,
-      "title": "Diferenca e repeticao",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos AIfredo",
-      "year": "1979",
-      "source": "DISCRIMINA DESIGUALD",
-      "doi": null,
-      "title": "DISCRIMINA DESIGUALD",
-      "count": 1
-    },
-    {
-      "author": "HASENBALG Carlos",
-      "year": "1981",
-      "source": "PERSPECTIVAS RACA CL",
-      "doi": null,
-      "title": "PERSPECTIVAS RACA CL",
-      "count": 1
-    },
-    {
-      "author": "Hasenbalg",
-      "year": "1978",
-      "source": "THESIS U CALIFORNIA",
+      "source": "Formação Empresarial",
       "doi": null,
       "title": null,
       "count": 1
