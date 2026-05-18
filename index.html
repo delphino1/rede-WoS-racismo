@@ -177,6 +177,14 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 /* ── Hover na legenda ── */
 .legend-item.preview{background:rgba(255,255,255,0.04)}
 
+/* ── Link "saiba mais" ── */
+.saiba-mais{display:flex;align-items:center;gap:8px;margin-top:14px;padding:9px 11px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-decoration:none;color:rgba(255,255,255,0.55);font-size:11px;font-family:'Space Grotesk',sans-serif;transition:background .2s,border-color .2s,color .2s;cursor:pointer}
+.saiba-mais:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.18);color:#f0f0ff}
+.saiba-mais-icon{font-style:italic;font-family:Georgia,serif;font-size:13px;width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;padding-top:1px}
+.saiba-mais-text{flex:1;line-height:1.3}
+.saiba-mais-arrow{font-size:13px;opacity:.45;transition:opacity .2s,transform .2s}
+.saiba-mais:hover .saiba-mais-arrow{opacity:.8;transform:translateX(3px)}
+
 /* ── Splash ── */
 #load-screen{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:radial-gradient(ellipse at 55% 45%,#0a0a22 0%,#03030a 70%)}
 .splash-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:18px}
@@ -261,7 +269,7 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
     <div class="panel-inner">
       <div class="eyebrow">Rede de Co-Citação</div>
       <h1 class="panel-title">
-        Raça e Racismo<br>no Brasil
+        Quem explica o<br>racismo no Brasil?
         <em>Web of Science · 2000–2026</em>
       </h1>
 
@@ -298,30 +306,12 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
         <div id="cluster-stats-inner"></div>
       </div>
 
-      <div class="divider"></div>
-      <div class="legend-title">Metodologia</div>
-      <div class="sobre-block">
-        <div class="sobre-row">
-          <span class="sobre-label">Corpus</span>
-          <span class="sobre-value">4.591 artigos · Web of Science</span>
-        </div>
-        <div class="sobre-row">
-          <span class="sobre-label">Período</span>
-          <span class="sobre-value">2000–2026</span>
-        </div>
-        <div class="sobre-row">
-          <span class="sobre-label">Layout</span>
-          <span class="sobre-value">ForceAtlas2 (Gephi)</span>
-        </div>
-        <div class="sobre-row">
-          <span class="sobre-label">Clusters</span>
-          <span class="sobre-value">VOS Clustering (VOSviewer)</span>
-        </div>
-        <div class="sobre-row">
-          <span class="sobre-label">Stack</span>
-          <span class="sobre-value">D3.js v7 · GEXF</span>
-        </div>
-      </div>
+      <a href="#" class="saiba-mais">
+        <span class="saiba-mais-icon">i</span>
+        <span class="saiba-mais-text">Saiba mais sobre esta visualização</span>
+        <span class="saiba-mais-arrow">→</span>
+      </a>
+
     </div>
 
     <div class="stats-footer" id="stats-footer">
@@ -413,10 +403,10 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '1': { name: 'Identidades e Pensamento Social',          color: '#C43D32' }, // Tijolo médio
-  '2': { name: 'Saúde e Relações Raciais',                 color: '#B8C4C6' }, // Cinza azulado (branco)
-  '3': { name: 'Relações Raciais e Estratificação Social', color: '#6CCDD4' }, // Teal médio
-  '4': { name: 'Sociologia das Relações Raciais',          color: '#D4B800' }, // Âmbar médio (amarelo)
+  '1': { name: 'Cluster 1', color: '#C43D32' }, // Tijolo médio
+  '2': { name: 'Cluster 2', color: '#B8C4C6' }, // Cinza azulado (branco)
+  '3': { name: 'Cluster 3', color: '#6CCDD4' }, // Teal médio
+  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo)
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
