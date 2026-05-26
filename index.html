@@ -1654,10 +1654,33 @@ function showRightPanel(d) {
         : null;
       function linkLabel(href, rawDoi) {
         if (!href) return null;
+        // DOI direto (ex: 10.1080/...) → artigo científico
         if (rawDoi && !rawDoi.startsWith('http')) return '↗ Abrir DOI';
-        if (href.includes('youtube.com') || href.includes('youtu.be')) return '▶ Assistir';
-        if (href.includes('books.google') || href.includes('amazon.')) return '📖 Ver livro';
-        if (href.includes('enciclopedia') || href.includes('pucsp')) return '↗ Ver verbete';
+        // Vídeo
+        if (href.includes('youtube.com') || href.includes('youtu.be') || href.includes('vimeo.com'))
+          return '▶ Assistir';
+        // Livros
+        if (href.includes('openlibrary.org') ||
+            href.includes('books.google') ||
+            (href.includes('google.') && href.includes('/books/')) ||
+            href.includes('books.scielo.org') ||
+            href.includes('amazon.'))
+          return '📖 Ver livro';
+        // Verbete / enciclopédia
+        if (href.includes('enciclopedia') || href.includes('pucsp') || href.includes('wikipedia.org'))
+          return '↗ Ver verbete';
+        // Teses e dissertações
+        if (href.includes('teses.usp') || href.includes('bdtd.ibict') ||
+            href.includes('repositorio.unb') || href.includes('dspace.'))
+          return '📄 Ver tese';
+        // Artigos em periódicos / bases científicas
+        if (href.includes('doi.org') || href.includes('jstor.org') ||
+            href.includes('scielo.') || href.includes('pubmed.') ||
+            href.includes('springer.com') || href.includes('redalyc.org') ||
+            href.includes('periodicos.') || href.includes('revistas.') ||
+            href.includes('openedition.org') || href.includes('journals.') ||
+            href.includes('semanticscholar.org') || href.includes('proquest.com'))
+          return '↗ Abrir DOI';
         return '↗ Abrir link';
       }
       const btnLabel = linkLabel(doiHref, doiVal);
