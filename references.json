@@ -9589,66 +9589,42 @@
   ],
   "elias, n": [
     {
+      "author": "Elias Norbert.",
+      "year": "1994",
+      "source": "O Processo Civilizador",
+      "doi": "https://openlibrary.org/works/OL19892447W",
+      "title": "O Processo Civilizador",
+      "count": 17
+    },
+    {
       "author": "Elias N.",
       "year": "2000",
       "source": "Os estabelecidos e os outsiders: sociologia das relacoes de poder a partir de uma pequena comunidade",
       "doi": "10.5380/cam.v1i0.1561",
       "title": "Os estabelecidos e os outsiders: sociologia das relacoes de poder a partir de uma pequena comunidade",
-      "count": 5
-    },
-    {
-      "author": "Elias Norbert.",
-      "year": "1994",
-      "source": "O Processo Civilizador: Uma Historia dos Costumes",
-      "doi": "https://openlibrary.org/works/OL19892447W",
-      "title": "O Processo Civilizador: Uma Historia dos Costumes",
-      "count": 5
-    },
-    {
-      "author": "Elias N.",
-      "year": "1965",
-      "source": "The Established and the Outsiders",
-      "doi": null,
-      "title": "The Established and the Outsiders",
-      "count": 4
-    },
-    {
-      "author": "Elias Norbert.",
-      "year": "1939",
-      "source": "The Civilizing Process",
-      "doi": "https://openlibrary.org/works/OL32002536W",
-      "title": "The Civilizing Process",
-      "count": 4
-    },
-    {
-      "author": "ELIAS Norbert.",
-      "year": "1994",
-      "source": "O Processo Civilizador",
-      "doi": null,
-      "title": "O Processo Civilizador",
-      "count": 3
+      "count": 10
     },
     {
       "author": "Elias N.",
       "year": "1998",
-      "source": "N ELIAS READER",
-      "doi": null,
-      "title": "N ELIAS READER",
-      "count": 2
+      "source": "The Norbert Elias Reader",
+      "doi": "https://www.google.com.br/books/edition/The_Norbert_Elias_Reader/_n4y4j7NiJgC?hl=pt-BR",
+      "title": "The Norbert Elias Reader",
+      "count": 3
     },
     {
       "author": "Elias N.",
       "year": "1981",
-      "source": "Quest-ce que la sociologie? What is Sociology?",
-      "doi": null,
-      "title": "Quest-ce que la sociologie? What is Sociology?",
+      "source": "What is Sociology?",
+      "doi": "https://www.google.com.br/books/edition/What_is_Sociology/a_NFJQAACAAJ?hl=pt-BR",
+      "title": "What is Sociology?",
       "count": 2
     },
     {
       "author": "ELIAS N.",
       "year": "1992",
       "source": "Deporte y ocio en el proceso de civilizacion",
-      "doi": null,
+      "doi": "https://books.google.com.br/books/about/Deporte_y_ocio_en_el_proceso_de_la_civil.html?id=sSoRDQAAQBAJ&redir_esc=y",
       "title": "Deporte y ocio en el proceso de civilizacion",
       "count": 2
     },
@@ -9677,6 +9653,14 @@
       "count": 2
     },
     {
+      "author": "ELIAS Norbert.",
+      "year": "2001",
+      "source": "A sociedade de corte: Investigacao sobre a sociologia da realeza e da aristocracia de corte",
+      "doi": null,
+      "title": "A sociedade de corte: Investigacao sobre a sociologia da realeza e da aristocracia de corte",
+      "count": 2
+    },
+    {
       "author": "Elias N",
       "year": "1997",
       "source": "BRIT J SOCIOL",
@@ -9693,35 +9677,11 @@
       "count": 1
     },
     {
-      "author": "Elias N.",
-      "year": "1998",
-      "source": "The Norbert Elias Reader",
-      "doi": null,
-      "title": "The Norbert Elias Reader",
-      "count": 1
-    },
-    {
-      "author": "Elias N.",
-      "year": "1982",
-      "source": "The history of manners",
-      "doi": null,
-      "title": "The history of manners",
-      "count": 1
-    },
-    {
       "author": "ELIAS N.",
       "year": "2005",
       "source": "PEREGRINACAO WATTEAU",
       "doi": null,
       "title": "PEREGRINACAO WATTEAU",
-      "count": 1
-    },
-    {
-      "author": "ELIAS N.",
-      "year": "1989",
-      "source": "CIVILTA BUONE MANIER",
-      "doi": null,
-      "title": "CIVILTA BUONE MANIER",
       "count": 1
     },
     {
@@ -9738,38 +9698,6 @@
       "source": "A solidao dos moribundos",
       "doi": null,
       "title": "A solidao dos moribundos",
-      "count": 1
-    },
-    {
-      "author": "Elias Norbert.",
-      "year": "1982",
-      "source": "State Formation and Civilization: The Civilizing Process",
-      "doi": null,
-      "title": "State Formation and Civilization: The Civilizing Process",
-      "count": 1
-    },
-    {
-      "author": "Elias Norbert.",
-      "year": "2001",
-      "source": "SOC CORTE INVESTIGAC",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "ELIAS Norbert.",
-      "year": "2001",
-      "source": "A sociedade de corte: Investigacao sobre a sociologia da realeza e da aristocracia de corte",
-      "doi": null,
-      "title": "A sociedade de corte: Investigacao sobre a sociologia da realeza e da aristocracia de corte",
-      "count": 1
-    },
-    {
-      "author": "ELIAS Norbert",
-      "year": "1993",
-      "source": "O Processo Civilizatorio. Formacao do estado e Civilizacao.",
-      "doi": null,
-      "title": "O Processo Civilizatorio. Formacao do estado e Civilizacao.",
       "count": 1
     },
     {
@@ -9802,22 +9730,6 @@
       "source": "A sociedade dos individuos",
       "doi": null,
       "title": "A sociedade dos individuos",
-      "count": 1
-    },
-    {
-      "author": "Elias Norbert.",
-      "year": "1973",
-      "source": "La Civilisation des moeurs",
-      "doi": null,
-      "title": "La Civilisation des moeurs",
-      "count": 1
-    },
-    {
-      "author": "Elias Norbert",
-      "year": "2000",
-      "source": "ESTABLECIDOS OUTSIDE",
-      "doi": null,
-      "title": "ESTABLECIDOS OUTSIDE",
       "count": 1
     },
     {
@@ -15939,17 +15851,17 @@
     {
       "author": "Hall S.",
       "year": "1997",
-      "source": "A Identidade Cultural na Pos-Modernidade",
+      "source": "A Identidade Cultural na Pós-Modernidade",
       "doi": "https://www.google.com.br/books/edition/A_identidade_cultural_na_p%C3%B3s_modernidad/4TcuzSIYB9cC?hl=pt-BR&gbpv=0",
-      "title": "A Identidade Cultural na Pos-Modernidade",
+      "title": "A Identidade Cultural na Pós-Modernidade",
       "count": 40
     },
     {
       "author": "HALL Stuart",
       "year": "2003",
-      "source": "Da Diaspora: Identidades e Mediacoes Culturais",
+      "source": "Da Diáspora: Identidades e Mediações Culturais",
       "doi": "https://www.google.com.br/books/edition/Da_di%C3%A1spora/Te3wAAAAMAAJ?hl=pt-BR&gbpv=0&bsq=Da%20Diaspora:%20Identidades%20e%20Mediacoes%20Culturais",
-      "title": "Da Diaspora: Identidades e Mediacoes Culturais",
+      "title": "Da Diáspora: Identidades e Mediações Culturais",
       "count": 38
     },
     {
@@ -15971,9 +15883,9 @@
     {
       "author": "Hall S.",
       "year": "2000",
-      "source": "Identidade e Diferenca: a perspectiva dos estudos culturais",
+      "source": "Identidade e Diferença: a perspectiva dos estudos culturais",
       "doi": "https://www.google.com.br/books/edition/Identidade_e_diferen%C3%A7a/GHgQAQAAIAAJ?hl=pt-BR&gbpv=0&bsq=%22Identidade%20e%20Diferenca:%20a%20perspectiva%20dos%20estudos%20culturais%22%20hall",
-      "title": "Identidade e Diferenca: a perspectiva dos estudos culturais",
+      "title": "Identidade e Diferença: a perspectiva dos estudos culturais",
       "count": 11
     },
     {
@@ -26891,7 +26803,7 @@
       "year": "2003",
       "source": "O Sortilegio da Cor: Identidade, Raca e Genero no Brasil",
       "doi": "https://www.google.com.br/books/edition/O_sortil%C3%A9gio_da_cor/-ZAW8BhVcTQC?hl=pt-BR&gbpv=0",
-      "title": "O Sortilegio da Cor: Identidade, Raca e Genero no Brasil",
+      "title": "O Sortilégio da Cor: Identidade, Raça e Gênero no Brasil",
       "count": 27
     },
     {
@@ -26899,7 +26811,7 @@
       "year": "2009",
       "source": "Afrocentricidade - uma abordagem epistemologica inovadora",
       "doi": "https://www.google.com.br/books/edition/Afrocentricidade/qEDWBgAAQBAJ?hl=pt-BR&gbpv=0",
-      "title": "Afrocentricidade - uma abordagem epistemologica inovadora",
+      "title": "Afrocentricidade - uma abordagem epistemológica inovadora",
       "count": 3
     },
     {
@@ -28955,7 +28867,7 @@
       "year": "2013",
       "source": "Black Women against the Land Grab: The Fight for Racial Justice in Brazil",
       "doi": "https://openlibrary.org/works/OL19489269W",
-      "title": null,
+      "title": "Black Women against the Land Grab: The Fight for Racial Justice in Brazil",
       "count": 43
     },
     {
@@ -28987,7 +28899,7 @@
       "year": "2008",
       "source": "Latin American Social Movements in the Twenty-First Century: Resistance",
       "doi": "10.5860/choice.46-4007",
-      "title": null,
+      "title": "Latin American Social Movements in the Twenty-First Century: Resistance",
       "count": 2
     },
     {
