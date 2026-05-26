@@ -403,11 +403,23 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '0': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo) — índice 0 no teste5.gexf
   '1': { name: 'Cluster 1', color: '#C43D32' }, // Tijolo médio
   '2': { name: 'Cluster 2', color: '#B8C4C6' }, // Cinza azulado (branco)
   '3': { name: 'Cluster 3', color: '#6CCDD4' }, // Teal médio
-  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo) — compatibilidade GEXFs antigos
+  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo)
+};
+// Override manual: força cluster de nós específicos (label → modularity_class)
+const NODE_CLUSTER_OVERRIDE = {
+  'mccallum, c':     '4',  // cinza → amarelo
+  'figueiredo, a':   '4',  // cinza → amarelo
+  'lima, m':         '4',  // cinza → amarelo
+  'petruccelli, jl': '4',  // cinza → amarelo
+  'osorio, rg':      '4',  // cinza → amarelo
+  'daflon, vt':      '4',  // cinza → amarelo
+  'heringer, r':     '4',  // cinza → amarelo
+  'santos, jaf':     '4',  // cinza → amarelo
+  'silvério, v':     '1',  // cinza → vermelho
+  'theodoro, m':     '1',  // cinza → vermelho
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
@@ -581,6 +593,12 @@ function processGraph(rawNodes, rawEdges) {
 
   // Aplicar modClasses finais
   coreNodes.forEach(n => { n.modClass = mcMap.get(n.id) || n.modClass; });
+
+  // Aplicar overrides manuais por label
+  coreNodes.forEach(n => {
+    const ov = NODE_CLUSTER_OVERRIDE[n.label];
+    if (ov) n.modClass = ov;
+  });
 
   const maxCit = Math.max(...coreNodes.map(n => n.citations || 0), 1);
   coreNodes.forEach(n => {
