@@ -13,7 +13,7 @@
       "year": "2008",
       "source": "Estudos Históricos",
       "doi": "https://doi.org/10.1590/S0103-21862008000100001",
-      "title": null,
+      "title": "Em torno das 'Diretrizes curriculares nacionais para a educação das relações étnico-raciais e para o ensino de história e cultura afro-brasileira e africana': uma conversa com historiadores",
       "count": 4
     },
     {
@@ -35,9 +35,9 @@
     {
       "author": "Abreu Martha",
       "year": "2018",
-      "source": "CULTURA NEGRA TRAJET",
-      "doi": null,
-      "title": null,
+      "source": "Cultura Negra vol. 2: trajetórias e lutas de intelectuais negros",
+      "doi": "https://dspace.unisa.br/items/0e52585f-37cf-4fe7-888c-85d6ac80f937",
+      "title": "Cultura Negra vol. 2: trajetórias e lutas de intelectuais negros",
       "count": 3
     },
     {
@@ -309,65 +309,41 @@
     {
       "author": "Agamben G",
       "year": "1998",
-      "source": "REV OCCIDENTE",
-      "doi": "https://openlibrary.org/works/OL61552W",
-      "title": "Homo sacer",
-      "count": 9
-    },
-    {
-      "author": "Agamben Giorgio.",
-      "year": "2002",
-      "source": "Homo Sacer: o poder soberano e a vida nua I. Traduzido por Henrique Burigo",
-      "doi": "https://openlibrary.org/works/OL61552W",
-      "title": "Homo Sacer: o poder soberano e a vida nua I. Traduzido por Henrique Burigo",
-      "count": 8
+      "source": "Homo Sacer: Sovereign Power and Bare Life",
+      "doi": "https://www.google.com.br/books/edition/Homo_Sacer/xjalmwEACAAJ?hl=pt-BR",
+      "title": "Homo Sacer: Sovereign Power and Bare Life",
+      "count": 19
     },
     {
       "author": "Agamben Giorgio.",
       "year": "2005",
-      "source": "STATE EXCEPTION",
+      "source": "State of Exception",
       "doi": "10.7208/chicago/9780226009261.001.0001",
-      "title": "STATE EXCEPTION",
-      "count": 7
-    },
-    {
-      "author": "AGAMBEN Giorgio.",
-      "year": "2004",
-      "source": "Estado de Excecao",
-      "doi": null,
-      "title": "Estado de Excecao",
-      "count": 4
+      "title": "State of Exception",
+      "count": 11
     },
     {
       "author": "Agamben Giorgio.",
       "year": "2015",
-      "source": "Meios sem fim: Notas sobre a politica. Traduzido por Davi Pessoa",
-      "doi": null,
-      "title": "Meios sem fim: Notas sobre a politica. Traduzido por Davi Pessoa",
+      "source": "Meios sem fim: Notas sobre a política",
+      "doi": "https://www.google.com.br/books/edition/Meios_sem_fim/MVpiCAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "Meios sem fim: Notas sobre a política",
       "count": 2
     },
     {
       "author": "Agamben G.",
       "year": "2009",
-      "source": "O que e o contemporaneo e outros ensaios",
-      "doi": null,
-      "title": "O que e o contemporaneo e outros ensaios",
-      "count": 2
-    },
-    {
-      "author": "Agamben Giorgio.",
-      "year": "1998",
-      "source": "Homo Sacer: Sovereign Power and Bare Life",
-      "doi": null,
-      "title": "Homo Sacer: Sovereign Power and Bare Life",
+      "source": "O que é o contemporaneo e outros ensaios",
+      "doi": "https://www.google.com.br/books/edition/O_que_%C3%A9_o_contempor%C3%A2neo_e_outros_ensai/yzAant1OGq0C?hl=pt-BR&gbpv=0",
+      "title": "O que é o contemporaneo e outros ensaios",
       "count": 2
     },
     {
       "author": "Agamben Giorgio.",
       "year": "1993",
       "source": "The Politics of Everyday Fear",
-      "doi": null,
-      "title": "The Politics of Everyday Fear",
+      "doi": "https://www.google.com.br/books/edition/The_Politics_of_Everyday_Fear/Kbb44m2z-x4C?hl=pt-BR&gbpv=0",
+      "title": "The Sovereign Police",
       "count": 1
     },
     {
@@ -1223,7 +1199,7 @@
     {
       "author": "Antunes JLF",
       "year": "2006",
-      "source": "COMMUNITY DENT ORAL",
+      "source": "Community Dentistry and Oral Epidemiology",
       "doi": "10.1111/j.1600-0528.2006.00274.x",
       "title": "Multilevel assessment of determinants of dental caries experience in Brazil",
       "count": 5
@@ -1231,7 +1207,7 @@
     {
       "author": "Antunes JLF",
       "year": "2003",
-      "source": "INT DENT J",
+      "source": "International Dental Journal",
       "doi": "10.1111/j.1875-595X.2003.tb00649.x",
       "title": "Ethnic disparities in the prevalence of dental caries and restorative dental treatment in Brazilian children",
       "count": 4
@@ -1279,7 +1255,7 @@
     {
       "author": "Antunes JLF",
       "year": "2002",
-      "source": "COMMUNITY DENT ORAL",
+      "source": "Community Dentistry and Oral Epidemiology",
       "doi": "10.1034/j.1600-0528.2002.300207.x",
       "title": "Spatial analysis to identify differentials in dental needs by area‐based measures",
       "count": 1
@@ -1351,7 +1327,7 @@
     {
       "author": "Antunes JLF",
       "year": "2002",
-      "source": "B WORLD HEALTH ORGAN",
+      "source": "Bulletin of the World Health Organization",
       "doi": null,
       "title": null,
       "count": 1
@@ -1815,51 +1791,35 @@
   ],
   "azevedo, cmm": [
     {
-      "author": "Azevedo C. M. M.",
-      "year": "1987",
-      "source": "BLACK WAVE WHITE FEA",
-      "doi": null,
-      "title": null,
-      "count": 16
-    },
-    {
       "author": "Azevedo CeliaMaria Marinho de.",
       "year": "2004",
-      "source": "ONDA NEGRA MEDO BRAN",
-      "doi": null,
-      "title": null,
-      "count": 5
+      "source": "Onda negra, medo branco: o negro no imaginário das elites - século XIX",
+      "doi": "https://www.google.com.br/books/edition/Onda_negra_medo_branco/orF-AAAAMAAJ?hl=pt-BR&gbpv=0&bsq=onda%20negra%20medo%20branco%20azevedo",
+      "title": "Onda negra, medo branco: o negro no imaginário das elites - século XIX",
+      "count": 26
     },
     {
       "author": "Azevedo C.M. M.",
       "year": "2004",
-      "source": "O Anti-Racismo e seus Paradoxos: Reflexoes sobre a cota racial",
-      "doi": "10.1590/s0104-87752007000100015",
-      "title": "O Anti-Racismo e seus Paradoxos: Reflexoes sobre a cota racial",
+      "source": "Anti-racismo e seus paradoxos: reflexões sobre cota racial, raça e racismo",
+      "doi": "https://books.google.com.br/books?id=XQ0AZsNGZGAC&printsec=frontcover&source=gbs_atb&redir_esc=y#v=onepage&q&f=false",
+      "title": "Anti-racismo e seus paradoxos: reflexões sobre cota racial, raça e racismo",
       "count": 2
     },
     {
       "author": "Azevedo CeliaMaria Marihno de.",
       "year": "2003",
       "source": "Abolicionismo: Estados Unidos e Brasil",
-      "doi": null,
+      "doi": "https://books.google.com.br/books?id=C70MAAAAYAAJ&hl=pt-BR&num=20&source=gbs_book_other_versions_r&cad=3",
       "title": "Abolicionismo: Estados Unidos e Brasil",
-      "count": 2
-    },
-    {
-      "author": "Azevedo CeliaMaria.",
-      "year": "1995",
-      "source": "ABOLITIONISM US BRAZ",
-      "doi": null,
-      "title": "ABOLITIONISM US BRAZ",
-      "count": 2
+      "count": 4
     },
     {
       "author": "AZEVEDO C. M. M. de",
       "year": "2012",
-      "source": "SOCIOLOGIA CRITICA B",
-      "doi": null,
-      "title": "SOCIOLOGIA CRITICA B",
+      "source": "Sociologia Crítica no Brasil",
+      "doi": "https://www.google.com.br/books/edition/Sociologia_cr%C3%ADtica_no_Brasil/cTe7NAEACAAJ?hl=pt-BR",
+      "title": "Três Modelos de Nação e o Problema do Racismo na História do Brasil",
       "count": 1
     },
     {
@@ -2175,7 +2135,7 @@
     {
       "author": "Baqui P",
       "year": "2021",
-      "source": "SCI REP-UK",
+      "source": "Scientific Reports",
       "doi": "10.1038/s41598-021-95004-8",
       "title": "Comparing COVID-19 risk factors in Brazil using machine learning: the importance of socioeconomic, demographic and structural factors",
       "count": 5
@@ -2707,105 +2667,33 @@
     {
       "author": "Barth Fredrik.",
       "year": "1998",
-      "source": "ETHNIC GROUPS BOUND",
-      "doi": null,
-      "title": null,
-      "count": 12
-    },
-    {
-      "author": "Barth F.",
-      "year": "1969",
-      "source": "RESULTS S HELD U BER",
-      "doi": null,
-      "title": null,
-      "count": 8
-    },
-    {
-      "author": "Barth F.",
-      "year": "1969",
       "source": "Ethnic Groups and Boundaries: The Social Organization of Culture Difference",
-      "doi": "10.2307/2798291",
+      "doi": "https://books.google.com.br/books/about/Ethnic_Groups_and_Boundaries.html?id=QaAQAAAAQBAJ&redir_esc=y",
       "title": "Ethnic Groups and Boundaries: The Social Organization of Culture Difference",
-      "count": 4
+      "count": 33
     },
     {
       "author": "BARTH Fredrick",
       "year": "2000",
-      "source": "GURU INICIADOR OUTRA",
-      "doi": null,
-      "title": "GURU INICIADOR OUTRA",
-      "count": 4
+      "source": "O guru, o iniciador e outras variações antropológicas",
+      "doi": "https://www.google.com.br/books/edition/O_guru_o_iniciador_e_outras_varia%C3%A7%C3%B5es/Sf6fAAAACAAJ?hl=pt-BR",
+      "title": "O guru, o iniciador e outras variações antropológicas",
+      "count": 7
     },
     {
       "author": "Barth Frederik.",
       "year": "1994",
       "source": "The Anthropology of Ethnicity: Beyond Ethnic Groups and Boundaries",
-      "doi": null,
-      "title": "The Anthropology of Ethnicity: Beyond Ethnic Groups and Boundaries",
+      "doi": "https://books.google.gm/books?id=XJrHpuoEZ_0C&printsec=frontcover#v=onepage&q&f=false",
+      "title": "Enduring and emerging issues in the analysis of ethnicity",
       "count": 3
-    },
-    {
-      "author": "BARTH Frederik.",
-      "year": "2000",
-      "source": "O guru",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "BARTH F.",
-      "year": "1998",
-      "source": "Teorias da etnicidade",
-      "doi": null,
-      "title": "Teorias da etnicidade",
-      "count": 3
-    },
-    {
-      "author": "BARTH Fredrik.",
-      "year": "1998",
-      "source": "Teorias da identidade",
-      "doi": null,
-      "title": "Teorias da identidade",
-      "count": 2
     },
     {
       "author": "Barth Fredrik.",
       "year": "1989",
-      "source": "ETHOS",
-      "doi": "10.1080/00141844.1989.9981389",
+      "source": "Ethnos",
+      "doi": "https://doi.org/10.1080/00141844.1989.9981389",
       "title": "The analysis of culture in complex societies",
-      "count": 1
-    },
-    {
-      "author": "BARTH Fredrik",
-      "year": "1998",
-      "source": "GRUPOS ETNICOS SUAS",
-      "doi": null,
-      "title": "GRUPOS ETNICOS SUAS",
-      "count": 1
-    },
-    {
-      "author": "Barth F",
-      "year": "1969",
-      "source": "P S HELD U BERG 23 2",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Barth F.",
-      "year": "1976",
-      "source": "Los grupos etnicos y sus fronteras",
-      "doi": null,
-      "title": "Los grupos etnicos y sus fronteras",
-      "count": 1
-    },
-    {
-      "author": "Barth Frederik",
-      "year": "1994",
-      "source": "ANTROPOLOGIAS ETNICI",
-      "doi": null,
-      "title": "ANTROPOLOGIAS ETNICI",
       "count": 1
     }
   ],
@@ -3015,7 +2903,7 @@
     {
       "author": "Bastos JL",
       "year": "2018",
-      "source": "J DENT RES",
+      "source": "Journal of Dental Research",
       "doi": "10.1177/0022034518768536",
       "title": "Racial Inequalities in Oral Health",
       "count": 11
@@ -3645,23 +3533,23 @@
     {
       "author": "Bernadino Joaze.",
       "year": "2002",
-      "source": "ESTUDOS AFRO ASI TIC",
+      "source": "Estudos afro-asiáticos",
       "doi": "10.1590/S0101-546X2002000200002",
       "title": "Ação afirmativa e a rediscussão do mito da democracia racial no Brasil",
-      "count": 12
+      "count": 15
     },
     {
       "author": "Bernardino-Costa Joaze",
       "year": "2016",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-69922016000100002",
       "title": "Decolonialidade e perspectiva negra",
-      "count": 8
+      "count": 9
     },
     {
       "author": "Bernardino-Costa J",
       "year": "2017",
-      "source": "RACE ETHNIC EDUC-UK",
+      "source": "Race Ethnicity and Education",
       "doi": "10.1080/13613324.2016.1260228",
       "title": "Affirmative action in Brazil and building an anti-racist university",
       "count": 7
@@ -3669,7 +3557,7 @@
     {
       "author": "Bernardino-Costa J",
       "year": "2014",
-      "source": "WOMEN STUD INT FORUM",
+      "source": "Women's Studies International Forum",
       "doi": "10.1016/j.wsif.2014.01.004",
       "title": "Intersectionality and female domestic workers' unions in Brazil",
       "count": 5
@@ -3677,10 +3565,10 @@
     {
       "author": "BERNARDINO-COSTA Joaze",
       "year": "2019",
-      "source": "Decolonialidade e Pensamento Afrodiasporico",
-      "doi": "https://openlibrary.org/works/OL32435826W",
-      "title": "Decolonialidade e Pensamento Afrodiasporico",
-      "count": 5
+      "source": "Decolonialidade e Pensamento Afrodiaspórico",
+      "doi": "https://www.google.com.br/books/edition/Decolonialidade_e_pensamento_afrodiasp%C3%B3/u3lvDwAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "Decolonialidade e Pensamento Afrodiaspórico",
+      "count": 8
     },
     {
       "author": "Bernardino-Costa Joaze.",
@@ -3693,7 +3581,7 @@
     {
       "author": "Bernardino-Costa Joaze",
       "year": "2015",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-69922015000100009",
       "title": "Decolonialidade e interseccionalidade emancipadora: a organização política das trabalhadoras domésticas no Brasil",
       "count": 3
@@ -3709,7 +3597,7 @@
     {
       "author": "Bernardino-Costa Joaze",
       "year": "2018",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-699220183301005",
       "title": "Decolonialidade, Atlântico Negro e intelectuais negros brasileiros: em busca de um diálogo horizontal",
       "count": 2
@@ -3771,14 +3659,6 @@
       "count": 1
     },
     {
-      "author": "Bernardino-Costa J",
-      "year": "2023",
-      "source": "DECOLONIA LIDADE PEN",
-      "doi": null,
-      "title": "DECOLONIA LIDADE PEN",
-      "count": 1
-    },
-    {
       "author": "Bernardino-Costa J.",
       "year": "2007",
       "source": "REV BRASILEIRA CARIB",
@@ -3792,14 +3672,6 @@
       "source": "SOC CULT",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "BERNARDINO-COSTA Joaze",
-      "year": "2018",
-      "source": "Decolonialidade e pensamento diasporico",
-      "doi": null,
-      "title": "Decolonialidade e pensamento diasporico",
       "count": 1
     },
     {
@@ -3820,42 +3692,10 @@
     },
     {
       "author": "Bernardino-Costa Joaze",
-      "year": "2019",
-      "source": "DECOLONIALIDADE PENS",
-      "doi": null,
-      "title": "DECOLONIALIDADE PENS",
-      "count": 1
-    },
-    {
-      "author": "Bernardino-Costa Joaze",
       "year": "2007",
       "source": "SINDICATOS TRA UNPUB",
       "doi": null,
       "title": "SINDICATOS TRA UNPUB",
-      "count": 1
-    },
-    {
-      "author": "BERNADINO Joaze",
-      "year": "2002",
-      "source": "Revista Estud. afro-asiat.",
-      "doi": null,
-      "title": "Revista Estud. afro-asiat.",
-      "count": 1
-    },
-    {
-      "author": "Bernadino-Costa Joaze",
-      "year": "2016",
-      "source": "SOC ESTADO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Bernardino J.",
-      "year": "2002",
-      "source": "ESTUD AFRO-ASIAT",
-      "doi": null,
-      "title": null,
       "count": 1
     },
     {
@@ -3864,14 +3704,6 @@
       "source": "AFRICA AFRODESCENDEN",
       "doi": null,
       "title": "AFRICA AFRODESCENDEN",
-      "count": 1
-    },
-    {
-      "author": "BERNARDINO Joaze",
-      "year": "2002",
-      "source": "ESTUDOS AFRO ASIATIC",
-      "doi": null,
-      "title": "ESTUDOS AFRO ASIATIC",
       "count": 1
     },
     {
@@ -3894,11 +3726,35 @@
   "bethell, l": [
     {
       "author": "Bethell Leslie",
-      "year": "1970",
-      "source": "ABOLITION BRAZILIAN",
-      "doi": null,
-      "title": "ABOLITION BRAZILIAN",
-      "count": 10
+      "year": "1969",
+      "source": "Journal of Latin American Studies",
+      "doi": "https://www.jstor.org/stable/156386",
+      "title": "The Independence of Brazil and the Abolition of the Brazilian Slave Trade: Anglo-Brazilian Relations, 1822-1826",
+      "count": 11
+    },
+    {
+      "author": "Bethell Leslie",
+      "year": "2009",
+      "source": "Joaquim Nabuco e os abolicionistas britânicos: correspondência, 1880-1905",
+      "doi": "https://doi.org/10.1590/S0103-40142009000100015",
+      "title": "Joaquim Nabuco e os abolicionistas britânicos: correspondência, 1880-1905",
+      "count": 6
+    },
+    {
+      "author": "Bethell L.",
+      "year": "1984",
+      "source": "The Cambridge History of Latin America: Latin America since 1930",
+      "doi": "https://books.google.com.br/books/about/The_Cambridge_History_of_Latin_America_L.html?id=AcDr0QEACAAJ&redir_esc=y",
+      "title": "The Cambridge History of Latin America: Latin America since 1930",
+      "count": 5
+    },
+    {
+      "author": "Bethell Leslie.",
+      "year": "1989",
+      "source": "Brazil: Empire and Republic, 1822-1930",
+      "doi": "https://books.google.com.bd/books/about/Brazil.html?id=MphAUFjzUuMC&printsec=frontcover&source=kp_read_button&redir_esc=y#v=onepage&q&f=false",
+      "title": "Brazil: Empire and Republic, 1822-1930",
+      "count": 5
     },
     {
       "author": "Bethell L",
@@ -3909,44 +3765,12 @@
       "count": 4
     },
     {
-      "author": "Bethell L.",
-      "year": "1984",
-      "source": "CAMBRIDGE HIST LATIN",
-      "doi": null,
-      "title": null,
-      "count": 4
-    },
-    {
-      "author": "Bethell Leslie",
-      "year": "2009",
-      "source": "J NABUCO BRIT ABOLIT",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "Bethell Leslie.",
-      "year": "1989",
-      "source": "Brazil: Empire and Republic",
-      "doi": null,
-      "title": "Brazil: Empire and Republic",
-      "count": 3
-    },
-    {
       "author": "Bethell L",
       "year": "2000",
       "source": "DAEDALUS",
       "doi": null,
       "title": null,
       "count": 3
-    },
-    {
-      "author": "Bethell L.",
-      "year": "1989",
-      "source": "BRAZIL EMPIRE REPUBL",
-      "doi": null,
-      "title": null,
-      "count": 2
     },
     {
       "author": "BETHELL L",
@@ -3962,22 +3786,6 @@
       "source": "COLONIAL BRAZIL",
       "doi": null,
       "title": "COLONIAL BRAZIL",
-      "count": 1
-    },
-    {
-      "author": "Bethell Leslie",
-      "year": "2009",
-      "source": "Estud. av.",
-      "doi": null,
-      "title": "Estud. av.",
-      "count": 1
-    },
-    {
-      "author": "BETHELL Leslie",
-      "year": "2008",
-      "source": "JOAQUIM NABUCO ABOLI",
-      "doi": null,
-      "title": "JOAQUIM NABUCO ABOLI",
       "count": 1
     },
     {
@@ -4013,35 +3821,11 @@
       "count": 1
     },
     {
-      "author": "Bethell Leslie",
-      "year": "2009",
-      "source": "JOAQUIM NABUCO BRIT",
-      "doi": null,
-      "title": "JOAQUIM NABUCO BRIT",
-      "count": 1
-    },
-    {
-      "author": "Bethell Leslie",
-      "year": "2008",
-      "source": "The Cambridge History of Latin America",
-      "doi": null,
-      "title": "The Cambridge History of Latin America",
-      "count": 1
-    },
-    {
       "author": "Bethell L.",
       "year": "2001",
       "source": "HISTORIA AM LATINA I",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "BETHELL L",
-      "year": "1969",
-      "source": "ABOLICAO COMERCIO BR",
-      "doi": null,
-      "title": "ABOLICAO COMERCIO BR",
       "count": 1
     },
     {
@@ -4931,7 +4715,7 @@
     {
       "author": "Butler J",
       "year": "2007",
-      "source": "ENVIRON PLANN D",
+      "source": "Environment and Planning D: Society and Space",
       "doi": "10.1068/d2506jb",
       "title": "Torture and the Ethics of Photography",
       "count": 1
@@ -5253,39 +5037,39 @@
     {
       "author": "Butler Kim.",
       "year": "1991",
-      "source": "FREEDOMS GIVEN FREED",
-      "doi": null,
-      "title": "FREEDOMS GIVEN FREED",
-      "count": 55
+      "source": "Freedoms Given, Freedoms Won: Afro-Brazilians in Post-abolition, São Paulo and Salvador",
+      "doi": "https://books.google.co.mz/books?id=60lwRIVraMAC&printsec=frontcover&hl=pt-PT&source=gbs_vpt_read#v=onepage&q&f=false",
+      "title": "Freedoms Given, Freedoms Won: Afro-Brazilians in Post-abolition, São Paulo and Salvador",
+      "count": 56
     },
     {
       "author": "Butler KimD.",
       "year": "1998",
-      "source": "AFRO BRAZILIAN CULTU",
-      "doi": null,
-      "title": "AFRO BRAZILIAN CULTU",
+      "source": "Afro-Brazilian Culture and Politics: Bahia, 1790s to 1990s",
+      "doi": "https://books.google.com.br/books?id=To_0tMUBnukC&printsec=copyright&hl=pt-BR&source=gbs_pub_info_r#v=onepage&q&f=false",
+      "title": "Ginga Baiana—The Politics of Race, Class, Culture, and Power in Salvador, Bahia",
       "count": 6
     },
     {
       "author": "BUTLER Kim D.",
       "year": "2020",
-      "source": "Diasporas imaginadas: Atlantico Negro e historias afro-brasileiras",
-      "doi": null,
-      "title": "Diasporas imaginadas: Atlantico Negro e historias afro-brasileiras",
-      "count": 3
+      "source": "Diásporas imaginadas: Atlântico Negro e histórias afro-brasileiras",
+      "doi": "https://www.google.com.br/books/edition/Di%C3%A1sporas_imaginadas/rIIEEAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "Diásporas imaginadas: Atlântico Negro e histórias afro-brasileiras",
+      "count": 5
     },
     {
       "author": "Butler Kim D.",
       "year": "2000",
-      "source": "AFR STUD REV",
-      "doi": null,
-      "title": null,
+      "source": "African Studies Review",
+      "doi": "https://doi.org/10.2307/524724",
+      "title": "From black history to diasporan history: Brazilian abolition in Afro-Atlantic context",
       "count": 3
     },
     {
       "author": "BUTLER KD",
       "year": "1992",
-      "source": "AMERICAS",
+      "source": "The Americas",
       "doi": "10.2307/1006990",
       "title": "Up From Slavery: Afro-Brazilian Activism in São Paulo, 1888-1938",
       "count": 2
@@ -5296,30 +5080,6 @@
       "source": "J INTERDISCIPL HIST",
       "doi": "10.2307/205221",
       "title": "Orpheus and Power: The \"Movimento Negro\" of Rio de Janeiro and Sao Paulo, Brazil, 1945-1988",
-      "count": 1
-    },
-    {
-      "author": "BUTLER Kim D.",
-      "year": "2007",
-      "source": "Diaspora Relations: Comparisons in Contemporary Multilevel Politics of Diaspora and Transnational Identity",
-      "doi": null,
-      "title": "Diaspora Relations: Comparisons in Contemporary Multilevel Politics of Diaspora and Transnational Identity",
-      "count": 1
-    },
-    {
-      "author": "Butler K.D.",
-      "year": "2001",
-      "source": "DIASPORA",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Butler KimD.",
-      "year": "1998",
-      "source": "Freedom Given Freedoms Won: Afro-Brazilians in Post-Abolition Sao Paulo and Salvador",
-      "doi": null,
-      "title": "Freedom Given Freedoms Won: Afro-Brazilians in Post-Abolition Sao Paulo and Salvador",
       "count": 1
     }
   ],
@@ -5359,7 +5119,7 @@
     {
       "author": "Caldeira TPR",
       "year": "2017",
-      "source": "ENVIRON PLANN D",
+      "source": "Environment and Planning D: Society and Space",
       "doi": "10.1177/0263775816658479",
       "title": "Peripheral urbanization: Autoconstruction, transversal logics, and politics in cities of the global south",
       "count": 2
@@ -5765,41 +5525,41 @@
     {
       "author": "CANDIDO Antonio",
       "year": "1995",
-      "source": "VARIOS ESCRITOS",
-      "doi": "https://openlibrary.org/works/OL23601337W",
-      "title": "VARIOS ESCRITOS",
+      "source": "Vários Escritos",
+      "doi": "https://books.google.com.br/books?id=WhZTzQEACAAJ&newbks=0&hl=pt-BR&redir_esc=y",
+      "title": "Vários Escritos",
       "count": 7
     },
     {
       "author": "CANDIDO Antonio.",
       "year": "1965",
       "source": "Literatura e sociedade",
-      "doi": "https://openlibrary.org/works/OL3205921W",
+      "doi": "https://books.google.com.br/books/about/Literatura_e_sociedade.html?id=epivEAAAQBAJ&redir_esc=y",
       "title": "Literatura e sociedade",
-      "count": 4
+      "count": 8
     },
     {
       "author": "Candido Antonio.",
       "year": "1968",
-      "source": "Luso- Brazilian Review",
-      "doi": null,
-      "title": "Luso- Brazilian Review",
+      "source": "Luso-Brazilian Review",
+      "doi": "https://www.jstor.org/stable/3512911",
+      "title": "Literature and the rise of Brazilian national self-identity",
       "count": 3
     },
     {
       "author": "CANDIDO Antonio",
       "year": "1964",
       "source": "Os parceiros do Rio Bonito",
-      "doi": "https://openlibrary.org/works/OL18303928W",
+      "doi": "https://books.google.com.br/books/about/Os_parceiros_do_Rio_Bonito.html?id=xOMA0AEACAAJ&redir_esc=y",
       "title": "Os parceiros do Rio Bonito",
       "count": 3
     },
     {
       "author": "CANDIDO Antonio",
       "year": "1984",
-      "source": "NOVOS ESTUDOS CEBRAP",
-      "doi": "10.25091/s01013300",
-      "title": null,
+      "source": "Novos Estudos CEBRAP",
+      "doi": "https://novosestudos.com.br/produto/edicao-08/#58d49d3b72af5",
+      "title": "A revolução de 1930 e a cultura",
       "count": 3
     },
     {
@@ -5832,14 +5592,6 @@
       "source": "A educay o pela noite",
       "doi": null,
       "title": "A educay o pela noite",
-      "count": 2
-    },
-    {
-      "author": "Candido Antonio",
-      "year": "2000",
-      "source": "Literatura e sociedade: estudos de teoria e historia literaria",
-      "doi": null,
-      "title": "Literatura e sociedade: estudos de teoria e historia literaria",
       "count": 2
     },
     {
@@ -6009,79 +5761,47 @@
       "doi": null,
       "title": "ENCICLOPEDIA DELTA L",
       "count": 1
-    },
-    {
-      "author": "CANDIDO A",
-      "year": "2002",
-      "source": "LIT SOC",
-      "doi": null,
-      "title": "Formação da literatura brasileira",
-      "count": 1
-    },
-    {
-      "author": "CANDIDO A.",
-      "year": "2006",
-      "source": "LIT SOCIEDADE",
-      "doi": null,
-      "title": "LIT SOCIEDADE",
-      "count": 1
     }
   ],
   "cano, i": [
     {
       "author": "Cano I",
       "year": "2010",
-      "source": "POLICE PRACT RES",
-      "doi": "10.1080/15614260802586350",
+      "source": "Police Practice and Research",
+      "doi": "https://doi.org/10.1080/15614260802586350",
       "title": "Racial bias in police use of lethal force in Brazil",
-      "count": 8
+      "count": 11
     },
     {
       "author": "Cano Ignacio.",
       "year": "1997",
-      "source": "Letalidade da Acao Policial no Rio de Janeiro",
-      "doi": "https://openlibrary.org/works/OL23942082W",
-      "title": "Letalidade da Acao Policial no Rio de Janeiro",
-      "count": 7
-    },
-    {
-      "author": "CANO Ignacio",
-      "year": "1998",
-      "source": "USE LETHAL FORCE POL",
-      "doi": null,
-      "title": null,
-      "count": 3
+      "source": "Letalidade da Ação Policial no Rio de Janeiro",
+      "doi": "https://lav-uerj.org/wp-content/uploads/2020/06/Letalidade-da-ac%CC%A7a%CC%83o-policial-no-Rio-de-Janeiro.pdf",
+      "title": "Letalidade da Ação Policial no Rio de Janeiro",
+      "count": 10
     },
     {
       "author": "Cano I",
       "year": "2010",
-      "source": "RACE",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "Cano I.",
-      "year": "1997",
-      "source": "RACIAL BIASES LETHAL",
-      "doi": null,
-      "title": "RACIAL BIASES LETHAL",
+      "source": "Race, Crime and Criminal Justice: International Perspectives",
+      "doi": "https://link.springer.com/chapter/10.1057/9780230283954_10",
+      "title": "Race, Crime and Criminal Justice in Brazil",
       "count": 3
     },
     {
       "author": "Cano Ignacio.",
       "year": "2012",
-      "source": "Os donos do morro. Uma avaliacao exploratoria do impacto das Unidades de Policia Pacificadora (UPPs) no Rio de Janeiro",
-      "doi": null,
-      "title": "Os donos do morro. Uma avaliacao exploratoria do impacto das Unidades de Policia Pacificadora (UPPs) no Rio de Janeiro",
+      "source": "Os donos do morro: Uma avaliação exploratória do impacto das Unidades de Policia Pacificadora (UPPs) no Rio de Janeiro",
+      "doi": "https://www.google.com.br/books/edition/Os_donos_do_morro/HcUwrgEACAAJ?hl=pt-BR",
+      "title": "Os donos do morro: Uma avaliação exploratória do impacto das Unidades de Policia Pacificadora (UPPs) no Rio de Janeiro",
       "count": 2
     },
     {
       "author": "Cano Ignacio.",
       "year": "2007",
-      "source": "Homicidios no Brasil",
-      "doi": null,
-      "title": "Homicidios no Brasil",
+      "source": "Homícidios no Brasil",
+      "doi": "https://www.google.com.br/books/edition/Homic%C3%ADdios_no_Brasil/pUT7y6i7lvgC?hl=pt-BR&gbpv=0",
+      "title": "Homicídios no Rio de Janeiro e no Brasil: Dados, políticas públicas e perspectivas",
       "count": 2
     },
     {
@@ -6177,15 +5897,15 @@
     {
       "author": "Cardoso F.H.",
       "year": "1962",
-      "source": "CAPITALISMO ESCRAVID",
+      "source": "Capitalismo e Escravidão no Brasil Meridional",
       "doi": null,
-      "title": "CAPITALISMO ESCRAVID",
+      "title": "Capitalismo e Escravidão no Brasil Meridional",
       "count": 5
     },
     {
       "author": "Cardoso F.H.",
       "year": "1979",
-      "source": "DEPENDENCY DEV LATIN",
+      "source": "Dependency and Development in Latin America",
       "doi": "10.2307/492408",
       "title": "Dependency and Development in Latin America",
       "count": 4
@@ -6193,9 +5913,9 @@
     {
       "author": "CARDOSO FH",
       "year": "1997",
-      "source": "MULTICULTURALISMO RA",
+      "source": "Multiculturalismo e Racismo",
       "doi": null,
-      "title": "MULTICULTURALISMO RA",
+      "title": "Multiculturalismo e Racismo",
       "count": 4
     },
     {
@@ -7439,7 +7159,7 @@
     {
       "author": "Collins PH",
       "year": "2000",
-      "source": "ANN AM ACAD POLIT SS",
+      "source": "Annals of the American Academy of Political and Social Science",
       "doi": "10.1177/0002716200568001005",
       "title": "Gender, Black Feminism, and Black Political Economy",
       "count": 4
@@ -8779,9 +8499,9 @@
     {
       "author": "Diniz Debora",
       "year": "2006",
-      "source": "Ciênc. saúde coletiva",
-      "doi": null,
-      "title": "Ciênc. saúde coletiva",
+      "source": "Ciência & Saúde Coletiva",
+      "doi": "https://doi.org/10.1590/S1413-81232006000400026",
+      "title": "Informação genética na mídia impressa: a anemia falciforme em questão",
       "count": 3
     },
     {
@@ -8965,7 +8685,7 @@
     {
       "author": "DOMINGUES Petronio Jose",
       "year": "2002",
-      "source": "ESTUDOS AFRO ASIATIC",
+      "source": "Estudos Afro-Asiáticos",
       "doi": "10.1590/S0101-546X2002000300006",
       "title": "Negros de almas brancas? A ideologia do branqueamento no interior da comunidade negra em São Paulo, 1915-1930",
       "count": 5
@@ -9287,7 +9007,7 @@
     {
       "author": "Domingues RMSM",
       "year": "2015",
-      "source": "BMC INFECT DIS",
+      "source": "BMC Infectious Diseases",
       "doi": "10.1186/s12879-015-0837-8",
       "title": "Prenatal testing and prevalence of HIV infection during pregnancy: data from the “Birth in Brazil” study, a national hospital-based study",
       "count": 4
@@ -9677,7 +9397,7 @@
     {
       "author": "Dussel Enrique",
       "year": "2016",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-69922016000100004",
       "title": "Transmodernidade e interculturalidade: interpretação a partir da filosofia da libertação",
       "count": 1
@@ -9887,9 +9607,9 @@
     {
       "author": "Elias N.",
       "year": "1965",
-      "source": "ESTABLISHED OUTSIDER",
+      "source": "The Established and the Outsiders",
       "doi": null,
-      "title": "ESTABLISHED OUTSIDER",
+      "title": "The Established and the Outsiders",
       "count": 4
     },
     {
@@ -9903,9 +9623,9 @@
     {
       "author": "ELIAS Norbert.",
       "year": "1994",
-      "source": "PROCESS CIVILIZADOR",
+      "source": "O Processo Civilizador",
       "doi": null,
-      "title": "PROCESS CIVILIZADOR",
+      "title": "O Processo Civilizador",
       "count": 3
     },
     {
@@ -10217,7 +9937,7 @@
     {
       "author": "Escobar A",
       "year": "2010",
-      "source": "CULT STUD",
+      "source": "Cultural Studies",
       "doi": "10.1080/09502380903424208",
       "title": "LATIN AMERICA AT A CROSSROADS",
       "count": 1
@@ -10891,7 +10611,7 @@
     {
       "author": "FERNANDES Florestan",
       "year": "2008",
-      "source": "BRANCOS NEGROS SAO P",
+      "source": "Brancos e Negros em São Paulo",
       "doi": null,
       "title": null,
       "count": 5
@@ -11352,8 +11072,8 @@
       "author": "FISCHER BRODWYN",
       "year": "2008",
       "source": "A Poverty of Rights: Citizenship and Inequality in Twentieth-Century Rio de Janeiro",
-      "doi": "https://openlibrary.org/works/OL9584611W",
-      "title": null,
+      "doi": "https://www.google.com.br/books/edition/A_Poverty_of_Rights/chk9gAZq1EkC?hl=pt-BR&gbpv=0",
+      "title": "A Poverty of Rights: Citizenship and Inequality in Twentieth-Century Rio de Janeiro",
       "count": 16
     },
     {
@@ -11361,7 +11081,7 @@
       "year": "2004",
       "source": "Latin American Research Review",
       "doi": "10.1353/lar.2004.0008",
-      "title": "Quaese pretos de tao pobres? Race and Social Discrimination in Rio de Janeiro's Twentieth-Century Criminal Courts",
+      "title": "Quaese pretos de tão pobres? Race and Social Discrimination in Rio de Janeiro's Twentieth-Century Criminal Courts",
       "count": 5
     },
     {
@@ -11376,15 +11096,15 @@
       "author": "Fischer Brodwyn",
       "year": "2018",
       "source": "Estudios Afrolatinoamericanos: Una Introduccion",
-      "doi": null,
-      "title": null,
+      "doi": "https://www.google.com.br/books/edition/Estudios_afrolatinoamericanos/xvvMzgEACAAJ?hl=pt-BR",
+      "title": "Las leyes, el silencio y las desigualdades racializadas en la historia brasileña",
       "count": 3
     },
     {
       "author": "Fischer B",
       "year": "2022",
-      "source": "CONTEMP SOC SCI",
-      "doi": "10.1080/21582041.2021.1919748",
+      "source": "Contemporary Social Science ",
+      "doi": "https://doi.org/10.1080/21582041.2021.1919748",
       "title": "Historicising informal governance in 20th century Brazil",
       "count": 2
     },
@@ -11997,7 +11717,7 @@
     {
       "author": "Francis AM",
       "year": "2012",
-      "source": "J HUM RESOUR",
+      "source": "Journal of Human Resources",
       "doi": null,
       "title": null,
       "count": 31
@@ -12005,7 +11725,7 @@
     {
       "author": "Francis AM",
       "year": "2013",
-      "source": "ECON DEV CULT CHANGE",
+      "source": "Economic Development and Cultural Change",
       "doi": "10.1086/670375",
       "title": "Endogenous Race in Brazil: Affirmative Action and the Construction of Racial Identity among Young Adults",
       "count": 26
@@ -12021,7 +11741,7 @@
     {
       "author": "Francis AM",
       "year": "2012",
-      "source": "ECON EDUC REV",
+      "source": "Economics of Education Review",
       "doi": "10.1016/j.econedurev.2011.08.005",
       "title": "The redistributive equity of affirmative action: Exploring the role of race, socioeconomic status, and gender in college admissions",
       "count": 15
@@ -12029,7 +11749,7 @@
     {
       "author": "Francis-Tan A",
       "year": "2018",
-      "source": "J DEV ECON",
+      "source": "Journal of Development Economics",
       "doi": "10.1016/j.jdeveco.2018.06.017",
       "title": "Black Movement: Using discontinuities in admissions to study the effects of college quality and affirmative action",
       "count": 9
@@ -12789,82 +12509,42 @@
     {
       "author": "Freud S.",
       "year": "1974",
-      "source": "EDICAO STANDARD BRAS",
-      "doi": null,
-      "title": "EDICAO STANDARD BRAS",
-      "count": 17
+      "source": "Edição Standard Brasileira das Obras Psicológicas Completas de Sigmund Freud",
+      "doi": "https://books.google.com.br/books/about/Edi%C3%A7%C3%A3o_Standard_Brasileira_das_Obras_P.html?id=3QDVDAAAQBAJ&redir_esc=y",
+      "title": "Edição Standard Brasileira das Obras Psicológicas Completas de Sigmund Freud",
+      "count": 26
     },
     {
       "author": "FREUD S.",
       "year": "2010",
-      "source": "OBRAS COMPLETAS SIGM",
-      "doi": null,
-      "title": "OBRAS COMPLETAS SIGM",
+      "source": "Freud (1911-1913) - Obras completas volume 10",
+      "doi": "https://www.google.com.br/books/edition/Freud_1911_1913_Obras_completas_volume_1/Erk6hmsqvf4C?hl=pt-BR&gbpv=0",
+      "title": "Freud (1911-1913) - Obras completas volume 10",
       "count": 4
     },
     {
       "author": "Freud S.",
       "year": "1974",
-      "source": "O mal-estar na civilizacao",
-      "doi": null,
-      "title": "O mal-estar na civilizacao",
-      "count": 3
-    },
-    {
-      "author": "Freud S.",
-      "year": "1918",
-      "source": "STANDARD EDITION COM",
-      "doi": null,
-      "title": "STANDARD EDITION COM",
+      "source": "O mal-estar na civilização",
+      "doi": "https://www.google.com.br/books/edition/O_mal_estar_na_civiliza%C3%A7%C3%A3o/uqcVTp01oMYC?hl=pt-BR&gbpv=0",
+      "title": "O mal-estar na civilização",
       "count": 3
     },
     {
       "author": "Freud S.",
       "year": "2016",
-      "source": "NEUROSE PSICOSE PERV",
-      "doi": null,
-      "title": "NEUROSE PSICOSE PERV",
-      "count": 2
-    },
-    {
-      "author": "Freud S.",
-      "year": "1938",
-      "source": "The standard edition of the complete psychological works of Sigmund Freud",
-      "doi": null,
-      "title": "The standard edition of the complete psychological works of Sigmund Freud",
-      "count": 2
-    },
-    {
-      "author": "Freud S.",
-      "year": "1920",
-      "source": "The standard edition of the complete psychological works of Sigmund Freud",
-      "doi": null,
-      "title": "Die Traumdeutung",
+      "source": "Neurose, psicose, perversão",
+      "doi": "https://books.google.com.br/books/about/Neurose_psicose_pervers%C3%A3o.html?id=qMGCDQAAQBAJ&redir_esc=y",
+      "title": "Neurose, psicose, perversão",
       "count": 2
     },
     {
       "author": "Freud S.",
       "year": "1920",
       "source": "Beyond the pleasure principle",
-      "doi": null,
+      "doi": "https://books.google.com.br/books/about/Beyond_the_Pleasure_Principle.html?id=LQcUz3FVkNQC&redir_esc=y",
       "title": "Beyond the pleasure principle",
-      "count": 2
-    },
-    {
-      "author": "Freud S.",
-      "year": "1975",
-      "source": "EDICAO STANDARD OBRA",
-      "doi": null,
-      "title": "EDICAO STANDARD OBRA",
-      "count": 1
-    },
-    {
-      "author": "Freud S.",
-      "year": "1996",
-      "source": "ALEM PRINCIPIO PRAZE",
-      "doi": null,
-      "title": "ALEM PRINCIPIO PRAZE",
-      "count": 1
+      "count": 3
     },
     {
       "author": "Freud S.",
@@ -13024,14 +12704,6 @@
       "source": "The Freud Reader",
       "doi": null,
       "title": "The Freud Reader",
-      "count": 1
-    },
-    {
-      "author": "FREUD Sigmund",
-      "year": "1996",
-      "source": "FREUD EDICAO STANDAR",
-      "doi": null,
-      "title": "FREUD EDICAO STANDAR",
       "count": 1
     }
   ],
@@ -13817,7 +13489,7 @@
     {
       "author": "Goldstein DM",
       "year": "2005",
-      "source": "CRIT ANTHROPOL",
+      "source": "Critique of Anthropology",
       "doi": "10.1177/0308275X05058656",
       "title": "Flexible Justice",
       "count": 1
@@ -15081,7 +14753,7 @@
     {
       "author": "GRAHAM R",
       "year": "1966",
-      "source": "HISPANIC AM HIST REV",
+      "source": "Hispanic American Historical Review",
       "doi": "10.2307/2518384",
       "title": "Causes for the Abolition of Negro Slavery in Brazil: An Interpretive Essay",
       "count": 1
@@ -15147,7 +14819,7 @@
     {
       "author": "Grosfoguel Ramón",
       "year": "2016",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-69922016000100003",
       "title": "A estrutura do conhecimento nas universidades ocidentalizadas: racismo/sexismo epistêmico e os quatro genocídios/epistemicídios do longo século XVI",
       "count": 12
@@ -15155,31 +14827,31 @@
     {
       "author": "Grosfoguel R.",
       "year": "2008",
-      "source": "CTR ESTUDIOS SOCIAS",
-      "doi": null,
-      "title": null,
+      "source": "Revista Crítica de Ciências Sociais",
+      "doi": "https://doi.org/10.4000/rccs.697",
+      "title": "Para descolonizar os estudos de economia política e os estudos pós-coloniais: Transmodernidade, pensamento de fronteira e colonialidade global",
       "count": 12
     },
     {
       "author": "Grosfoguel R",
       "year": "2007",
-      "source": "CULT STUD",
+      "source": "Cultural Studies",
       "doi": "10.1080/09502380601162514",
-      "title": "THE EPISTEMIC DECOLONIAL TURN",
+      "title": "The Epistemic Decolonial Turn",
       "count": 9
     },
     {
       "author": "GROSFOGUEL Ramon",
       "year": "2018",
-      "source": "Decolonialidade e pensamento afrodiasporico",
-      "doi": "https://openlibrary.org/works/OL32435826W",
-      "title": "Decolonialidade e pensamento afrodiasporico",
+      "source": "Decolonialidade e pensamento afrodiaspórico",
+      "doi": "https://books.google.com.br/books/about/Decolonialidade_e_pensamento_afrodiasp%C3%B3.html?hl=pt-BR&id=u3lvDwAAQBAJ&redir_esc=y",
+      "title": "Decolonialidade e pensamento afrodiaspórico",
       "count": 6
     },
     {
       "author": "Grosfoguel R",
       "year": "2016",
-      "source": "J WORLD SYST RES",
+      "source": "Journal of World-Systems Research",
       "doi": "10.5195/jwsr.2016.609",
       "title": "What is Racism?",
       "count": 5
@@ -16427,7 +16099,7 @@
     {
       "author": "Hall S",
       "year": "2011",
-      "source": "CULT STUD",
+      "source": "Cultural Studies",
       "doi": "10.1080/09502386.2011.619886",
       "title": "THE NEO-LIBERAL REVOLUTION",
       "count": 1
@@ -16451,7 +16123,7 @@
     {
       "author": "Hall Stuart",
       "year": "1994",
-      "source": "COLONIAL DISCOURSE P",
+      "source": "Colonial Discourse and Post-Colonial Theory: A Reader",
       "doi": "https://doi.org/10.4324/9781315656496-28",
       "title": null,
       "count": 1
@@ -16619,7 +16291,7 @@
     {
       "author": "Hall Stuart.",
       "year": "1994",
-      "source": "COLONIAL DISCOURSE P",
+      "source": "Colonial Discourse and Post-Colonial Theory: A Reader",
       "doi": null,
       "title": null,
       "count": 1
@@ -17073,7 +16745,7 @@
     {
       "author": "Harris M",
       "year": "1998",
-      "source": "CRIT ANTHROPOL",
+      "source": "Critique of Anthropology",
       "doi": "10.1177/0308275X9801800104",
       "title": "'What it Means to be Caboclo'",
       "count": 1
@@ -17293,7 +16965,7 @@
     {
       "author": "Harvey D",
       "year": "2007",
-      "source": "ANN AM ACAD POLIT SS",
+      "source": "Annals of the American Academy of Political and Social Science",
       "doi": "10.1177/0002716206296780",
       "title": "Neoliberalism as Creative Destruction",
       "count": 2
@@ -18219,23 +17891,23 @@
     {
       "author": "HOLANDA S B.",
       "year": "2006",
-      "source": "RAIZES BRASIL EDICIO",
+      "source": "Raízes do Brasil",
       "doi": null,
-      "title": "RAIZES BRASIL EDICIO",
+      "title": "Raízes do Brasil",
       "count": 3
     },
     {
       "author": "DEHOLLANDA SB",
       "year": "1936",
-      "source": "RAIZES BRASIL EDICAO",
+      "source": "Raízes do Brasil",
       "doi": null,
-      "title": "RAIZES BRASIL EDICAO",
+      "title": "Raízes do Brasil",
       "count": 2
     },
     {
       "author": "DEHOLLANDA SB",
       "year": "1995",
-      "source": "HIST GERAL CIVILIZAC",
+      "source": "História Geral da Civilização Brasileira",
       "doi": null,
       "title": null,
       "count": 1
@@ -18243,9 +17915,9 @@
     {
       "author": "Holanda S. B.",
       "year": "2000",
-      "source": "VISAO PARAISO",
+      "source": "Visão do Paraíso",
       "doi": "https://openlibrary.org/works/OL1755153W",
-      "title": "VISAO PARAISO",
+      "title": "Visão do Paraíso",
       "count": 1
     },
     {
@@ -18269,24 +17941,16 @@
     {
       "author": "Holston James.",
       "year": "2008",
-      "source": "INSURGENT CITIZENSHI",
-      "doi": "10.1515/9781400832781",
-      "title": "INSURGENT CITIZENSHI",
-      "count": 26
-    },
-    {
-      "author": "Holston James.",
-      "year": "2009",
-      "source": "Insurgent Citizenship: Disjunction of Democracy and Modernity in Brazil",
-      "doi": "10.1111/j.1467-9493.2010.00401_3.x",
-      "title": null,
-      "count": 6
+      "source": "Insurgent Citizenship: Disjunctions of Democracy and Modernity in Brazil",
+      "doi": "https://books.google.com.br/books/about/Insurgent_Citizenship.html?hl=pt-BR&id=tNBdDwAAQBAJ&redir_esc=y",
+      "title": "Insurgent Citizenship: Disjunctions of Democracy and Modernity in Brazil",
+      "count": 41
     },
     {
       "author": "Holston James.",
       "year": "1998",
       "source": "Fault Lines of Democracy in Post-Transition Latin America",
-      "doi": "10.2307/20049492",
+      "doi": "https://books.google.com.bn/books?id=5BAUAAAAYAAJ&hl=ms&source=gbs_book_other_versions_r&cad=3",
       "title": "Fault Lines of Democracy in Post-Transition Latin America",
       "count": 4
     },
@@ -18294,38 +17958,22 @@
       "author": "Holston James.",
       "year": "1989",
       "source": "The Modernist City: An Anthropological Critique of Brasilia",
-      "doi": "10.2307/3317780",
-      "title": "The Modernist City: An Anthropological Critique of Brasilia",
-      "count": 3
-    },
-    {
-      "author": "Holston James.",
-      "year": "2013",
-      "source": "Cidadania Insurgente: Disjuncoes Da Democracia e Da Modernidade No Brasil",
-      "doi": null,
-      "title": "Cidadania Insurgente: Disjuncoes Da Democracia e Da Modernidade No Brasil",
+      "doi": "https://books.google.com.br/books/about/The_Modernist_City.html?id=Syc2y5QhgQgC&redir_esc=y",
+      "title": "Democracy, Law, and Violence: Disjunctions of Brazili",
       "count": 3
     },
     {
       "author": "Holston J.",
       "year": "1991",
       "source": "Cultural Anthropology",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "Holston James",
-      "year": "2008",
-      "source": "Insurgent Citizenship: Disjunctions of Democracy and Modernity in Brazil",
-      "doi": null,
-      "title": "Insurgent Citizenship: Disjunctions of Democracy and Modernity in Brazil",
+      "doi": "https://doi.org/10.1525/can.1991.6.4.02a00020",
+      "title": "Autoconstruction in Working-Class Brazil",
       "count": 3
     },
     {
       "author": "Holston J",
       "year": "2011",
-      "source": "CITIZENSHIP STUD",
+      "source": "Citizenship Studies",
       "doi": "10.1080/13621025.2011.565157",
       "title": "Contesting privilege with right: the transformation of differentiated citizenship in Brazil",
       "count": 2
@@ -18423,7 +18071,7 @@
     {
       "author": "Hone T",
       "year": "2021",
-      "source": "BMC PUBLIC HEALTH",
+      "source": "BMC Public Health",
       "doi": "10.1186/s12889-021-11328-0",
       "title": "Racial and socioeconomic disparities in multimorbidity and associated healthcare utilisation and outcomes in Brazil: a cross-sectional analysis of three million individuals",
       "count": 8
@@ -18447,7 +18095,7 @@
     {
       "author": "Hone T",
       "year": "2017",
-      "source": "HEALTH AFFAIR",
+      "source": "Health Affairs",
       "doi": "10.1377/hlthaff.2016.0966",
       "title": "Large Reductions In Amenable Mortality Associated With Brazil’s Primary Care Expansion And Strong Health Governance",
       "count": 5
@@ -18479,7 +18127,7 @@
     {
       "author": "Hone T",
       "year": "2017",
-      "source": "HEALTH POLICY PLANN",
+      "source": "Health Policy and Planning",
       "doi": "10.1093/heapol/czw098",
       "title": "Effect of primary health care reforms in Turkey on health service utilization and user satisfaction",
       "count": 1
@@ -18739,7 +18387,7 @@
     {
       "author": "HOOKS B",
       "year": "1993",
-      "source": "CULT STUD",
+      "source": "Cultural Studies",
       "doi": "10.1080/09502389300490051",
       "title": "Eros, eroticism and the pedagogical process",
       "count": 1
@@ -19103,7 +18751,7 @@
     {
       "author": "Htun M",
       "year": "2020",
-      "source": "DAEDALUS-US",
+      "source": "Daedalus",
       "doi": "10.1162/daed_a_01779",
       "title": "Fighting Violence Against Women: Laws, Norms & Challenges Ahead",
       "count": 1
@@ -19177,7 +18825,7 @@
     {
       "author": "Ianni Octavio",
       "year": "2004",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": null,
       "title": "Estud. av.",
       "count": 3
@@ -19331,10 +18979,10 @@
     {
       "author": "Janusz A",
       "year": "2018",
-      "source": "POLIT GROUPS IDENTIT",
+      "source": "Politics, Groups, and Identities",
       "doi": "10.1080/21565503.2017.1279976",
       "title": "Candidate race and electoral outcomes: evidence from Brazil",
-      "count": 9
+      "count": 10
     },
     {
       "author": "Janusz A",
@@ -19342,12 +18990,12 @@
       "source": "Latin American Research Review",
       "doi": "10.25222/larr.888",
       "title": "Candidate Advertisements and Afro-Brazilian Political Marginalization",
-      "count": 6
+      "count": 7
     },
     {
       "author": "Janusz A",
       "year": "2021",
-      "source": "ELECT STUD",
+      "source": "Electoral Studies",
       "doi": "10.1016/j.electstud.2021.102340",
       "title": "Electoral incentives and elite racial identification: Why Brazilian politicians change their race",
       "count": 5
@@ -19355,7 +19003,7 @@
     {
       "author": "Janusz A",
       "year": "2022",
-      "source": "POLIT RES QUART",
+      "source": "Political Research Quarterly",
       "doi": "10.1177/10659129211032279",
       "title": "Race and Resources in Brazilian Mayoral Elections",
       "count": 5
@@ -19363,7 +19011,7 @@
     {
       "author": "Janusz A",
       "year": "2022",
-      "source": "PARTY POLIT",
+      "source": "Party Politics",
       "doi": "10.1177/13540688211018424",
       "title": "Political parties and campaign resource allocation: Gender gaps in Brazilian elections",
       "count": 5
@@ -19371,7 +19019,7 @@
     {
       "author": "Janusz A",
       "year": "2022",
-      "source": "J POLITICS LAT AM",
+      "source": "Journal of Politics in Latin America",
       "doi": "10.1177/1866802X211052625",
       "title": "Race and Campaign Resources: Candidate Identification Numbers in Brazil",
       "count": 2
@@ -19395,7 +19043,7 @@
     {
       "author": "Janusz A",
       "year": "2023",
-      "source": "ELECT STUD",
+      "source": "Electoral Studies",
       "doi": "10.1016/j.electstud.2023.102597",
       "title": "The electoral consequences of racial fluidity",
       "count": 1
@@ -19403,17 +19051,9 @@
     {
       "author": "Janusz A",
       "year": "2025",
-      "source": "POLIT RES QUART",
+      "source": "Political Research Quarterly",
       "doi": "10.1177/10659129251348403",
       "title": "Who Donates? Gender and Campaign Contributions in Brazil",
-      "count": 1
-    },
-    {
-      "author": "Janusz A.",
-      "year": "2021",
-      "source": "Latin American Research Review",
-      "doi": null,
-      "title": null,
       "count": 1
     },
     {
@@ -19427,15 +19067,7 @@
     {
       "author": "Janusz Andrew",
       "year": "2017",
-      "source": "POLITICS GROUPS IDEN",
-      "doi": null,
-      "title": "POLITICS GROUPS IDEN",
-      "count": 1
-    },
-    {
-      "author": "Janusz Andrew",
-      "year": "2017",
-      "source": "NAT C BLACK POL SCI",
+      "source": "National Conference of Black Political Scientists",
       "doi": null,
       "title": null,
       "count": 1
@@ -19971,57 +19603,41 @@
     {
       "author": "Lacan J.",
       "year": "1956",
-      "source": "SEMINARIO LIVRO 6 DE",
-      "doi": null,
-      "title": "SEMINARIO LIVRO 6 DE",
-      "count": 10
+      "source": "O Seminário, livro 6: O desejo e sua interpretação",
+      "doi": "https://books.google.com.br/books/about/O_Semin%C3%A1rio_livro_6.html?id=BOH1zwEACAAJ&redir_esc=y",
+      "title": "O Seminário, livro 6: O desejo e sua interpretação",
+      "count": 12
     },
     {
       "author": "Lacan J.",
       "year": "1998",
       "source": "Escritos",
-      "doi": "https://openlibrary.org/works/OL26421896W",
+      "doi": "https://www.google.com.br/books/edition/_/GKk4mwEACAAJ?hl=pt-BR&sa=X&ved=2ahUKEwj0qeWvsNWUAxWwEbkGHR-VLIgQre8FegQICxAH",
       "title": "Escritos",
-      "count": 8
+      "count": 12
     },
     {
       "author": "Lacan J.",
       "year": "2003",
       "source": "Outros escritos",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Outros_escritos/qUBUAAAACAAJ?hl=pt-BR",
       "title": "Outros escritos",
       "count": 5
     },
     {
       "author": "Lacan J.",
-      "year": "1966",
-      "source": "ANXIETY",
-      "doi": "https://openlibrary.org/works/OL2127250W",
-      "title": "Ecrits",
-      "count": 4
-    },
-    {
-      "author": "Lacan J.",
       "year": "1995",
-      "source": "O Seminario livro 4: As Relacoes de Objeto",
-      "doi": null,
-      "title": "O Seminario livro 4: As Relacoes de Objeto",
-      "count": 2
-    },
-    {
-      "author": "LACAN J.",
-      "year": "1982",
-      "source": "O seminario",
-      "doi": null,
-      "title": "O seminario",
+      "source": "O Seminário livro 4: As Relações de Objeto",
+      "doi": "https://books.google.com.br/books/about/The_Object_Relation.html?id=J_AnzwEACAAJ&redir_esc=y",
+      "title": "O Seminário livro 4: As Relações de Objeto",
       "count": 2
     },
     {
       "author": "Lacan J.",
       "year": "2002",
-      "source": "PSYCHOSES",
-      "doi": null,
-      "title": "PSYCHOSES",
+      "source": "The Psychoses: The Seminar of Jacques Lacan",
+      "doi": "https://www.google.com.br/books/edition/The_Psychoses/ChAfAgAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "The Psychoses: The Seminar of Jacques Lacan",
       "count": 1
     },
     {
@@ -20303,7 +19919,7 @@
     {
       "author": "Leal MD",
       "year": "2024",
-      "source": "BMC PUBLIC HEALTH",
+      "source": "BMC Public Health",
       "doi": "10.1186/s12889-024-18109-5",
       "title": "Migration process of Venezuelan women to Brazil: living conditions and use of health services in Manaus and Boa Vista, 2018–2021",
       "count": 1
@@ -20707,7 +20323,7 @@
     {
       "author": "Lima MGB",
       "year": "2022",
-      "source": "B LAT AM RES",
+      "source": "Bulletin of Latin American Research",
       "doi": "10.1111/blar.13336",
       "title": "<scp><i>Quo vadis</i></scp>, Brazil? Environmental Malgovernance under Bolsonaro and the Ambiguous Role of the Sustainable Development Goals",
       "count": 1
@@ -21093,7 +20709,7 @@
     {
       "author": "Lima-Costa MF",
       "year": "2015",
-      "source": "SCI REP-UK",
+      "source": "Scientific Reports",
       "doi": "10.1038/srep09812",
       "title": "Genomic ancestry and ethnoracial self-classification based on 5,871 community-dwelling Brazilians (The Epigen Initiative)",
       "count": 17
@@ -21587,29 +21203,29 @@
       "year": "2013",
       "source": "Revista de Saúde Pública",
       "doi": "10.1590/S0034-8910.2013047004890",
-      "title": "Raca e mortalidade cerebrovascular no Brasil",
+      "title": "Raça e mortalidade cerebrovascular no Brasil",
       "count": 7
     },
     {
       "author": "Lotufo PA",
       "year": "2015",
-      "source": "J CLIN HYPERTENS",
+      "source": "The Journal of Clinical Hypertension",
       "doi": "10.1111/jch.12433",
       "title": "Resistant Hypertension: Risk Factors, Subclinical Atherosclerosis, and Comorbidities Among Adults—The Brazilian Longitudinal Study of Adult Health (<scp>ELSA</scp>‐Brasil)",
       "count": 5
     },
     {
       "author": "Lotufo Paulo Andrade",
-      "year": "2000",
-      "source": "Sao Paulo Med. J.",
-      "doi": null,
-      "title": "Sao Paulo Med. J.",
+      "year": "2001",
+      "source": "São Paulo Medical Journal.",
+      "doi": "https://doi.org/10.1590/S0066-782X2001000500009",
+      "title": "A medicina baseada nos brasileiros",
       "count": 5
     },
     {
       "author": "Lotufo PA",
       "year": "2007",
-      "source": "ARQ NEURO-PSIQUIAT",
+      "source": "Arquivos de Neuro-Psiquiatria",
       "doi": "10.1590/S0004-282X2007000500004",
       "title": "Race, gender and stroke subtypes mortality in São Paulo, Brazil",
       "count": 4
@@ -22073,7 +21689,7 @@
     {
       "author": "Macinko J",
       "year": "2015",
-      "source": "NEW ENGL J MED",
+      "source": "New England Journal of Medicine",
       "doi": "10.1056/NEJMp1501140",
       "title": "Brazil's Family Health Strategy — Delivering Community-Based Primary Care in a Universal Health System",
       "count": 12
@@ -22105,7 +21721,7 @@
     {
       "author": "Macinko J",
       "year": "2006",
-      "source": "J EPIDEMIOL COMMUN H",
+      "source": "Journal of Epidemiology & Community Health",
       "doi": "10.1136/jech.2005.038323",
       "title": "Evaluation of the impact of the Family Health Program on infant mortality in Brazil, 1990–2002",
       "count": 3
@@ -22113,7 +21729,7 @@
     {
       "author": "Macinko J",
       "year": "2010",
-      "source": "HEALTH AFFAIR",
+      "source": "Health Affairs",
       "doi": "10.1377/hlthaff.2010.0251",
       "title": "Major Expansion Of Primary Care In Brazil Linked To Decline In Unnecessary Hospitalization",
       "count": 3
@@ -23457,7 +23073,7 @@
     {
       "author": "Marmot M",
       "year": "2001",
-      "source": "NEW ENGL J MED",
+      "source": "New England Journal of Medicine",
       "doi": "10.1056/NEJM200107123450210",
       "title": "Inequalities in Health",
       "count": 3
@@ -23465,7 +23081,7 @@
     {
       "author": "Marmot M",
       "year": "2019",
-      "source": "BMJ-BRIT MED J",
+      "source": "BMJ: British Medical Journal",
       "doi": "10.1136/bmj.l251",
       "title": "Social determinants and non-communicable diseases: time for integrated action",
       "count": 2
@@ -23481,7 +23097,7 @@
     {
       "author": "Marmot M",
       "year": "2020",
-      "source": "J EPIDEMIOL COMMUN H",
+      "source": "Journal of Epidemiology & Community Health",
       "doi": "10.1136/jech-2020-214720",
       "title": "COVID-19: exposing and amplifying inequalities",
       "count": 2
@@ -23545,7 +23161,7 @@
     {
       "author": "Marmot M",
       "year": "2020",
-      "source": "BMJ-BRIT MED J",
+      "source": "BMJ: British Medical Journal",
       "doi": "10.1136/bmj.m693",
       "title": "Health equity in England: the Marmot review 10 years on",
       "count": 1
@@ -23561,7 +23177,7 @@
     {
       "author": "Marmot M",
       "year": "2018",
-      "source": "J EPIDEMIOL COMMUN H",
+      "source": "Journal of Epidemiology & Community Health",
       "doi": "10.1136/jech-2018-210580",
       "title": "Social causes of the slowdown in health improvement",
       "count": 1
@@ -23667,7 +23283,7 @@
     {
       "author": "Marteleto L",
       "year": "2016",
-      "source": "RES SOC STRAT MOBIL",
+      "source": "Research in Social Stratification and Mobility",
       "doi": "10.1016/j.rssm.2016.08.004",
       "title": "Educational stratification after a decade of reforms on higher education access in Brazil",
       "count": 9
@@ -23757,7 +23373,7 @@
     {
       "author": "Martins-Melo FR",
       "year": "2018",
-      "source": "PLOS NEGLECT TROP D",
+      "source": "PLOS Neglected Tropical Diseases",
       "doi": "10.1371/journal.pntd.0006559",
       "title": "The burden of Neglected Tropical Diseases in Brazil, 1990-2016: A subnational analysis from the Global Burden of Disease Study 2016",
       "count": 6
@@ -23765,7 +23381,7 @@
     {
       "author": "Martins-Melo FR",
       "year": "2016",
-      "source": "B WORLD HEALTH ORGAN",
+      "source": "Bulletin of the World Health Organization",
       "doi": "10.2471/BLT.15.152363",
       "title": "Mortality from neglected tropical diseases in Brazil, 2000–2011",
       "count": 6
@@ -23773,7 +23389,7 @@
     {
       "author": "Martins-Melo FR",
       "year": "2012",
-      "source": "TROP MED INT HEALTH",
+      "source": "Tropical Medicine & International Health",
       "doi": "10.1111/j.1365-3156.2012.03043.x",
       "title": "Mortality of Chagas’ disease in Brazil: spatial patterns and definition of high‐risk areas",
       "count": 6
@@ -23781,7 +23397,7 @@
     {
       "author": "Martins-Melo FR",
       "year": "2012",
-      "source": "PLOS NEGLECT TROP D",
+      "source": "PLOS Neglected Tropical Diseases",
       "doi": "10.1371/journal.pntd.0001508",
       "title": "Epidemiology of Mortality Related to Chagas' Disease in Brazil, 1999–2007",
       "count": 6
@@ -23909,7 +23525,7 @@
     {
       "author": "Martins-Melo FR",
       "year": "2012",
-      "source": "PLOS NEGLECT TROP D",
+      "source": "PLOS Neglected Tropical Diseases",
       "doi": null,
       "title": null,
       "count": 1
@@ -23927,7 +23543,7 @@
     {
       "author": "Marx AW",
       "year": "1996",
-      "source": "WORLD POLIT",
+      "source": "World Politics",
       "doi": "10.1353/wp.1996.0003",
       "title": "Race-Making and the Nation-State",
       "count": 2
@@ -24195,7 +23811,7 @@
     {
       "author": "Massey DS",
       "year": "2009",
-      "source": "ANN AM ACAD POLIT SS",
+      "source": "Annals of the American Academy of Political and Social Science",
       "doi": "10.1177/0002716209343558",
       "title": "The Changing Bases of Segregation in the United States",
       "count": 1
@@ -24315,44 +23931,36 @@
   ],
   "mattos, h": [
     {
-      "author": "MATTOS Hebe Maria",
-      "year": "2000",
-      "source": "Escravidao e Cidadania no Brasil Monarquico",
-      "doi": "https://openlibrary.org/works/OL3203007W",
-      "title": "Escravidao e Cidadania no Brasil Monarquico",
-      "count": 9
-    },
-    {
       "author": "Mattos Hebe",
       "year": "1996",
-      "source": "CORES SILENCIO SIGNI",
-      "doi": null,
-      "title": "CORES SILENCIO SIGNI",
-      "count": 8
+      "source": "Das Cores do Silêncio: os significados da liberdade no sudeste escravista, Brasil século XIX",
+      "doi": "https://www.google.com.br/books/edition/Das_cores_do_sil%C3%AAncio/Pp64AAAAIAAJ?hl=pt-BR&gbpv=0&bsq=Das%20Cores%20do%20Sil%C3%AAncio",
+      "title": "Das Cores do Silêncio: os significados da liberdade no sudeste escravista, Brasil século XIX",
+      "count": 15
+    },
+    {
+      "author": "MATTOS Hebe Maria",
+      "year": "2000",
+      "source": "Escravidão e Cidadania no Brasil Monárquico",
+      "doi": "https://www.google.com.br/books/edition/Escravid%C3%A3o_e_cidadania_no_Brasil_mon%C3%A1r/aqF7AAAAMAAJ?hl=pt-BR&gbpv=0&bsq=Escravidao%20e%20Cidadania%20no%20Brasil%20Monarquico",
+      "title": "Escravidão e Cidadania no Brasil Monárquico",
+      "count": 11
     },
     {
       "author": "Mattos HebeMaria.",
       "year": "2006",
       "source": "European Review of Latin American and Caribbean Studies",
-      "doi": null,
-      "title": null,
+      "doi": "https://doi.org/10.18352/erlacs.9654",
+      "title": "‘Pretos’ and ‘Pardos’ between the Cross and the Sword: Racial Categories in Seventeenth Century Brazil",
       "count": 5
     },
     {
       "author": "MATTOS Hebe",
-      "year": "2005",
+      "year": "2006",
       "source": "Revista USP",
-      "doi": null,
-      "title": "Revista USP",
+      "doi": "https://revistas.usp.br/revusp/pt_BR/article/view/13486/15304",
+      "title": "'Remanescentes das comunidades dos quilombos': memória do cativeiro e políticas de reparação no Brasil",
       "count": 5
-    },
-    {
-      "author": "Mattos Hebe",
-      "year": "2013",
-      "source": "Das cores do silencio",
-      "doi": "https://openlibrary.org/works/OL3203006W",
-      "title": "Das cores do silencio",
-      "count": 4
     },
     {
       "author": "Mattos H",
@@ -24404,10 +24012,10 @@
     },
     {
       "author": "MATTOS Hebe",
-      "year": "1995",
-      "source": "CORES SILENCIOO SIGN",
+      "year": "2004",
+      "source": "TOPOI REV HIST",
       "doi": null,
-      "title": "CORES SILENCIOO SIGN",
+      "title": null,
       "count": 2
     },
     {
@@ -24435,43 +24043,11 @@
       "count": 1
     },
     {
-      "author": "Mattos Hebe Maria.",
-      "year": "2013",
-      "source": "Das cores do silncio: os significados da liberdade no sudeste escravista-Brasil sculo XIX",
-      "doi": null,
-      "title": "Das cores do silncio: os significados da liberdade no sudeste escravista-Brasil sculo XIX",
-      "count": 1
-    },
-    {
-      "author": "Mattos Hebe Maria.",
-      "year": "2001",
-      "source": "Escravido e cidadania no Brasil monrquico",
-      "doi": null,
-      "title": "Escravido e cidadania no Brasil monrquico",
-      "count": 1
-    },
-    {
-      "author": "MATTOS Hebe",
-      "year": "2004",
-      "source": "TOPOI REV HIST",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "MATTOS Hebe",
       "year": "2004",
       "source": "Marcas da escravidao: biografia",
       "doi": null,
       "title": "Marcas da escravidao: biografia",
-      "count": 1
-    },
-    {
-      "author": "MATTOS Hebe Maria",
-      "year": "2000",
-      "source": "ESCRAVIDIIO E CIDADA",
-      "doi": null,
-      "title": "ESCRAVIDIIO E CIDADA",
       "count": 1
     },
     {
@@ -24520,14 +24096,6 @@
       "source": "CORONELISMO ENXADA V",
       "doi": null,
       "title": "CORONELISMO ENXADA V",
-      "count": 1
-    },
-    {
-      "author": "MATTOS H.",
-      "year": "2004",
-      "source": "TOPOI",
-      "doi": null,
-      "title": null,
       "count": 1
     },
     {
@@ -24783,7 +24351,7 @@
     {
       "author": "MBEMBE Achille",
       "year": "2001",
-      "source": "ESTUDOS AFRO ASIATIC",
+      "source": "Estudos Afro-Asiáticos",
       "doi": null,
       "title": "ESTUDOS AFRO ASIATIC",
       "count": 1
@@ -24793,7 +24361,7 @@
     {
       "author": "McCallum C",
       "year": "2005",
-      "source": "AM ETHNOL",
+      "source": "American Ethnologist",
       "doi": "10.1525/ae.2005.32.1.100",
       "title": "Racialized bodies, naturalized classes: Moving through the city of Salvador da Bahia",
       "count": 24
@@ -24809,7 +24377,7 @@
     {
       "author": "McCallum Cecilia.",
       "year": "1999",
-      "source": "B LAT AM RES",
+      "source": "Bulletin of Latin American Research",
       "doi": null,
       "title": null,
       "count": 6
@@ -24817,7 +24385,7 @@
     {
       "author": "McCallum C",
       "year": "2005",
-      "source": "SOCIOL HEALTH ILL",
+      "source": "Sociology of Health & Illness",
       "doi": "10.1111/j.1467-9566.2005.00440.x",
       "title": "Explaining caesarean section in Salvador da Bahia, Brazil",
       "count": 5
@@ -24825,7 +24393,7 @@
     {
       "author": "McCallum C",
       "year": "2016",
-      "source": "HIST CIENC SAUDE-MAN",
+      "source": "História, Ciências, Saúde-Manguinhos",
       "doi": "10.1590/S0104-59702016000100004",
       "title": "O dilema de uma prática: experiências de aborto em uma maternidade pública de Salvador, Bahia",
       "count": 5
@@ -24833,7 +24401,7 @@
     {
       "author": "Mccallum C",
       "year": "2014",
-      "source": "AM ETHNOL",
+      "source": "American Ethnologist",
       "doi": "10.1111/amet.12091",
       "title": "Cashinahua perspectives on functional anatomy: Ontology, ontogenesis, and biomedical education in Amazonia",
       "count": 2
@@ -24971,7 +24539,7 @@
     {
       "author": "McKittrick K",
       "year": "2011",
-      "source": "SOC CULT GEOGR",
+      "source": "Social & Cultural Geography",
       "doi": "10.1080/14649365.2011.624280",
       "title": "On plantations, prisons, and a black sense of place",
       "count": 10
@@ -24987,7 +24555,7 @@
     {
       "author": "McKittrick Katherine.",
       "year": "2007",
-      "source": "BLACK GEOGRAPHIES PO",
+      "source": "Black Geographies and the Politics of Place",
       "doi": null,
       "title": null,
       "count": 6
@@ -25093,7 +24661,7 @@
     {
       "author": "Mignolo WD",
       "year": "2007",
-      "source": "CULT STUD",
+      "source": "Cultural Studies",
       "doi": "10.1080/09502380601162498",
       "title": "INTRODUCTION",
       "count": 3
@@ -25321,13 +24889,13 @@
       "year": "2013",
       "source": "Revista de Saúde Pública",
       "doi": "10.1590/S0034-8910.2013047003851",
-      "title": "Afericoes e exames clinicos realizados nos participantes do ELSA-Brasil",
+      "title": "Aferições e exames clínicos realizados nos participantes do ELSA-Brasil",
       "count": 45
     },
     {
       "author": "Mill JG",
       "year": "2019",
-      "source": "J CLIN HYPERTENS",
+      "source": "The Journal of Clinical Hypertension",
       "doi": "10.1111/jch.13509",
       "title": "Sex‐specific patterns in the association between salt intake and blood pressure: The ELSA‐Brasil study",
       "count": 3
@@ -25335,7 +24903,7 @@
     {
       "author": "Mill JG",
       "year": "2012",
-      "source": "BRAZ J MED BIOL RES",
+      "source": "Brazilian Journal Of Medical and Biological Research",
       "doi": "10.1590/S0100-879X2012007500114",
       "title": "Correlation between sodium and potassium excretion in 24- and 12-h urine samples",
       "count": 3
@@ -25344,16 +24912,8 @@
       "author": "Mill JG",
       "year": "2012",
       "source": "Revista de Saúde Pública",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Mill J. S.",
-      "year": "1978",
-      "source": "A system of logic",
-      "doi": "https://openlibrary.org/works/OL24988061W",
-      "title": "A system of logic",
+      "doi": "https://doi.org/10.1590/S0034-89102012000700017",
+      "title": "Doenças crônicas não transmissíveis no Brasil: prioridade para enfrentamento e investigação",
       "count": 1
     }
   ],
@@ -25771,7 +25331,7 @@
     {
       "author": "Mitchell-Walthour G",
       "year": "2017",
-      "source": "J BLACK STUD",
+      "source": "Journal of Black Studies",
       "doi": "10.1177/0021934717714769",
       "title": "Economic Pessimism and Racial Discrimination in Brazil",
       "count": 2
@@ -25959,7 +25519,7 @@
     {
       "author": "Monteiro CA",
       "year": "2007",
-      "source": "B WORLD HEALTH ORGAN",
+      "source": "Bulletin of the World Health Organization",
       "doi": "10.2471/BLT.06.039073",
       "title": "Population-based evidence of a strong decline in the prevalence of smokers in Brazil (1989-2003)",
       "count": 6
@@ -25967,7 +25527,7 @@
     {
       "author": "Monteiro CA",
       "year": "1992",
-      "source": "B WORLD HEALTH ORGAN",
+      "source": "Bulletin of the World Health Organization",
       "doi": null,
       "title": null,
       "count": 6
@@ -25975,7 +25535,7 @@
     {
       "author": "Monteiro CA",
       "year": "2019",
-      "source": "PUBLIC HEALTH NUTR",
+      "source": "Public Health Nutrition",
       "doi": "10.1017/S1368980018003762",
       "title": "Ultra-processed foods: what they are and how to identify them",
       "count": 5
@@ -26007,7 +25567,7 @@
     {
       "author": "Monteiro CA",
       "year": "2010",
-      "source": "B WORLD HEALTH ORGAN",
+      "source": "Bulletin of the World Health Organization",
       "doi": "10.2471/BLT.09.069195",
       "title": "Narrowing socioeconomic inequality in child stunting: the Brazilian experience, 1974–2007",
       "count": 3
@@ -26039,7 +25599,7 @@
     {
       "author": "Monteiro CA",
       "year": "2011",
-      "source": "PUBLIC HEALTH NUTR",
+      "source": "Public Health Nutrition",
       "doi": "10.1017/S1368980010003241",
       "title": "Increasing consumption of ultra-processed foods and likely impact on human health: evidence from Brazil",
       "count": 2
@@ -26047,7 +25607,7 @@
     {
       "author": "Monteiro CA",
       "year": "2018",
-      "source": "PUBLIC HEALTH NUTR",
+      "source": "Public Health Nutrition",
       "doi": "10.1017/S1368980017000234",
       "title": "The UN Decade of Nutrition, the NOVA food classification and the trouble with ultra-processing",
       "count": 2
@@ -26103,7 +25663,7 @@
     {
       "author": "Monteiro CA",
       "year": "2015",
-      "source": "PUBLIC HEALTH NUTR",
+      "source": "Public Health Nutrition",
       "doi": "10.1017/S1368980015002165",
       "title": "Dietary guidelines to nourish humanity and the planet in the twenty-first century. A blueprint from Brazil",
       "count": 1
@@ -26111,7 +25671,7 @@
     {
       "author": "Monteiro CA",
       "year": "2002",
-      "source": "PUBLIC HEALTH NUTR",
+      "source": "Public Health Nutrition",
       "doi": "10.1079/PHN2001281",
       "title": "Part I. What has happened in terms of some of the unique elements of shift in diet, activity, obesity, and other measures of morbidity and mortality within different regions of the world?",
       "count": 1
@@ -26619,7 +26179,7 @@
     {
       "author": "Munanga Kabengele",
       "year": "2022",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": "10.1590/s0103-4014.2022.36105.008",
       "title": "O mundo e a diversidade: questões em debate",
       "count": 1
@@ -27353,7 +26913,7 @@
     {
       "author": "Nascimento EL",
       "year": "2004",
-      "source": "J BLACK STUD",
+      "source": "Journal of Black Studies",
       "doi": "10.1177/0021934704264009",
       "title": "Kilombismo, Virtual Whiteness, and the Sorcery of Color",
       "count": 1
@@ -27361,7 +26921,7 @@
     {
       "author": "NASCIMENTO EL",
       "year": "1980",
-      "source": "J BLACK STUD",
+      "source": "Journal of Black Studies",
       "doi": "10.1177/002193478001100203",
       "title": "Aspects of Afro-Brazilian Experience",
       "count": 1
@@ -27507,7 +27067,7 @@
     {
       "author": "NEEDELL JD",
       "year": "1987",
-      "source": "HISPANIC AM HIST REV",
+      "source": "Hispanic American Historical Review",
       "doi": "10.2307/2515023",
       "title": "The Revolta Contra Vacina of 1904: The Revolt against \"Modernization\" in Belle-Epoque Rio de Janeiro",
       "count": 6
@@ -27515,9 +27075,9 @@
     {
       "author": "Needell JeffreyD.",
       "year": "2006",
-      "source": "PARTY ORDER CONSERVA",
+      "source": "The Party of Order: The Conservatives, the State, and Slavery in the Brazilian Monarchy, 1831–1871",
       "doi": null,
-      "title": "PARTY ORDER CONSERVA",
+      "title": "The Party of Order: The Conservatives, the State, and Slavery in the Brazilian Monarchy, 1831–1871",
       "count": 6
     },
     {
@@ -27539,7 +27099,7 @@
     {
       "author": "NEEDELL JD",
       "year": "1995",
-      "source": "HISPANIC AM HIST REV",
+      "source": "Hispanic American Historical Review",
       "doi": null,
       "title": "Emergent Brazil",
       "count": 4
@@ -27547,7 +27107,7 @@
     {
       "author": "Needell JD",
       "year": "2001",
-      "source": "HISPANIC AM HIST REV",
+      "source": "Hispanic American Historical Review",
       "doi": "10.1215/00182168-81-2-259",
       "title": "Party Formation and State-Making: The Conservative Party and the Reconstruction of the Brazilian State, 1831-1840",
       "count": 1
@@ -27612,50 +27172,42 @@
   "neri, m": [
     {
       "author": "Neri Marcelo",
-      "year": "2010",
-      "source": "A nova classe media: O lado brilhante da base da piramide",
-      "doi": "https://openlibrary.org/works/OL22774381W",
-      "title": "A nova classe media: O lado brilhante da base da piramide",
-      "count": 12
+      "year": "2011",
+      "source": "A nova classe média: O lado brilhante da base da pirâmide",
+      "doi": "https://www.google.com.br/books/edition/A_nova_classe_m%C3%A9dia/hVyOtgAACAAJ?hl=pt-BR",
+      "title": "A nova classe média: O lado brilhante da base da pirâmide",
+      "count": 17
     },
     {
       "author": "Neri Marcelo",
       "year": "2002",
-      "source": "Cad. Saúde Pública",
+      "source": "Cadernos de Saúde Pública",
       "doi": "10.1590/S0102-311X2002000700009",
       "title": "Desigualdade social e saúde no Brasil",
       "count": 4
     },
     {
-      "author": "Neri Marcelo Cortes.",
-      "year": "2008",
-      "source": "A nova classe media",
-      "doi": "https://openlibrary.org/works/OL22774381W",
-      "title": "A nova classe media",
-      "count": 4
-    },
-    {
       "author": "Neri Marcelo",
       "year": "2022",
-      "source": "Inseguranca Alimentar no Brasil: Pandemia. Tendencias e Comparacoes internacionais",
-      "doi": null,
-      "title": "Inseguranca Alimentar no Brasil: Pandemia. Tendencias e Comparacoes internacionais",
+      "source": "Insegurança alimentar no Brasil: pandemia, tendências e comparações globais",
+      "doi": "https://repositorio.fgv.br/items/6b6948a0-c968-4efe-9d39-52f9777572ba",
+      "title": "Insegurança alimentar no Brasil: pandemia, tendências e comparações globais",
       "count": 2
     },
     {
       "author": "Neri M. C.",
       "year": "2019",
-      "source": "ESCALADA DESIGUALDAD",
-      "doi": null,
-      "title": "ESCALADA DESIGUALDAD",
+      "source": "A Escalada da Desigualdade - Qual foi o Impacto da Crise sobre Distribuição de Renda e Pobreza ?",
+      "doi": "https://cps.fgv.br/desigualdade",
+      "title": "A Escalada da Desigualdade - Qual foi o Impacto da Crise sobre Distribuição de Renda e Pobreza ?",
       "count": 2
     },
     {
       "author": "Neri M C.",
       "year": "2014",
-      "source": "BRAZILS MIDDLE CLASS",
-      "doi": null,
-      "title": "BRAZILS MIDDLE CLASS",
+      "source": "Brazil's Middle Classes",
+      "doi": "https://www.cps.fgv.br/cps/bd/papers/ES106-Brazil's-Middle-Classes.pdf",
+      "title": "Brazil's Middle Classes",
       "count": 2
     },
     {
@@ -27672,14 +27224,6 @@
       "source": "INEQUALITY DEVELOPIN",
       "doi": "https://doi.org/10.1093/oso/9780198863960.003.0005",
       "title": "Brazil",
-      "count": 1
-    },
-    {
-      "author": "Neri Marcelo",
-      "year": "2010",
-      "source": "NEW MIDDLE CLASS BRI",
-      "doi": null,
-      "title": null,
       "count": 1
     },
     {
@@ -27858,62 +27402,38 @@
       "source": "Os africanos no Brasil",
       "doi": "https://openlibrary.org/works/OL117390W",
       "title": "Os africanos no Brasil",
-      "count": 21
+      "count": 26
     },
     {
       "author": "Rodrigues RaimundoNina.",
       "year": "1935",
-      "source": "O Animismo Fetichista Dos Negros Bahianos : Pref. e Notas De Arthur Ramos",
+      "source": "O Animismo Fetichista Dos Negros Bahianos: Pref. e Notas De Arthur Ramos",
       "doi": "https://openlibrary.org/works/OL22815561W",
-      "title": "O Animismo Fetichista Dos Negros Bahianos : Pref. e Notas De Arthur Ramos",
-      "count": 7
+      "title": "O Animismo Fetichista Dos Negros Bahianos: Pref. e Notas De Arthur Ramos",
+      "count": 14
     },
     {
       "author": "RODRIGUES R.N.",
       "year": "1894",
-      "source": "As Racas Humanas e a Responsabilidade Penal no Brasil: com um estudo do professor Afranio Peixoto",
+      "source": "As Raças Humanas e a Responsabilidade Penal no Brasil: com um estudo do professor Afranio Peixoto",
       "doi": "https://openlibrary.org/works/OL7633902W",
-      "title": "As Racas Humanas e a Responsabilidade Penal no Brasil: com um estudo do professor Afranio Peixoto",
-      "count": 6
-    },
-    {
-      "author": "Rodrigues Nina.",
-      "year": "1900",
-      "source": "ANIMISMO FETICHISTA",
-      "doi": null,
-      "title": "ANIMISMO FETICHISTA",
-      "count": 6
+      "title": "As Raças Humanas e a Responsabilidade Penal no Brasil: com um estudo do professor Afranio Peixoto",
+      "count": 12
     },
     {
       "author": "RODRIGUES RaimundoNina.",
       "year": "1890",
       "source": "As Coletividades Anormais",
-      "doi": null,
+      "doi": "https://www2.senado.leg.br/bdsf/bitstream/handle/id/188307/As%20Coletividades%20Anormais.pdf",
       "title": "As Coletividades Anormais",
-      "count": 4
+      "count": 8
     },
     {
-      "author": "Rodrigues RaimundoNina.",
-      "year": "1939",
-      "source": "As collectividades anormaes [1897]",
-      "doi": null,
-      "title": "As collectividades anormaes [1897]",
-      "count": 3
-    },
-    {
-      "author": "Rodrigues RaimundoNina.",
-      "year": "1932",
-      "source": "OS AFRICANOS NO BRAS",
-      "doi": null,
-      "title": "OS AFRICANOS NO BRAS",
-      "count": 3
-    },
-    {
-      "author": "Nina Rodrigues R.",
+      "author": "RODRIGUES RaimundoNina",
       "year": "1899",
-      "source": "ARCH ANTHR CRIMINELL",
-      "doi": null,
-      "title": "ARCH ANTHR CRIMINELL",
+      "source": "História, Ciências, Saúde-Manguinhos",
+      "doi": "https://doi.org/10.1590/S0104-59702008000400014",
+      "title": "Mestiçagem, degenerescência e crime",
       "count": 2
     },
     {
@@ -27925,43 +27445,11 @@
       "count": 1
     },
     {
-      "author": "RODRIGUES RaimundoNina",
-      "year": "1899",
-      "source": "MESTICAGEM DEGENERES",
-      "doi": null,
-      "title": "MESTICAGEM DEGENERES",
-      "count": 1
-    },
-    {
-      "author": "RODRIGUES RN",
-      "year": "1945",
-      "source": "AFTICANOS BRASIL",
-      "doi": null,
-      "title": "AFTICANOS BRASIL",
-      "count": 1
-    },
-    {
-      "author": "RODRIGUES RN",
-      "year": "1938",
-      "source": "RACAS HUMANAS RESPON",
-      "doi": null,
-      "title": "RACAS HUMANAS RESPON",
-      "count": 1
-    },
-    {
       "author": "RODRIGUES RN",
       "year": "1976",
       "source": "GAZETA MED BAHIA",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "RODRIGUES RN",
-      "year": "1899",
-      "source": "METISSAGE DEGENERESC",
-      "doi": null,
-      "title": "METISSAGE DEGENERESC",
       "count": 1
     },
     {
@@ -27981,14 +27469,6 @@
       "count": 1
     },
     {
-      "author": "Nina Rodrigues Raimundo",
-      "year": "1982",
-      "source": "AFRICANOS BRASIL 189 AFRICANOS BRASIL 189",
-      "doi": null,
-      "title": "AFRICANOS BRASIL 189 AFRICANOS BRASIL 189",
-      "count": 1
-    },
-    {
       "author": "Rodrigues Nina",
       "year": "1904",
       "source": "KOSMOS",
@@ -28005,51 +27485,11 @@
       "count": 1
     },
     {
-      "author": "RODRIGUES Nina",
-      "year": "1988",
-      "source": "AS RACAS HUMANAS E A",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Rodrigues Nina",
-      "year": "1957",
-      "source": "AS RAGAS HUMANAS",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "RODRIGUES Nina",
-      "year": "1939",
-      "source": "COLLECTIVIDADES ANOR",
-      "doi": null,
-      "title": "COLLECTIVIDADES ANOR",
-      "count": 1
-    },
-    {
       "author": "Rodrigues Nina",
       "year": "2007",
       "source": "Nina para Todos",
       "doi": null,
       "title": "Nina para Todos",
-      "count": 1
-    },
-    {
-      "author": "Nina Rodrigues R",
-      "year": "1900",
-      "source": "ANIMISME FETICHISTE",
-      "doi": null,
-      "title": "ANIMISME FETICHISTE",
-      "count": 1
-    },
-    {
-      "author": "Nina Rodrigues R.",
-      "year": "1894",
-      "source": "RAGAS HUMANAS RESPON",
-      "doi": null,
-      "title": "RAGAS HUMANAS RESPON",
       "count": 1
     },
     {
@@ -28097,7 +27537,7 @@
     {
       "author": "Nobles M",
       "year": "2005",
-      "source": "DAEDALUS-US",
+      "source": "Daedalus",
       "doi": "10.1162/0011526053124398",
       "title": "The myth of Latin American multiracialism",
       "count": 1
@@ -28105,7 +27545,7 @@
     {
       "author": "Nobles Melissa.",
       "year": "2002",
-      "source": "NEW RACE QUESTION",
+      "source": "The New Race Question: How the Census Counts Multiracial Individuals",
       "doi": null,
       "title": null,
       "count": 1
@@ -28270,7 +27710,7 @@
       "author": "Omi M.",
       "year": "2020",
       "source": "Measuring race: Why disaggregating data matters for addressing educational inequality",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Measuring_Race/OQbZDwAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "Panethnicity and ethnic heterogeneity: the politics of lumping and disaggregating Asian Americans and Pacific Islanders in Educational Policy",
       "count": 1
     },
@@ -28492,8 +27932,8 @@
       "author": "Paim JS",
       "year": "2010",
       "source": "BIS. Boletim do Instituto de Saude (Impresso)",
-      "doi": null,
-      "title": "BIS. Boletim do Instituto de Saude (Impresso)",
+      "doi": "https://periodicos.saude.sp.gov.br/bis/article/view/33772/32575",
+      "title": "Universalidade, integralidade, equidade e SUS",
       "count": 5
     },
     {
@@ -28507,7 +27947,7 @@
     {
       "author": "Paim JS",
       "year": "2019",
-      "source": "SAUDE DEBATE",
+      "source": "Saúde em Debate",
       "doi": "10.1590/0103-11042019s502",
       "title": "Os sistemas universais de saúde e o futuro do Sistema Único de Saúde (SUS)",
       "count": 1
@@ -29367,7 +28807,7 @@
     {
       "author": "Peres MA",
       "year": "2007",
-      "source": "J CLIN PERIODONTOL",
+      "source": "Journal of Clinical Periodontology",
       "doi": "10.1111/j.1600-051X.2006.01043.x",
       "title": "Skin colour is associated with periodontal disease in Brazilian adults: a population‐based oral health survey",
       "count": 5
@@ -29375,7 +28815,7 @@
     {
       "author": "Peres MA",
       "year": "2010",
-      "source": "BMC ORAL HEALTH",
+      "source": "BMC Oral Health",
       "doi": "10.1186/1472-6831-10-20",
       "title": "Contextual and individual assessment of dental pain period prevalence in adolescents: a multilevel approach",
       "count": 5
@@ -29391,7 +28831,7 @@
     {
       "author": "Peres MA",
       "year": "2007",
-      "source": "J EPIDEMIOL COMMUN H",
+      "source": "Journal of Epidemiology & Community Health",
       "doi": "10.1136/jech.2005.044818",
       "title": "The relation between family socioeconomic trajectories from childhood to adolescence and dental caries and associated oral behaviours",
       "count": 4
@@ -29415,7 +28855,7 @@
     {
       "author": "Peres MA",
       "year": "2015",
-      "source": "COMMUNITY DENT ORAL",
+      "source": "Community Dentistry and Oral Epidemiology",
       "doi": "10.1111/cdoe.12144",
       "title": "Income‐related inequalities in inadequate dentition over time in Australia, Brazil and USA adults",
       "count": 2
@@ -29439,7 +28879,7 @@
     {
       "author": "Peres MA",
       "year": "2009",
-      "source": "COMMUNITY DENT ORAL",
+      "source": "Community Dentistry and Oral Epidemiology",
       "doi": "10.1111/j.1600-0528.2009.00460.x",
       "title": "Life course dental caries determinants and predictors in children aged 12 years: a population‐based birth cohort",
       "count": 1
@@ -29455,7 +28895,7 @@
     {
       "author": "Peres MA",
       "year": "2016",
-      "source": "J DENT RES",
+      "source": "Journal of Dental Research",
       "doi": "10.1177/0022034516643064",
       "title": "Access to Fluoridated Water and Adult Dental Caries",
       "count": 1
@@ -29463,7 +28903,7 @@
     {
       "author": "Peres MA",
       "year": "2018",
-      "source": "COMMUNITY DENT ORAL",
+      "source": "Community Dentistry and Oral Epidemiology",
       "doi": "10.1111/cdoe.12350",
       "title": "Oral health‐related behaviours do not mediate the effect of maternal education on adolescents' gingival bleeding: A birth cohort study",
       "count": 1
@@ -30017,7 +29457,7 @@
     {
       "author": "PORTES A",
       "year": "1993",
-      "source": "ANN AM ACAD POLIT SS",
+      "source": "Annals of the American Academy of Political and Social Science",
       "doi": "10.1177/0002716293530001006",
       "title": "The New Second Generation: Segmented Assimilation and its Variants",
       "count": 1
@@ -30615,7 +30055,7 @@
     {
       "author": "Rasella D",
       "year": "2014",
-      "source": "BMJ-BRIT MED J",
+      "source": "BMJ: British Medical Journal",
       "doi": "10.1136/bmj.g4014",
       "title": "Impact of primary health care on mortality from heart and cerebrovascular diseases in Brazil: a nationwide analysis of longitudinal data",
       "count": 9
@@ -30623,7 +30063,7 @@
     {
       "author": "Rasella D",
       "year": "2019",
-      "source": "BMC MED",
+      "source": "BMC Medicine",
       "doi": "10.1186/s12916-019-1316-7",
       "title": "Mortality associated with alternative primary healthcare policies: a nationwide microsimulation modelling study in Brazil",
       "count": 4
@@ -30631,7 +30071,7 @@
     {
       "author": "Rasella D",
       "year": "2013",
-      "source": "J EPIDEMIOL COMMUN H",
+      "source": "Journal of Epidemiology & Community Health",
       "doi": "10.1136/jech-2012-201426",
       "title": "Impact of income inequality on life expectancy in a highly unequal developing country: the case of Brazil",
       "count": 4
@@ -30639,7 +30079,7 @@
     {
       "author": "Rasella D",
       "year": "2010",
-      "source": "BMC PUBLIC HEALTH",
+      "source": "BMC Public Health",
       "doi": "10.1186/1471-2458-10-380",
       "title": "Impact of the Family Health Program on the quality of vital information and reduction of child unattended deaths in Brazil: an ecological longitudinal study",
       "count": 3
@@ -30647,7 +30087,7 @@
     {
       "author": "Rasella D",
       "year": "2021",
-      "source": "BMC MED",
+      "source": "BMC Medicine",
       "doi": "10.1186/s12916-021-01994-7",
       "title": "Long-term impact of a conditional cash transfer programme on maternal mortality: a nationwide analysis of Brazilian longitudinal data",
       "count": 2
@@ -31195,7 +30635,7 @@
     {
       "author": "Ribeiro Carlos Antonio Costa",
       "year": "2016",
-      "source": "Soc. estado.",
+      "source": "Sociedade e Estado",
       "doi": "10.1590/s0102-69922016000200002",
       "title": "Desigualdades de gênero no ensino superior e no mercado de trabalho no Brasil: uma análise de idade, período e coorte",
       "count": 1
@@ -31569,7 +31009,7 @@
     {
       "author": "ROMERO S",
       "year": "1992",
-      "source": "MACHADO ASSIS ESTUDO",
+      "source": "Machado de Assis: Estudo Comparativo de Literatura Brasileira",
       "doi": null,
       "title": null,
       "count": 2
@@ -31738,48 +31178,40 @@
   "rosemberg, f": [
     {
       "author": "ROSEMBERG F.",
-      "year": "1976",
-      "source": "ESTUDOS AVALIA O EDU",
-      "doi": "https://openlibrary.org/works/OL26396163W",
-      "title": "Bebes En Movimiento",
-      "count": 10
-    },
-    {
-      "author": "ROSEMBERG F.",
       "year": "1984",
-      "source": "CADERNOS PESQUISA FU",
-      "doi": null,
-      "title": "CADERNOS PESQUISA FU",
+      "source": "Cadernos de Pesquisa",
+      "doi": "https://publicacoes.fcc.org.br/cp/article/view/1462",
+      "title": "O movimento de mulheres e a abertura política no Brasil: o caso da creche",
       "count": 7
     },
     {
       "author": "Rosemberg Fúlvia",
       "year": "2002",
-      "source": "Cad. Pesqui.",
-      "doi": null,
-      "title": "Cad. Pesqui.",
+      "source": "Cadernos de Pesquisa",
+      "doi": "https://doi.org/10.1590/S0100-15742002000100002",
+      "title": "Organizações multilaterais, estado e políticas de educação infantil: history repeats",
       "count": 5
     },
     {
       "author": "Rosemberg Fulvia.",
       "year": "1985",
       "source": "Literatura infantil e ideologia",
-      "doi": "https://openlibrary.org/works/OL11212971W",
+      "doi": "https://www.google.com.br/books/edition/Literatura_infantil_e_ideologia/5c8uAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=Literatura%20infantil%20e%20ideologia%20rosemberg",
       "title": "Literatura infantil e ideologia",
       "count": 4
     },
     {
       "author": "Rosemberg F",
       "year": "1976",
-      "source": "CIENCIA CULTURA SBPC",
+      "source": "Ciência e Cultura (SBPC)",
       "doi": null,
-      "title": "CIENCIA CULTURA SBPC",
+      "title": "Educação para quem?",
       "count": 3
     },
     {
       "author": "Rosemberg F",
       "year": "1999",
-      "source": "CHILDHOOD",
+      "source": "Childhood",
       "doi": "10.1177/0907568299006001009",
       "title": "Ruthless Rhetoric",
       "count": 2
@@ -31811,7 +31243,7 @@
     {
       "author": "Rosemberg Fúlvia",
       "year": "2004",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": null,
       "title": "Estud. av.",
       "count": 2
@@ -32102,16 +31534,16 @@
     },
     {
       "author": "Roth-Gordon Jennifer.",
-      "year": "2007",
+      "year": "2008",
       "source": "Journal of Linguistic Anthropology",
-      "doi": null,
-      "title": null,
+      "doi": "https://doi.org/10.1525/jlin.2007.17.2.246",
+      "title": "Racing and erasing the playboy: Slang, transnational youth subculture, and racial discourse in Brazil",
       "count": 5
     },
     {
       "author": "Roth-Gordon J",
       "year": "2007",
-      "source": "J SOCIOLING",
+      "source": "Journal of Sociolinguistics",
       "doi": "10.1111/j.1467-9841.2007.00326.x",
       "title": "Youth, slang, and pragmatic expressions: Examples from Brazilian Portuguese<sup>1</sup>",
       "count": 3
@@ -32119,8 +31551,8 @@
     {
       "author": "Roth-Gordon J",
       "year": "2013",
-      "source": "J LAT AM CARIBB ANTH",
-      "doi": "10.1111/jlca.12021",
+      "source": "The Journal of Latin American and Caribbean Anthropology",
+      "doi": "https://doi.org/10.1111/jlca.12021Digital Object Identifier (DOI)",
       "title": "Racial Malleability and the Sensory Regime of Politically Conscious Brazilian Hip Hop",
       "count": 2
     },
@@ -32284,7 +31716,7 @@
       "author": "Samuels DavidJ Cesar Zucco.",
       "year": "2018",
       "source": "Partisans, Antipartisans, and Nonpartisans: Voting Behavior in Brazil",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Partisans_Anti_Partisans_and_Non_Partisa/mNBVDwAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "Partisans, Antipartisans, and Nonpartisans: Voting Behavior in Brazil",
       "count": 5
     },
@@ -32655,7 +32087,7 @@
     {
       "author": "Sansone NMS",
       "year": "2022",
-      "source": "LANCET REG HEALTH-AM",
+      "source": "The Lancet Regional Health – Americas",
       "doi": "10.1016/j.lana.2021.100177",
       "title": "Severe Acute Respiratory Syndrome by SARS-CoV-2 Infection or Other Etiologic Agents Among Brazilian Indigenous Population: An Observational Study from the First Year of Coronavirus Disease (COVID)-19 Pandemic",
       "count": 11
@@ -32663,7 +32095,7 @@
     {
       "author": "Sansone NMS",
       "year": "2022",
-      "source": "J GLOB HEALTH",
+      "source": "Journal of Global Health",
       "doi": "10.7189/jogh.12.05027",
       "title": "Characterization of demographic data, clinical signs, comorbidities, and outcomes according to the race in hospitalized individuals with COVID-19 in Brazil: An observational study",
       "count": 7
@@ -32671,7 +32103,7 @@
     {
       "author": "Sansone NMS",
       "year": "2022",
-      "source": "FRONT MICROBIOL",
+      "source": "Frontiers in Microbiology",
       "doi": "10.3389/fmicb.2022.911036",
       "title": "Epidemiologic Profile of Severe Acute Respiratory Infection in Brazil During the COVID-19 Pandemic: An Epidemiological Study",
       "count": 6
@@ -32679,7 +32111,7 @@
     {
       "author": "Sansone NMS",
       "year": "2022",
-      "source": "INT J ENV RES PUB HE",
+      "source": "International Journal of Environmental Research and Public Health",
       "doi": "10.3390/ijerph19158895",
       "title": "Characterization of Clinical Features of Hospitalized Patients Due to the SARS-CoV-2 Infection in the Absence of Comorbidities Regarding the Sex: An Epidemiological Study of the First Year of the Pandemic in Brazil",
       "count": 5
@@ -32687,7 +32119,7 @@
     {
       "author": "Sansone NMS",
       "year": "2022",
-      "source": "FRONT MED-LAUSANNE",
+      "source": "Frontiers in Medicine",
       "doi": "10.3389/fmed.2022.953084",
       "title": "Profile of coronavirus disease enlightened asthma as a protective factor against death: An epidemiology study from Brazil during the pandemic",
       "count": 3
@@ -33155,7 +32587,7 @@
     {
       "author": "Santos IS",
       "year": "2015",
-      "source": "ARTERIOSCL THROM VAS",
+      "source": "Arteriosclerosis, Thrombosis, and Vascular Biology",
       "doi": "10.1161/ATVBAHA.115.305765",
       "title": "Low Impact of Traditional Risk Factors on Carotid Intima-Media Thickness",
       "count": 5
@@ -33163,7 +32595,7 @@
     {
       "author": "Santos IS",
       "year": "2014",
-      "source": "EUR J PAIN",
+      "source": "European Journal of Pain",
       "doi": "10.1002/j.1532-2149.2014.489.x",
       "title": "Job stress is associated with migraine in current workers: The <scp>B</scp>razilian Longitudinal Study of Adult Health (<scp>ELSA</scp>‐<scp>B</scp>rasil)",
       "count": 4
@@ -33171,7 +32603,7 @@
     {
       "author": "Santos IS",
       "year": "2016",
-      "source": "J AM SOC ECHOCARDIOG",
+      "source": "Journal of the American Society of Echocardiography",
       "doi": "10.1016/j.echo.2016.09.001",
       "title": "Association between Cardiovascular Health Score and Carotid Intima-Media Thickness: Cross-Sectional Analysis of the Brazilian Longitudinal Study of Adult Health (ELSA-Brasil) Baseline Assessment",
       "count": 4
@@ -33267,7 +32699,7 @@
     {
       "author": "Santos IS",
       "year": "2005",
-      "source": "BMC PUBLIC HEALTH",
+      "source": "BMC Public Health",
       "doi": "10.1186/1471-2458-5-118",
       "title": "Prevalence of Helicobacter pyloriinfection and associated factors among adults in Southern Brazil: a population-based cross-sectional study",
       "count": 1
@@ -33389,9 +32821,9 @@
     {
       "author": "SANTOS JAF",
       "year": "2002",
-      "source": "ESTRUTURA POSICOES C",
+      "source": "Estrutura de Posições de Classe no Brasil",
       "doi": null,
-      "title": "ESTRUTURA POSICOES C",
+      "title": "Estrutura de Posições de Classe no Brasil",
       "count": 3
     },
     {
@@ -33495,47 +32927,39 @@
     {
       "author": "DOSSANTOS JT",
       "year": "2002",
-      "source": "ESTUD AFRO-ASIAT",
-      "doi": "10.1590/S0101-546X2002000100007",
+      "source": "Estudos afro-asiáticos",
+      "doi": "https://doi.org/10.1590/S0101-546X2002000100007",
       "title": "De armadilhas, convicções e dissensões: as relações raciais como efeito Orloff",
-      "count": 2
-    },
-    {
-      "author": "SANTOS J. C.",
-      "year": "1998",
-      "source": "TEORIA REDEMOCRATIZA",
-      "doi": null,
-      "title": "TEORIA REDEMOCRATIZA",
       "count": 2
     },
     {
       "author": "Santos J.T.",
       "year": "2012",
-      "source": "Rev. Bras. Est. Pedag",
-      "doi": null,
-      "title": "Rev. Bras. Est. Pedag",
+      "source": "Revista Brasileira de Estudos Pedagógicas",
+      "doi": "https://doi.org/10.24109/2176-6681.rbep.93i234.447",
+      "title": "Ações afirmativas e educação superior no Brasil: um balanço crítico da produção",
       "count": 2
     },
     {
       "author": "DOSSANTOS JT",
       "year": "2005",
-      "source": "PODER CULTURA CULTUR",
-      "doi": null,
-      "title": "PODER CULTURA CULTUR",
+      "source": "O poder da cultura e a cultura no poder: a disputa simbólica da herança cultural negra no Brasil",
+      "doi": "https://books.scielo.org/id/hqhrv",
+      "title": "O poder da cultura e a cultura no poder: a disputa simbólica da herança cultural negra no Brasil",
       "count": 2
     },
     {
       "author": "Santos JocelioT.",
       "year": "1995",
-      "source": "O Dono Da Terra: O Caboclo Nos Candombles Da Bahia",
-      "doi": "https://openlibrary.org/works/OL2595470W",
-      "title": "O Dono Da Terra: O Caboclo Nos Candombles Da Bahia",
+      "source": "O dono da terra: o caboclo nos candomblés da Bahia",
+      "doi": "https://www.google.com.br/books/edition/O_dono_da_terra/qkpZAAAAMAAJ?hl=pt-BR&gbpv=0&bsq=%22O%20Dono%20Da%20Terra:%20O%20Caboclo%20Nos%20Candombles%20Da%20Bahia",
+      "title": "O dono da terra: o caboclo nos candomblés da Bahia",
       "count": 2
     },
     {
       "author": "Santos J.",
       "year": "2004",
-      "source": "S O PAULO PERSPECTIV",
+      "source": "São Paulo em Perspectiva",
       "doi": "10.1590/S0102-88392004000100002",
       "title": "Violências e dilemas do controle social nas sociedades da \"modernidade tardia\"",
       "count": 1
@@ -33761,7 +33185,7 @@
     {
       "author": "SANTOS MÁRCIA PEREIRA ALVES DOS",
       "year": "2020",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": "10.1590/s0103-4014.2020.3499.014",
       "title": "População negra e Covid-19: reflexões sobre racismo e saúde",
       "count": 16
@@ -34371,7 +33795,7 @@
     {
       "author": "Santos RV",
       "year": "2004",
-      "source": "CRIT ANTHROPOL",
+      "source": "Critique of Anthropology",
       "doi": "10.1177/0308275X04047841",
       "title": "Race, Genomics, Identities and Politics in Contemporary Brazil",
       "count": 8
@@ -34387,7 +33811,7 @@
     {
       "author": "Santos RV",
       "year": "2002",
-      "source": "CRIT ANTHROPOL",
+      "source": "Critique of Anthropology",
       "doi": null,
       "title": "CRIT ANTHROPOL",
       "count": 6
@@ -34395,7 +33819,7 @@
     {
       "author": "Santos RV",
       "year": "2015",
-      "source": "BIOSOCIETIES",
+      "source": "BioSocieties",
       "doi": "10.1057/biosoc.2014.21",
       "title": "Pharmacogenomics, human genetic diversity and the incorporation and rejection of color/race in Brazil",
       "count": 5
@@ -35277,7 +34701,7 @@
     {
       "author": "Schwartz StuartB.",
       "year": "1974",
-      "source": "HISPANIC AM HIST REV",
+      "source": "Hispanic American Historical Review",
       "doi": null,
       "title": null,
       "count": 6
@@ -36467,7 +35891,7 @@
       "year": "1997",
       "source": "Tese em Antropologia",
       "doi": null,
-      "title": "Negro is a nickname that the whites gave to the blacks : discourses on color, race and racism in Rio de Janeiro",
+      "title": "Negro is a nickname that the whites gave to the blacks: discourses on color, race and racism in Rio de Janeiro",
       "count": 4
     },
     {
@@ -37883,15 +37307,15 @@
     {
       "author": "Spivak Gayatri.",
       "year": "1994",
-      "source": "COLONIAL DISCOURSE P",
+      "source": "Colonial Discourse and Post-Colonial Theory: A Reader",
       "doi": null,
-      "title": "COLONIAL DISCOURSE P",
+      "title": "Colonial Discourse and Post-Colonial Theory: A Reader",
       "count": 2
     },
     {
       "author": "Spivak G.C.",
       "year": "1988",
-      "source": "IN OTHER WORLDS",
+      "source": "In Other Worlds: Essays in Cultural Politics",
       "doi": "https://openlibrary.org/works/OL1932164W",
       "title": "In other worlds",
       "count": 2
@@ -38459,8 +37883,8 @@
     {
       "author": "Tajfel H.",
       "year": "1979",
-      "source": "SOCIAL PSYCHOL INTER",
-      "doi": "10.1086/227378",
+      "source": "Differentiation Between Social Groups: Studies in the Social Psychology of Intergroup Relations",
+      "doi": "https://books.google.com.br/books/about/Differentiation_Between_Social_Groups.html?id=Cfi2AAAAIAAJ&redir_esc=y",
       "title": "Differentiation Between Social Groups: Studies in the Social Psychology of Intergroup Relations",
       "count": 13
     },
@@ -38468,14 +37892,14 @@
       "author": "Tajfel H.",
       "year": "1981",
       "source": "Human Groups and Social Categories",
-      "doi": "https://openlibrary.org/works/OL6339459W",
+      "doi": "https://www.google.com.br/books/edition/Human_Groups_and_Social_Categories/ldA8AAAAIAAJ?hl=pt-BR",
       "title": "Human Groups and Social Categories",
       "count": 7
     },
     {
       "author": "TAJFEL H",
       "year": "1971",
-      "source": "EUR J SOC PSYCHOL",
+      "source": "European Journal of Social Psychology",
       "doi": "10.1002/ejsp.2420010202",
       "title": "Social categorization and intergroup behaviour",
       "count": 6
@@ -38484,14 +37908,14 @@
       "author": "Tajfel H.",
       "year": "1978",
       "source": "Psychology of Intergroup Relations",
-      "doi": null,
-      "title": "Psychology of Intergroup Relations",
+      "doi": "https://books.google.com.br/books/about/Psychology_of_Intergroup_Relations.html?id=FXISAQAAMAAJ&redir_esc=y",
+      "title": "The Social Identity Theory of Intergroup Behaviour",
       "count": 4
     },
     {
       "author": "TAJFEL H",
       "year": "1974",
-      "source": "SOC SCI INFORM",
+      "source": "Social Science Information",
       "doi": "10.1177/053901847401300204",
       "title": "Social identity and intergroup behaviour",
       "count": 3
@@ -39449,7 +38873,7 @@
     {
       "author": "Victora CG",
       "year": "2010",
-      "source": "HEALTH POLICY PLANN",
+      "source": "Health Policy and Planning",
       "doi": "10.1093/heapol/czp065",
       "title": "Socio-economic and ethnic group inequities in antenatal care quality in the public and private sector in Brazil",
       "count": 10
@@ -39529,7 +38953,7 @@
     {
       "author": "Victora CG",
       "year": "2003",
-      "source": "BMJ-BRIT MED J",
+      "source": "BMJ: British Medical Journal",
       "doi": "10.1136/bmj.327.7420.901",
       "title": "Anthropometry and body composition of 18 year old men according to duration of breast feeding: birth cohort study from Brazil",
       "count": 2
@@ -40489,7 +39913,7 @@
     {
       "author": "Waiselfisz Julio Jacobo",
       "year": "2007",
-      "source": "Estud. av.",
+      "source": "Estudos Avançados",
       "doi": null,
       "title": "Estud. av.",
       "count": 2
@@ -41145,7 +40569,7 @@
     {
       "author": "Williams DR",
       "year": "2019",
-      "source": "ANNU REV PUBL HEALTH",
+      "source": "Annual Review of Public Health",
       "doi": "10.1146/annurev-publhealth-040218-043750",
       "title": "Racism and Health: Evidence and Needed Research",
       "count": 17
@@ -41153,7 +40577,7 @@
     {
       "author": "Williams DR",
       "year": "2009",
-      "source": "J BEHAV MED",
+      "source": "Journal of Behavioral Medicine",
       "doi": "10.1007/s10865-008-9185-0",
       "title": "Discrimination and racial disparities in health: evidence and needed research",
       "count": 16
@@ -41169,7 +40593,7 @@
     {
       "author": "Williams DR",
       "year": "2019",
-      "source": "HEALTH SERV RES",
+      "source": "Health Services Research",
       "doi": "10.1111/1475-6773.13222",
       "title": "Understanding how discrimination can affect health",
       "count": 12
@@ -41249,7 +40673,7 @@
     {
       "author": "Williams DR",
       "year": "2005",
-      "source": "HEALTH AFFAIR",
+      "source": "Health Affairs",
       "doi": "10.1377/hlthaff.24.2.325",
       "title": "Social Sources Of Racial Disparities In Health",
       "count": 5
@@ -41273,7 +40697,7 @@
     {
       "author": "Williams DR",
       "year": "2019",
-      "source": "INT J ENV RES PUB HE",
+      "source": "International Journal of Environmental Research and Public Health",
       "doi": "10.3390/ijerph16040606",
       "title": "Reducing Racial Inequities in Health: Using What We Already Know to Take Action",
       "count": 4
@@ -41297,7 +40721,7 @@
     {
       "author": "Williams DR",
       "year": "2012",
-      "source": "HEALTH SERV RES",
+      "source": "Health Services Research",
       "doi": "10.1111/j.1475-6773.2012.01404.x",
       "title": "Integrating Multiple Social Statuses in Health Disparities Research: The Case of Lung Cancer",
       "count": 2
@@ -41425,7 +40849,7 @@
     {
       "author": "WILLIAMS DR",
       "year": "1994",
-      "source": "HEALTH SERV RES",
+      "source": "Health Services Research",
       "doi": null,
       "title": null,
       "count": 1
@@ -41484,8 +40908,8 @@
       "author": "Wimmer Andreas.",
       "year": "2013",
       "source": "Ethnic Boundary Making: Institutions, Power, Networks",
-      "doi": "10.1093/acprof:oso/9780199927371.001.0001",
-      "title": null,
+      "doi": "https://books.google.com.br/books/about/Ethnic_Boundary_Making.html?id=FWKTAAAAQBAJ&redir_esc=y",
+      "title": "Ethnic Boundary Making: Institutions, Power, Networks",
       "count": 10
     },
     {
@@ -41499,17 +40923,17 @@
     {
       "author": "Wimmer Andreas.",
       "year": "2002",
-      "source": "Global Networks",
-      "doi": null,
-      "title": null,
+      "source": "Global Networks: a journal of transational affairs",
+      "doi": "https://doi.org/10.1111/1471-0374.00043",
+      "title": "Methodological nationalism and beyond: nation–state building, migration and the social sciences",
       "count": 3
     },
     {
       "author": "Wimmer Andreas.",
       "year": "2002",
       "source": "Nationalist Exclusion and Ethnic Conflict: Shadows of Modernity",
-      "doi": null,
-      "title": null,
+      "doi": "https://books.google.com.vc/books?id=DbMA5o4rweoC&printsec=copyright#v=onepage&q&f=false",
+      "title": "Nationalist Exclusion and Ethnic Conflict: Shadows of Modernity",
       "count": 3
     },
     {
