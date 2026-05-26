@@ -403,10 +403,11 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
+  '0': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo) — índice 0 no teste5.gexf
   '1': { name: 'Cluster 1', color: '#C43D32' }, // Tijolo médio
   '2': { name: 'Cluster 2', color: '#B8C4C6' }, // Cinza azulado (branco)
   '3': { name: 'Cluster 3', color: '#6CCDD4' }, // Teal médio
-  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo)
+  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo) — compatibilidade GEXFs antigos
 };
 // Clusters excluídos da visualização
 const EXCLUDED_CLUSTERS = new Set(['5']);
