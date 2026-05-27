@@ -643,7 +643,7 @@ let authorNamesDB = (typeof FULL_NAME_MAP !== 'undefined') ? FULL_NAME_MAP : {};
 
 // Normaliza label: remove acentos, lowercase
 function normalizeAuthorKey(label) {
-  return label.normalize('NFKD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+  return label.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 }
 // Lookup tolerante: tenta label com acento primeiro, depois sem
 function lookupFullName(label) {
@@ -1745,7 +1745,7 @@ function hideNodeCard() {
 // ═══════════════════════════════════════════════════════
 function initSearch() {
   const input=document.getElementById('search-input'), dropdown=document.getElementById('search-dropdown');
-  function normStr(s){ return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+  function normStr(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   input.addEventListener('input', () => {
     const q=input.value.trim(); dropdown.innerHTML='';
     if (!q) { dropdown.classList.remove('open'); return; }
