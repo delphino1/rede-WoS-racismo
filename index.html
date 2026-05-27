@@ -1760,7 +1760,7 @@ function initSearch() {
     else { matches.forEach(n => {
       const item=document.createElement('div'); item.className='search-item';
       const full=FULL_NAME_MAP[n.label];
-      item.innerHTML=n.label+(full&&normStr(full).includes(qn)&&!normStr(n.label).includes(qn)?'<span style="color:rgba(255,255,255,0.38);font-size:10px;margin-left:6px">'+full+'</span>':'');
+      item.innerHTML=n.label+(full?'<span style="color:rgba(255,255,255,0.38);font-size:10px;margin-left:6px">'+full+'</span>':'');
       item.addEventListener('mousedown',ev=>{ev.preventDefault();input.value='';dropdown.classList.remove('open');selectNode(n);});
       dropdown.appendChild(item);
     }); }
