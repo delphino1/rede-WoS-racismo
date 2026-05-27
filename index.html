@@ -1571,6 +1571,7 @@ function showNodeCard(d) {
 
 function showRightPanel(d) {
   const color = d.clusterColor;
+  const authorKey = normalizeAuthorKey(d.label);
   const fullName = lookupFullName(d.label);
   const authorEl = document.getElementById('rp-author');
   if (fullName) {
