@@ -636,19 +636,23 @@ let _canvasW = 0, _canvasH = 0; // dimensões cacheadas
 let _simDone = false;         // flag: simulação terminou
 let _hoverEdgeSet = null;     // Set<edge> do nó em hover (para canvas)
 let _clusterNodeIds = null;   // Set<nodeId> do cluster selecionado (para canvas)
-let referencesDB = {};    // carregado do references.json
-let authorNamesDB = {};  // carregado do author_names.json  { "telles, e": "Edward Telles" }
+let referencesDB = {};
+// authorNamesDB: inicializado com FULL_NAME_MAP embutido no HTML;
+// fetch abaixo sobrescreve se disponível via servidor.
+let authorNamesDB = (typeof FULL_NAME_MAP !== 'undefined') ? FULL_NAME_MAP : {};
 
-// Normaliza nome de autor igual ao script Python: remove acentos, lowercase, "lastname, ii"
+// Normaliza label: remove acentos, lowercase
 function normalizeAuthorKey(label) {
-  const s = label.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  // label já vem no formato "lastname, ii" — só garantir sem acento
-  return s;
+  return label.normalize('NFKD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+}
+// Lookup tolerante: tenta label com acento primeiro, depois sem
+function lookupFullName(label) {
+  return authorNamesDB[label] || authorNamesDB[normalizeAuthorKey(label)] || '';
 }
 
-// Carrega references.json em background (não bloqueia a visualização)
+// Carrega ficheiros JSON em background (nao bloqueia a visualizacao)
 (async function loadReferences() {
-  if (location.protocol === 'file:') return; // drag-and-drop local: pula
+  if (location.protocol === 'file:') return; // file:// — fetch bloqueado pelo browser
   try {
     const resp = await fetch('./references.json');
     if (resp.ok) { referencesDB = await resp.json(); }
@@ -1516,7 +1520,7 @@ function showNodeCard(d) {
 
     // Nome completo do authorNamesDB, se disponível
     const pcFullEl = document.getElementById('pc-fullname');
-    const pcFullName = authorNamesDB[normalizeAuthorKey(d.label)] || '';
+    const pcFullName = lookupFullName(d.label);
     if (pcFullName) {
       pcFullEl.textContent = pcFullName;
       pcFullEl.style.display = '';
@@ -1567,8 +1571,7 @@ function showNodeCard(d) {
 
 function showRightPanel(d) {
   const color = d.clusterColor;
-  const authorKey = normalizeAuthorKey(d.label);
-  const fullName = authorNamesDB[authorKey] || '';
+  const fullName = lookupFullName(d.label);
   const authorEl = document.getElementById('rp-author');
   if (fullName) {
     // Nome completo em destaque + abreviação do corpus como subtítulo
