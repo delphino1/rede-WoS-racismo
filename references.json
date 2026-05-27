@@ -736,7 +736,7 @@
       "author": "ALMEIDA Silvio Luiz de",
       "year": "2017",
       "source": "Enciclopedia Juridica da PUC-São Paulo",
-      "doi": "https://enciclopediajuridica.pucsp.br/verbete/92/edicao-1/racismo",
+      "doi": "https://enciclopediajuridica.pucsp.br/verbetes/racismo/",
       "title": "Racismo",
       "count": 1
     },
@@ -1833,9 +1833,9 @@
     {
       "author": "AZEVEDO C. M. M de",
       "year": "2003",
-      "source": "ABOLICIONISMO ESTADO",
-      "doi": null,
-      "title": "ABOLICIONISMO ESTADO",
+      "source": "Abolicionismo: Estados Unidos e Brasil, uma história comparada : século XIX",
+      "doi": "https://books.google.com.br/books?id=qEip0IXv4pgC",
+      "title": "Abolicionismo: Estados Unidos e Brasil, uma história comparada : século XIX",
       "count": 1
     },
     {
@@ -6584,8 +6584,8 @@
       "author": "Cerqueira D",
       "year": "2023",
       "source": "Atlas da Violência 2023",
-      "doi": "10.38116/riatlasdaviolencia2023",
-      "title": null,
+      "doi": "https://repositorio.ipea.gov.br/entities/publication/262d546c-1a85-43b2-88f1-8c8f1473e0e6",
+      "title": "Atlas da Violência 2023",
       "count": 9
     },
     {
@@ -10491,41 +10491,41 @@
     {
       "author": "Fernandes Florestan.",
       "year": "1964",
-      "source": "A integracao do negro na sociedade de classes",
-      "doi": "10.2307/2511089",
-      "title": null,
+      "source": "A integração do negro na sociedade de classes",
+      "doi": "https://www.google.com.br/books/edition/A_integra%C3%A7%C3%A3o_do_negro_na_sociedade_de/fiZLEAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "A integração do negro na sociedade de classes",
       "count": 149
     },
     {
       "author": "Fernandes Florestan.",
       "year": "1966",
       "source": "O negro no mundo dos brancos",
-      "doi": "https://openlibrary.org/works/OL1008768W",
-      "title": null,
+      "doi": "https://books.google.com.br/books/about/O_Negro_no_Mundo_dos_Brancos.html?id=PMZcBAAAQBAJ&redir_esc=y",
+      "title": "O negro no mundo dos brancos",
       "count": 40
     },
     {
       "author": "Fernandes Florestan.",
       "year": "1989",
       "source": "Significado do protesto negro",
-      "doi": "https://openlibrary.org/works/OL1008777W",
-      "title": null,
+      "doi": "https://www.google.com.br/books/edition/Significado_do_protesto_negro/KJ4YAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=%22Significado%20do%20protesto%20negro%22",
+      "title": "Significado do protesto negro",
       "count": 12
     },
     {
       "author": "Fernandes F.",
       "year": "1975",
-      "source": "A revolucao burguesa no Brasil: ensaio de interpretacao sociologica",
-      "doi": "10.2307/2513528",
-      "title": null,
+      "source": "A revolução burguesa no Brasil: ensaio de interpretação sociológica",
+      "doi": "https://www.google.com.br/books/edition/A_revolu%C3%A7%C3%A3o_burguesa_no_Brasil/2WqVzQEACAAJ?hl=pt-BR",
+      "title": "A revolução burguesa no Brasil: ensaio de interpretação sociológica",
       "count": 7
     },
     {
       "author": "FERNANDES Florestan",
       "year": "2008",
       "source": "Brancos e Negros em São Paulo",
-      "doi": null,
-      "title": null,
+      "doi": "https://www.google.com.br/books/edition/Brancos_e_negros_em_S%C3%A3o_Paulo/F8ZcBAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "Brancos e Negros em São Paulo",
       "count": 5
     },
     {
@@ -11629,9 +11629,9 @@
     {
       "author": "Francis AM",
       "year": "2012",
-      "source": "Journal of Human Resources",
-      "doi": null,
-      "title": null,
+      "source": "The Journal of Human Resources",
+      "doi": "https://www.jstor.org/stable/23214409",
+      "title": "Using Brazil’s Racial Continuum to Examine the Short-Term Effects of Affirmative Action in Higher Education",
       "count": 31
     },
     {
@@ -12855,14 +12855,6 @@
       "count": 11
     },
     {
-      "author": "Fry Peter.",
-      "year": "1995",
-      "source": "Revista USP",
-      "doi": null,
-      "title": null,
-      "count": 11
-    },
-    {
       "author": "Fry Peter",
       "year": "1995",
       "source": "Times Literary Supplement",
@@ -12884,7 +12876,7 @@
       "source": "Revista USP",
       "doi": "10.11606/issn.2316-9036.v0i28p122-135",
       "title": "O que a Cinderela negra tem a dizer sobre a 'política racial' no Brasil",
-      "count": 3
+      "count": 14
     },
     {
       "author": "Fry P",
@@ -16847,7 +16839,7 @@
       "year": "2005",
       "source": "A Brief History of Neoliberalism",
       "doi": "10.1093/oso/9780199283262.001.0001",
-      "title": null,
+      "title": "A Brief History of Neoliberalism",
       "count": 12
     },
     {
@@ -16855,7 +16847,7 @@
       "year": "2003",
       "source": "The New Imperialism",
       "doi": "10.1093/oso/9780199264315.001.0001",
-      "title": null,
+      "title": "The New Imperialism",
       "count": 9
     },
     {
@@ -16863,15 +16855,15 @@
       "year": "2012",
       "source": "Rebel Cities: From the Right to the City to the Urban Revolution",
       "doi": "10.4067/s0250-71612014000100013",
-      "title": null,
+      "title": "Rebel Cities: From the Right to the City to the Urban Revolution",
       "count": 5
     },
     {
       "author": "Harvey David.",
       "year": "1996",
-      "source": "JUSTICE NATURE GEOGR",
-      "doi": null,
-      "title": null,
+      "source": "Justice, Nature and the Geography of Difference",
+      "doi": "https://books.google.com.br/books/about/Justice_Nature_and_the_Geography_of_Diff.html?id=h_-nScbuwI0C&redir_esc=y",
+      "title": "Justice, Nature and the Geography of Difference",
       "count": 3
     },
     {
@@ -16885,9 +16877,9 @@
     {
       "author": "Harvey D.",
       "year": "1973",
-      "source": "SOCIAL JUSTICE CITY",
-      "doi": null,
-      "title": null,
+      "source": "Social Justice and the City",
+      "doi": "https://books.google.com.br/books/about/Social_Justice_and_the_City.html?hl=es&id=6G3aAAAAMAAJ&redir_esc=y",
+      "title": "Social Justice and the City",
       "count": 2
     },
     {
@@ -18624,7 +18616,7 @@
       "author": "Htun M",
       "year": "2004",
       "source": "Latin American Research Review",
-      "doi": "10.1353/lar.2004.0010",
+      "doi": "https://doi.org/10.1353/lar.2004.0010",
       "title": "From \"Racial Democracy\" to Affirmative Action: Changing State Policy on Race in Brazil",
       "count": 103
     },
@@ -19095,9 +19087,9 @@
     {
       "author": "Kilomba Grada.",
       "year": "2008",
-      "source": "Memórias da plantacao: episodios de racismo no cotidiano",
+      "source": "Memórias da plantação: episódios de racismo no cotidiano",
       "doi": "https://www.google.com.br/books/edition/Plantation_Memories/hM1KEAAAQBAJ?hl=pt-BR&gbpv=0",
-      "title": "Memórias da plantacao: episodios de racismo no cotidiano",
+      "title": "Memórias da plantação: episódios de racismo no cotidiano",
       "count": 80
     },
     {
@@ -21284,7 +21276,7 @@
       "author": "Lovell Peggy A.",
       "year": "2006",
       "source": "Latin American Research Review",
-      "doi": "10.1353/lar.2006.0043",
+      "doi": "https://www.cambridge.org/core/journals/latin-american-research-review/article/race-gender-and-work-in-sao-paulo-brazil-19602000/23F203F45D57D22AB45C9AD74D8B5185",
       "title": "Race, Gender, and Work in São Paulo, Brazil, 1960-2000",
       "count": 15
     },
@@ -21351,7 +21343,7 @@
       "year": "2014",
       "source": "National Colors: Racial Classification and the State in Latin America",
       "doi": "10.1093/acprof:oso/9780199337354.001.0001",
-      "title": null,
+      "title": "National Colors: Racial Classification and the State in Latin America",
       "count": 40
     },
     {
@@ -23449,7 +23441,7 @@
       "year": "1998",
       "source": "Making Race and Nation: A Comparison of South Africa, the United States, and Brazil",
       "doi": "10.1017/CBO9780511810480",
-      "title": null,
+      "title": "Making Race and Nation: A Comparison of South Africa, the United States, and Brazil",
       "count": 77
     },
     {
@@ -24445,7 +24437,7 @@
       "year": "2006",
       "source": "Demonic Grounds: Black Women and the Cartographies of Struggle",
       "doi": "10.1111/j.1467-8306.2007.00548.x",
-      "title": null,
+      "title": "Demonic Grounds: Black Women and the Cartographies of Struggle",
       "count": 20
     },
     {
@@ -24468,15 +24460,15 @@
       "author": "McKittrick Katherine.",
       "year": "2007",
       "source": "Black Geographies and the Politics of Place",
-      "doi": null,
-      "title": null,
+      "doi": "https://books.google.com.br/books/about/Black_Geographies_and_the_Politics_of_Pl.html?id=SLJ2AAAAMAAJ&redir_esc=y",
+      "title": "Black Geographies and the Politics of Place",
       "count": 6
     },
     {
       "author": "McKittrick Katherine.",
-      "year": "2021",
-      "source": "DEAR SCI OTHER STORI",
-      "doi": "10.1515/9781478012573",
+      "year": "2020",
+      "source": "Dear Science and Other Stories",
+      "doi": "https://www.google.com.br/books/edition/Dear_Science_and_Other_Stories/E6QQEAAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "Dear Science and Other Stories",
       "count": 1
     },
@@ -27458,8 +27450,8 @@
       "author": "Nobles Melissa.",
       "year": "2002",
       "source": "The New Race Question: How the Census Counts Multiracial Individuals",
-      "doi": null,
-      "title": null,
+      "doi": "https://muse.jhu.edu/book/28168",
+      "title": "Lessons from Brazil: The Ideational and Political Dimensions of Multiraciality",
       "count": 1
     },
     {
@@ -29461,7 +29453,7 @@
       "year": "2000",
       "source": "Journal of World-Systems Research",
       "doi": "https://doi.org/10.5195/jwsr.2000.228",
-      "title": "Colonialidad del Poder y Clasi? cacion Social",
+      "title": "Colonialidad del Poder y Clasificacion Social",
       "count": 9
     },
     {
@@ -32114,8 +32106,8 @@
       "author": "Santos Boaventurade Sousa.",
       "year": "2002",
       "source": "Revista Crítica de Ciências Sociais",
-      "doi": "10.4000/rccs",
-      "title": null,
+      "doi": "https://doi.org/10.4000/rccs.1285",
+      "title": "Para uma sociologia das ausências e uma sociologia das emergências",
       "count": 6
     },
     {
@@ -33724,8 +33716,8 @@
       "author": "Santos RV",
       "year": "2002",
       "source": "Critique of Anthropology",
-      "doi": null,
-      "title": "CRIT ANTHROPOL",
+      "doi": "https://doi.org/10.1177/0308275X020220010501",
+      "title": "Indigenous Peoples, Postcolonial Contexts and Genomic Research in the Late 20th Century: A View from Amazonia (1960—2000)",
       "count": 6
     },
     {
@@ -36105,7 +36097,7 @@
       "year": "1987",
       "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": null,
+      "title": "Distância social e casamento inter-racial no Brasil”,
       "count": 10
     },
     {
@@ -36177,7 +36169,7 @@
       "year": "1994",
       "source": "Estudos Afro-Asiáticos",
       "doi": null,
-      "title": null,
+      "title": "Uma Nota sobre 'Raça Social",
       "count": 3
     },
     {
@@ -38354,7 +38346,7 @@
       "author": "Travassos Cláudia",
       "year": "2002",
       "source": "Revista Panamericana de Salud Pública",
-      "doi": "10.1590/S1020-49892002000500011",
+      "doi": "https://www.scielosp.org/pdf/rpsp/2002.v11n5-6/365-373",
       "title": "Utilização dos serviços de saúde no Brasil: gênero, características familiares e condição social",
       "count": 14
     },
