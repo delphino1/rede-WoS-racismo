@@ -1184,7 +1184,7 @@
       "author": "Antunes JLF",
       "year": "2015",
       "source": "Epidemiologia e Serviços de Saúde",
-      "doi": "10.5123/S1679-49742015000300024",
+      "doi": "https://doi.org/10.5123/S1679-49742015000300024",
       "title": "Uso da análise de séries temporais em estudos epidemiológicos",
       "count": 20
     },
@@ -1486,7 +1486,7 @@
       "author": "ARRUTI JOSE MAURICIO",
       "year": "2006",
       "source": "Mocambo: Antropologia e História do Processo de formação quilombola",
-      "doi": "10.5007/2175-8034.2008v10n2p210",
+      "doi": "https://www.google.com.br/books/edition/Mocambo/S8crAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=Mocambo:%20Antropologia%20e%20Hist%C3%B3ria%20do%20Processo%20de%20forma%C3%A7%C3%A3o%20quilombola",
       "title": "Mocambo: Antropologia e História do Processo de formação quilombola",
       "count": 10
     },
@@ -1511,7 +1511,7 @@
       "year": "2009",
       "source": "Caminhos convergentes: Estado e sociedade na superação das desigualdades raciais",
       "doi": "https://www.google.com.br/books/edition/Caminhos_convergentes/YiQfQwAACAAJ?hl=pt-BR",
-      "title": "Caminhos convergentes: Estado e sociedade na superação das desigualdades raciais",
+      "title": "Políticas públicas para quilombos: terra, saúde e educação",
       "count": 4
     },
     {
@@ -5523,6 +5523,14 @@
   ],
   "candido, a": [
     {
+      "author": "CANDIDO Antonio.",
+      "year": "1965",
+      "source": "Literatura e sociedade",
+      "doi": "https://books.google.com.br/books/about/Literatura_e_sociedade.html?id=epivEAAAQBAJ&redir_esc=y",
+      "title": "Literatura e sociedade",
+      "count": 9
+    },
+    {
       "author": "CANDIDO Antonio",
       "year": "1995",
       "source": "Vários Escritos",
@@ -5531,12 +5539,12 @@
       "count": 7
     },
     {
-      "author": "CANDIDO Antonio.",
-      "year": "1965",
-      "source": "Literatura e sociedade",
-      "doi": "https://books.google.com.br/books/about/Literatura_e_sociedade.html?id=epivEAAAQBAJ&redir_esc=y",
-      "title": "Literatura e sociedade",
-      "count": 8
+      "author": "CANDIDO Antonio",
+      "year": "1987",
+      "source": "A educação pela noite",
+      "doi": "https://www.google.com.br/books/edition/A_educa%C3%A7%C3%A3o_pela_noite/zxvREAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "A educação pela noite",
+      "count": 7
     },
     {
       "author": "Candido Antonio.",
@@ -5564,10 +5572,10 @@
     },
     {
       "author": "CANDIDO Antonio",
-      "year": "1987",
-      "source": "A educacao pela noite",
-      "doi": null,
-      "title": "A educacao pela noite",
+      "year": "1988",
+      "source": "O método crítico de Silvio Romero",
+      "doi": "https://www.google.com.br/books/edition/O_m%C3%A9todo_cr%C3%ADtico_de_S%C3%ADlvio_Romero/WU0tAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=O%20m%C3%A9todo%20cr%C3%ADtico%20de%20Silvio%20Romero",
+      "title": "O método crítico de Silvio Romero",
       "count": 3
     },
     {
@@ -5576,22 +5584,6 @@
       "source": "LIT SOC",
       "doi": "10.11606/issn.2237-1184.v0i9p270-275",
       "title": "Paixão dos valores",
-      "count": 2
-    },
-    {
-      "author": "CANDIDO Antonio",
-      "year": "1988",
-      "source": "O metodo critico de Silvio Romero",
-      "doi": null,
-      "title": "O metodo critico de Silvio Romero",
-      "count": 2
-    },
-    {
-      "author": "CANDIDO Antonio",
-      "year": "2011",
-      "source": "A educay o pela noite",
-      "doi": null,
-      "title": "A educay o pela noite",
       "count": 2
     },
     {
@@ -5605,9 +5597,9 @@
     {
       "author": "Candido A.",
       "year": "1959",
-      "source": "FORMACAO LIT BRASILE",
+      "source": "Formação da Literatura Brasileira",
       "doi": null,
-      "title": "FORMACAO LIT BRASILE",
+      "title": "Formação da Literatura Brasileira",
       "count": 2
     },
     {
@@ -5624,14 +5616,6 @@
       "source": "ENSAIOS PAULISTAS",
       "doi": null,
       "title": "ENSAIOS PAULISTAS",
-      "count": 1
-    },
-    {
-      "author": "CANDIDO Antonio.",
-      "year": "1989",
-      "source": "A educacao pela noite e outros ensaios",
-      "doi": null,
-      "title": "A educacao pela noite e outros ensaios",
       "count": 1
     },
     {
@@ -5675,22 +5659,6 @@
       "count": 1
     },
     {
-      "author": "CANDIDO Antonio.",
-      "year": "1995",
-      "source": "LIT SOC",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "CANDIDO Antonio",
-      "year": "1980",
-      "source": "EDUCACAO PEL NOITE E",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "CANDIDO Antonio",
       "year": "1973",
       "source": "ARGUMENTO RIO DE JAN",
@@ -5704,14 +5672,6 @@
       "source": "FOLHA DE S PAULO",
       "doi": null,
       "title": null,
-      "count": 1
-    },
-    {
-      "author": "CANDIDO Antonio",
-      "year": "1963",
-      "source": "METODO CRITICO SILVI",
-      "doi": null,
-      "title": "METODO CRITICO SILVI",
       "count": 1
     },
     {
@@ -5889,49 +5849,41 @@
     {
       "author": "Cardoso F.H.",
       "year": "1960",
-      "source": "Cor e mobilidade social em Florianopolis: aspectos das relacoes entre negros e brancos numa comunidade do Brasil Meridional",
+      "source": "Cor e mobilidade social em Florianópolis: aspectos das relações entre negros e brancos numa comunidade do Brasil Meridional",
       "doi": "https://openlibrary.org/works/OL1001717W",
-      "title": "Cor e mobilidade social em Florianopolis: aspectos das relacoes entre negros e brancos numa comunidade do Brasil Meridional",
+      "title": "Cor e mobilidade social em Florianópolis: aspectos das relações entre negros e brancos numa comunidade do Brasil Meridional",
       "count": 15
     },
     {
       "author": "Cardoso F.H.",
       "year": "1962",
-      "source": "Capitalismo e Escravidão no Brasil Meridional",
-      "doi": null,
-      "title": "Capitalismo e Escravidão no Brasil Meridional",
-      "count": 5
+      "source": "Capitalismo e Escravidão no Brasil Meridional: o negro na sociedade escravocrata do Rio Grande do Sul",
+      "doi": "https://www.google.com.br/books/edition/Capitalismo_e_escravid%C3%A3o_no_Brasil_meri/v224AAAAIAAJ?hl=pt-BR&gbpv=0&bsq=capitalismo%20e%20escravid%C3%A3o%20no%20brasil%20meridional",
+      "title": "Capitalismo e Escravidão no Brasil Meridional: o negro na sociedade escravocrata do Rio Grande do Sul",
+      "count": 10
     },
     {
       "author": "Cardoso F.H.",
       "year": "1979",
       "source": "Dependency and Development in Latin America",
-      "doi": "10.2307/492408",
+      "doi": "https://www.google.com.br/books/edition/Dependency_and_Development_in_Latin_Amer/Fg78EAAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "Dependency and Development in Latin America",
-      "count": 4
+      "count": 8
     },
     {
       "author": "CARDOSO FH",
       "year": "1997",
-      "source": "Multiculturalismo e Racismo",
+      "source": "Multiculturalismo e Racismo: uma comparação Brasil-Estados Unidos",
       "doi": null,
-      "title": "Multiculturalismo e Racismo",
-      "count": 4
-    },
-    {
-      "author": "Cardoso FernandoHenrique.",
-      "year": "1962",
-      "source": "Capitalismo e Escravidao no Brasil Meridional: O Negro Na Sociedade Escravocrata do Rio Grande do Sul",
-      "doi": "https://openlibrary.org/works/OL1001753W",
-      "title": "Capitalismo e Escravidao no Brasil Meridional: O Negro Na Sociedade Escravocrata do Rio Grande do Sul",
+      "title": "Abertura do Seminário 'Multiculturalismo e Racismo: uma comparação Brasil-Estados Unidos'",
       "count": 4
     },
     {
       "author": "Cardoso Fernando Henrique",
       "year": "1965",
-      "source": "PRESENCE AFRICAINE",
-      "doi": null,
-      "title": "PRESENCE AFRICAINE",
+      "source": "Présence Africaine",
+      "doi": "https://doi.org/10.3917/presa.053.0120",
+      "title": "Le préjugé de couleur au Brésil",
       "count": 3
     },
     {
@@ -5967,27 +5919,11 @@
       "count": 2
     },
     {
-      "author": "Cardoso F",
-      "year": "2018",
-      "source": "Revista Políticas Públicas",
-      "doi": "10.18764/2178-2865.v22nep949-968",
-      "title": "RACISMO E NECROPOLÍTICA: a lógica do genocídio de negros e negras no Brasil contemporâneo",
-      "count": 1
-    },
-    {
       "author": "CARDOSO FH",
       "year": "1960",
       "source": "COLECAO BRASIALANA",
       "doi": null,
       "title": "COLECAO BRASIALANA",
-      "count": 1
-    },
-    {
-      "author": "Cardoso F.H.",
-      "year": "1979",
-      "source": "DEPENDENCIA DESARROL",
-      "doi": null,
-      "title": "DEPENDENCIA DESARROL",
       "count": 1
     },
     {
@@ -6055,22 +5991,6 @@
       "count": 1
     },
     {
-      "author": "CARDOSO Fernando Henrique.",
-      "year": "1975",
-      "source": "Dependencia e desenvolvimento na America Latina",
-      "doi": null,
-      "title": "Dependencia e desenvolvimento na America Latina",
-      "count": 1
-    },
-    {
-      "author": "Cardoso Fernando Henrique.",
-      "year": "2003",
-      "source": "Capitalismo e escravidao: o negro na sociedade escravocrata do Rio Grande do Sul",
-      "doi": null,
-      "title": "Capitalismo e escravidao: o negro na sociedade escravocrata do Rio Grande do Sul",
-      "count": 1
-    },
-    {
       "author": "Cardoso F. H",
       "year": "1960",
       "source": "COR MOB SOC FLOR",
@@ -6100,22 +6020,6 @@
       "source": "Prefeitura de Joao Pessoa: Joao Pessoa e eleita melhor cidade do Brasil para se morar apos aposentadoria",
       "doi": null,
       "title": "Prefeitura de Joao Pessoa: Joao Pessoa e eleita melhor cidade do Brasil para se morar apos aposentadoria",
-      "count": 1
-    },
-    {
-      "author": "Cardoso FernandoHenrique Enzo Faletto.",
-      "year": "1971",
-      "source": "Dependencia y Desarrollo en America Latina",
-      "doi": null,
-      "title": "Dependencia y Desarrollo en America Latina",
-      "count": 1
-    },
-    {
-      "author": "Cardoso FernandoHenrique.",
-      "year": "1978",
-      "source": "Dependencia y desarrollo en America Latina: ensayo de interpretacion sociologica",
-      "doi": null,
-      "title": "Dependencia y desarrollo en America Latina: ensayo de interpretacion sociologica",
       "count": 1
     },
     {
@@ -6948,7 +6852,7 @@
       "author": "Chiavegatto ADP",
       "year": "2013",
       "source": "Cadernos de Saúde Pública",
-      "doi": "10.1590/0102-311X00139012",
+      "doi": "https://www.scielo.br/j/csp/a/PMDZWmYQq3YnHhW5nnjBndJ/abstract/?lang=pt",
       "title": "Disparidades étnico-raciais em saúde autoavaliada: análise multinível de 2.697 indivíduos residentes em 145 municípios brasileiros",
       "count": 15
     },
@@ -7561,19 +7465,11 @@
       "count": 14
     },
     {
-      "author": "Corrêa MD",
-      "year": "2021",
-      "source": "Saúde e Sociedade",
-      "doi": "10.1590/S0104-12902021210001",
-      "title": "As vivências interseccionais da violência em um território vulnerável e periférico",
-      "count": 2
-    },
-    {
       "author": "Correa Mariza",
       "year": "2003",
       "source": "Antropologas & Antropologia",
       "doi": "https://openlibrary.org/works/OL1002681W",
-      "title": "Antropologas & Antropologia",
+      "title": "Antropólogas & Antropologia",
       "count": 2
     },
     {
@@ -7588,8 +7484,8 @@
       "author": "CORREA Mariza",
       "year": "2005",
       "source": "Revista USP",
-      "doi": null,
-      "title": "Revista USP",
+      "doi": "https://revistas.usp.br/revusp/es/article/view/13488/15306",
+      "title": "Raimundo Nina Rodrigues e a “garantia da ordem social”",
       "count": 2
     },
     {
@@ -8984,8 +8880,8 @@
       "author": "Domingues RMSM",
       "year": "2015",
       "source": "Revista Panamericana de Salud Pública",
-      "doi": "10.26633/rpsp",
-      "title": null,
+      "doi": "https://portaldeboaspraticas.iff.fiocruz.br/wp-content/uploads/2018/07/v37n3a03.pdf",
+      "title": "Adequação da assistência pré-natal segundo as características maternas no Brasil",
       "count": 7
     },
     {
@@ -10297,9 +10193,9 @@
     {
       "author": "FERES Joao JUNIOR.",
       "year": "2018",
-      "source": "Acao Afirmativa: conceito, história e debates",
+      "source": "Ação Afirmativa: conceito, história e debates",
       "doi": "https://books.scielo.org/id/2mvbb",
-      "title": "Acao Afirmativa: conceito, história e debates",
+      "title": "Ação Afirmativa: conceito, história e debates",
       "count": 9
     },
     {
@@ -10314,7 +10210,7 @@
       "author": "Feres Júnior João",
       "year": "2006",
       "source": "Revista Brasileira de Ciências Sociais",
-      "doi": "https://doi.org/10.1590/S0102-6909200600020000",
+      "doi": "https://doi.org/10.1590/S0102-69092006000200009",
       "title": "Aspectos semânticos da discriminação racial no Brasil: para além da teoria da modernidade",
       "count": 3
     },
@@ -10322,7 +10218,7 @@
       "author": "Feres Júnior João",
       "year": "2016",
       "source": "Lua Nova",
-      "doi": "http://dx.doi.org/10.1590/ 0102-6445257-293/99",
+      "doi": "https://doi.org/10.1590/0102-6445257-293/99",
       "title": "Ação afirmativa no Brasil: multiculturalismo ou justiça social?",
       "count": 2
     },
@@ -10330,7 +10226,7 @@
       "author": "Feres Júnior João",
       "year": "2019",
       "source": "Opinião Publica",
-      "doi": "https://doi.org/10.1590/1807-0191201925349",
+      "doi": "https://doi.org/10.1590/1807-01912019253495",
       "title": "A cobertura jornalística das greves gerais de 2017: paradigma de protesto ou militância política",
       "count": 2
     },
@@ -10992,8 +10888,8 @@
       "author": "Fischer B",
       "year": "2004",
       "source": "Latin American Research Review",
-      "doi": "10.1353/lar.2004.0008",
-      "title": "Quaese pretos de tão pobres? Race and Social Discrimination in Rio de Janeiro's Twentieth-Century Criminal Courts",
+      "doi": "https://www.jstor.org/stable/1555382",
+      "title": "Quase pretos de tão pobres? Race and Social Discrimination in Rio de Janeiro's Twentieth-Century Criminal Courts",
       "count": 5
     },
     {
@@ -14618,7 +14514,7 @@
       "author": "Graham Richard.",
       "year": "1999",
       "source": "Racial Politics in Contemporary Brazil",
-      "doi": "https://doi.org/10.2307/j.ctv1131f9k",
+      "doi": "https://www.jstor.org/stable/j.ctv1131f9k",
       "title": "Free African Brazilians and the State in Slavery Times",
       "count": 4
     },
@@ -17470,7 +17366,7 @@
       "author": "Hirata H",
       "year": "2014",
       "source": "Tempo Social",
-      "doi": "https://doi.org/10.1590/S0103-20702014000100005",
+      "doi": "https://www.scielo.br/j/ts/a/LhNLNH6YJB5HVJ6vnGpLgHz/?lang=pt",
       "title": "Gênero, classe e raça: Interseccionalidade e consubstancialidade das relações sociais",
       "count": 18
     },
@@ -17485,7 +17381,7 @@
     {
       "author": "Hirata H.",
       "year": "2022",
-      "source": "O cuidado: Teorias e praticas",
+      "source": "O cuidado: Teorias e práticas",
       "doi": "https://www.google.com.br/books/edition/O_cuidado/02aCEAAAQBAJ?hl=pt-BR&gbpv=0",
       "title": "O cuidado: Teorias e práticas",
       "count": 4
@@ -17493,9 +17389,9 @@
     {
       "author": "Hirata H.",
       "year": "2012",
-      "source": "Cuidado e cuidadoras - As varias faces do trabalho do care",
-      "doi": "10.1590/s0100-15742013000100019",
-      "title": "Cuidado e cuidadoras - As varias faces do trabalho do care",
+      "source": "Cuidado e cuidadoras - As várias faces do trabalho do care",
+      "doi": "https://www.google.com.br/books/edition/Cuidado_e_cuidadoras/QSe2NAEACAAJ?hl=pt-BR",
+      "title": "Cuidado e cuidadoras - As várias faces do trabalho do care",
       "count": 4
     },
     {
@@ -17503,7 +17399,7 @@
       "year": "2008",
       "source": "Mercado de trabalho e gênero: comparações internacionais",
       "doi": "https://www.google.com.br/books/edition/Mercado_de_trabalho_e_g%C3%AAnero/PVfIALGKTFcC?hl=pt-BR&gbpv=0",
-      "title": "Mercado de trabalho e gênero: comparações internacionais",
+      "title": "Divisão sexual do trabalho profissional e doméstico: Brasil, França, Japão",
       "count": 2
     },
     {
@@ -17746,7 +17642,7 @@
       "author": "Hofbauer A.",
       "year": "2003",
       "source": "Teoria & Pesquisa: Revista de Ciencia Politica",
-      "doi": "https://doi.org/10.4322/tp.v1i42.57",
+      "doi": "https://www.teoriaepesquisa.ufscar.br/index.php/tp/article/view/57",
       "title": "Conceito de 'raça' e o ideário de 'branqueamento' no século XIX",
       "count": 3
     },
@@ -17787,57 +17683,41 @@
     {
       "author": "Holanda S. B. D.",
       "year": "1989",
-      "source": "Raizes do Brasil",
-      "doi": "10.47749/t/unicamp.1997.118481",
-      "title": "Raizes do Brasil",
-      "count": 5
-    },
-    {
-      "author": "HOLANDA S B.",
-      "year": "2006",
       "source": "Raízes do Brasil",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Raizes_do_Brasil/8VoOAQAAIAAJ?hl=pt-BR&gbpv=0&bsq=Ra%C3%ADzes%20do%20Brasil",
       "title": "Raízes do Brasil",
-      "count": 3
-    },
-    {
-      "author": "DEHOLLANDA SB",
-      "year": "1936",
-      "source": "Raízes do Brasil",
-      "doi": null,
-      "title": "Raízes do Brasil",
-      "count": 2
+      "count": 10
     },
     {
       "author": "DEHOLLANDA SB",
       "year": "1995",
       "source": "História Geral da Civilização Brasileira",
-      "doi": null,
-      "title": null,
+      "doi": "https://www.google.com.br/books/edition/Hist%C3%B3ria_geral_da_civiliza%C3%A7%C3%A3o_brasile/46cYAAAAYAAJ?hl=pt-BR&gbpv=0&bsq=Hist%C3%B3ria%20Geral%20da%20Civiliza%C3%A7%C3%A3o%20Brasileira",
+      "title": "História Geral da Civilização Brasileira",
       "count": 1
     },
     {
       "author": "Holanda S. B.",
       "year": "2000",
-      "source": "Visão do Paraíso",
-      "doi": "https://openlibrary.org/works/OL1755153W",
-      "title": "Visão do Paraíso",
+      "source": "Visão do Paraíso: os motivos edênicos no descobrimento e colonização do Brasil",
+      "doi": "https://www.google.com.br/books/edition/Vis%C3%A3o_do_para%C3%ADso/7aFAAAAAMAAJ?hl=pt-BR&gbpv=0&bsq=Vis%C3%A3o%20do%20Para%C3%ADso",
+      "title": "Visão do Paraíso: os motivos edênicos no descobrimento e colonização do Brasil",
       "count": 1
     },
     {
       "author": "Holanda S.B. de.",
       "year": "1994",
       "source": "Caminhos e fronteiras",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/Caminhos_e_fronteiras/vKRlAAAAMAAJ?hl=pt-BR&gbpv=0&bsq=Caminhos%20e%20fronteiras",
       "title": "Caminhos e fronteiras",
       "count": 1
     },
     {
       "author": "DEHOLANDA SB",
       "year": "1996",
-      "source": "ESPIRITO LETRA ESTUD",
-      "doi": null,
-      "title": null,
+      "source": "O espírito e a letra: estudos de crítica literária",
+      "doi": "https://www.google.com.br/books/edition/O_esp%C3%ADrito_e_a_letra_vol_I_Nova_edi%C3%A7%C3%A3/vcJ6EAAAQBAJ?hl=pt-BR&gbpv=0",
+      "title": "O espírito e a letra: estudos de crítica literária",
       "count": 1
     }
   ],
@@ -17855,7 +17735,7 @@
       "year": "1998",
       "source": "Fault Lines of Democracy in Post-Transition Latin America",
       "doi": "https://books.google.com.bn/books?id=5BAUAAAAYAAJ&hl=ms&source=gbs_book_other_versions_r&cad=3",
-      "title": "Fault Lines of Democracy in Post-Transition Latin America",
+      "title": "Democracy, law, and violence: disjunctions of Brazilian citizenship",
       "count": 4
     },
     {
@@ -17863,7 +17743,7 @@
       "year": "1989",
       "source": "The Modernist City: An Anthropological Critique of Brasilia",
       "doi": "https://books.google.com.br/books/about/The_Modernist_City.html?id=Syc2y5QhgQgC&redir_esc=y",
-      "title": "Democracy, Law, and Violence: Disjunctions of Brazili",
+      "title": "The Modernist City: An Anthropological Critique of Brasilia",
       "count": 3
     },
     {
@@ -20897,7 +20777,7 @@
       "year": "2003",
       "source": "Tese em Saúde Pública",
       "doi": "https://bdtd.ibict.br/vufind/Record/USP_707d06ae1eea650f0873fbd05173dba2",
-      "title": "Mulheres negras e não negras vivendo com HIV/AIDS no Estado de São Paulo:um estudo sobre suas vulnerabilidades",
+      "title": "Mulheres negras e não negras vivendo com HIV/AIDS no Estado de São Paulo: um estudo sobre suas vulnerabilidades",
       "count": 5
     },
     {
@@ -21099,7 +20979,7 @@
       "year": "2013",
       "source": "Revista de Saúde Pública",
       "doi": "10.1590/S0034-8910.2013047S20002",
-      "title": "Construcao do Estudo Longitudinal de Saude do Adulto (ELSA-Brasil)",
+      "title": "Construção do Estudo Longitudinal de Saúde do Adulto (ELSA-Brasil)",
       "count": 9
     },
     {
@@ -23612,7 +23492,7 @@
       "author": "MASSEY DS",
       "year": "1988",
       "source": "Social Forces",
-      "doi": "10.2307/2579183",
+      "doi": "https://doi.org/10.2307/2579183",
       "title": "The Dimensions of Residential Segregation",
       "count": 11
     },
@@ -23651,9 +23531,9 @@
     {
       "author": "Massey DS",
       "year": "2003",
-      "source": "SOURCE OF THE RIVER: THE SOCIAL ORIGINS OF FRESHMEN AT AMERICA'S SELECTIVE COLLEGES AND UNIVERSITIES",
-      "doi": null,
-      "title": "SOURCE OF THE RIVER: THE SOCIAL ORIGINS OF FRESHMEN AT AMERICA'S SELECTIVE COLLEGES AND UNIVERSITIES",
+      "source": "Source of the River: the social origins of freshmen at America's selective colleges and universities",
+      "doi": "https://www.google.com.br/books/edition/The_Source_of_the_River/o-PYX6pox7wC?hl=pt-BR&gbpv=0",
+      "title": "Source of the River: the social origins of freshmen at America's selective colleges and universities",
       "count": 2
     },
     {
@@ -24282,8 +24162,8 @@
       "author": "McCallum Cecilia.",
       "year": "1999",
       "source": "Bulletin of Latin American Research",
-      "doi": null,
-      "title": null,
+      "doi": "https://www.jstor.org/stable/3339166",
+      "title": "Restraining Women: Gender, Sexuality and Modernity in Salvador da Bahia",
       "count": 6
     },
     {
@@ -25432,8 +25312,8 @@
       "author": "Monteiro CA",
       "year": "1992",
       "source": "Bulletin of the World Health Organization",
-      "doi": null,
-      "title": null,
+      "doi": "https://pubmed.ncbi.nlm.nih.gov/1464153/",
+      "title": "Nutritional status of Brazilian children: trends from 1975 to 1989",
       "count": 6
     },
     {
@@ -26966,7 +26846,7 @@
       "source": "A Tropical Belle Epoque: Elite Culture and Society in Turn-of-the- Century Rio de Janeiro",
       "doi": "10.2307/1906802",
       "title": "A Tropical Belle Epoque: Elite Culture and Society in Turn-of-the- Century Rio de Janeiro",
-      "count": 8
+      "count": 14
     },
     {
       "author": "NEEDELL JD",
@@ -26980,17 +26860,9 @@
       "author": "Needell JeffreyD.",
       "year": "2006",
       "source": "The Party of Order: The Conservatives, the State, and Slavery in the Brazilian Monarchy, 1831–1871",
-      "doi": null,
+      "doi": "https://www.google.com.br/books/edition/The_Party_of_Order/RYyAx6Di_2gC?hl=pt-BR&gbpv=0",
       "title": "The Party of Order: The Conservatives, the State, and Slavery in the Brazilian Monarchy, 1831–1871",
       "count": 6
-    },
-    {
-      "author": "Needell J.D.",
-      "year": "1993",
-      "source": "Belle Epoque Tropical",
-      "doi": "https://openlibrary.org/works/OL4964042W",
-      "title": "Belle Epoque Tropical",
-      "count": 5
     },
     {
       "author": "NEEDELL JD",
@@ -27038,14 +26910,6 @@
       "source": "J INTERAM STUD WORLD",
       "doi": "10.2307/165535",
       "title": "Rio de Janeiro at the Turn of the Century: Modernization and the Parisian Ideal",
-      "count": 1
-    },
-    {
-      "author": "Needell JeffreyD.",
-      "year": "2010",
-      "source": "TROPICAL BELLE EPOQU",
-      "doi": null,
-      "title": "TROPICAL BELLE EPOQU",
       "count": 1
     },
     {
@@ -27622,7 +27486,7 @@
       "author": "Omi Michael.",
       "year": "1997",
       "source": "Minnesota Journal of Law & Inequality",
-      "doi": "https://doi.org/10.24926/25730037.345",
+      "doi": "https://scholarship.law.umn.edu/cgi/viewcontent.cgi?article=1360&context=lawineq",
       "title": "Racial Identity and the State: The Dilemmas of Classification",
       "count": 1
     },
@@ -29234,7 +29098,7 @@
       "author": "Portes A",
       "year": "2003",
       "source": "Latin American Research Review",
-      "doi": "10.1353/lar.2003.0011",
+      "doi": "https://www.jstor.org/stable/1555434",
       "title": "Latin American Class Structures: Their Composition and Change during the Neoliberal Era",
       "count": 5
     },
@@ -29735,7 +29599,7 @@
       "year": "1939",
       "source": "As coletividades anormais",
       "doi": "https://www2.senado.leg.br/bdsf/bitstream/handle/id/188307/As%20Coletividades%20Anormais.pdf",
-      "title": "Prefáco",
+      "title": "Prefácio",
       "count": 3
     },
     {
@@ -30897,41 +30761,41 @@
     {
       "author": "ROMERO S.",
       "year": "1888",
-      "source": "Historia da Literatura Brasileira",
-      "doi": "https://openlibrary.org/works/OL3423774W",
-      "title": null,
+      "source": "História da literatura brasileira: Formação e desenvolvimento autonômico da literatura nacional",
+      "doi": "https://www.google.com.br/books/edition/Hist%C3%B3ria_da_literatura_brasileira_Forma/AxREAAAAYAAJ?hl=pt-BR&gbpv=0",
+      "title": "História da literatura brasileira: Formação e desenvolvimento autonômico da literatura nacional",
       "count": 20
     },
     {
       "author": "ROMERO Sylvio.",
       "year": "1888",
-      "source": "Estudos sobre a poesia popular do Brasil",
-      "doi": "https://openlibrary.org/works/OL3423746W",
-      "title": null,
+      "source": "Estudos sobre a poesia popular do Brazil (1879-1880)",
+      "doi": "https://digital.bbm.usp.br/handle/bbm/4506",
+      "title": "Estudos sobre a poesia popular do Brazil (1879-1880)",
       "count": 6
     },
     {
       "author": "ROMERO S",
       "year": "1992",
-      "source": "Machado de Assis: Estudo Comparativo de Literatura Brasileira",
-      "doi": null,
-      "title": null,
+      "source": "Machado de Assis: estudo comparativo de litteratura brasileira",
+      "doi": "https://digital.bbm.usp.br/handle/bbm/4476",
+      "title": "Machado de Assis: estudo comparativo de litteratura brasileira",
       "count": 2
     },
     {
       "author": "Romero S.",
       "year": "1969",
-      "source": "OBRA FILOSOFICA",
-      "doi": "https://openlibrary.org/works/OL3423770W",
-      "title": null,
+      "source": "A philosophia no Brasil: ensaio critico",
+      "doi": "https://digital.bbm.usp.br/handle/bbm/4501",
+      "title": "A philosophia no Brasil: ensaio critico",
       "count": 2
     },
     {
       "author": "Romero Silvio.",
       "year": "1883",
       "source": "Cantos populares do Brazil",
-      "doi": "https://openlibrary.org/works/OL3423739W",
-      "title": null,
+      "doi": "https://books.google.com.br/books?id=1t8IAAAAQAAJ&printsec=frontcover&hl=pt-BR&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false",
+      "title": "Cantos populares do Brazil",
       "count": 2
     },
     {
@@ -31424,7 +31288,7 @@
       "author": "RothGordon J",
       "year": "2017",
       "source": "Race and the Brazilian Body: Blackness, Whiteness, and Everyday Language in Rio de Janeiro",
-      "doi": "10.1525/california/9780520293793.001.0001",
+      "doi": "https://www.jstor.org/stable/10.1525/j.ctt1jd9408",
       "title": "Race and the Brazilian Body: Blackness, Whiteness, and Everyday Language in Rio de Janeiro",
       "count": 35
     },
@@ -32861,51 +32725,11 @@
       "count": 2
     },
     {
-      "author": "Santos J.",
-      "year": "2004",
-      "source": "São Paulo em Perspectiva",
-      "doi": "10.1590/S0102-88392004000100002",
-      "title": "Violências e dilemas do controle social nas sociedades da \"modernidade tardia\"",
-      "count": 1
-    },
-    {
       "author": "Santos J. T.",
       "year": "2000",
-      "source": "Estudos Afro-asiaticos",
-      "doi": "10.1590/S0101-546X2000000200003",
+      "source": "Estudos Afro-asiáticos",
+      "doi": "https://doi.org/10.1590/S0101-546X2000000200003",
       "title": "O negro no espelho: imagens e discursos nos salões de beleza étnicos",
-      "count": 1
-    },
-    {
-      "author": "Santos J. A.",
-      "year": "2000",
-      "source": "THESIS",
-      "doi": "10.18676/cadernoscenpec.v3i1.208",
-      "title": "MOREIRA, Fábio Mallart. Cadeias dominadas: Dinâmica de uma instituição em trajetórias de jovens detentos. Dissertação (Mestrado em Antropologia Social) – Faculdade de Filosofia, Letras e Ciências Humanas, Universidade de São Paulo, São Paulo, 2011.",
-      "count": 1
-    },
-    {
-      "author": "Santos J L",
-      "year": "2001",
-      "source": "Sci STKE",
-      "doi": "10.1126/stke.2001.98.re1",
-      "title": "Fungal Histidine Kinases",
-      "count": 1
-    },
-    {
-      "author": "Santos J.",
-      "year": "2018",
-      "source": "REV BRAS MED TRAB",
-      "doi": "10.5327/z1679443520180068",
-      "title": "Relação entre qualidade de vida e capacidade para o trabalho em funcionários do poder judiciário",
-      "count": 1
-    },
-    {
-      "author": "Santos J",
-      "year": "2020",
-      "source": "VIRUSES-BASEL",
-      "doi": "10.3390/v12070705",
-      "title": "Repurposing Therapeutics for Potential Treatment of SARS-CoV-2: A Review",
       "count": 1
     },
     {
@@ -33087,99 +32911,43 @@
   ],
   "santos, m": [
     {
-      "author": "SANTOS MÁRCIA PEREIRA ALVES DOS",
-      "year": "2020",
-      "source": "Estudos Avançados",
-      "doi": "10.1590/s0103-4014.2020.3499.014",
-      "title": "População negra e Covid-19: reflexões sobre racismo e saúde",
-      "count": 16
-    },
-    {
       "author": "Santos M.",
       "year": "1996",
-      "source": "A natureza do espaco: Tecnica e Tempo, Razao e Emocao",
-      "doi": "https://openlibrary.org/works/OL11734674W",
-      "title": null,
+      "source": "A natureza do espaço: técnica e tempo, razão e emoção",
+      "doi": "https://books.google.com.br/books/about/A_natureza_do_espa%C3%A7o.html?hl=pt-BR&id=JRvh0ebaIXoC&redir_esc=y",
+      "title": "A natureza do espaço: técnica e tempo, razão e emoção",
       "count": 14
     },
     {
       "author": "Santos Milton.",
       "year": "2000",
-      "source": "Por uma outra globalizacao: do pensamento unico a consciencia universal",
-      "doi": "10.4067/s0250-71612001008100008",
-      "title": null,
+      "source": "Por uma outra globalização: do pensamemto único à consciência universal",
+      "doi": "https://www.google.com.br/books/edition/Por_uma_outra_globaliza%C3%A7%C3%A3o/eBxvwrQXd58C?hl=pt-BR&gbpv=0",
+      "title": "Por uma outra globalização do pensamemto único à consciência universal",
       "count": 11
-    },
-    {
-      "author": "SANTOS M",
-      "year": "1989",
-      "source": "HIST IDEAL ENSAIOS C",
-      "doi": "https://openlibrary.org/works/OL4647487W",
-      "title": "Tiempo de silencio",
-      "count": 9
     },
     {
       "author": "SANTOS Milton.",
       "year": "1993",
-      "source": "A urbanizacao brasileira",
-      "doi": "https://openlibrary.org/works/OL1010665W",
-      "title": null,
+      "source": "A urbanização brasileira",
+      "doi": "https://books.google.com.br/books?id=cOHkKZgOtwUC&printsec=copyright&hl=pt-BR#v=onepage&q&f=false",
+      "title": "A urbanização brasileira",
       "count": 5
     },
     {
       "author": "Santos M.",
       "year": "1987",
       "source": "O espaco do cidadao",
-      "doi": null,
-      "title": null,
+      "doi": "https://books.google.com.na/books?id=B8-eOMPMpZcC&printsec=copyright#v=onepage&q&f=false",
+      "title": "O espaco do cidadao",
       "count": 4
-    },
-    {
-      "author": "Santos MS",
-      "year": "2016",
-      "source": "TEMPO-NITEROI",
-      "doi": "10.20509/TEM-1980-542X2016v224106",
-      "title": "\"Slave Mothers\", Partus Sequitur Ventrem, and the Naturalization of Slave Reproduction in Nineteenth-Century Brazil",
-      "count": 3
-    },
-    {
-      "author": "Santos M. O. S.",
-      "year": "2019",
-      "source": "Conflitos e injusticas na instalacao de refinarias: Os caminhos sinuosos de Suape",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "Santos MD",
-      "year": "2019",
-      "source": "Ciência & Saúde Coletiva",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "Santos Martha.",
-      "year": "2012",
-      "source": "Cleansing Honor with Blood: Masculinity, Violence, and Power in the Backlands of Northeast Brazil, 1845-1937",
-      "doi": null,
-      "title": null,
-      "count": 3
-    },
-    {
-      "author": "SANTOS Marcio Jose dos",
-      "year": "2008",
-      "source": "THESIS",
-      "doi": null,
-      "title": null,
-      "count": 3
     },
     {
       "author": "SANTOS M.",
       "year": "1991",
       "source": "Pensando o espaco do homem",
-      "doi": null,
-      "title": null,
+      "doi": "https://books.google.com.br/books/about/Pensando_o_espa%C3%A7o_do_homem.html?id=E3QBIRjKh5AC&redir_esc=y",
+      "title": "Pensando o espaco do homem",
       "count": 3
     },
     {
@@ -33194,14 +32962,6 @@
       "author": "SANTOS Milton",
       "year": "2000",
       "source": "Ser negro no Brasil hoje",
-      "doi": null,
-      "title": null,
-      "count": 2
-    },
-    {
-      "author": "Santos MAN",
-      "year": "2019",
-      "source": "tese",
       "doi": null,
       "title": null,
       "count": 2
@@ -33239,67 +32999,11 @@
       "count": 2
     },
     {
-      "author": "Santos MS",
-      "year": "2007",
-      "source": "AMERICAS",
-      "doi": "10.1353/tam.2007.0118",
-      "title": "On the Importance of Being Honorable: Masculinity, Survival, and Conflict in the Backlands of Northeast Brazil, Ceará, 1840s-1890",
-      "count": 1
-    },
-    {
       "author": "SANTOS Milton.",
       "year": "1999",
       "source": "Geographia",
       "doi": "10.22409/GEOgraphia1999.v1i1.a13360",
       "title": "O Dinheiro e o Território",
-      "count": 1
-    },
-    {
-      "author": "Santos Mundim Pedro",
-      "year": "2022",
-      "source": "colomb.int.",
-      "doi": "10.7440/colombiaint110.2022.05",
-      "title": "Preconceito racial ou competição econômica? A opinião pública sobre a vinda de estrangeiros para o Brasil",
-      "count": 1
-    },
-    {
-      "author": "Santos MF",
-      "year": "2019",
-      "source": "PRISONS",
-      "doi": "10.1007/978-3-030-13077-0_8",
-      "title": "Contested Terrains and Incubators of Violence: Carceral Establishments in Democratic Brazil",
-      "count": 1
-    },
-    {
-      "author": "Santos ME",
-      "year": "2018",
-      "source": "REV INCOME WEALTH",
-      "doi": "10.1111/roiw.12275",
-      "title": "A Multidimensional Poverty Index for Latin America",
-      "count": 1
-    },
-    {
-      "author": "Santos Marcela Alves de Lima",
-      "year": "2020",
-      "source": "Saúde debate",
-      "doi": "10.1590/0103-11042020e218",
-      "title": "Território e desterritorialização: o sofrimento social por desastre ambiental decorrente do rompimento de barragens de mineração",
-      "count": 1
-    },
-    {
-      "author": "Santos M.S.",
-      "year": "2014",
-      "source": "ARCH VOLKERKUNDE",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS M.S",
-      "year": "2009",
-      "source": "Poroes da Republica: a barbarie nas prisoes da Era Vargas, 1930-1945",
-      "doi": null,
-      "title": null,
       "count": 1
     },
     {
@@ -33359,22 +33063,6 @@
       "count": 1
     },
     {
-      "author": "SANTOS M. dos S.",
-      "year": "2020",
-      "source": "Tese (Doutorado)",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos M S",
-      "year": "2001",
-      "source": "Rev Eur Estud Latinoam Caribe",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
       "author": "SANTOS M.",
       "year": "1998",
       "source": "ENCONTRO NACL DIDATI",
@@ -33386,22 +33074,6 @@
       "author": "SANTOS M.",
       "year": "1988",
       "source": "Metamorfoses do espaco habitado: Fundamentos teoricos e metodologicos da geografia (Geografia",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos M. C.",
-      "year": "2022",
-      "source": "PREFEITURA RECIFE NA",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos M. R.",
-      "year": "2017",
-      "source": "Cor, advocacia e poder em Salvador",
       "doi": null,
       "title": null,
       "count": 1
@@ -33458,230 +33130,6 @@
       "author": "SANTOS Milton",
       "year": "1998",
       "source": "Territorio: globalizacao e fragmentacao",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Marcio Henrique Casimiro Lopes Silva",
-      "year": "2009",
-      "source": "Dissertacao (Programa de Pos-Graduacao: Sociologia)",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Marcio Andre de O. dos",
-      "year": "2009",
-      "source": "Caminhos convergentes: estado e sociedade na superacao das desigualdades raciais no Brasil",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Marcio Barbosados",
-      "year": "1998",
-      "source": "Frente Negra Brasileira: historia e significado",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS M.V. M",
-      "year": "1999",
-      "source": "Leituras brasileiras - itinerarios no pensamento social e na Literatura",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos M.F.C",
-      "year": "2014",
-      "source": "THESIS U SAO PAULO S",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Marli de A.",
-      "year": "2020",
-      "source": "10 anos do Estatuto da Igualdade Racial",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Monica R. N. dos",
-      "year": "2020",
-      "source": "Educacao antirracista: caminhos abertos pela Lei Federal 10.639/03",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos Marco Antonio Cabral",
-      "year": "2010",
-      "source": "Sao Paulo",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos MC",
-      "year": "2017",
-      "source": "VEREDAS - Revista Interdisciplinar de Humanidades",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos Mesalas.Ferreira",
-      "year": "2013",
-      "source": "CIDADES PATRIMONIOS",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos Mesalas.Ferreira",
-      "year": "2016",
-      "source": "THESIS U FED RIO JAN",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos Mesalas.Ferreira",
-      "year": "2014",
-      "source": "29A REUN BRAS ANTR",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Myrian Sepulveda",
-      "year": "2016",
-      "source": "Nos quintais do samba da Grande Madureira-memoria",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Myriam Sepulveda dos",
-      "year": "2015",
-      "source": "African heritage and memories of slavery in Brazil and the South Atlantic",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Myriam Sepulveda dos",
-      "year": "2005",
-      "source": "Revista do Patrimonio Historico e Artistico Nacional",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Mesticagem",
-      "year": "2010",
-      "source": "Raca como questao historica",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Maria Santana dos",
-      "year": "2017",
-      "source": "8 JORN INT POL PUBL",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Maria Stella de Azevedo",
-      "year": "1993",
-      "source": "MEU TEMPO E AGORA",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Maria Stella de Azevedo",
-      "year": "2012",
-      "source": "OPINIAO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Marines Ribeiro",
-      "year": "2015",
-      "source": "REV ESTUDOS FEMINIST",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Michelle Karen",
-      "year": "2020",
-      "source": "Criminologia feminista no Brasil: dialogos com Soraia Mendes",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos MOS",
-      "year": "2017",
-      "source": "Vulneracao e injusticas ambientais na determinacao social da saude no territorio Suape",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos MOS",
-      "year": "2016",
-      "source": "Revista de Geografia",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Micenio",
-      "year": "1991",
-      "source": "12 MAIO 20 NOVEMBRO",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "SANTOS Murilo Silva",
-      "year": "2017",
-      "source": "UNITAS REV ELETRONIC",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos MP.",
-      "year": "2021",
-      "source": "THESIS U FEDERAL TOC",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos Marcelo Barbosa",
-      "year": "2010",
-      "source": "Racismo e politicas publicas no Brasil",
-      "doi": null,
-      "title": null,
-      "count": 1
-    },
-    {
-      "author": "Santos MST",
-      "year": "2015",
-      "source": "EDUCERE 12 C NAC ED",
       "doi": null,
       "title": null,
       "count": 1
@@ -34591,7 +34039,7 @@
       "year": "1985",
       "source": "Sugar Plantations in the Formation of Brazilian Society: Bahia, 1550-1835",
       "doi": "10.1017/cbo9780511665271",
-      "title": null,
+      "title": "Sugar Plantations in the Formation of Brazilian Society: Bahia, 1550-1835",
       "count": 21
     },
     {
@@ -34599,15 +34047,15 @@
       "year": "1992",
       "source": "Slaves, Peasants, and Rebels: Reconsidering Brazilian Slavery",
       "doi": "10.2307/2166372",
-      "title": null,
+      "title": "Slaves, Peasants, and Rebels: Reconsidering Brazilian Slavery",
       "count": 10
     },
     {
       "author": "Schwartz StuartB.",
       "year": "1974",
       "source": "Hispanic American Historical Review",
-      "doi": null,
-      "title": null,
+      "doi": "https://doi.org/10.2307/2512892",
+      "title": "The manumission of slaves in colonial Brazil: Bahia, 1684-1745",
       "count": 6
     },
     {
@@ -37190,15 +36638,7 @@
       "source": "Marxism and the Interpretation of Culture",
       "doi": "10.5840/philosophin200314275",
       "title": "Can the Subaltern Speak?",
-      "count": 14
-    },
-    {
-      "author": "SPIVAK G C.",
-      "year": "2010",
-      "source": "Pode o subalterno falar?",
-      "doi": "10.47749/t/unicamp.2020.1157173",
-      "title": "Pode o subalterno falar?",
-      "count": 14
+      "count": 31
     },
     {
       "author": "Spivak Gayatri.",
@@ -37209,43 +36649,27 @@
       "count": 7
     },
     {
-      "author": "Spivak Gayatri.",
-      "year": "1994",
-      "source": "Colonial Discourse and Post-Colonial Theory: A Reader",
-      "doi": null,
-      "title": "Colonial Discourse and Post-Colonial Theory: A Reader",
-      "count": 2
-    },
-    {
       "author": "Spivak G.C.",
       "year": "1988",
       "source": "In Other Worlds: Essays in Cultural Politics",
-      "doi": "https://openlibrary.org/works/OL1932164W",
-      "title": "In other worlds",
-      "count": 2
-    },
-    {
-      "author": "Spivak Gayatri.",
-      "year": "2012",
-      "source": "In Other Worlds: EssaysIn Cultural Politics",
-      "doi": null,
-      "title": "In Other Worlds: EssaysIn Cultural Politics",
-      "count": 1
+      "doi": "https://books.google.com.br/books/about/In_Other_Worlds.html?id=rD9495VvIJoC&redir_esc=y",
+      "title": "In Other Worlds: Essays in Cultural Politics",
+      "count": 4
     },
     {
       "author": "Spivak Gayatri.",
       "year": "2009",
       "source": "Outside in the Teaching Machine",
-      "doi": null,
+      "doi": "https://books.google.com.br/books/about/Outside_in_the_Teaching_Machine.html?id=9SDydhA63Q8C&redir_esc=y",
       "title": "Outside in the Teaching Machine",
       "count": 1
     },
     {
       "author": "Spivak Gayatri Chakravorty",
       "year": "2002",
-      "source": "Cad. Pagu",
-      "doi": null,
-      "title": "Cad. Pagu",
+      "source": "Cadernos Pagu",
+      "doi": "https://periodicos.sbu.unicamp.br/ojs/index.php/cadpagu/article/view/8644578",
+      "title": "Literatura",
       "count": 1
     },
     {
@@ -37265,27 +36689,11 @@
       "count": 1
     },
     {
-      "author": "Spivak GayatriChakravorty.",
-      "year": "1987",
-      "source": "In Other Worlds: Essays in Cultural Politics",
-      "doi": null,
-      "title": "In Other Worlds: Essays in Cultural Politics",
-      "count": 1
-    },
-    {
       "author": "Spivak G.",
       "year": "1988",
       "source": "Marxism and the Interpretation of Culture",
       "doi": null,
       "title": "Marxism and the Interpretation of Culture",
-      "count": 1
-    },
-    {
-      "author": "Spivak G. C.",
-      "year": "2023",
-      "source": "PUEDE HABLAR SUBALTE",
-      "doi": null,
-      "title": "PUEDE HABLAR SUBALTE",
       "count": 1
     },
     {
@@ -39791,14 +39199,6 @@
       "count": 6
     },
     {
-      "author": "Waiselfisz JJ",
-      "year": "2004",
-      "source": "I SANGARI REDE INFOR",
-      "doi": null,
-      "title": "Mapa da violência",
-      "count": 5
-    },
-    {
       "author": "Waiselfisz JulioJacobo.",
       "year": "2013",
       "source": "Mapa da Violencia 2013. Homicidios e Juventude no Brasil",
@@ -39808,11 +39208,11 @@
     },
     {
       "author": "WAISELFISZ JJ",
-      "year": "2006",
-      "source": "MAPA VIOLENCIA 4 JOV",
-      "doi": null,
-      "title": "MAPA VIOLENCIA 4 JOV",
-      "count": 2
+      "year": "2004",
+      "source": "Mapa da violência: os jovens do Brasil, Volume 4",
+      "doi": "https://books.google.com.br/books/about/Mapa_da_viol%C3%AAncia.html?id=7V2uAAAAIAAJ&redir_esc=y",
+      "title": "Mapa da violência: os jovens do Brasil, Volume 4",
+      "count": 7
     },
     {
       "author": "Waiselfisz Julio Jacobo",
@@ -40102,17 +39502,9 @@
       "author": "Weinstein Barbara.",
       "year": "1985",
       "source": "The Amazon Rubber Boom: 1850-1920",
-      "doi": null,
+      "doi": "https://books.google.com.br/books?id=U2emAAAAIAAJ",
       "title": "The Amazon Rubber Boom: 1850-1920",
-      "count": 1
-    },
-    {
-      "author": "Weinstein Barbara.",
-      "year": "1983",
-      "source": "AMAZON RUBBER BOOM",
-      "doi": null,
-      "title": null,
-      "count": 1
+      "count": 2
     },
     {
       "author": "WEINSTEIN Barbara",
