@@ -403,10 +403,10 @@ body.present-mode #btn-present-label::before{content:'✕  sair'}
 // ═══════════════════════════════════════════════════════
 // Clusters do Gephi (modularity_class → nome e cor)
 const CLUSTER_MAP = {
-  '1': { name: 'Cluster 1', color: '#C43D32' }, // Tijolo médio
-  '2': { name: 'Cluster 2', color: '#B8C4C6' }, // Cinza azulado (branco)
-  '3': { name: 'Cluster 3', color: '#6CCDD4' }, // Teal médio
-  '4': { name: 'Cluster 4', color: '#D4B800' }, // Âmbar médio (amarelo)
+  '1': { name: 'Grupo 1', color: '#C43D32' }, // vermelho — 82 autores
+  '2': { name: 'Grupo 4', color: '#B8C4C6' }, // cinza    — 44 autores
+  '3': { name: 'Grupo 3', color: '#6CCDD4' }, // ciano    — 53 autores
+  '4': { name: 'Grupo 2', color: '#D4B800' }, // amarelo  — 60 autores
 };
 // Override manual: força cluster de nós específicos (label → modularity_class)
 const NODE_CLUSTER_OVERRIDE = {
@@ -1247,7 +1247,7 @@ function buildLegend(nodes) {
     if (!CLUSTER_MAP[mc]) return;
     entries.push({mc, count:clNodes.length, color:clusterColor(mc), name:clusterName(mc)});
   });
-  entries.sort((a,b) => parseInt(a.mc) - parseInt(b.mc));
+  entries.sort((a,b) => b.count - a.count);
   entries.forEach(e => {
     const item=document.createElement('div');
     item.className='legend-item'; item.dataset.mc=e.mc;
@@ -1587,9 +1587,9 @@ function showRightPanel(d) {
   tag.style.background = color + '22';
   tag.style.color = color;
   tag.style.border = '1px solid ' + color + '44';
-  const _totalCit = (referencesDB[authorKey] || []).reduce((s, p) => s + (p.count || 0), 0);
+  const _totalCit = d.citations || d.degree || 0;
   document.getElementById('rp-stat').textContent =
-    (_totalCit > 0 ? _totalCit.toLocaleString('pt-BR') : d.degree) + ' citações no corpus';
+    _totalCit.toLocaleString('pt-BR') + ' citações no corpus';
 
   const papersEl = document.getElementById('rp-papers');
   papersEl.innerHTML = '';
@@ -1784,7 +1784,43 @@ document.getElementById('btn-reset').addEventListener('click', resetHighlight);
 document.getElementById('btn-center').addEventListener('click', () => {
   if(zoomInstance) d3.select('#viz-svg').transition().duration(260).call(zoomInstance.transform, d3.zoomIdentity);
 });
-document.getElementById('panel-toggle').addEventListener('click', () => document.getElementById('panel').classList.toggle('collapsed'));
+// ── Sidebar auto-ocultável ───────────────────────────────────────────────────
+(function() {
+  const panel  = document.getElementById('panel');
+  const toggle = document.getElementById('panel-toggle');
+  let pinned   = false;
+  let leaveTimer = null;
+
+  // Começa recolhido
+  panel.classList.add('collapsed');
+
+  function openPanel()  { clearTimeout(leaveTimer); panel.classList.remove('collapsed'); }
+  function closePanel() { if (!pinned) panel.classList.add('collapsed'); }
+
+  // Hover sobre o toggle (a aba visível quando recolhido) → abre
+  toggle.addEventListener('mouseenter', openPanel);
+
+  // Hover sobre o painel → mantém aberto
+  panel.addEventListener('mouseenter', () => { clearTimeout(leaveTimer); panel.classList.remove('collapsed'); });
+
+  // Mouse sai do painel → fecha após pequeno delay (evita fechar ao mover para o toggle)
+  panel.addEventListener('mouseleave', () => {
+    leaveTimer = setTimeout(closePanel, 200);
+  });
+
+  // Clique no toggle → alterna pin (aberto fixo / automático)
+  toggle.addEventListener('click', () => {
+    pinned = !pinned;
+    if (pinned) {
+      openPanel();
+      toggle.title = 'Desafixar painel';
+      toggle.querySelector('.arrow').style.transform = 'rotate(0deg)';
+    } else {
+      toggle.title = 'Fixar painel aberto';
+      // mantém aberto até o mouse sair
+    }
+  });
+})();
 document.getElementById('rp-close-btn').addEventListener('click', () => { hideRightPanel(); resetHighlight(); });
 
 // ── Modo apresentação ──
