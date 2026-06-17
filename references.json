@@ -17197,7 +17197,7 @@
       "year": "2009",
       "source": "Aqui ninguém é branco.",
       "doi": "https://www.google.com.br/books/edition/Aqui_ningu%C3%A9m_%C3%A9_branco/OMlOAQAAIAAJ?hl=pt-BR&gbpv=0&bsq=Aqui%20ninguem%20e%20branco",
-      "title": "Aqui ninguem é branco",
+      "title": "Aqui ninguém é branco",
       "count": 24
     },
     {
@@ -19572,7 +19572,7 @@
       "author": "Mainwaring S",
       "year": "1997",
       "source": "Legislative Studies Quarterly",
-      "doi": "https://doi.org/10.2307/440339",
+      "doi": "https://www.jstor.org/stable/440339",
       "title": "Party Discipline in the Brazilian Constitutional Congress",
       "count": 5
     },
@@ -20203,14 +20203,6 @@
       "count": 4
     },
     {
-      "author": "PEREIRA A. M.",
-      "year": "2011",
-      "source": "Revista Espaço Acadêmico",
-      "doi": "https://periodicos.uem.br/ojs/index.php/EspacoAcademico/article/view/12477/7207",
-      "title": "Vale (também) o que está escrito: o Pensamento Negro Contemporâneo como parte do Pensamento Social no Brasil",
-      "count": 4
-    },
-    {
       "author": "Pereira Amilcar Araujo.",
       "year": "2007",
       "source": "Estudos Históricos",
@@ -20219,20 +20211,12 @@
       "count": 4
     },
     {
-      "author": "Pereira A. B.",
-      "year": "2014",
-      "source": "REV ESTUDOS CULTURAI",
-      "doi": "https://doi.org/10.11606/issn.2446-7693i1p1-18",
-      "title": "Funk ostentação em São Paulo: imaginação, consumo e novas tecnologia da informação e da comunicação",
-      "count": 3
-    },
-    {
       "author": "Pereira Amilcar Araujo",
       "year": "2019",
-      "source": "Cad. Pesqui.",
-      "doi": "10.1590/198053145589",
-      "title": "BLACK LIVES MATTER NOS CURRÍCULOS? IMPRENSA NEGRA E ANTIRRACISMO EM PERSPECTIVA TRANSNACIONAL",
-      "count": 3
+      "source": "Cadernos de Pesquisa",
+      "doi": "https://doi.org/10.1590/198053145589",
+      "title": "Black Lives Matter nos currículos? Imprensa Negra e Antirracismo em perspectiva transnacional",
+      "count": 4
     },
     {
       "author": "PEREIRA Amilcar Araujo",
